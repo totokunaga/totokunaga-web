@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Cell } from "../Cell";
+import { Cell, CELL_EMPTY, CELL_MARKED } from "../Cell";
 import { GridProp } from "./types";
 
 const Grid: React.FC<GridProp> = (props) => {
@@ -7,10 +7,12 @@ const Grid: React.FC<GridProp> = (props) => {
     originalRowSize: rowSize,
     originalColSize: colSize,
     cellSize = 30,
+    pathfindingAlgorithm,
+    algorithmFired,
   } = props;
 
-  // const [rowSize, setRowSize] = useState(originalRowSize);
-  // const [colSize, setColSize] = useState(originalColSize);
+  const [start, setStart] = useState<[number, number]>([0, 0]);
+  const [end, setEnd] = useState<[number, number]>([rowSize - 1, colSize - 1]);
   const [grid, setGrid] = useState(
     Array.from({ length: rowSize }, () =>
       Array.from({ length: colSize }, () => 0)
@@ -19,7 +21,7 @@ const Grid: React.FC<GridProp> = (props) => {
 
   useEffect(() => {
     const resized_grid = Array.from({ length: rowSize }, () =>
-      Array.from({ length: colSize }, () => 0)
+      Array.from({ length: colSize }, () => CELL_EMPTY)
     );
 
     setGrid(resized_grid);
@@ -35,13 +37,22 @@ const Grid: React.FC<GridProp> = (props) => {
     [grid]
   );
 
-  const onClickReset = useCallback(() => {
-    setGrid(
-      Array.from({ length: rowSize }, () =>
-        Array.from({ length: colSize }, () => 0)
-      )
-    );
-  }, [rowSize, colSize]);
+  const onMarked = useCallback(
+    (coordinate: [number, number]) => {
+      const [r, c] = coordinate;
+      grid[r][c] = CELL_MARKED;
+      setGrid([...grid]);
+    },
+    [grid]
+  );
+
+  useEffect(() => {
+    if (algorithmFired) {
+      pathfindingAlgorithm(grid, start, end).forEach(([r, c], i) => {
+        setTimeout(() => onMarked([r, c]), i * 5);
+      });
+    }
+  }, [pathfindingAlgorithm, algorithmFired, start, end, grid]);
 
   return (
     <div>

@@ -1,9 +1,10 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import styles from "@styles/default.module.css";
 import Grid from "@components/algorithms/Grid/Grid";
 import { useWindowSize } from "@utils/index";
+import { bfs } from "./pathfinding";
 
 const pageWidthPadding = 30;
 const pageHeightPadding = 50;
@@ -12,11 +13,17 @@ const AlgorithmHome = () => {
   const [width, height] = useWindowSize();
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
+  const [algorithmFired, setAlgorithmFired] = useState(false);
+
+  const onStartClick = useCallback(() => {
+    if (!algorithmFired) {
+      setAlgorithmFired(!algorithmFired);
+    }
+  }, [algorithmFired]);
 
   useEffect(() => {
-    console.log("row", rowSize);
-    setRowSize(Math.floor((height - pageHeightPadding * 4) / 30));
     setColSize(Math.floor((width - pageWidthPadding * 4) / 30));
+    setRowSize(Math.floor((height - pageHeightPadding * 4) / 30));
   }, [width, height]);
 
   return (
@@ -29,8 +36,14 @@ const AlgorithmHome = () => {
       </Head>
       <div className={styles.description}>
         <h1>Hello</h1>
+        <button onClick={onStartClick}>Start</button>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Grid originalRowSize={rowSize} originalColSize={colSize} />
+          <Grid
+            originalRowSize={rowSize}
+            originalColSize={colSize}
+            pathfindingAlgorithm={bfs}
+            algorithmFired={algorithmFired}
+          />
         </div>
       </div>
     </>

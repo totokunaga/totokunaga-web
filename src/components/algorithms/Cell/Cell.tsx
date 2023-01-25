@@ -7,6 +7,10 @@ const cellStyle = [
   styles.boxCell_marked,
 ];
 
+export const CELL_EMPTY = 0;
+export const CELL_BLOCKED = 1;
+export const CELL_MARKED = 2;
+
 export const Cell: React.FC<CellProp> = ({
   size,
   status,
