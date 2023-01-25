@@ -1,0 +1,23 @@
+.boxCell,
+.boxCell_marked,
+.boxCell_blocked {
+  margin: 0.5px;
+  border-radius: 2px;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.boxCell {
+  background-color: white;
+  border: solid 0.5px lightgray;
+}
+
+.boxCell_marked {
+  background-color: #0f52ba;
+  border: solid 0.5px #0f52ba;
+}
+
+.boxCell_blocked {
+  background-color: #191970;
+  border: solid 0.5px #191970;
+}
