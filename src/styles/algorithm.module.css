@@ -13,11 +13,39 @@
 }
 
 .boxCell_marked {
-  background-color: #0f52ba;
-  border: solid 0.5px #0f52ba;
+  background-color: #b6d0e2;
+  border: solid 0.5px #b6d0e2;
 }
 
 .boxCell_blocked {
-  background-color: #191970;
-  border: solid 0.5px #191970;
+  background-color: #08084d;
+  border: solid 0.5px #08084d;
+}
+
+.triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-left: 100px solid red;
+  border-bottom: 50px solid transparent;
+}
+
+.star_six {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid black;
+  position: relative;
+}
+.star_six:after {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid black;
+  position: absolute;
+  content: "";
+  top: 5px;
+  left: -10px;
 }

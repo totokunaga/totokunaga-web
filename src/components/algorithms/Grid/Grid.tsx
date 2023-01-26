@@ -1,31 +1,26 @@
 import { useCallback, useEffect, useState } from "react";
-import { Cell, CELL_EMPTY, CELL_MARKED } from "../Cell";
+
+import { MARK_DELAY } from "@pages/algorithms/pathfinding/constants";
+import { Cell, CELL_BLOCKED, CELL_EMPTY, CELL_MARKED } from "../Cell";
 import { GridProp } from "./types";
 
 const Grid: React.FC<GridProp> = (props) => {
   const {
-    originalRowSize: rowSize,
-    originalColSize: colSize,
+    rowSize,
+    colSize,
     cellSize = 30,
     pathfindingAlgorithm,
-    algorithmFired,
+    algorithmExecuted,
+    setAlgorithmExecuted,
   } = props;
 
   const [start, setStart] = useState<[number, number]>([0, 0]);
   const [end, setEnd] = useState<[number, number]>([rowSize - 1, colSize - 1]);
   const [grid, setGrid] = useState(
     Array.from({ length: rowSize }, () =>
-      Array.from({ length: colSize }, () => 0)
+      Array.from({ length: colSize }, () => CELL_EMPTY)
     )
   );
-
-  useEffect(() => {
-    const resized_grid = Array.from({ length: rowSize }, () =>
-      Array.from({ length: colSize }, () => CELL_EMPTY)
-    );
-
-    setGrid(resized_grid);
-  }, [rowSize, colSize]);
 
   const onClickCell = useCallback(
     (coordinate: [number, number]) => {
@@ -46,13 +41,57 @@ const Grid: React.FC<GridProp> = (props) => {
     [grid]
   );
 
+  // When "Start" button is hit
   useEffect(() => {
-    if (algorithmFired) {
-      pathfindingAlgorithm(grid, start, end).forEach(([r, c], i) => {
-        setTimeout(() => onMarked([r, c]), i * 5);
+    if (algorithmExecuted) {
+      grid.forEach((row, i) =>
+        row.forEach((col, j) => {
+          grid[i][j] = grid[i][j] === CELL_BLOCKED ? CELL_BLOCKED : CELL_EMPTY;
+        })
+      );
+      setGrid([...grid]);
+
+      const visitedCells = pathfindingAlgorithm(grid, start, end);
+      visitedCells.forEach(([r, c], i) => {
+        setTimeout(() => {
+          onMarked([r, c]);
+          if (i === visitedCells.length - 1) {
+            setAlgorithmExecuted(false);
+          }
+        }, i * MARK_DELAY);
       });
     }
-  }, [pathfindingAlgorithm, algorithmFired, start, end, grid]);
+  }, [
+    pathfindingAlgorithm,
+    algorithmExecuted,
+    setAlgorithmExecuted,
+    start,
+    end,
+  ]);
+
+  // When a client window size is changed
+  useEffect(() => {
+    const resizedGrid = Array.from({ length: rowSize }, () =>
+      Array.from({ length: colSize }, () => CELL_EMPTY)
+    );
+
+    const resizedRow = resizedGrid.length;
+    const resizedCol = resizedRow ? resizedGrid[0].length : 0;
+    const middleRow = Math.floor(resizedRow / 2);
+    const middleCol = Math.floor(resizedCol / 2);
+    setStart([middleRow, Math.floor(resizedCol / 4)]);
+    setEnd([middleRow, Math.floor((3 * resizedCol) / 4)]);
+
+    const oneThirdRow = Math.floor(resizedRow / 3);
+    if (middleCol) {
+      for (let r = oneThirdRow; r < (oneThirdRow + 1) * 2; r++) {
+        if (resizedGrid.length > 0) {
+          resizedGrid[r][middleCol] = CELL_BLOCKED;
+        }
+      }
+    }
+    setGrid(resizedGrid);
+  }, [rowSize, colSize]);
 
   return (
     <div>
@@ -63,6 +102,8 @@ const Grid: React.FC<GridProp> = (props) => {
               key={c}
               size={cellSize}
               status={type}
+              isStart={r === start[0] && c === start[1]}
+              isEnd={r === end[0] && c === end[1]}
               coordinate={[r, c]}
               onClick={onClickCell}
             />

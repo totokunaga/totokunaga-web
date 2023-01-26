@@ -1,5 +1,8 @@
 import styles from "@styles/algorithm.module.css";
+import Image from "next/image";
+import { Triangle } from "../Triangle";
 import { CellProp } from "./types";
+import StarImage from "@assets/star.svg";
 
 const cellStyle = [
   styles.boxCell,
@@ -14,14 +17,27 @@ export const CELL_MARKED = 2;
 export const Cell: React.FC<CellProp> = ({
   size,
   status,
-  onClick,
+  isStart = false,
+  isEnd = false,
   coordinate,
+  onClick,
 }) => {
   return (
     <div
       className={cellStyle[status]}
       onClick={() => onClick(coordinate)}
-      style={{ width: size, height: size }}
-    />
+      style={{
+        width: size,
+        height: size,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {isStart ? <Triangle size={10} /> : undefined}
+      {isEnd ? (
+        <Image alt={"star"} src={StarImage} width={25} height={25} />
+      ) : undefined}
+    </div>
   );
 };
