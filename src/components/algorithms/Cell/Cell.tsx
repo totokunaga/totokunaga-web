@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
 import StarImage from "@assets/star.svg";
+import { CELL_SIZE } from "@utils/pathfinding";
+import { useMemo } from "react";
 
 const cellStyle = [
   styles.boxCell,
@@ -22,6 +24,8 @@ export const Cell: React.FC<CellProp> = ({
   coordinate,
   onClick,
 }) => {
+  const symbolSize = useMemo(() => Math.floor((5 * size) / 6), [size]);
+
   return (
     <div
       className={cellStyle[status]}
@@ -36,7 +40,12 @@ export const Cell: React.FC<CellProp> = ({
     >
       {isStart ? <Arrow /> : undefined}
       {isEnd ? (
-        <Image alt={"star"} src={StarImage} width={25} height={25} />
+        <Image
+          alt={"star"}
+          src={StarImage}
+          width={symbolSize}
+          height={symbolSize}
+        />
       ) : undefined}
     </div>
   );

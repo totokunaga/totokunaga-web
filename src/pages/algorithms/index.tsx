@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Grid from "@components/algorithms/Grid/Grid";
 import {
   algorithmOptions,
+  CELL_SIZE,
   Pathfinding,
   pathfindingAlgorithms,
 } from "@utils/pathfinding";
@@ -58,10 +59,10 @@ const AlgorithmHome = () => {
       const pagePadding = 16;
       const gridHeight = height - topHeight - pagePadding * 2;
       const gridWidth = topWidth;
-      const colSize = gridWidth / 30;
-      const rowSize = gridHeight / 30;
-      setColSize(Math.floor(colSize) - Number(colSize % 1 <= 0.4));
-      setRowSize(Math.floor(rowSize) - Number(rowSize % 1 <= 0.4));
+      const colSize = gridWidth / CELL_SIZE;
+      const rowSize = gridHeight / CELL_SIZE;
+      setColSize(Math.floor(colSize) - Number(colSize % 1 <= 0.5));
+      setRowSize(Math.floor(rowSize) - Number(rowSize % 1 <= 0.5));
     }
   }, [width, height]);
 

@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { MARK_DELAY } from "@utils/pathfinding/constants";
+import {
+  CELL_SIZE,
+  MARK_DELAY,
+  pathfindingAlgorithms,
+} from "@utils/pathfinding/constants";
 import { Cell, CELL_BLOCKED, CELL_EMPTY, CELL_MARKED } from "../Cell";
 import { GridProp } from "./types";
 
@@ -8,7 +12,7 @@ const Grid: React.FC<GridProp> = (props) => {
   const {
     rowSize,
     colSize,
-    cellSize = 30,
+    cellSize = CELL_SIZE,
     pathfindingAlgorithm,
     algorithmExecuted,
     setAlgorithmExecuted,
