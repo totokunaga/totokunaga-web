@@ -14,6 +14,8 @@ const Grid: React.FC<GridProp> = (props) => {
     setAlgorithmExecuted,
     clearExecuted,
     setClearExecuted,
+    unmarkExecuted,
+    setUnmarkExecuted,
   } = props;
 
   const [start, setStart] = useState<[number, number]>([0, 0]);
@@ -26,12 +28,14 @@ const Grid: React.FC<GridProp> = (props) => {
 
   const onClickCell = useCallback(
     (coordinate: [number, number]) => {
-      const [r, c] = coordinate;
-      const status = grid[r][c];
-      grid[r][c] = Math.abs(status - 1);
-      setGrid([...grid]);
+      if (!algorithmExecuted) {
+        const [r, c] = coordinate;
+        const status = grid[r][c];
+        grid[r][c] = Math.abs(status - 1);
+        setGrid([...grid]);
+      }
     },
-    [grid]
+    [grid, algorithmExecuted]
   );
 
   const onMarked = useCallback(
@@ -79,6 +83,20 @@ const Grid: React.FC<GridProp> = (props) => {
       setClearExecuted(false);
     }
   }, [clearExecuted, setClearExecuted]);
+
+  useEffect(() => {
+    if (unmarkExecuted) {
+      grid.forEach((r, i) =>
+        r.forEach((c, j) => {
+          if (grid[i][j] === CELL_MARKED) {
+            grid[i][j] = CELL_EMPTY;
+          }
+        })
+      );
+      setGrid([...grid]);
+      setUnmarkExecuted(false);
+    }
+  }, [unmarkExecuted, setUnmarkExecuted]);
 
   // When a client window size is changed
   useEffect(() => {

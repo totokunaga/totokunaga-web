@@ -10,6 +10,7 @@ import {
 import { useWindowSize } from "@utils/hooks";
 import { Button, buttonColor, buttonType } from "@components/common";
 import { DropdownList } from "@components/common/DropdownList";
+import { algoConfigButtonDivId, algoPage, algoPageTitleId } from "./constants";
 
 const gridWrapperId = "grid-wrapper";
 
@@ -20,6 +21,7 @@ const AlgorithmHome = () => {
   const [algorithm, setAlgorithm] = useState<Pathfinding>("BFS");
   const [algorithmExecuted, setAlgorithmExecuted] = useState(false);
   const [clearExecuted, setClearExecuted] = useState(false);
+  const [unmarkExecuted, setUnmarkExecuted] = useState(false);
 
   const onStartClick = useCallback(() => {
     if (!algorithmExecuted) {
@@ -33,13 +35,33 @@ const AlgorithmHome = () => {
     }
   }, [clearExecuted]);
 
+  const onChangeAlgorithm = useCallback(
+    (value: Pathfinding) => {
+      setAlgorithm(value);
+      if (!unmarkExecuted) {
+        setUnmarkExecuted(!unmarkExecuted);
+      }
+    },
+    [unmarkExecuted, setUnmarkExecuted]
+  );
+
   useEffect(() => {
     if (width && height) {
-      const gridWrapper = document.getElementById(gridWrapperId);
-      const gridHeight = gridWrapper?.clientHeight || height;
-      const gridWidth = gridWrapper?.clientWidth || width;
-      setColSize(Math.floor(gridWidth / 30));
-      setRowSize(Math.floor(gridHeight / 30));
+      const d = document;
+      const titleElement = d.getElementById(algoPageTitleId);
+      const configButtonElement = d.getElementById(algoConfigButtonDivId);
+      const topHeight =
+        (titleElement?.clientHeight || 0) +
+        (configButtonElement?.clientHeight || 0);
+      const topWidth = titleElement?.clientWidth || 0;
+
+      const pagePadding = 16;
+      const gridHeight = height - topHeight - pagePadding * 2;
+      const gridWidth = topWidth;
+      const colSize = gridWidth / 30;
+      const rowSize = gridHeight / 30;
+      setColSize(Math.floor(colSize) - Number(colSize % 1 <= 0.4));
+      setRowSize(Math.floor(rowSize) - Number(rowSize % 1 <= 0.4));
     }
   }, [width, height]);
 
@@ -51,9 +73,9 @@ const AlgorithmHome = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div style={{ padding: 16 }}>
-        <h2>Pathfinding</h2>
-        <div style={{ display: "flex" }}>
+      <div id={algoPage} style={{ padding: 16 }}>
+        <h2 id={algoPageTitleId}>Pathfinding</h2>
+        <div id={algoConfigButtonDivId} style={{ display: "flex" }}>
           <Button
             onClick={onStartClick}
             type={buttonType.FLAT}
@@ -75,7 +97,8 @@ const AlgorithmHome = () => {
             title={"Algorithm:"}
             value={algorithm}
             items={algorithmOptions}
-            optionHandler={(value: Pathfinding) => setAlgorithm(value)}
+            disabled={algorithmExecuted}
+            optionHandler={onChangeAlgorithm}
           />
         </div>
         <div
@@ -90,6 +113,8 @@ const AlgorithmHome = () => {
             setAlgorithmExecuted={setAlgorithmExecuted}
             clearExecuted={clearExecuted}
             setClearExecuted={setClearExecuted}
+            unmarkExecuted={unmarkExecuted}
+            setUnmarkExecuted={setUnmarkExecuted}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import styles from "@styles/algorithm.module.css";
 import Image from "next/image";
-import { Triangle } from "../Triangle";
+import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
 import StarImage from "@assets/star.svg";
 
@@ -34,7 +34,7 @@ export const Cell: React.FC<CellProp> = ({
         alignItems: "center",
       }}
     >
-      {isStart ? <Triangle size={10} /> : undefined}
+      {isStart ? <Arrow /> : undefined}
       {isEnd ? (
         <Image alt={"star"} src={StarImage} width={25} height={25} />
       ) : undefined}

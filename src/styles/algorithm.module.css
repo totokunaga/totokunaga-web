@@ -24,8 +24,8 @@
 }
 
 .boxCell_blocked {
-  background-color: #00265b;
-  border: solid 0.5px #00265b;
+  background-color: var(--navy-color);
+  border: solid 0.5px var(--navy-color);
 }
 
 .triangle-right {

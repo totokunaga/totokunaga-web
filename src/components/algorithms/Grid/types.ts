@@ -14,4 +14,6 @@ export type GridProp = {
   setAlgorithmExecuted: Dispatch<SetStateAction<boolean>>;
   clearExecuted: boolean;
   setClearExecuted: Dispatch<SetStateAction<boolean>>;
+  unmarkExecuted: boolean;
+  setUnmarkExecuted: Dispatch<SetStateAction<boolean>>;
 };

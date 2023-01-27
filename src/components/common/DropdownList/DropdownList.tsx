@@ -2,11 +2,13 @@ import React, { useCallback, useState } from "react";
 
 import { DropdownListProp } from "./type";
 import style from "./dropdownlist.module.css";
+import { Arrow } from "@components/algorithms";
 
 export const DropdownList: React.FC<DropdownListProp> = ({
   title,
   value,
   items,
+  disabled,
   optionHandler,
 }) => {
   const [toggled, setToggled] = useState(true);
@@ -27,11 +29,14 @@ export const DropdownList: React.FC<DropdownListProp> = ({
     <div>
       <div
         className={style.selectButton}
-        onClick={onClickSelectButton}
+        onClick={disabled ? () => {} : onClickSelectButton}
         style={{ margin: "8px 0 8px 8px" }}
       >
         <span>{title}</span>
         <span className={style.selectButtonText}>{value}</span>
+        <div style={{ marginLeft: 5 }}>
+          <Arrow size={3} direction={toggled ? "down" : "up"} thickness={2} />
+        </div>
       </div>
 
       <div

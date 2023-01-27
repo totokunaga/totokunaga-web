@@ -1,0 +1,31 @@
+.arrow {
+  border: solid var(--navy-color);
+  display: inline-block;
+}
+
+.right,
+.left,
+.up,
+.down {
+  transition: all 0.25s ease-out;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
