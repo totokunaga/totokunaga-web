@@ -6,11 +6,12 @@ export const isValidCell = (
   row: number,
   col: number
 ) => {
+  const isRowInbound = row >= 0 && row < grid.length;
+  const isColInbound = col >= 0 && col < grid[0].length;
+
   return (
-    row >= 0 &&
-    row < grid.length &&
-    col >= 0 &&
-    col < grid[0].length &&
+    isRowInbound &&
+    isColInbound &&
     !visited[row][col] &&
     grid[row][col] === CELL_EMPTY
   );

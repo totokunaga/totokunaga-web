@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { CellInfo } from "@pages/algorithms/pathfinding/types";
+import { CellInfo } from "@utils/pathfinding/types";
 
 export type GridProp = {
   rowSize: number;
@@ -12,4 +12,6 @@ export type GridProp = {
   ) => CellInfo[];
   algorithmExecuted: boolean;
   setAlgorithmExecuted: Dispatch<SetStateAction<boolean>>;
+  clearExecuted: boolean;
+  setClearExecuted: Dispatch<SetStateAction<boolean>>;
 };

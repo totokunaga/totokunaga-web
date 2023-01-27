@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { MARK_DELAY } from "@pages/algorithms/pathfinding/constants";
+import { MARK_DELAY } from "@utils/pathfinding/constants";
 import { Cell, CELL_BLOCKED, CELL_EMPTY, CELL_MARKED } from "../Cell";
 import { GridProp } from "./types";
 
@@ -12,6 +12,8 @@ const Grid: React.FC<GridProp> = (props) => {
     pathfindingAlgorithm,
     algorithmExecuted,
     setAlgorithmExecuted,
+    clearExecuted,
+    setClearExecuted,
   } = props;
 
   const [start, setStart] = useState<[number, number]>([0, 0]);
@@ -44,8 +46,8 @@ const Grid: React.FC<GridProp> = (props) => {
   // When "Start" button is hit
   useEffect(() => {
     if (algorithmExecuted) {
-      grid.forEach((row, i) =>
-        row.forEach((col, j) => {
+      grid.forEach((r, i) =>
+        r.forEach((c, j) => {
           grid[i][j] = grid[i][j] === CELL_BLOCKED ? CELL_BLOCKED : CELL_EMPTY;
         })
       );
@@ -68,6 +70,15 @@ const Grid: React.FC<GridProp> = (props) => {
     start,
     end,
   ]);
+
+  // When "Clear" button is hit
+  useEffect(() => {
+    if (clearExecuted) {
+      grid.forEach((r, i) => r.forEach((c, j) => (grid[i][j] = CELL_EMPTY)));
+      setGrid([...grid]);
+      setClearExecuted(false);
+    }
+  }, [clearExecuted, setClearExecuted]);
 
   // When a client window size is changed
   useEffect(() => {

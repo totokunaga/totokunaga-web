@@ -1,0 +1,38 @@
+.textbutton,
+.flatbutton,
+.floatingbutton {
+  font-family: var(--font-mono);
+  padding: 8px 16px;
+  cursor: pointer;
+  background: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.textbutton {
+  border: none;
+}
+.flatbutton {
+  border-radius: 5px;
+  border: solid 2.5px inherit;
+}
+.pinkbutton {
+  color: #ffffff;
+  background-color: #e30b5c;
+  border-color: #e30b5c;
+  transition: all 0.2s ease-in-out;
+}
+.pinkbutton:hover {
+  background-color: #ae0948;
+  border-color: #ae0948;
+}
+.navybutton {
+  color: #ffffff;
+  background-color: #004ebc;
+  border-color: #004ebc;
+  transition: all 0.2s ease-in-out;
+}
+.navybutton:hover {
+  background-color: #00265b;
+  border-color: #00265b;
+}

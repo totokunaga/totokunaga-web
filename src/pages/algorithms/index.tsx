@@ -1,10 +1,15 @@
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 
-import styles from "@styles/default.module.css";
 import Grid from "@components/algorithms/Grid/Grid";
-import { bfs } from "./pathfinding";
+import {
+  algorithmOptions,
+  Pathfinding,
+  pathfindingAlgorithms,
+} from "@utils/pathfinding";
 import { useWindowSize } from "@utils/hooks";
+import { Button, buttonColor, buttonType } from "@components/common";
+import { DropdownList } from "@components/common/DropdownList";
 
 const gridWrapperId = "grid-wrapper";
 
@@ -12,7 +17,9 @@ const AlgorithmHome = () => {
   const { width, height } = useWindowSize();
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
+  const [algorithm, setAlgorithm] = useState<Pathfinding>("BFS");
   const [algorithmExecuted, setAlgorithmExecuted] = useState(false);
+  const [clearExecuted, setClearExecuted] = useState(false);
 
   const onStartClick = useCallback(() => {
     if (!algorithmExecuted) {
@@ -20,13 +27,19 @@ const AlgorithmHome = () => {
     }
   }, [algorithmExecuted]);
 
+  const onClearClick = useCallback(() => {
+    if (!clearExecuted) {
+      setClearExecuted(!clearExecuted);
+    }
+  }, [clearExecuted]);
+
   useEffect(() => {
     if (width && height) {
       const gridWrapper = document.getElementById(gridWrapperId);
       const gridHeight = gridWrapper?.clientHeight || height;
       const gridWidth = gridWrapper?.clientWidth || width;
       setColSize(Math.floor(gridWidth / 30));
-      setRowSize(Math.floor((gridHeight - 100) / 30));
+      setRowSize(Math.floor(gridHeight / 30));
     }
   }, [width, height]);
 
@@ -38,9 +51,33 @@ const AlgorithmHome = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.description}>
+      <div style={{ padding: 16 }}>
         <h2>Pathfinding</h2>
-        <button onClick={onStartClick}>Start</button>
+        <div style={{ display: "flex" }}>
+          <Button
+            onClick={onStartClick}
+            type={buttonType.FLAT}
+            colorType={buttonColor.PINK}
+            margin={"8px 0"}
+          >
+            {"Start"}
+          </Button>
+          <Button
+            onClick={onClearClick}
+            type={buttonType.FLAT}
+            colorType={buttonColor.NAVY}
+            margin={"8px 0 8px 8px"}
+            fontWeight={400}
+          >
+            {"Clear Blocks"}
+          </Button>
+          <DropdownList
+            title={"Algorithm:"}
+            value={algorithm}
+            items={algorithmOptions}
+            optionHandler={(value: Pathfinding) => setAlgorithm(value)}
+          />
+        </div>
         <div
           id={gridWrapperId}
           style={{ display: "flex", justifyContent: "center" }}
@@ -48,9 +85,11 @@ const AlgorithmHome = () => {
           <Grid
             rowSize={rowSize}
             colSize={colSize}
-            pathfindingAlgorithm={bfs}
+            pathfindingAlgorithm={pathfindingAlgorithms[algorithm]}
             algorithmExecuted={algorithmExecuted}
             setAlgorithmExecuted={setAlgorithmExecuted}
+            clearExecuted={clearExecuted}
+            setClearExecuted={setClearExecuted}
           />
         </div>
       </div>

@@ -1,8 +1,8 @@
-import { COLS, ROWS } from "./constants";
-import { isValidCell } from "./functions";
-import { CellInfo } from "./types";
+import { COLS, ROWS } from "../constants";
+import { isValidCell } from "../functions";
+import { CellInfo } from "../types";
 
-const bfs = (
+export const bfs = (
   grid: number[][],
   start: [number, number],
   end: [number, number]
@@ -39,5 +39,3 @@ const bfs = (
 
   return visitedCells;
 };
-
-export { bfs };
