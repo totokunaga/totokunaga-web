@@ -5,12 +5,13 @@ import { CellInfo } from "../types";
 
 export const bfs = (grid: number[][], start: Coordinate, end: Coordinate) => {
   let q: CellInfo[] = [[start, null]];
-  const visited = Array.from({ length: grid.length }, () =>
-    Array.from({ length: grid[0].length }, () => false)
+  const prevs: (Coordinate | null)[][] = Array.from(
+    { length: grid.length },
+    () => Array.from({ length: grid[0].length }, () => null)
   );
   const visitedCells: CellInfo[] = [];
 
-  visited[start.row][start.col] = true;
+  prevs[start.row][start.col] = start;
 
   while (q.length > 0) {
     const next: CellInfo[] = [];
@@ -19,15 +20,15 @@ export const bfs = (grid: number[][], start: Coordinate, end: Coordinate) => {
       const { row, col } = current;
       visitedCells.push([current, prev]);
       if (current.isEqual(end)) {
-        return visitedCells;
+        return [visitedCells, prevs];
       }
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRow = row + ROWS[i];
         const nextCol = col + COLS[i];
-        const nextCoordinate = new Coordinate(nextRow, nextCol);
-        if (isValidCell(grid, visited, nextCoordinate)) {
-          visited[nextRow][nextCol] = true;
+        const nextCoordinate = new Coordinate(nextRow, nextCol, grid);
+        if (isValidCell(grid, prevs, nextCoordinate)) {
+          prevs[nextRow][nextCol] = current;
           next.push([nextCoordinate, current]);
         }
       }
@@ -36,5 +37,5 @@ export const bfs = (grid: number[][], start: Coordinate, end: Coordinate) => {
     q = next;
   }
 
-  return visitedCells;
+  return [visitedCells, prevs];
 };

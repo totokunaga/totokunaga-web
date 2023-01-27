@@ -10,7 +10,7 @@ export type GridProp = {
     grid: number[][],
     start: Coordinate,
     end: Coordinate
-  ) => CellInfo[];
+  ) => [CellInfo[], (Coordinate | null)[][]];
   algorithmExecuted: boolean;
   setAlgorithmExecuted: Dispatch<SetStateAction<boolean>>;
   clearExecuted: boolean;

@@ -3,16 +3,13 @@ import Coordinate from "@utils/classes/Coordinate";
 
 export const isValidCell = (
   grid: number[][],
-  visited: boolean[][],
+  visited: (Coordinate | null)[][],
   coordinate: Coordinate
 ) => {
   const { row, col } = coordinate;
-  const isRowInbound = row >= 0 && row < grid.length;
-  const isColInbound = col >= 0 && col < grid[0].length;
 
   return (
-    isRowInbound &&
-    isColInbound &&
+    coordinate.isOutOfBounds() &&
     !visited[row][col] &&
     grid[row][col] === CELL_EMPTY
   );

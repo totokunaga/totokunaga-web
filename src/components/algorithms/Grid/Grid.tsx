@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { CELL_SIZE, MARK_DELAY } from "@utils/pathfinding/constants";
-import { Cell, CELL_BLOCKED, CELL_EMPTY, CELL_MARKED } from "../Cell";
+import {
+  Cell,
+  CELL_BLOCKED,
+  CELL_EMPTY,
+  CELL_IN_PATH,
+  CELL_MARKED,
+} from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
 
@@ -19,12 +25,14 @@ const Grid: React.FC<GridProp> = (props) => {
     setUnmarkExecuted,
   } = props;
 
-  const [start, setStart] = useState(new Coordinate(0, 0));
-  const [end, setEnd] = useState(new Coordinate(rowSize - 1, colSize - 1));
   const [grid, setGrid] = useState(
     Array.from({ length: rowSize }, () =>
       Array.from({ length: colSize }, () => CELL_EMPTY)
     )
+  );
+  const [start, setStart] = useState(new Coordinate(0, 0, grid));
+  const [end, setEnd] = useState(
+    new Coordinate(rowSize - 1, colSize - 1, grid)
   );
 
   const onClickCell = useCallback(
@@ -32,7 +40,7 @@ const Grid: React.FC<GridProp> = (props) => {
       if (!algorithmExecuted) {
         const { row, col } = coordinate;
         const status = grid[row][col];
-        grid[row][col] = Math.abs(status - 1);
+        grid[row][col] = Number(status !== 1);
         setGrid([...grid]);
       }
     },
@@ -48,6 +56,15 @@ const Grid: React.FC<GridProp> = (props) => {
     [grid]
   );
 
+  const onPassed = useCallback(
+    (coordinate: Coordinate) => {
+      const { row, col } = coordinate;
+      grid[row][col] = CELL_IN_PATH;
+      setGrid([...grid]);
+    },
+    [grid]
+  );
+
   // When "Start" button is hit
   useEffect(() => {
     if (algorithmExecuted) {
@@ -58,15 +75,37 @@ const Grid: React.FC<GridProp> = (props) => {
       );
       setGrid([...grid]);
 
-      const visitedCells = pathfindingAlgorithm(grid, start, end);
+      const [visitedCells, prevs] = pathfindingAlgorithm(grid, start, end);
       visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
           onMarked(coordinate);
-          if (i === visitedCells.length - 1) {
-            setAlgorithmExecuted(false);
-          }
         }, i * MARK_DELAY);
       });
+
+      if (!prevs[end.row][end.col]) {
+        setAlgorithmExecuted(false);
+      } else {
+        const cellsInPath: Coordinate[] = [];
+        let currentCell = end;
+        while (!currentCell.isEqual(start)) {
+          cellsInPath.push(currentCell);
+          const nextCell = prevs[currentCell.row][currentCell.col];
+          if (nextCell) {
+            currentCell = nextCell;
+          }
+        }
+        cellsInPath.push(start);
+
+        const pathSize = cellsInPath.length;
+        cellsInPath.forEach((coordinate, i) => {
+          setTimeout(() => {
+            onPassed(coordinate);
+            if (i === pathSize - 1) {
+              setAlgorithmExecuted(false);
+            }
+          }, (visitedCells.length + (pathSize - i - 1)) * MARK_DELAY);
+        });
+      }
     }
   }, [
     pathfindingAlgorithm,
@@ -85,11 +124,12 @@ const Grid: React.FC<GridProp> = (props) => {
     }
   }, [clearExecuted, setClearExecuted]);
 
+  // When non-blocked cell clear
   useEffect(() => {
     if (unmarkExecuted) {
       grid.forEach((r, i) =>
         r.forEach((c, j) => {
-          if (grid[i][j] === CELL_MARKED) {
+          if (grid[i][j] !== CELL_BLOCKED) {
             grid[i][j] = CELL_EMPTY;
           }
         })
@@ -109,8 +149,8 @@ const Grid: React.FC<GridProp> = (props) => {
     const resizedCol = resizedRow ? resizedGrid[0].length : 0;
     const middleRow = Math.floor(resizedRow / 2);
     const middleCol = Math.floor(resizedCol / 2);
-    setStart(new Coordinate(middleRow, Math.floor(resizedCol / 4)));
-    setEnd(new Coordinate(middleRow, Math.floor((3 * resizedCol) / 4)));
+    setStart(new Coordinate(middleRow, Math.floor(resizedCol / 4), grid));
+    setEnd(new Coordinate(middleRow, Math.floor((3 * resizedCol) / 4), grid));
 
     const oneThirdRow = Math.floor(resizedRow / 3);
     if (middleCol) {
@@ -127,17 +167,20 @@ const Grid: React.FC<GridProp> = (props) => {
     <div>
       {grid.map((row, r) => (
         <div key={r} style={{ display: "flex" }}>
-          {row.map((type, c) => (
-            <Cell
-              key={c}
-              size={cellSize}
-              status={type}
-              isStart={start.isEqual(new Coordinate(r, c))}
-              isEnd={end.isEqual(new Coordinate(r, c))}
-              coordinate={new Coordinate(r, c)}
-              onClick={onClickCell}
-            />
-          ))}
+          {row.map((type, c) => {
+            const coordinate = new Coordinate(r, c, grid);
+            return (
+              <Cell
+                key={c}
+                size={cellSize}
+                status={type}
+                isStart={start.isEqual(coordinate)}
+                isEnd={end.isEqual(coordinate)}
+                coordinate={coordinate}
+                onClick={onClickCell}
+              />
+            );
+          })}
         </div>
       ))}
     </div>

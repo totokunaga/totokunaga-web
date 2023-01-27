@@ -44,6 +44,7 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
   --navy-color: #00265b;
+  --deep-navy: #000f23;
 }
 
 @media (prefers-color-scheme: dark) {

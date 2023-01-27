@@ -8,44 +8,39 @@ const recursiveDFS = (
   end: Coordinate,
   current: Coordinate,
   prev: Coordinate | null,
-  visited: boolean[][],
+  prevs: (Coordinate | null)[][],
   visitedCells: CellInfo[]
-): [boolean, CellInfo[]] => {
+): [boolean, CellInfo[], (Coordinate | null)[][]] => {
   visitedCells.push([current, prev]);
   const { row, col } = current;
   if (current.isEqual(end)) {
-    return [true, visitedCells];
+    return [true, visitedCells, prevs];
   }
 
   for (let i = 0; i < ROWS.length; i++) {
     const nextRow = row + ROWS[i];
     const nextCol = col + COLS[i];
-    const nextCoordinate = new Coordinate(nextRow, nextCol);
-    if (isValidCell(grid, visited, nextCoordinate)) {
-      visited[nextRow][nextCol] = true;
+    const nextCoordinate = new Coordinate(nextRow, nextCol, grid);
+    if (isValidCell(grid, prevs, nextCoordinate)) {
+      prevs[nextRow][nextCol] = current;
       if (
-        recursiveDFS(
-          grid,
-          end,
-          nextCoordinate,
-          current,
-          visited,
-          visitedCells
-        )[0]
+        recursiveDFS(grid, end, nextCoordinate, current, prevs, visitedCells)[0]
       ) {
-        return [true, visitedCells];
+        return [true, visitedCells, prevs];
       }
     }
   }
 
-  return [false, visitedCells];
+  return [false, visitedCells, prevs];
 };
 
 export const dfs = (grid: number[][], start: Coordinate, end: Coordinate) => {
-  const visited = Array.from({ length: grid.length }, () =>
-    Array.from({ length: grid[0].length }, () => false)
+  const prevs: (Coordinate | null)[][] = Array.from(
+    { length: grid.length },
+    () => Array.from({ length: grid[0].length }, () => null)
   );
-  visited[start.row][start.col] = true;
+  prevs[start.row][start.col] = start;
 
-  return recursiveDFS(grid, end, start, null, visited, [])[1];
+  const result = recursiveDFS(grid, end, start, null, prevs, []);
+  return [result[1], result[2]];
 };
