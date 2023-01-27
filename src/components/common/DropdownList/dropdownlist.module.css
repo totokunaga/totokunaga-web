@@ -8,7 +8,6 @@
   border-color: inherit;
   border-radius: 5px;
   border: solid 1px inherit;
-  cursor: pointer;
 }
 .selectButton:hover {
   background-color: #d0d0d0;
@@ -27,7 +26,8 @@
   border-radius: 5px;
   position: absolute;
   min-width: 200px;
-  filter: drop-shadow(4px 4px 8px rgb(0, 14, 35, 0.5));
+  box-shadow: 10px 14px 33px 7px rgba(100, 100, 100, 0.6);
+  z-index: 1;
 }
 
 .option {
@@ -37,7 +37,7 @@
   position: relative;
   cursor: pointer;
   padding: 12px;
-  margin: 5px;
+  margin: 4px;
   list-style-type: none;
 }
 .option:hover {

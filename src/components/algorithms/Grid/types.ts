@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { CellInfo } from "@utils/pathfinding/types";
+import Coordinate from "@utils/classes/Coordinate";
 
 export type GridProp = {
   rowSize: number;
@@ -7,8 +8,8 @@ export type GridProp = {
   cellSize?: number;
   pathfindingAlgorithm: (
     grid: number[][],
-    start: [number, number],
-    end: [number, number]
+    start: Coordinate,
+    end: Coordinate
   ) => CellInfo[];
   algorithmExecuted: boolean;
   setAlgorithmExecuted: Dispatch<SetStateAction<boolean>>;

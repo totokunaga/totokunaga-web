@@ -4,7 +4,8 @@ import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
 import StarImage from "@assets/star.svg";
 import { CELL_SIZE } from "@utils/pathfinding";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+import Coordinate from "@utils/classes/Coordinate";
 
 const cellStyle = [
   styles.boxCell,
@@ -25,6 +26,8 @@ export const Cell: React.FC<CellProp> = ({
   onClick,
 }) => {
   const symbolSize = useMemo(() => Math.floor((5 * size) / 6), [size]);
+
+  const onClickCell = useCallback((coordinate: Coordinate) => {}, [coordinate]);
 
   return (
     <div

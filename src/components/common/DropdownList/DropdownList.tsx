@@ -30,9 +30,12 @@ export const DropdownList: React.FC<DropdownListProp> = ({
       <div
         className={style.selectButton}
         onClick={disabled ? () => {} : onClickSelectButton}
-        style={{ margin: "8px 0 8px 8px" }}
+        style={{
+          margin: "8px 0 8px 8px",
+          cursor: disabled ? "not-allowed" : "pointer",
+        }}
       >
-        <span>{title}</span>
+        <span>{title}:</span>
         <span className={style.selectButtonText}>{value}</span>
         <div style={{ marginLeft: 5 }}>
           <Arrow size={3} direction={toggled ? "down" : "up"} thickness={2} />
@@ -54,7 +57,9 @@ export const DropdownList: React.FC<DropdownListProp> = ({
                 className={style.option}
                 onClick={() => onClickOption(item.value)}
               >
-                <span className={style["option-text"]}>{item.value}</span>
+                <span style={{ fontWeight: value === item.value ? 700 : 400 }}>
+                  {item.value}
+                </span>
               </li>
             );
           })}

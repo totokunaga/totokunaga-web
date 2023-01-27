@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  CELL_SIZE,
-  MARK_DELAY,
-  pathfindingAlgorithms,
-} from "@utils/pathfinding/constants";
+import { CELL_SIZE, MARK_DELAY } from "@utils/pathfinding/constants";
 import { Cell, CELL_BLOCKED, CELL_EMPTY, CELL_MARKED } from "../Cell";
 import { GridProp } from "./types";
+import Coordinate from "@utils/classes/Coordinate";
 
 const Grid: React.FC<GridProp> = (props) => {
   const {
@@ -22,8 +19,8 @@ const Grid: React.FC<GridProp> = (props) => {
     setUnmarkExecuted,
   } = props;
 
-  const [start, setStart] = useState<[number, number]>([0, 0]);
-  const [end, setEnd] = useState<[number, number]>([rowSize - 1, colSize - 1]);
+  const [start, setStart] = useState(new Coordinate(0, 0));
+  const [end, setEnd] = useState(new Coordinate(rowSize - 1, colSize - 1));
   const [grid, setGrid] = useState(
     Array.from({ length: rowSize }, () =>
       Array.from({ length: colSize }, () => CELL_EMPTY)
@@ -31,11 +28,11 @@ const Grid: React.FC<GridProp> = (props) => {
   );
 
   const onClickCell = useCallback(
-    (coordinate: [number, number]) => {
+    (coordinate: Coordinate) => {
       if (!algorithmExecuted) {
-        const [r, c] = coordinate;
-        const status = grid[r][c];
-        grid[r][c] = Math.abs(status - 1);
+        const { row, col } = coordinate;
+        const status = grid[row][col];
+        grid[row][col] = Math.abs(status - 1);
         setGrid([...grid]);
       }
     },
@@ -43,9 +40,9 @@ const Grid: React.FC<GridProp> = (props) => {
   );
 
   const onMarked = useCallback(
-    (coordinate: [number, number]) => {
-      const [r, c] = coordinate;
-      grid[r][c] = CELL_MARKED;
+    (coordinate: Coordinate) => {
+      const { row, col } = coordinate;
+      grid[row][col] = CELL_MARKED;
       setGrid([...grid]);
     },
     [grid]
@@ -62,9 +59,9 @@ const Grid: React.FC<GridProp> = (props) => {
       setGrid([...grid]);
 
       const visitedCells = pathfindingAlgorithm(grid, start, end);
-      visitedCells.forEach(([r, c], i) => {
+      visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
-          onMarked([r, c]);
+          onMarked(coordinate);
           if (i === visitedCells.length - 1) {
             setAlgorithmExecuted(false);
           }
@@ -112,8 +109,8 @@ const Grid: React.FC<GridProp> = (props) => {
     const resizedCol = resizedRow ? resizedGrid[0].length : 0;
     const middleRow = Math.floor(resizedRow / 2);
     const middleCol = Math.floor(resizedCol / 2);
-    setStart([middleRow, Math.floor(resizedCol / 4)]);
-    setEnd([middleRow, Math.floor((3 * resizedCol) / 4)]);
+    setStart(new Coordinate(middleRow, Math.floor(resizedCol / 4)));
+    setEnd(new Coordinate(middleRow, Math.floor((3 * resizedCol) / 4)));
 
     const oneThirdRow = Math.floor(resizedRow / 3);
     if (middleCol) {
@@ -135,9 +132,9 @@ const Grid: React.FC<GridProp> = (props) => {
               key={c}
               size={cellSize}
               status={type}
-              isStart={r === start[0] && c === start[1]}
-              isEnd={r === end[0] && c === end[1]}
-              coordinate={[r, c]}
+              isStart={start.isEqual(new Coordinate(r, c))}
+              isEnd={end.isEqual(new Coordinate(r, c))}
+              coordinate={new Coordinate(r, c)}
               onClick={onClickCell}
             />
           ))}

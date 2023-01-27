@@ -1,7 +1,8 @@
+import Coordinate from "@utils/classes/Coordinate";
 import { MinHeap } from "@utils/data-structure/MinHeap";
 import { COLS, ROWS } from "../constants";
 import { isValidCell } from "../functions";
-import { CellInfo, Coordinate } from "../types";
+import { CellInfo } from "../types";
 
 type WeightedCoordinate = [CellInfo, number];
 const weightedCoordinateLessThan = (
@@ -11,13 +12,9 @@ const weightedCoordinateLessThan = (
   return one[1] < two[1];
 };
 
-export const aStar = (
-  grid: number[][],
-  start: [number, number],
-  end: [number, number]
-) => {
+export const aStar = (grid: number[][], start: Coordinate, end: Coordinate) => {
   const heap = new MinHeap<WeightedCoordinate>(
-    [[[...start, null], 0]],
+    [[[start, null], 0]],
     weightedCoordinateLessThan
   );
   const visited = Array.from({ length: grid.length }, () =>
@@ -27,24 +24,26 @@ export const aStar = (
 
   while (heap.size() > 0) {
     const [cell] = heap.pop() as WeightedCoordinate;
-    const [r, c, prev] = cell;
-    if (visited[r][c]) {
+    const [coordinate, prev] = cell;
+    const { row, col } = coordinate;
+    if (visited[row][col]) {
       continue;
     }
 
-    visitedCells.push([r, c, prev]);
-    visited[r][c] = true;
-    if (r === end[0] && c === end[1]) {
+    visitedCells.push([coordinate, prev]);
+    visited[row][col] = true;
+    if (coordinate.isEqual(end)) {
       return visitedCells;
     }
 
     for (let i = 0; i < ROWS.length; i++) {
-      const nextRow = r + ROWS[i];
-      const nextCol = c + COLS[i];
-      if (isValidCell(grid, visited, nextRow, nextCol)) {
-        const nextWeight = heuristic(nextRow, nextCol, end);
+      const nextRow = row + ROWS[i];
+      const nextCol = col + COLS[i];
+      const nextCoordinate = new Coordinate(nextRow, nextCol);
+      if (isValidCell(grid, visited, nextCoordinate)) {
+        const nextWeight = heuristic(nextCoordinate, end);
         const nextCell: WeightedCoordinate = [
-          [nextRow, nextCol, [r, c]],
+          [nextCoordinate, coordinate],
           nextWeight,
         ];
         heap.push(nextCell);
@@ -55,8 +54,8 @@ export const aStar = (
   return visitedCells;
 };
 
-const heuristic = (r: number, c: number, end: Coordinate) => {
-  const rDiff = Math.abs(r - end[0]);
-  const cDiff = Math.abs(c - end[1]);
+const heuristic = (current: Coordinate, end: Coordinate) => {
+  const rDiff = Math.abs(current.row - end.row);
+  const cDiff = Math.abs(current.col - end.col);
   return Math.sqrt(rDiff ** 2 + cDiff ** 2);
 };

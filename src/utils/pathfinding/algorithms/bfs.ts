@@ -1,35 +1,34 @@
+import Coordinate from "@utils/classes/Coordinate";
 import { COLS, ROWS } from "../constants";
 import { isValidCell } from "../functions";
 import { CellInfo } from "../types";
 
-export const bfs = (
-  grid: number[][],
-  start: [number, number],
-  end: [number, number]
-) => {
-  let q: CellInfo[] = [[...start, null]];
+export const bfs = (grid: number[][], start: Coordinate, end: Coordinate) => {
+  let q: CellInfo[] = [[start, null]];
   const visited = Array.from({ length: grid.length }, () =>
     Array.from({ length: grid[0].length }, () => false)
   );
   const visitedCells: CellInfo[] = [];
 
-  visited[start[0]][start[1]] = true;
+  visited[start.row][start.col] = true;
 
   while (q.length > 0) {
     const next: CellInfo[] = [];
 
-    for (const [r, c, prev] of q) {
-      visitedCells.push([r, c, prev]);
-      if (r === end[0] && c === end[1]) {
+    for (const [current, prev] of q) {
+      const { row, col } = current;
+      visitedCells.push([current, prev]);
+      if (current.isEqual(end)) {
         return visitedCells;
       }
 
       for (let i = 0; i < ROWS.length; i++) {
-        const nextRow = r + ROWS[i];
-        const nextCol = c + COLS[i];
-        if (isValidCell(grid, visited, nextRow, nextCol)) {
+        const nextRow = row + ROWS[i];
+        const nextCol = col + COLS[i];
+        const nextCoordinate = new Coordinate(nextRow, nextCol);
+        if (isValidCell(grid, visited, nextCoordinate)) {
           visited[nextRow][nextCol] = true;
-          next.push([nextRow, nextCol, [r, c]]);
+          next.push([nextCoordinate, current]);
         }
       }
     }
