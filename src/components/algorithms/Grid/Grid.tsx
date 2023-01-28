@@ -1,19 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  CELL_SIZE,
-  MARK_DELAY,
-  PATH_FOUND_DELAY,
-} from "@utils/pathfinding/constants";
+import { CELL_SIZE, PATH_FOUND_DELAY } from "@utils/pathfinding/constants";
 import {
   Cell,
   CELL_BLOCKED,
   CELL_EMPTY,
   CELL_IN_PATH,
   CELL_MARKED,
+  CELL_SELECTED,
 } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
+import { initMatrix } from "@utils/functions";
 
 const Grid: React.FC<GridProp> = (props) => {
   const {
@@ -30,26 +28,48 @@ const Grid: React.FC<GridProp> = (props) => {
     setUnmarkExecuted,
   } = props;
 
-  const [grid, setGrid] = useState(
-    Array.from({ length: rowSize }, () =>
-      Array.from({ length: colSize }, () => CELL_EMPTY)
-    )
-  );
+  const [grid, setGrid] = useState(initMatrix(rowSize, colSize, CELL_EMPTY));
   const [start, setStart] = useState(new Coordinate(0, 0, grid));
   const [end, setEnd] = useState(
     new Coordinate(rowSize - 1, colSize - 1, grid)
   );
+  const [isStartFocused, setStartFocused] = useState(false);
+  const [isEndFocused, setEndFocused] = useState(false);
 
   const onClickCell = useCallback(
     (coordinate: Coordinate) => {
       if (!algorithmExecuted) {
         const { row, col } = coordinate;
-        const status = grid[row][col];
-        grid[row][col] = Number(status !== 1);
-        setGrid([...grid]);
+        if (isStartFocused || isEndFocused) {
+          if (!coordinate.isEqual(end) && !coordinate.isEqual(start)) {
+            if (isStartFocused) {
+              setStart(coordinate);
+              setStartFocused(false);
+              grid[start.row][start.col] = CELL_EMPTY;
+            } else {
+              setEnd(coordinate);
+              setEndFocused(false);
+              grid[end.row][end.col] = CELL_EMPTY;
+            }
+            grid[row][col] = CELL_EMPTY;
+            setGrid([...grid]);
+          }
+        } else {
+          if (coordinate.isEqual(start)) {
+            setStartFocused(true);
+            grid[row][col] = CELL_SELECTED;
+          } else if (coordinate.isEqual(end)) {
+            setEndFocused(true);
+            grid[row][col] = CELL_SELECTED;
+          } else {
+            const status = grid[row][col];
+            grid[row][col] = Number(status !== 1);
+          }
+          setGrid([...grid]);
+        }
       }
     },
-    [grid, algorithmExecuted]
+    [start, end, grid, algorithmExecuted, isStartFocused, isEndFocused]
   );
 
   const onColored = useCallback(
@@ -137,9 +157,7 @@ const Grid: React.FC<GridProp> = (props) => {
 
   // When a client window size is changed
   useEffect(() => {
-    const resizedGrid = Array.from({ length: rowSize }, () =>
-      Array.from({ length: colSize }, () => CELL_EMPTY)
-    );
+    const resizedGrid = initMatrix(rowSize, colSize, CELL_EMPTY);
 
     const resizedRow = resizedGrid.length;
     const resizedCol = resizedRow ? resizedGrid[0].length : 0;
@@ -165,13 +183,15 @@ const Grid: React.FC<GridProp> = (props) => {
         <div key={r} style={{ display: "flex" }}>
           {row.map((type, c) => {
             const coordinate = new Coordinate(r, c, grid);
+            const isStart = start.isEqual(coordinate);
+            const isEnd = end.isEqual(coordinate);
             return (
               <Cell
                 key={c}
                 size={cellSize}
                 status={type}
-                isStart={start.isEqual(coordinate)}
-                isEnd={end.isEqual(coordinate)}
+                isStart={isStart}
+                isEnd={isEnd}
                 coordinate={coordinate}
                 onClick={onClickCell}
               />

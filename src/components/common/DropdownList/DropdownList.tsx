@@ -67,7 +67,7 @@ export const DropdownList: React.FC<DropdownListProp> = ({
       >
         <span>{title}:</span>
         <span className={style.selectButtonText}>{value}</span>
-        <div style={{ marginLeft: 5 }}>
+        <div style={{ marginLeft: 4 }}>
           <Arrow size={3} direction={isShown ? "up" : "down"} thickness={2} />
         </div>
       </div>

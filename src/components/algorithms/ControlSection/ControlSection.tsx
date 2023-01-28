@@ -75,7 +75,7 @@ const ControlSection: React.FC<{
       <div style={{ display: "flex", margin: "8px 0 8px 8px" }}>
         {cellTypes.map(
           ({ type, name }, i) =>
-            i > 0 && (
+            i > 1 && ( // TODO: Stop using a magic number
               <div key={type} className={style.horizontallyAligned}>
                 <Cell size={0.8 * CELL_SIZE} status={type} disabled={true} />
                 <span style={{ margin: "0px 10px 0px 5px" }}>{name}</span>

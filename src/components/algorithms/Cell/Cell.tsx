@@ -11,13 +11,16 @@ const cellStyle = [
   styles.cell_blocked,
   styles.cell_marked,
   styles.cell_in_path,
+  styles.cell_selected,
 ];
 
 export const CELL_EMPTY = 0;
 export const CELL_BLOCKED = 1;
 export const CELL_MARKED = 2;
 export const CELL_IN_PATH = 3;
+export const CELL_SELECTED = 4;
 export const cellTypes = [
+  { type: CELL_SELECTED, name: "Selected" },
   { type: CELL_EMPTY, name: "Empty" },
   { type: CELL_BLOCKED, name: "Blocked" },
   { type: CELL_MARKED, name: "Visited" },
@@ -37,7 +40,7 @@ export const Cell: React.FC<CellProp> = ({
 
   const onClickCell = useCallback(
     (coordinate?: Coordinate) => {
-      if (onClick && coordinate && !disabled && !isStart && !isEnd) {
+      if (onClick && coordinate && !disabled) {
         onClick(coordinate);
       }
     },

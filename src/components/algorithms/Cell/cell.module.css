@@ -32,3 +32,7 @@
   background-color: var(--navy-color);
   border: solid 0.5px var(--navy-color);
 }
+.cell_selected {
+  background-color: #fcd3e3;
+  border: solid 0.5px #fcd3e3;
+}
