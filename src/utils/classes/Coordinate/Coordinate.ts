@@ -13,7 +13,7 @@ class Coordinate {
     return this.row == target.row && this.col == target.col;
   }
 
-  isOutOfBounds() {
+  isInbound() {
     const isRowInbound = this.row >= 0 && this.row < this.grid.length;
     const isColInbound = this.col >= 0 && this.col < this.grid[0].length;
     return isRowInbound && isColInbound;

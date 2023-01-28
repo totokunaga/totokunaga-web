@@ -1,3 +1,4 @@
+import { CELL_BLOCKED, CELL_EMPTY } from "@components/algorithms";
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "../constants";
@@ -11,6 +12,9 @@ export const bidirectional = (
 ): [CellInfo[], (Coordinate | null)[][]] => {
   let qStart: CellInfo[] = [[start, null]];
   let qEnd: CellInfo[] = [[end, null]];
+  let middleFromStart = start;
+  let middleFromEnd = end;
+
   const rowSize = grid.length;
   const colSize = grid[0].length;
   const prevs: (Coordinate | null)[][] = initMatrix(rowSize, colSize, null);
@@ -18,33 +22,23 @@ export const bidirectional = (
   const visitedCells: CellInfo[] = [];
 
   prevs[start.row][start.col] = start;
-  types[start.row][start.col] = 1;
   prevs[end.row][end.col] = end;
+  types[start.row][start.col] = 1;
   types[end.row][end.col] = -1;
 
   let pathFound = false;
-  while (!pathFound || qStart.length > 0 || qEnd.length > 0) {
+  while (!pathFound && (qStart.length > 0 || qEnd.length > 0)) {
     let nextStart: CellInfo[] = [];
     let nextEnd: CellInfo[] = [];
 
-    while (qStart.length > 0 && qEnd.length > 0) {
+    while (!pathFound && qStart.length > 0 && qEnd.length > 0) {
       const [currentStart, prevStart] = qStart.pop() as CellInfo;
       const [currentEnd, prevEnd] = qEnd.pop() as CellInfo;
 
-      visitedCells.push([currentStart, prevStart]);
-      visitedCells.push([currentEnd, prevEnd]);
       const { row: rowStart, col: colStart } = currentStart;
       const { row: rowEnd, col: colEnd } = currentEnd;
-
-      if (
-        currentStart.isEqual(currentEnd) ||
-        types[rowStart][colStart] === -1 ||
-        types[rowEnd][colEnd] === 1
-      ) {
-        pathFound = true;
-        console.log("called 1");
-        break;
-      }
+      visitedCells.push([currentStart, prevStart]);
+      visitedCells.push([currentEnd, prevEnd]);
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRowStart = rowStart + ROWS[i];
@@ -57,77 +51,141 @@ export const bidirectional = (
           grid
         );
         const nextCoordinateEnd = new Coordinate(nextRowEnd, nextColEnd, grid);
-        if (isValidCell(grid, prevs, nextCoordinateStart)) {
-          prevs[nextRowStart][nextColStart] = currentStart;
-          types[nextRowStart][nextColStart] = 1;
-          nextStart.push([nextCoordinateStart, currentStart]);
+
+        if (
+          nextCoordinateStart.isInbound() &&
+          grid[nextRowStart][nextColStart] !== CELL_BLOCKED
+        ) {
+          const type = types[nextRowStart][nextColStart];
+          if (type === -1) {
+            pathFound = true;
+            middleFromStart = currentStart;
+            middleFromEnd = nextCoordinateStart;
+            break;
+          } else if (type === 0) {
+            prevs[nextRowStart][nextColStart] = currentStart;
+            types[nextRowStart][nextColStart] = 1;
+            nextStart.push([nextCoordinateStart, currentStart]);
+          }
         }
-        if (isValidCell(grid, prevs, nextCoordinateEnd)) {
-          prevs[nextRowEnd][nextColEnd] = currentStart;
-          types[nextRowEnd][nextColEnd] = -1;
-          nextEnd.push([nextCoordinateEnd, currentEnd]);
+
+        if (
+          nextCoordinateEnd.isInbound() &&
+          grid[nextRowEnd][nextColEnd] !== CELL_BLOCKED
+        ) {
+          const type = types[nextRowEnd][nextColEnd];
+          if (type === 1) {
+            pathFound = true;
+            middleFromStart = nextCoordinateEnd;
+            middleFromEnd = currentEnd;
+            break;
+          } else if (type === 0) {
+            prevs[nextRowEnd][nextColEnd] = currentEnd;
+            types[nextRowEnd][nextColEnd] = -1;
+            nextEnd.push([nextCoordinateEnd, currentEnd]);
+          }
         }
       }
     }
 
-    while (qStart.length > 0) {
+    while (!pathFound && qStart.length > 0) {
       const q = qStart;
-      const next = nextStart;
       const [current, prev] = q.pop() as CellInfo;
-      visitedCells.push([current, prev]);
-
       const { row, col } = current;
-      if (types[row][col] === -1) {
-        pathFound = true;
-        console.log("called 2", row, col);
-        break;
-      }
+      visitedCells.push([current, prev]);
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRow = row + ROWS[i];
         const nextCol = col + COLS[i];
-        const nextCoordinateStart = new Coordinate(nextRow, nextCol, grid);
-        if (isValidCell(grid, prevs, nextCoordinateStart)) {
-          prevs[nextRow][nextCol] = current;
-          types[nextRow][nextCol] = -1;
-          next.push([nextCoordinateStart, current]);
+        const nextCoordinate = new Coordinate(nextRow, nextCol, grid);
+        if (
+          nextCoordinate.isInbound() &&
+          grid[nextRow][nextCol] !== CELL_BLOCKED
+        ) {
+          const type = types[nextRow][nextCol];
+          if (type === -1) {
+            pathFound = true;
+            middleFromStart = current;
+            middleFromEnd = nextCoordinate;
+            break;
+          } else if (type === 0) {
+            prevs[nextRow][nextCol] = current;
+            types[nextRow][nextCol] = 1;
+            nextStart.push([nextCoordinate, current]);
+          }
         }
       }
-
-      nextStart = next;
     }
 
-    while (qEnd.length > 0) {
+    while (!pathFound && qEnd.length > 0) {
       const q = qEnd;
-      const next = nextEnd;
       const [current, prev] = q.pop() as CellInfo;
-      visitedCells.push([current, prev]);
-
       const { row, col } = current;
-      if (types[row][col] === 1) {
-        pathFound = true;
-        console.log("called 3");
-        break;
-      }
+      visitedCells.push([current, prev]);
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRow = row + ROWS[i];
         const nextCol = col + COLS[i];
-        const nextCoordinateEnd = new Coordinate(nextRow, nextCol, grid);
-        if (isValidCell(grid, prevs, nextCoordinateEnd)) {
-          prevs[nextRow][nextCol] = current;
-          types[nextRow][nextCol] = -1;
-          next.push([nextCoordinateEnd, current]);
+        const nextCoordinate = new Coordinate(nextRow, nextCol, grid);
+        if (
+          nextCoordinate.isInbound() &&
+          grid[nextRow][nextCol] !== CELL_BLOCKED
+        ) {
+          const type = types[nextRow][nextCol];
+          if (type === 1) {
+            pathFound = true;
+            middleFromStart = nextCoordinate;
+            middleFromEnd = current;
+            break;
+          } else if (type === 0) {
+            prevs[nextRow][nextCol] = current;
+            types[nextRow][nextCol] = -1;
+            nextEnd.push([nextCoordinate, current]);
+          }
         }
       }
-
-      nextEnd = next;
     }
 
     qStart = nextStart;
     qEnd = nextEnd;
   }
 
-  console.log("called", visitedCells, types);
+  // Handle remained coordinates in queues
+  while (qStart.length > 0 && qEnd.length > 0) {
+    const [currentStart, prevStart] = qStart.pop() as CellInfo;
+    const { row: rowStart, col: colStart } = currentStart;
+    visitedCells.push([currentStart, prevStart]);
+    prevs[rowStart][colStart] = prevStart;
+
+    const [currentEnd, prevEnd] = qEnd.pop() as CellInfo;
+    const { row: rowEnd, col: colEnd } = currentEnd;
+    visitedCells.push([currentEnd, prevEnd]);
+    prevs[rowEnd][colEnd] = prevEnd;
+  }
+
+  while (qStart.length > 0) {
+    const [current, prev] = qStart.pop() as CellInfo;
+    const { row, col } = current;
+    visitedCells.push([current, prev]);
+    prevs[row][col] = prev;
+  }
+
+  while (qEnd.length > 0) {
+    const [current, prev] = qEnd.pop() as CellInfo;
+    const { row, col } = current;
+    visitedCells.push([current, prev]);
+    prevs[row][col] = prev;
+  }
+
+  let prev = middleFromStart;
+  let current = middleFromEnd;
+  while (!current.isEqual(end)) {
+    const originalEndPrev = prevs[current.row][current.col];
+    prevs[current.row][current.col] = prev;
+    prev = current;
+    current = originalEndPrev!;
+  }
+  prevs[current.row][current.col] = prev;
+
   return [visitedCells, prevs];
 };

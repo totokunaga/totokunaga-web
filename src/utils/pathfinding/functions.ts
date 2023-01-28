@@ -9,7 +9,7 @@ export const isValidCell = (
   const { row, col } = coordinate;
 
   return (
-    coordinate.isOutOfBounds() &&
+    coordinate.isInbound() &&
     !visited[row][col] &&
     grid[row][col] === CELL_EMPTY
   );

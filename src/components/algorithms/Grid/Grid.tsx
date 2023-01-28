@@ -82,30 +82,30 @@ const Grid: React.FC<GridProp> = (props) => {
         }, i * MARK_DELAY);
       });
 
-      // if (!prevs[end.row][end.col]) {
-      //   setAlgorithmExecuted(false);
-      // } else {
-      //   const cellsInPath: Coordinate[] = [];
-      //   let currentCell = end;
-      //   while (!currentCell.isEqual(start)) {
-      //     cellsInPath.push(currentCell);
-      //     const nextCell = prevs[currentCell.row][currentCell.col];
-      //     if (nextCell) {
-      //       currentCell = nextCell;
-      //     }
-      //   }
-      //   cellsInPath.push(start);
+      if (!prevs[end.row][end.col]) {
+        setAlgorithmExecuted(false);
+      } else {
+        const cellsInPath: Coordinate[] = [];
+        let currentCell = end;
+        while (!currentCell.isEqual(start)) {
+          cellsInPath.push(currentCell);
+          const nextCell = prevs[currentCell.row][currentCell.col];
+          if (nextCell) {
+            currentCell = nextCell;
+          }
+        }
+        cellsInPath.push(start);
 
-      //   const pathSize = cellsInPath.length;
-      //   cellsInPath.forEach((coordinate, i) => {
-      //     setTimeout(() => {
-      //       onPassed(coordinate);
-      //       if (i === pathSize - 1) {
-      //         setAlgorithmExecuted(false);
-      //       }
-      //     }, (visitedCells.length + (pathSize - i - 1)) * MARK_DELAY);
-      //   });
-      // }
+        const pathSize = cellsInPath.length;
+        cellsInPath.forEach((coordinate, i) => {
+          setTimeout(() => {
+            onPassed(coordinate);
+            if (i === pathSize - 1) {
+              setAlgorithmExecuted(false);
+            }
+          }, (visitedCells.length + (pathSize - i - 1)) * MARK_DELAY);
+        });
+      }
     }
   }, [
     pathfindingAlgorithm,
