@@ -17,6 +17,7 @@ import {
   pathfindingPageId,
   pathfindingText,
 } from "@utils/constants";
+import { Cell, cellTypes } from "@components/algorithms";
 
 const AlgorithmHome = () => {
   const { width, height } = useWindowSize();
@@ -73,7 +74,7 @@ const AlgorithmHome = () => {
         <div id={pathfindingPageId}>
           <div id={pathfindingConfigId}>
             <h2>{pageInfo.headerTitle}</h2>
-            <div style={{ display: "flex" }}>
+            <div className={defaultStyles.horizontallyAligned}>
               <Button
                 onClick={onStartClick}
                 type={buttonType.FLAT}
@@ -98,9 +99,30 @@ const AlgorithmHome = () => {
                 disabled={algorithmExecuted}
                 optionHandler={onChangeAlgorithm}
               />
+
+              <div style={{ display: "flex", margin: "8px 0 8px 8px" }}>
+                {cellTypes.map(
+                  ({ type, name }, i) =>
+                    i > 0 && (
+                      <div
+                        key={type}
+                        className={defaultStyles.horizontallyAligned}
+                      >
+                        <Cell
+                          size={(4 * CELL_SIZE) / 5}
+                          status={type}
+                          disabled={true}
+                        />
+                        <span style={{ margin: "0px 10px 0px 5px" }}>
+                          {name}
+                        </span>
+                      </div>
+                    )
+                )}
+              </div>
             </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className={defaultStyles.horizontallyAligned}>
             <Grid
               rowSize={rowSize}
               colSize={colSize}

@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { CELL_SIZE, MARK_DELAY } from "@utils/pathfinding/constants";
+import {
+  CELL_SIZE,
+  MARK_DELAY,
+  PATH_FOUND_DELAY,
+} from "@utils/pathfinding/constants";
 import {
   Cell,
   CELL_BLOCKED,
@@ -94,7 +98,7 @@ const Grid: React.FC<GridProp> = (props) => {
             if (i === pathSize - 1) {
               setAlgorithmExecuted(false);
             }
-          }, (visitedCells.length + (pathSize - i - 1)) * MARK_DELAY);
+          }, visitedCells.length * MARK_DELAY + (pathSize - i - 1) * PATH_FOUND_DELAY);
         });
       }
     }

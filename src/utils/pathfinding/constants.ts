@@ -7,7 +7,8 @@ export const COLS = [1, 0, -1, 0];
 // export const ROWS = [-1, -1, -1, 0, 0, 1, 1, 1];
 // export const COLS = [-1, 0, 1, -1, 1, -1, 0, 1];
 
-export const MARK_DELAY = 5;
+export const MARK_DELAY = 2;
+export const PATH_FOUND_DELAY = 16;
 export const CELL_SIZE = 26;
 
 export const pathfindingAlgorithms: Record<Pathfinding, PathfindingFunction> = {

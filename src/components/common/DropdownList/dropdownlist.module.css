@@ -5,18 +5,16 @@
   padding: 8px 16px;
   font-size: 16px;
   background-color: none;
-  border-color: inherit;
   border-radius: 5px;
-  border: solid 1px inherit;
+  border: solid 1px var(--navy-color);
 }
 .selectButton:hover {
-  background-color: #d0d0d0;
-  border-color: #d0d0d0;
+  background-color: #e0e0e0;
 }
 .selectButton .selectButtonText {
   font-family: var(--font-code);
   margin: 0 8px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
 }
 

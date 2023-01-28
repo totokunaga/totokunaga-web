@@ -1,34 +1,34 @@
-.boxCell,
-.boxCell_marked,
-.boxCell_blocked,
-.boxCell_in_path {
+.cell,
+.cell_marked,
+.cell_blocked,
+.cell_in_path {
   margin: 0.5px;
   border-radius: 3px;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 
-.boxCell {
+.cell {
   background-color: white;
   border: solid 0.5px lightgray;
 }
-.boxCell:hover {
-  background-color: #dbeaff;
+.cell:hover {
+  background-color: #eeeeee;
 }
-.boxCell:active {
-  background-color: #a8ccff;
+.cell:active {
+  background-color: #cccccc;
 }
 
-.boxCell_marked {
+.cell_marked {
   background-color: #b6d0e2;
   border: solid 0.5px #b6d0e2;
 }
-.boxCell_in_path {
+.cell_in_path {
   background-color: #2ebb98;
   border: solid 0.5px #2ebb98;
 }
 
-.boxCell_blocked {
+.cell_blocked {
   background-color: var(--navy-color);
   border: solid 0.5px var(--navy-color);
 }

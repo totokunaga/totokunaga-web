@@ -1,4 +1,4 @@
-import { pages } from "@utils/constants";
+import { pages } from "../global";
 
 export const pageInfo = pages.algorithms.pathfinding;
 export const pathfindingText = {

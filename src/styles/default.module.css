@@ -3,6 +3,11 @@
   color: var(--navy-color);
 }
 
+.horizontallyAligned {
+  display: flex;
+  align-items: center;
+}
+
 .description {
   padding: 20px;
 }
