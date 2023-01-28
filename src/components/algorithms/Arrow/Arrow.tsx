@@ -15,7 +15,7 @@ export const Arrow: React.FC<{
       up: `${size}px 0 0 0`,
       down: `0 0 ${size}px 0`,
     };
-  }, []);
+  }, [size]);
 
   return (
     <div

@@ -19,9 +19,9 @@ const Index = () => {
           <br />
           <br />
           Currently working at Rakuten Mobile as a lead developer of web
-          application for B2C customers. I'm working both frontend and backend
-          part of the application using: NodeJS (ReactJS, ExpressJS), Python,
-          SQL, Kubernetes, etc
+          application for B2C customers. I&apos;m working both frontend and
+          backend part of the application using: NodeJS (ReactJS, ExpressJS),
+          Python, SQL, Kubernetes, etc
           <br />
           <br />
           All my personal projects, past experiences and skills/technologies are

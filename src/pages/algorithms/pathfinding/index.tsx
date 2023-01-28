@@ -16,7 +16,7 @@ import {
   pathfindingConfigId,
   pathfindingPageId,
   pathfindingText,
-} from "./constants";
+} from "@utils/constants";
 
 const AlgorithmHome = () => {
   const { width, height } = useWindowSize();

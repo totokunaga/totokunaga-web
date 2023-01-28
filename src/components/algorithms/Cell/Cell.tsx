@@ -34,7 +34,7 @@ export const Cell: React.FC<CellProp> = ({
         onClick(coordinate);
       }
     },
-    [coordinate, onClick]
+    [coordinate, onClick, isStart, isEnd]
   );
 
   return (
