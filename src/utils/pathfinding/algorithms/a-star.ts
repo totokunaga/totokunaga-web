@@ -6,18 +6,17 @@ import { isValidCell } from "../functions";
 import { CellInfo } from "../types";
 
 type WeightedCoordinate = [CellInfo, number];
-const weightedCoordinateLessThan = (
-  one: WeightedCoordinate,
-  two: WeightedCoordinate
-) => {
+const isLessThan = (one: WeightedCoordinate, two: WeightedCoordinate) => {
   return one[1] < two[1];
 };
 
-export const aStar = (grid: number[][], start: Coordinate, end: Coordinate) => {
-  const heap = new MinHeap<WeightedCoordinate>(
-    [[[start, null], 0]],
-    weightedCoordinateLessThan
-  );
+export const aStar = (
+  grid: number[][],
+  start: Coordinate,
+  end: Coordinate
+): [CellInfo[], (Coordinate | null)[][]] => {
+  const initEntry: WeightedCoordinate = [[start, null], 0];
+  const heap = new MinHeap<WeightedCoordinate>([initEntry], isLessThan);
 
   const rowSize = grid.length;
   const colSize = grid[0].length;
@@ -45,21 +44,20 @@ export const aStar = (grid: number[][], start: Coordinate, end: Coordinate) => {
       const nextRow = row + ROWS[i];
       const nextCol = col + COLS[i];
       const adjCoordinate = new Coordinate(nextRow, nextCol, grid);
-      const adjDistanceFromStart = distances[nextRow][nextCol];
 
-      if (
-        potentialDistanceFromStart <= adjDistanceFromStart &&
-        isValidCell(grid, prevs, adjCoordinate)
-      ) {
-        distances[nextRow][nextCol] = potentialDistanceFromStart;
-        const nextWeight =
-          potentialDistanceFromStart +
-          adjCoordinate.getManhattanDistanceFrom(end);
-        const nextCell: WeightedCoordinate = [
-          [adjCoordinate, coordinate],
-          nextWeight,
-        ];
-        heap.push(nextCell);
+      if (isValidCell(grid, prevs, adjCoordinate)) {
+        const adjDistanceFromStart = distances[nextRow][nextCol];
+        if (potentialDistanceFromStart < adjDistanceFromStart) {
+          distances[nextRow][nextCol] = potentialDistanceFromStart;
+          const heuristicWeight = adjCoordinate.getManhattanDistanceFrom(end);
+          const nextWeight = potentialDistanceFromStart + heuristicWeight;
+          const nextCell: WeightedCoordinate = [
+            [adjCoordinate, coordinate],
+            nextWeight,
+          ];
+
+          heap.push(nextCell);
+        }
       }
     }
   }

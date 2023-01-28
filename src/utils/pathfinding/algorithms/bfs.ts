@@ -1,14 +1,18 @@
 import Coordinate from "@utils/classes/Coordinate";
+import { initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "../constants";
 import { isValidCell } from "../functions";
 import { CellInfo } from "../types";
 
-export const bfs = (grid: number[][], start: Coordinate, end: Coordinate) => {
+export const bfs = (
+  grid: number[][],
+  start: Coordinate,
+  end: Coordinate
+): [CellInfo[], (Coordinate | null)[][]] => {
   let q: CellInfo[] = [[start, null]];
-  const prevs: (Coordinate | null)[][] = Array.from(
-    { length: grid.length },
-    () => Array.from({ length: grid[0].length }, () => null)
-  );
+  const rowSize = grid.length;
+  const colSize = grid[0].length;
+  const prevs: (Coordinate | null)[][] = initMatrix(rowSize, colSize, null);
   const visitedCells: CellInfo[] = [];
 
   prevs[start.row][start.col] = start;
