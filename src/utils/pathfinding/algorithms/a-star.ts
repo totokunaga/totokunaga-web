@@ -36,13 +36,6 @@ export const aStar = (
     visitedCells.push([coordinate, prev]);
     prevs[row][col] = prev || start;
     if (coordinate.isEqual(end)) {
-      while (heap.size() > 0) {
-        const [cellInfo] = heap.pop() as WeightedCoordinate;
-        const [remainedCoordinate, remainedPrev] = cellInfo;
-        if (!prevs[remainedCoordinate.row][remainedCoordinate.col]) {
-          visitedCells.push([remainedCoordinate, remainedPrev]);
-        }
-      }
       return [visitedCells, prevs];
     }
 

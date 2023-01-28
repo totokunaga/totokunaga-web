@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { DropdownListProp } from "./type";
 import style from "./dropdownlist.module.css";
@@ -9,25 +9,55 @@ export const DropdownList: React.FC<DropdownListProp> = ({
   value,
   items,
   disabled,
+  isMobile,
   optionHandler,
 }) => {
-  const [toggled, setToggled] = useState(true);
+  const [isShown, setShown] = useState(false);
 
   const onClickSelectButton = useCallback(() => {
-    setToggled(!toggled);
-  }, [toggled]);
+    setShown(!isShown);
+  }, [isShown]);
 
   const onClickOption = useCallback(
     (value: any) => {
       optionHandler(value);
-      setToggled(!toggled);
+      setShown(true);
     },
-    [optionHandler, toggled]
+    [optionHandler]
   );
 
-  return (
+  useEffect(() => {
+    window.addEventListener("click", function (e: any) {
+      const isInsideClick = document.getElementById(title)?.contains(e.target);
+      if (!isInsideClick) {
+        setShown(false);
+      }
+    });
+  }, []);
+
+  return isMobile ? (
+    <select
+      className={style.select}
+      value={value}
+      onChange={(e) => !disabled && onClickOption(e.target.value)}
+      style={{
+        margin: "8px 0 8px 8px",
+        cursor: disabled ? "not-allowed" : "pointer",
+      }}
+      disabled={disabled}
+    >
+      {items.map((item) => {
+        return (
+          <option key={item.name} value={item.value}>
+            {item.name}
+          </option>
+        );
+      })}
+    </select>
+  ) : (
     <div>
       <div
+        id={title}
         className={style.selectButton}
         onClick={disabled ? () => {} : onClickSelectButton}
         style={{
@@ -38,14 +68,14 @@ export const DropdownList: React.FC<DropdownListProp> = ({
         <span>{title}:</span>
         <span className={style.selectButtonText}>{value}</span>
         <div style={{ marginLeft: 5 }}>
-          <Arrow size={3} direction={toggled ? "down" : "up"} thickness={2} />
+          <Arrow size={3} direction={isShown ? "up" : "down"} thickness={2} />
         </div>
       </div>
 
       <div
         style={{
-          opacity: toggled ? 0 : 100,
-          visibility: toggled ? "hidden" : "visible",
+          opacity: isShown ? 100 : 0,
+          visibility: isShown ? "visible" : "hidden",
           transition: "all 0.2s ease-in-out",
         }}
       >
@@ -58,7 +88,7 @@ export const DropdownList: React.FC<DropdownListProp> = ({
                 onClick={() => onClickOption(item.value)}
               >
                 <span style={{ fontWeight: value === item.value ? 700 : 400 }}>
-                  {item.value}
+                  {item.name}
                 </span>
               </li>
             );

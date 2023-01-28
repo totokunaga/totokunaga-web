@@ -1,6 +1,6 @@
 import { DropdownItem } from "@components/common/DropdownList";
 import { aStar, bfs, bidirectional, dfs } from "./algorithms";
-import { Pathfinding, PathfindingFunction } from "./types";
+import { Pathfinding, PathfindingFunction, Speed } from "./types";
 
 export const ROWS = [0, -1, 0, 1];
 export const COLS = [1, 0, -1, 0];
@@ -28,6 +28,21 @@ export const pathfindingNames: Record<Pathfinding, string> = {
 export const algorithmOptions: DropdownItem<string>[] = [
   { name: "BFS", value: pathfindingNames.BFS },
   { name: "DFS", value: pathfindingNames.DFS },
-  { name: "AStar", value: pathfindingNames["A*"] },
+  { name: "A*", value: pathfindingNames["A*"] },
   { name: "Bidirectional", value: pathfindingNames.Bidirectional },
+];
+
+export const speedAmounts: Record<Speed, number> = {
+  "Super Fast": 0.05,
+  Fast: 1,
+  Normal: 2.5,
+  Slow: 10,
+  "Super Slow": 20,
+};
+export const speedOptions: DropdownItem<Speed>[] = [
+  { name: "Super Fast", value: "Super Fast" },
+  { name: "Fast", value: "Fast" },
+  { name: "Normal", value: "Normal" },
+  { name: "Slow", value: "Slow" },
+  { name: "Super Slow", value: "Super Slow" },
 ];

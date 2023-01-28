@@ -21,6 +21,7 @@ const Grid: React.FC<GridProp> = (props) => {
     colSize,
     cellSize = CELL_SIZE,
     pathfindingAlgorithm,
+    algorithmSpeed,
     algorithmExecuted,
     setAlgorithmExecuted,
     clearExecuted,
@@ -74,7 +75,7 @@ const Grid: React.FC<GridProp> = (props) => {
       visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
           onColored(coordinate, CELL_MARKED);
-        }, i * MARK_DELAY);
+        }, i * algorithmSpeed);
       });
 
       if (!prevs[end.row][end.col]) {
@@ -98,7 +99,7 @@ const Grid: React.FC<GridProp> = (props) => {
             if (i === pathSize - 1) {
               setAlgorithmExecuted(false);
             }
-          }, visitedCells.length * MARK_DELAY + (pathSize - i - 1) * PATH_FOUND_DELAY);
+          }, visitedCells.length * algorithmSpeed + (pathSize - i - 1) * PATH_FOUND_DELAY);
         });
       }
     }

@@ -8,5 +8,6 @@ export type DropdownListProp<T = any> = {
   value: T;
   items: DropdownItem<T>[];
   disabled?: boolean;
+  isMobile?: boolean;
   optionHandler: (value: T) => any;
 };

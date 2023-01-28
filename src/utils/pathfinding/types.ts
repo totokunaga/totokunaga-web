@@ -8,3 +8,5 @@ export type PathfindingFunction = (
   start: Coordinate,
   end: Coordinate
 ) => [CellInfo[], (Coordinate | null)[][]];
+
+export type Speed = "Super Fast" | "Fast" | "Normal" | "Slow" | "Super Slow";

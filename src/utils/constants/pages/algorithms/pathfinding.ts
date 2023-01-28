@@ -3,8 +3,9 @@ import { pages } from "../global";
 export const pageInfo = pages.algorithms.pathfinding;
 export const pathfindingText = {
   startButton: "Start",
-  clearButton: "Clear Blocks",
-  dropdownListTitle: "Algorithm",
+  clearButton: "Clear Grid",
+  dropdownListAlgorithm: "Algorithm",
+  dropdownListSpeed: "Speed",
 };
 
 // html tag `id`s

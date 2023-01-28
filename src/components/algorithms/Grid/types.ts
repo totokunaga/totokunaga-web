@@ -11,6 +11,7 @@ export type GridProp = {
     start: Coordinate,
     end: Coordinate
   ) => [CellInfo[], (Coordinate | null)[][]];
+  algorithmSpeed: number;
   algorithmExecuted: boolean;
   setAlgorithmExecuted: Dispatch<SetStateAction<boolean>>;
   clearExecuted: boolean;
