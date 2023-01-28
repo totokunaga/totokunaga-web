@@ -47,19 +47,10 @@ const Grid: React.FC<GridProp> = (props) => {
     [grid, algorithmExecuted]
   );
 
-  const onMarked = useCallback(
-    (coordinate: Coordinate) => {
+  const onColored = useCallback(
+    (coordinate: Coordinate, color: number) => {
       const { row, col } = coordinate;
-      grid[row][col] = CELL_MARKED;
-      setGrid([...grid]);
-    },
-    [grid]
-  );
-
-  const onPassed = useCallback(
-    (coordinate: Coordinate) => {
-      const { row, col } = coordinate;
-      grid[row][col] = CELL_IN_PATH;
+      grid[row][col] = color;
       setGrid([...grid]);
     },
     [grid]
@@ -78,7 +69,7 @@ const Grid: React.FC<GridProp> = (props) => {
       const [visitedCells, prevs] = pathfindingAlgorithm(grid, start, end);
       visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
-          onMarked(coordinate);
+          onColored(coordinate, CELL_MARKED);
         }, i * MARK_DELAY);
       });
 
@@ -99,7 +90,7 @@ const Grid: React.FC<GridProp> = (props) => {
         const pathSize = cellsInPath.length;
         cellsInPath.forEach((coordinate, i) => {
           setTimeout(() => {
-            onPassed(coordinate);
+            onColored(coordinate, CELL_IN_PATH);
             if (i === pathSize - 1) {
               setAlgorithmExecuted(false);
             }
