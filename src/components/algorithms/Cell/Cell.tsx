@@ -1,4 +1,4 @@
-import styles from "@styles/algorithm.module.css";
+import styles from "./cell.module.css";
 import Image from "next/image";
 import { Arrow } from "../Arrow";
 import { CellProp } from "./types";

@@ -1,4 +1,4 @@
-export class MinHeap<T> {
+class MinHeap<T> {
   heap: T[];
   isLessThan: (one: T, two: T) => boolean;
 
@@ -78,3 +78,5 @@ export class MinHeap<T> {
     heap[j] = temp;
   }
 }
+
+export default MinHeap;

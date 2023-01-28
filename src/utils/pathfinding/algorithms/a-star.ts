@@ -1,5 +1,5 @@
 import Coordinate from "@utils/classes/Coordinate";
-import { MinHeap } from "@utils/data-structure/MinHeap";
+import MinHeap from "@utils/classes/MinHeap";
 import { initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "../constants";
 import { isValidCell } from "../functions";
@@ -36,6 +36,13 @@ export const aStar = (
     visitedCells.push([coordinate, prev]);
     prevs[row][col] = prev || start;
     if (coordinate.isEqual(end)) {
+      while (heap.size() > 0) {
+        const [cellInfo] = heap.pop() as WeightedCoordinate;
+        const [remainedCoordinate, remainedPrev] = cellInfo;
+        if (!prevs[remainedCoordinate.row][remainedCoordinate.col]) {
+          visitedCells.push([remainedCoordinate, remainedPrev]);
+        }
+      }
       return [visitedCells, prevs];
     }
 
