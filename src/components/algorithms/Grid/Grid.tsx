@@ -116,7 +116,7 @@ const Grid: React.FC<GridProp> = (props) => {
         cellsInPath.forEach((coordinate, i) => {
           setTimeout(() => {
             onColored(coordinate, CELL_IN_PATH);
-            if (i === pathSize - 1) {
+            if (i === 0) {
               setAlgorithmExecuted(false);
             }
           }, visitedCells.length * algorithmSpeed + (pathSize - i - 1) * PATH_FOUND_DELAY);
