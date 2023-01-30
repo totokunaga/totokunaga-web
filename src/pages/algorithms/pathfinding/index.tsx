@@ -19,11 +19,13 @@ import {
 import ControlSection from "@components/algorithms/ControlSection";
 import { useDispatch } from "react-redux";
 import { setWidth } from "@utils/slices";
+import { getStripeSize } from "@utils/functions";
 
 const AlgorithmHome: React.FC = () => {
   const { width, height } = useWindowSize();
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
+  const [cellSize, setCellSize] = useState(0);
   const [algorithm, setAlgorithm] = useState<Pathfinding>("BFS");
   const [algorithmSpeed, setAlgorithmSpeed] = useState<Speed>("Normal");
   const [algorithmExecuted, setAlgorithmExecuted] = useState(false);
@@ -66,16 +68,17 @@ const AlgorithmHome: React.FC = () => {
       const pageWidth = pathfindingPage?.clientWidth || 0;
       const topHeight = pathfindingConfig?.clientHeight || 0;
 
-      const gridHeight = height - topHeight;
+      const gridHeight = height - topHeight - 24;
       const gridWidth = pageWidth;
-      const colSize = gridWidth / CELL_SIZE;
-      const rowSize = Math.max(gridHeight / CELL_SIZE, 15);
+      const [cellSize, colSize] = getStripeSize(gridWidth, CELL_SIZE);
+      const rowSize = Math.max(Math.floor(gridHeight / cellSize), 15);
+      setCellSize(cellSize);
       setColSize(Math.floor(colSize) - 1);
       setRowSize(Math.floor(rowSize) - 1);
 
       dispatch(setWidth(width));
     }
-  }, [width, height, algorithmExecuted]);
+  }, [width, height]);
 
   return (
     <>
@@ -94,20 +97,19 @@ const AlgorithmHome: React.FC = () => {
               algorithmExecuted={algorithmExecuted}
             />
           </div>
-          <div className={style.horizontallyAligned}>
-            <Grid
-              rowSize={rowSize}
-              colSize={colSize}
-              pathfindingAlgorithm={pathfindingAlgorithms[algorithm]}
-              algorithmSpeed={speedAmounts[algorithmSpeed]}
-              algorithmExecuted={algorithmExecuted}
-              setAlgorithmExecuted={setAlgorithmExecuted}
-              clearExecuted={clearExecuted}
-              setClearExecuted={setClearExecuted}
-              unmarkExecuted={unmarkExecuted}
-              setUnmarkExecuted={setUnmarkExecuted}
-            />
-          </div>
+          <Grid
+            rowSize={rowSize}
+            colSize={colSize}
+            cellSize={cellSize}
+            pathfindingAlgorithm={pathfindingAlgorithms[algorithm]}
+            algorithmSpeed={speedAmounts[algorithmSpeed]}
+            algorithmExecuted={algorithmExecuted}
+            setAlgorithmExecuted={setAlgorithmExecuted}
+            clearExecuted={clearExecuted}
+            setClearExecuted={setClearExecuted}
+            unmarkExecuted={unmarkExecuted}
+            setUnmarkExecuted={setUnmarkExecuted}
+          />
         </div>
       </div>
     </>

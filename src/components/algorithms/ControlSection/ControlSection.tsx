@@ -13,8 +13,6 @@ import {
   Speed,
   speedOptions,
 } from "@utils/pathfinding";
-import { selectWindow } from "@utils/slices";
-import { useSelector } from "react-redux";
 import { Cell, cellTypes } from "../Cell";
 import Triangle from "../Triangle";
 
@@ -35,10 +33,8 @@ const ControlSection: React.FC<{
   algorithmSpeed,
   algorithmExecuted,
 }) => {
-  const { deviceType } = useSelector(selectWindow);
-
   return (
-    <div className={`${deviceType === "DESKTOP" && style.horizontallyAligned}`}>
+    <div className={style.mobileHorizontallyAligned}>
       <div className={style.horizontallyAligned}>
         <Button
           onClick={onStartClick}

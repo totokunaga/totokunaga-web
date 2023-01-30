@@ -180,7 +180,10 @@ const Grid: React.FC<GridProp> = (props) => {
   return (
     <div>
       {grid.map((row, r) => (
-        <div key={r} style={{ display: "flex" }}>
+        <div
+          key={r}
+          style={{ display: "flex", justifyContent: "space-evenly" }}
+        >
           {row.map((type, c) => {
             const coordinate = new Coordinate(r, c, grid);
             const isStart = start.isEqual(coordinate);

@@ -3,17 +3,21 @@
   font-size: 16px;
   color: var(--navy-color);
 }
+.horizontallyAligned,
+.mobileHorizontallyAligned {
+  display: flex;
+  align-items: center;
+}
 
-@media (max-width: 520px) {
+@media (max-width: 960px) {
   .root {
     padding: 12px;
     font-size: 14px;
   }
-}
-
-.horizontallyAligned {
-  display: flex;
-  align-items: center;
+  .mobileHorizontallyAligned {
+    display: unset;
+    align-items: unset;
+  }
 }
 
 .description {
