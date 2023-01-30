@@ -41,7 +41,7 @@ export const DropdownList: React.FC<DropdownListProp> = ({
       value={value}
       onChange={(e) => !disabled && onClickOption(e.target.value)}
       style={{
-        margin: "8px 0 8px 8px",
+        margin: "8px 8px 8px 0px",
         cursor: disabled ? "not-allowed" : "pointer",
       }}
       disabled={disabled}
@@ -61,7 +61,7 @@ export const DropdownList: React.FC<DropdownListProp> = ({
         className={style.selectButton}
         onClick={disabled ? () => {} : onClickSelectButton}
         style={{
-          margin: "8px 0 8px 8px",
+          margin: "0px 8px 8px 0px",
           cursor: disabled ? "not-allowed" : "pointer",
         }}
       >

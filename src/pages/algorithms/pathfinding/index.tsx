@@ -17,8 +17,10 @@ import {
   pathfindingPageId,
 } from "@utils/constants";
 import ControlSection from "@components/algorithms/ControlSection";
+import { useDispatch } from "react-redux";
+import { setWidth } from "@utils/slices";
 
-const AlgorithmHome = () => {
+const AlgorithmHome: React.FC = () => {
   const { width, height } = useWindowSize();
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
@@ -27,6 +29,8 @@ const AlgorithmHome = () => {
   const [algorithmExecuted, setAlgorithmExecuted] = useState(false);
   const [clearExecuted, setClearExecuted] = useState(false);
   const [unmarkExecuted, setUnmarkExecuted] = useState(false);
+
+  const dispatch = useDispatch();
 
   const onStartClick = useCallback(() => {
     if (!algorithmExecuted) {
@@ -55,7 +59,7 @@ const AlgorithmHome = () => {
   }, []);
 
   useEffect(() => {
-    if (width && height) {
+    if (!algorithmExecuted && width && height) {
       const d = document;
       const pathfindingPage = d.getElementById(pathfindingPageId);
       const pathfindingConfig = d.getElementById(pathfindingConfigId);
@@ -65,11 +69,13 @@ const AlgorithmHome = () => {
       const gridHeight = height - topHeight;
       const gridWidth = pageWidth;
       const colSize = gridWidth / CELL_SIZE;
-      const rowSize = gridHeight / CELL_SIZE;
+      const rowSize = Math.max(gridHeight / CELL_SIZE, 15);
       setColSize(Math.floor(colSize) - 1);
       setRowSize(Math.floor(rowSize) - 1);
+
+      dispatch(setWidth(width));
     }
-  }, [width, height]);
+  }, [width, height, algorithmExecuted]);
 
   return (
     <>
@@ -77,7 +83,7 @@ const AlgorithmHome = () => {
       <div className={style.root}>
         <div id={pathfindingPageId}>
           <div id={pathfindingConfigId}>
-            <h2>{pageInfo.headerTitle}</h2>
+            <h2 style={{ marginBottom: 8 }}>{pageInfo.headerTitle}</h2>
             <ControlSection
               onStartClick={onStartClick}
               onClearClick={onClearClick}

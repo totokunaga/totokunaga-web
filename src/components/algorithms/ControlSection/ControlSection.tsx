@@ -13,6 +13,8 @@ import {
   Speed,
   speedOptions,
 } from "@utils/pathfinding";
+import { selectWindow } from "@utils/slices";
+import { useSelector } from "react-redux";
 import { Cell, cellTypes } from "../Cell";
 import Triangle from "../Triangle";
 
@@ -33,46 +35,52 @@ const ControlSection: React.FC<{
   algorithmSpeed,
   algorithmExecuted,
 }) => {
-  return (
-    <div className={style.horizontallyAligned}>
-      <Button
-        onClick={onStartClick}
-        type={buttonType.FLAT}
-        colorType={buttonColor.PINK}
-        margin={"8px 0"}
-      >
-        <div className={style.horizontallyAligned}>
-          <div style={{ margin: "0 15px 5px 0" }}>
-            <Triangle />
-          </div>
-          <span>{pathfindingText.startButton}</span>
-        </div>
-      </Button>
-      <Button
-        onClick={onClearClick}
-        type={buttonType.FLAT}
-        colorType={buttonColor.NAVY}
-        margin={"8px 0 8px 8px"}
-        fontWeight={400}
-      >
-        {pathfindingText.clearButton}
-      </Button>
-      <DropdownList
-        title={pathfindingText.dropdownListAlgorithm}
-        value={algorithm}
-        items={algorithmOptions}
-        disabled={algorithmExecuted}
-        optionHandler={onChangeAlgorithm}
-      />
-      <DropdownList
-        title={pathfindingText.dropdownListSpeed}
-        value={algorithmSpeed}
-        items={speedOptions}
-        disabled={algorithmExecuted}
-        optionHandler={onChangeAlgorithmSpeed}
-      />
+  const { deviceType } = useSelector(selectWindow);
 
-      <div style={{ display: "flex", margin: "8px 0 8px 8px" }}>
+  return (
+    <div className={`${deviceType === "DESKTOP" && style.horizontallyAligned}`}>
+      <div className={style.horizontallyAligned}>
+        <Button
+          onClick={onStartClick}
+          type={buttonType.FLAT}
+          colorType={buttonColor.PINK}
+          margin={"0px 8px 8px 0px"}
+        >
+          <div className={style.horizontallyAligned}>
+            <div style={{ margin: "0 15px 5px 0" }}>
+              <Triangle />
+            </div>
+            <span>{pathfindingText.startButton}</span>
+          </div>
+        </Button>
+        <Button
+          onClick={onClearClick}
+          type={buttonType.FLAT}
+          colorType={buttonColor.NAVY}
+          margin={"0px 8px 8px 0px"}
+          fontWeight={400}
+        >
+          {pathfindingText.clearButton}
+        </Button>
+      </div>
+      <div className={style.horizontallyAligned}>
+        <DropdownList
+          title={pathfindingText.dropdownListAlgorithm}
+          value={algorithm}
+          items={algorithmOptions}
+          disabled={algorithmExecuted}
+          optionHandler={onChangeAlgorithm}
+        />
+        <DropdownList
+          title={pathfindingText.dropdownListSpeed}
+          value={algorithmSpeed}
+          items={speedOptions}
+          disabled={algorithmExecuted}
+          optionHandler={onChangeAlgorithmSpeed}
+        />
+      </div>
+
+      <div style={{ display: "flex", margin: "0px 8px 8px 0px" }}>
         {cellTypes.map(
           ({ type, name }, i) =>
             i > 1 && ( // TODO: Stop using a magic number

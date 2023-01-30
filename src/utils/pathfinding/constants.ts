@@ -33,16 +33,20 @@ export const algorithmOptions: DropdownItem<string>[] = [
 ];
 
 export const speedAmounts: Record<Speed, number> = {
-  "Super Fast": 0.05,
-  Fast: 1,
-  Normal: 2.5,
-  Slow: 10,
-  "Super Slow": 20,
+  "2.0": 1,
+  "1.5": 2,
+  "1.25": 2.4,
+  Normal: 3,
+  "0.75": 4,
+  "0.5": 6,
+  "0.1": 30,
 };
 export const speedOptions: DropdownItem<Speed>[] = [
-  { name: "Super Fast", value: "Super Fast" },
-  { name: "Fast", value: "Fast" },
+  { name: "2.0", value: "2.0" },
+  { name: "1.5", value: "1.5" },
+  { name: "1.25", value: "1.25" },
   { name: "Normal", value: "Normal" },
-  { name: "Slow", value: "Slow" },
-  { name: "Super Slow", value: "Super Slow" },
+  { name: "0.75", value: "0.75" },
+  { name: "0.5", value: "0.5" },
+  { name: "0.1", value: "0.1" },
 ];
