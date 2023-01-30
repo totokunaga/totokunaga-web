@@ -54,8 +54,6 @@ const AlgorithmHome = () => {
     setAlgorithmSpeed(value);
   }, []);
 
-  useEffect(() => console.log(algorithmExecuted), [algorithmExecuted]);
-
   useEffect(() => {
     if (width && height) {
       const d = document;

@@ -1,6 +1,14 @@
 .root {
   padding: 16px;
+  font-size: 16px;
   color: var(--navy-color);
+}
+
+@media (max-width: 520px) {
+  .root {
+    padding: 12px;
+    font-size: 14px;
+  }
 }
 
 .horizontallyAligned {
