@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "@styles/default.module.css";
+import styles from "@styles/default.module.scss";
 import Link from "next/link";
 
 const Index = () => {

@@ -1,4 +1,4 @@
-import style from "./triangle.module.css";
+import style from "./triangle.module.scss";
 
 const Triangle: React.FC = () => {
   return (

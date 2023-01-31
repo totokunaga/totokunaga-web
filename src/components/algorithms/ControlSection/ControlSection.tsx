@@ -5,7 +5,7 @@ import {
   DropdownList,
   Modal,
 } from "@components/common";
-import style from "@styles/default.module.css";
+import style from "@styles/default.module.scss";
 import { pathfindingText } from "@utils/constants";
 import {
   algorithmOptions,
@@ -14,13 +14,15 @@ import {
   Speed,
   speedOptions,
 } from "@utils/pathfinding";
+import { ClearableCellType } from "@utils/types";
 import { useEffect, useState } from "react";
 import { Cell, cellTypes } from "../Cell";
+import { ClearModalContent } from "../ClearModalContent";
 import Triangle from "../Triangle";
 
 const ControlSection: React.FC<{
   onStartClick: () => void;
-  onClearClick: () => void;
+  onClearClick: (cleared: Record<ClearableCellType, boolean>) => void;
   onChangeAlgorithm: (value: Pathfinding) => void;
   onChangeAlgorithmSpeed: (value: Speed) => void;
   algorithm: any;
@@ -36,9 +38,6 @@ const ControlSection: React.FC<{
   algorithmExecuted,
 }) => {
   const [isShown, setShown] = useState(false);
-  useEffect(() => {
-    console.log(isShown);
-  }, [isShown]);
 
   return (
     <div className={style.mobileHorizontallyAligned}>
@@ -58,7 +57,6 @@ const ControlSection: React.FC<{
         </Button>
         <Button
           onClick={() => {
-            onClearClick();
             setShown(true);
           }}
           type={buttonType.FLAT}
@@ -87,19 +85,19 @@ const ControlSection: React.FC<{
       </div>
 
       <div style={{ display: "flex", margin: "0px 8px 8px 0px" }}>
-        {cellTypes.map(
-          ({ type, name }, i) =>
-            i > 1 && ( // TODO: Stop using a magic number
-              <div key={type} className={style.horizontallyAligned}>
-                <Cell size={0.8 * CELL_SIZE} status={type} disabled={true} />
-                <span style={{ margin: "0px 10px 0px 5px" }}>{name}</span>
-              </div>
-            )
-        )}
+        {cellTypes.map(({ type, name }, i) => (
+          <div key={type} className={style.horizontallyAligned}>
+            <Cell size={0.8 * CELL_SIZE} status={type} disabled={true} />
+            <span style={{ margin: "0px 10px 0px 5px" }}>{name}</span>
+          </div>
+        ))}
       </div>
 
       <Modal isShown={isShown} onClose={() => setShown(false)}>
-        {"hello"}
+        <ClearModalContent
+          onClearClick={onClearClick}
+          onClose={() => setShown(false)}
+        />
       </Modal>
     </div>
   );

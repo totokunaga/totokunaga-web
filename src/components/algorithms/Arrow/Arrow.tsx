@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import style from "./arrow.module.css";
+import style from "./arrow.module.scss";
 
 type Direction = "right" | "left" | "up" | "down";
 

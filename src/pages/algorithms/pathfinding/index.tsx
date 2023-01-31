@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import style from "@styles/default.module.css";
+import style from "@styles/default.module.scss";
 import Grid from "@components/algorithms/Grid/Grid";
 import {
   CELL_SIZE,

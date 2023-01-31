@@ -1,10 +1,11 @@
-import styles from "./cell.module.css";
+import styles from "./cell.module.scss";
 import Image from "next/image";
 import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
 import StarImage from "@assets/star.svg";
 import { useCallback, useMemo } from "react";
 import Coordinate from "@utils/classes/Coordinate";
+import { ClearableCellType } from "@utils/types";
 
 const cellStyle = [
   styles.cell,
@@ -19,9 +20,7 @@ export const CELL_BLOCKED = 1;
 export const CELL_MARKED = 2;
 export const CELL_IN_PATH = 3;
 export const CELL_SELECTED = 4;
-export const cellTypes = [
-  { type: CELL_SELECTED, name: "Selected" },
-  { type: CELL_EMPTY, name: "Empty" },
+export const cellTypes: Array<{ type: number; name: ClearableCellType }> = [
   { type: CELL_BLOCKED, name: "Blocked" },
   { type: CELL_MARKED, name: "Visited" },
   { type: CELL_IN_PATH, name: "Path" },

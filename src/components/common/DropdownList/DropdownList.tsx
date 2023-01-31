@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { DropdownListProp } from "./type";
-import style from "./dropdownlist.module.css";
+import style from "./dropdownlist.module.scss";
 import { Arrow } from "@components/algorithms";
 
 export const DropdownList: React.FC<DropdownListProp> = ({

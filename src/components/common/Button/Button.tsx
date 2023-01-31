@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./button.module.css";
+import style from "./button.module.scss";
 import { buttonColor, ButtonColor, ButtonProp, ButtonType } from "./interfaces";
 
 const buttonClasses: Record<ButtonType, string> = {
