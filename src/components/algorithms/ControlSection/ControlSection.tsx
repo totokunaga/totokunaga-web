@@ -3,6 +3,7 @@ import {
   buttonColor,
   buttonType,
   DropdownList,
+  Modal,
 } from "@components/common";
 import style from "@styles/default.module.css";
 import { pathfindingText } from "@utils/constants";
@@ -13,6 +14,7 @@ import {
   Speed,
   speedOptions,
 } from "@utils/pathfinding";
+import { useEffect, useState } from "react";
 import { Cell, cellTypes } from "../Cell";
 import Triangle from "../Triangle";
 
@@ -33,6 +35,11 @@ const ControlSection: React.FC<{
   algorithmSpeed,
   algorithmExecuted,
 }) => {
+  const [isShown, setShown] = useState(false);
+  useEffect(() => {
+    console.log(isShown);
+  }, [isShown]);
+
   return (
     <div className={style.mobileHorizontallyAligned}>
       <div className={style.horizontallyAligned}>
@@ -50,7 +57,10 @@ const ControlSection: React.FC<{
           </div>
         </Button>
         <Button
-          onClick={onClearClick}
+          onClick={() => {
+            onClearClick();
+            setShown(true);
+          }}
           type={buttonType.FLAT}
           colorType={buttonColor.NAVY}
           margin={"0px 8px 8px 0px"}
@@ -87,6 +97,10 @@ const ControlSection: React.FC<{
             )
         )}
       </div>
+
+      <Modal isShown={isShown} onClose={() => setShown(false)}>
+        {"hello"}
+      </Modal>
     </div>
   );
 };

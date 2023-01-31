@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import style from "@styles/default.module.css";
 import Grid from "@components/algorithms/Grid/Grid";
@@ -17,7 +18,6 @@ import {
   pathfindingPageId,
 } from "@utils/constants";
 import ControlSection from "@components/algorithms/ControlSection";
-import { useDispatch } from "react-redux";
 import { setWidth } from "@utils/slices";
 import { getStripeSize } from "@utils/functions";
 
@@ -68,7 +68,7 @@ const AlgorithmHome: React.FC = () => {
       const pageWidth = pathfindingPage?.clientWidth || 0;
       const topHeight = pathfindingConfig?.clientHeight || 0;
 
-      const gridHeight = height - topHeight - 24;
+      const gridHeight = height - topHeight - 16;
       const gridWidth = pageWidth;
       const [cellSize, colSize] = getStripeSize(gridWidth, CELL_SIZE);
       const rowSize = Math.max(Math.floor(gridHeight / cellSize), 15);
@@ -78,7 +78,7 @@ const AlgorithmHome: React.FC = () => {
 
       dispatch(setWidth(width));
     }
-  }, [width, height]);
+  }, [width]);
 
   return (
     <>
