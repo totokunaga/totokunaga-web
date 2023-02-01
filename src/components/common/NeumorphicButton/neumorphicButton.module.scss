@@ -14,7 +14,7 @@ $inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
   cursor: pointer;
   transition: 0.3s ease;
   border: none;
-  background-color: #f3f6fa;
+  background-color: var(--greyLight-1);
   transition: all 0.15s ease-in-out;
 
   color: var(--primary);

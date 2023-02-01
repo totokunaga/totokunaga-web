@@ -113,7 +113,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
-  background-color: rgb(240, 240, 240);
+  background-color: var(--greyLight-1);
 }
 
 a {

@@ -3,13 +3,7 @@ import { useDispatch } from "react-redux";
 
 import style from "@styles/default.module.scss";
 import Grid from "@components/algorithms/Grid/Grid";
-import {
-  CELL_SIZE,
-  Pathfinding,
-  pathfindingAlgorithms,
-  Speed,
-  speedAmounts,
-} from "@utils/pathfinding";
+import { CELL_SIZE } from "@utils/pathfinding";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
 import {
@@ -26,10 +20,7 @@ const AlgorithmHome: React.FC = () => {
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
   const [cellSize, setCellSize] = useState(0);
-  const [algorithm, setAlgorithm] = useState<Pathfinding>("BFS");
-  const [algorithmSpeed, setAlgorithmSpeed] = useState<Speed>("Normal");
   const [algorithmExecuted, setAlgorithmExecuted] = useState(false);
-  const [clearExecuted, setClearExecuted] = useState(false);
   const [unmarkExecuted, setUnmarkExecuted] = useState(false);
 
   const dispatch = useDispatch();
@@ -39,26 +30,6 @@ const AlgorithmHome: React.FC = () => {
       setAlgorithmExecuted(!algorithmExecuted);
     }
   }, [algorithmExecuted]);
-
-  const onClearClick = useCallback(() => {
-    if (!clearExecuted) {
-      setClearExecuted(!clearExecuted);
-    }
-  }, [clearExecuted]);
-
-  const onChangeAlgorithm = useCallback(
-    (value: Pathfinding) => {
-      setAlgorithm(value);
-      if (!unmarkExecuted) {
-        setUnmarkExecuted(!unmarkExecuted);
-      }
-    },
-    [unmarkExecuted, setUnmarkExecuted]
-  );
-
-  const onChangeAlgorithmSpeed = useCallback((value: Speed) => {
-    setAlgorithmSpeed(value);
-  }, []);
 
   useEffect(() => {
     if (!algorithmExecuted && width && height) {
@@ -89,11 +60,6 @@ const AlgorithmHome: React.FC = () => {
             <h2 style={{ marginBottom: 8 }}>{pageInfo.headerTitle}</h2>
             <ControlSection
               onStartClick={onStartClick}
-              onClearClick={onClearClick}
-              onChangeAlgorithm={onChangeAlgorithm}
-              onChangeAlgorithmSpeed={onChangeAlgorithmSpeed}
-              algorithm={algorithm}
-              algorithmSpeed={algorithmSpeed}
               algorithmExecuted={algorithmExecuted}
             />
           </div>
@@ -101,12 +67,8 @@ const AlgorithmHome: React.FC = () => {
             rowSize={rowSize}
             colSize={colSize}
             cellSize={cellSize}
-            pathfindingAlgorithm={pathfindingAlgorithms[algorithm]}
-            algorithmSpeed={speedAmounts[algorithmSpeed]}
             algorithmExecuted={algorithmExecuted}
             setAlgorithmExecuted={setAlgorithmExecuted}
-            clearExecuted={clearExecuted}
-            setClearExecuted={setClearExecuted}
             unmarkExecuted={unmarkExecuted}
             setUnmarkExecuted={setUnmarkExecuted}
           />

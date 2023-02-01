@@ -23,8 +23,8 @@
 .modal_content {
   width: 55vw;
   max-width: 960px;
-  background-color: #f3f6fa;
-  border: solid 1px #f3f6fa;
+  background-color: var(--greyLight-1);
+  border: solid 1px var(--greyLight-1);
   border-radius: 5px;
   padding: 24px;
   box-shadow: 10px 14px 33px 7px rgba(80, 80, 80, 0.7);

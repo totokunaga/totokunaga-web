@@ -14,30 +14,36 @@ import {
   Speed,
   speedOptions,
 } from "@utils/pathfinding";
-import { ClearableCellType } from "@utils/types";
-import { useEffect, useState } from "react";
+import {
+  selectPathfindingController,
+  setPathfindingAlgorithm,
+  setPathfindingAlgorithmSpeed,
+} from "@utils/slices";
+import { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Cell, cellTypes } from "../Cell";
 import { ClearModalContent } from "../ClearModalContent";
 import Triangle from "../Triangle";
 
 const ControlSection: React.FC<{
   onStartClick: () => void;
-  onClearClick: (cleared: Record<ClearableCellType, boolean>) => void;
-  onChangeAlgorithm: (value: Pathfinding) => void;
-  onChangeAlgorithmSpeed: (value: Speed) => void;
-  algorithm: any;
-  algorithmSpeed: Speed;
   algorithmExecuted: boolean;
-}> = ({
-  onStartClick,
-  onClearClick,
-  onChangeAlgorithm,
-  onChangeAlgorithmSpeed,
-  algorithm,
-  algorithmSpeed,
-  algorithmExecuted,
-}) => {
+}> = ({ onStartClick, algorithmExecuted }) => {
   const [isShown, setShown] = useState(false);
+
+  const dispatch = useDispatch();
+  const { algorithm, algorithmSpeed } = useSelector(
+    selectPathfindingController
+  );
+
+  const onChangeAlgorithm = useCallback((value: Pathfinding) => {
+    dispatch(setPathfindingAlgorithm(value));
+  }, []);
+
+  const onChangeAlgorithmSpeed = useCallback((value: Speed) => {
+    dispatch(setPathfindingAlgorithmSpeed(value));
+  }, []);
 
   return (
     <div className={style.mobileHorizontallyAligned}>
@@ -94,10 +100,7 @@ const ControlSection: React.FC<{
       </div>
 
       <Modal isShown={isShown} onClose={() => setShown(false)}>
-        <ClearModalContent
-          onClearClick={onClearClick}
-          onClose={() => setShown(false)}
-        />
+        <ClearModalContent onClose={() => setShown(false)} />
       </Modal>
     </div>
   );

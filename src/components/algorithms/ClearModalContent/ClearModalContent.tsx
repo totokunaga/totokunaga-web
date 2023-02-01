@@ -1,25 +1,29 @@
 import { Cell, cellTypes } from "../Cell";
 import defaultStyle from "@styles/default.module.scss";
 import { Checkbox, NeumorphicButton } from "@components/common";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { ClearableCellType } from "@utils/types";
+import { useSelector } from "react-redux";
+import {
+  selectPathfindingController,
+  setClearableCells,
+  setClearExecuted,
+} from "@utils/slices";
+import { useDispatch } from "react-redux";
 
 export const ClearModalContent: React.FC<{
-  onClearClick: (checked: Record<ClearableCellType, boolean>) => any;
   onClose: () => void;
-}> = ({ onClearClick, onClose }) => {
-  const [checked, setChecked] = useState<Record<ClearableCellType, boolean>>({
-    Blocked: false,
-    Visited: true,
-    Path: true,
-  });
+}> = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const { clearableCells } = useSelector(selectPathfindingController);
 
   const onChecked = useCallback(
     (value: ClearableCellType) => {
-      checked[value] = !checked[value];
-      setChecked({ ...checked });
+      const newClearableCells = { ...clearableCells };
+      newClearableCells[value] = !clearableCells[value];
+      dispatch(setClearableCells(newClearableCells));
     },
-    [checked]
+    [clearableCells]
   );
 
   return (
@@ -35,7 +39,7 @@ export const ClearModalContent: React.FC<{
           style={{ marginBottom: 8 }}
         >
           <Checkbox
-            checked={checked[name]}
+            checked={clearableCells[name]}
             onChecked={() => onChecked(name)}
             value={0}
           />
@@ -52,7 +56,7 @@ export const ClearModalContent: React.FC<{
       <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
         <NeumorphicButton
           onClick={() => {
-            onClearClick(checked);
+            dispatch(setClearExecuted(true));
             onClose();
           }}
           fontSize={16}

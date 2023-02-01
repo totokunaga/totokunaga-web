@@ -1,10 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { timeoutSlice, gridSlice, windowSlice } from "./algorithms/pathfinding";
+import {
+  timeoutSlice,
+  gridSlice,
+  windowSlice,
+  pathfindingControllerSlice,
+} from "./algorithms/pathfinding";
 
 const rootReducer = combineReducers({
   timeout: timeoutSlice.reducer,
   grid: gridSlice.reducer,
   window: windowSlice.reducer,
+  pathfindingController: pathfindingControllerSlice.reducer,
 });
 
 export const store = configureStore({

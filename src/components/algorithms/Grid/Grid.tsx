@@ -1,6 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useDebugValue, useEffect, useState } from "react";
 
-import { CELL_SIZE, PATH_FOUND_DELAY } from "@utils/pathfinding/constants";
+import {
+  CELL_SIZE,
+  pathfindingAlgorithms,
+  speedAmounts,
+  PATH_FOUND_DELAY,
+} from "@utils/pathfinding/constants";
 import {
   Cell,
   CELL_BLOCKED,
@@ -12,18 +17,17 @@ import {
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
+import { useSelector } from "react-redux";
+import { selectPathfindingController, setClearExecuted } from "@utils/slices";
+import { useDispatch } from "react-redux";
 
 const Grid: React.FC<GridProp> = (props) => {
   const {
     rowSize,
     colSize,
     cellSize = CELL_SIZE,
-    pathfindingAlgorithm,
-    algorithmSpeed,
     algorithmExecuted,
     setAlgorithmExecuted,
-    clearExecuted,
-    setClearExecuted,
     unmarkExecuted,
     setUnmarkExecuted,
   } = props;
@@ -35,6 +39,10 @@ const Grid: React.FC<GridProp> = (props) => {
   );
   const [isStartFocused, setStartFocused] = useState(false);
   const [isEndFocused, setEndFocused] = useState(false);
+
+  const dispatch = useDispatch();
+  const { clearExecuted, clearableCells, algorithm, algorithmSpeed } =
+    useSelector(selectPathfindingController);
 
   const onClickCell = useCallback(
     (coordinate: Coordinate) => {
@@ -91,11 +99,15 @@ const Grid: React.FC<GridProp> = (props) => {
       );
       setGrid([...grid]);
 
-      const [visitedCells, prevs] = pathfindingAlgorithm(grid, start, end);
+      const [visitedCells, prevs] = pathfindingAlgorithms[algorithm](
+        grid,
+        start,
+        end
+      );
       visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
           onColored(coordinate, CELL_MARKED);
-        }, i * algorithmSpeed);
+        }, i * speedAmounts[algorithmSpeed]);
       });
 
       if (!prevs[end.row][end.col]) {
@@ -119,12 +131,13 @@ const Grid: React.FC<GridProp> = (props) => {
             if (i === 0) {
               setAlgorithmExecuted(false);
             }
-          }, visitedCells.length * algorithmSpeed + (pathSize - i - 1) * PATH_FOUND_DELAY);
+          }, visitedCells.length * speedAmounts[algorithmSpeed] + (pathSize - i - 1) * PATH_FOUND_DELAY);
         });
       }
     }
   }, [
-    pathfindingAlgorithm,
+    algorithm,
+    algorithmSpeed,
     algorithmExecuted,
     setAlgorithmExecuted,
     start,
@@ -134,11 +147,20 @@ const Grid: React.FC<GridProp> = (props) => {
   // When "Clear" button is hit
   useEffect(() => {
     if (clearExecuted) {
-      grid.forEach((r, i) => r.forEach((c, j) => (grid[i][j] = CELL_EMPTY)));
+      grid.forEach((r, i) =>
+        r.forEach((c, j) => {
+          if (clearableCells.Blocked && grid[i][j] === CELL_BLOCKED)
+            grid[i][j] = CELL_EMPTY;
+          else if (clearableCells.Visited && grid[i][j] === CELL_MARKED)
+            grid[i][j] = CELL_EMPTY;
+          else if (clearableCells.Path && grid[i][j] === CELL_IN_PATH)
+            grid[i][j] = CELL_EMPTY;
+        })
+      );
       setGrid([...grid]);
-      setClearExecuted(false);
+      dispatch(setClearExecuted(false));
     }
-  }, [clearExecuted, setClearExecuted]);
+  }, [clearExecuted]);
 
   // When non-blocked cell clear
   useEffect(() => {
