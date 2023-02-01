@@ -2,10 +2,10 @@ import styles from "./cell.module.scss";
 import Image from "next/image";
 import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
-import StarImage from "@assets/star.svg";
 import { useCallback, useMemo } from "react";
 import Coordinate from "@utils/classes/Coordinate";
 import { ClearableCellType } from "@utils/types";
+import { Icon } from "@components/common";
 
 const cellStyle = [
   styles.cell,
@@ -61,12 +61,7 @@ export const Cell: React.FC<CellProp> = ({
     >
       {isStart ? <Arrow /> : undefined}
       {isEnd ? (
-        <Image
-          alt={"star"}
-          src={StarImage}
-          width={symbolSize}
-          height={symbolSize}
-        />
+        <Icon icon={"star"} width={21} height={21} fill={"#F4BB44"} />
       ) : undefined}
     </div>
   );

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Pathfinding, Speed } from "@utils/pathfinding";
+import { Pathfinding } from "@utils/pathfinding";
 import { slicerNames } from "@utils/slices/slicerNames";
 import { RootState } from "@utils/slices/store";
 import { ClearableCellType } from "@utils/types";
@@ -8,7 +8,7 @@ type pathfindingControllerSliceProp = {
   clearableCells: Record<ClearableCellType, boolean>;
   clearExecuted: boolean;
   algorithm: Pathfinding;
-  algorithmSpeed: Speed;
+  algorithmSpeed: number;
   algorithmExecuted: boolean;
 };
 
@@ -21,7 +21,7 @@ export const pathfindingControllerSliceInitState: pathfindingControllerSliceProp
     },
     clearExecuted: false,
     algorithm: "BFS",
-    algorithmSpeed: "Normal",
+    algorithmSpeed: 1,
     algorithmExecuted: true,
   };
 
@@ -41,7 +41,7 @@ export const pathfindingControllerSlice = createSlice({
     setPathfindingAlgorithm: (state, action: PayloadAction<Pathfinding>) => {
       state.algorithm = action.payload;
     },
-    setPathfindingAlgorithmSpeed: (state, action: PayloadAction<Speed>) => {
+    setPathfindingAlgorithmSpeed: (state, action: PayloadAction<number>) => {
       state.algorithmSpeed = action.payload;
     },
     setPathfindingAlgorithmExecuted: (

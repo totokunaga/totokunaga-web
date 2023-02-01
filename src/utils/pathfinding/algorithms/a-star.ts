@@ -2,8 +2,8 @@ import Coordinate from "@utils/classes/Coordinate";
 import MinHeap from "@utils/classes/MinHeap";
 import { initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "../constants";
-import { isValidCell } from "../functions";
 import { CellInfo } from "../types";
+import { isValidCell } from "./helper-functions";
 
 type WeightedCoordinate = [CellInfo, number];
 const isLessThan = (one: WeightedCoordinate, two: WeightedCoordinate) => {

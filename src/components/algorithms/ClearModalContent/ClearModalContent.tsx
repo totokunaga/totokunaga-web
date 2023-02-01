@@ -1,6 +1,6 @@
 import { Cell, cellTypes } from "../Cell";
 import defaultStyle from "@styles/default.module.scss";
-import { Checkbox, NeumorphicButton } from "@components/common";
+import { Button, Checkbox } from "@components/common";
 import { useCallback } from "react";
 import { ClearableCellType } from "@utils/types";
 import { useSelector } from "react-redux";
@@ -53,15 +53,28 @@ export const ClearModalContent: React.FC<{
           </div>
         </div>
       ))}
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
-        <NeumorphicButton
+
+      <div
+        style={{ marginTop: 24, color: "rgba(0, 38, 91, 0.5)", fontSize: 14 }}
+      >
+        <p>
+          This prompt won't be shown from next time. You can update the clear
+          cell configuration from <b>"Algorithm" button</b> if needed
+        </p>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
+        <Button
           onClick={() => {
             dispatch(setClearExecuted(true));
             onClose();
           }}
           fontSize={16}
           fontWeight={700}
-        />
+          type={"normal"}
+        >
+          {"Clear selected cells"}
+        </Button>
       </div>
     </div>
   );

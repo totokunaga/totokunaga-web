@@ -1,8 +1,8 @@
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "../constants";
-import { isValidCell } from "../functions";
 import { CellInfo } from "../types";
+import { isValidCell } from "./helper-functions";
 
 const recursiveDFS = (
   grid: number[][],

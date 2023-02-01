@@ -1,35 +1,41 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import style from "./button.module.scss";
-import { buttonColor, ButtonColor, ButtonProp, ButtonType } from "./interfaces";
 
-const buttonClasses: Record<ButtonType, string> = {
-  text: style.textbutton,
-  flat: style.flatbutton,
-  floating: style.floatingbutton,
+type NeumorphicButtonProp = {
+  onClick?: () => any;
+  children?: ReactNode;
+  margin?: number | string;
+  padding?: number | string;
+  fontWeight?: number | string;
+  fontSize?: number | string;
+  backgroundColor?: string;
+  flexGrow?: number;
+  type?: "secondary" | "normal" | "primary";
 };
 
-const buttonColorClass: Record<ButtonColor, string> = {
-  pink: style.pinkbutton,
-  navy: style.navybutton,
-};
-
-const { NAVY } = buttonColor;
-
-export const Button: React.FC<ButtonProp> = (props) => {
-  const {
-    onClick,
-    type,
-    children,
-    colorType = NAVY,
-    margin,
-    fontWeight,
-  } = props;
-
+export const Button: React.FC<NeumorphicButtonProp> = ({
+  onClick,
+  margin,
+  padding,
+  fontWeight,
+  fontSize,
+  backgroundColor,
+  flexGrow = 1,
+  type = "normal",
+  children,
+}) => {
   return (
     <button
-      className={`${buttonClasses[type]} ${buttonColorClass[colorType]}`}
+      className={`${style.btn} ${type !== "normal" && style[type]}`}
       onClick={onClick}
-      style={{ margin, fontWeight }}
+      style={{
+        margin,
+        padding,
+        fontWeight,
+        fontSize,
+        backgroundColor,
+        flexGrow,
+      }}
     >
       {children}
     </button>

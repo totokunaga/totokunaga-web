@@ -32,3 +32,7 @@ export const getStripeSize = (width: number, maxStripeSize: number) => {
 
   return [bestStripeSize, bestStripeAmount];
 };
+
+export const isTouchDevice = () => {
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+};

@@ -1,10 +1,10 @@
-import { useCallback, useDebugValue, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   CELL_SIZE,
   pathfindingAlgorithms,
-  speedAmounts,
   PATH_FOUND_DELAY,
+  MARK_DELAY,
 } from "@utils/pathfinding/constants";
 import {
   Cell,
@@ -107,7 +107,7 @@ const Grid: React.FC<GridProp> = (props) => {
       visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
           onColored(coordinate, CELL_MARKED);
-        }, i * speedAmounts[algorithmSpeed]);
+        }, (i * MARK_DELAY) / algorithmSpeed);
       });
 
       if (!prevs[end.row][end.col]) {
@@ -125,13 +125,15 @@ const Grid: React.FC<GridProp> = (props) => {
         cellsInPath.push(start);
 
         const pathSize = cellsInPath.length;
+        const visitedSize = visitedCells.length;
+        const timeoutOffset = (visitedSize * MARK_DELAY) / algorithmSpeed;
         cellsInPath.forEach((coordinate, i) => {
           setTimeout(() => {
             onColored(coordinate, CELL_IN_PATH);
             if (i === 0) {
               setAlgorithmExecuted(false);
             }
-          }, visitedCells.length * speedAmounts[algorithmSpeed] + (pathSize - i - 1) * PATH_FOUND_DELAY);
+          }, timeoutOffset + (pathSize - i - 1) * PATH_FOUND_DELAY);
         });
       }
     }
@@ -151,9 +153,9 @@ const Grid: React.FC<GridProp> = (props) => {
         r.forEach((c, j) => {
           if (clearableCells.Blocked && grid[i][j] === CELL_BLOCKED)
             grid[i][j] = CELL_EMPTY;
-          else if (clearableCells.Visited && grid[i][j] === CELL_MARKED)
-            grid[i][j] = CELL_EMPTY;
           else if (clearableCells.Path && grid[i][j] === CELL_IN_PATH)
+            grid[i][j] = CELL_EMPTY;
+          else if (clearableCells.Visited && grid[i][j] === CELL_MARKED)
             grid[i][j] = CELL_EMPTY;
         })
       );

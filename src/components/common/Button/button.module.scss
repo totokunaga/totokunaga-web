@@ -1,38 +1,68 @@
-.textbutton,
-.flatbutton,
-.floatingbutton {
-  font-family: var(--font-mono);
-  padding: 8px 16px;
-  cursor: pointer;
-  background: none;
+$shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+  -0.2rem -0.2rem 0.5rem var(--white);
+$inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+  inset -0.2rem -0.2rem 0.5rem var(--white);
+
+.btn {
   font-size: 16px;
-  font-weight: 600;
+  padding: 16px 24px;
+  border-radius: 1rem;
+  box-shadow: $shadow;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: none;
+  background-color: var(--greyLight-1);
+  transition: all 0.15s ease-in-out;
+  font-weight: 500;
+  font-family: var(--font-sans-serif);
+  color: var(--primary);
+  fill: var(--primary);
+
+  &:hover {
+    color: var(--primary-dark);
+    fill: var(--primary-dark);
+  }
+  &:active {
+    box-shadow: $inner-shadow;
+  }
 }
 
-.textbutton {
-  border: none;
+.btn.primary {
+  padding: 12px 24px;
+  background: var(--primary);
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
+    inset -0.2rem -0.2rem 1rem var(--primary-dark), $shadow;
+  color: var(--greyLight-1);
+  fill: var(--greyLight-1);
+
+  &:hover {
+    color: var(--white);
+    fill: var(--greyLight-1);
+  }
+  &:active {
+    box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-dark),
+      inset -0.2rem -0.2rem 1rem var(--primary-light);
+  }
 }
-.flatbutton {
-  border-radius: 5px;
-  border: solid 2.5px inherit;
-}
-.pinkbutton {
-  color: #ffffff;
-  background-color: #e30b5c;
-  border-color: #e30b5c;
-  transition: all 0.2s ease-in-out;
-}
-.pinkbutton:hover {
-  background-color: #ae0948;
-  border-color: #ae0948;
-}
-.navybutton {
-  color: #ffffff;
-  background-color: #004ebc;
-  border-color: #004ebc;
-  transition: all 0.2s ease-in-out;
-}
-.navybutton:hover {
-  background-color: #00265b;
-  border-color: #00265b;
+
+.btn.secondary {
+  padding: 12px 24px;
+  background: var(--secondary);
+  box-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-light),
+    inset -0.2rem -0.2rem 1rem var(--secondary-dark), $shadow;
+  color: var(--greyLight-1);
+  fill: var(--greyLight-1);
+
+  &:hover {
+    color: var(--white);
+    fill: var(--white);
+  }
+  &:active {
+    box-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-dark),
+      inset -0.2rem -0.2rem 1rem var(--secondary-light);
+  }
 }

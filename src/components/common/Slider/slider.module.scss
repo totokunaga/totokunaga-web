@@ -1,0 +1,78 @@
+$shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+  -0.2rem -0.2rem 0.5rem var(--white);
+$inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+  inset -0.2rem -0.2rem 0.5rem var(--white);
+
+.slider {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
+.slider.box {
+  width: 100%;
+  height: 1rem;
+  cursor: pointer;
+  box-shadow: $inner-shadow;
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider.btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--white);
+  position: absolute;
+  box-shadow: 0px 0.1rem 0.3rem 0px var(--greyLight-3);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover ~ .slider__tooltip {
+    opacity: 1;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    box-shadow: $inner-shadow;
+  }
+}
+
+.slider.color {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  border-radius: inherit;
+  background: var(--primary);
+  background: linear-gradient(
+    -1deg,
+    var(--primary-dark) 0%,
+    var(--primary) 50%,
+    var(--primary-light) 100%
+  );
+}
+
+.slider.tooltip {
+  position: absolute;
+  bottom: 30px;
+  padding: 8px;
+  border-radius: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+  box-shadow: $shadow;
+  opacity: 0;
+  background-color: var(--greyLight-1);
+  transition: opacity 0.3s ease;
+}

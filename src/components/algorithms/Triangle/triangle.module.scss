@@ -2,13 +2,14 @@
   position: relative;
   background-color: white;
   text-align: left;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    background-color: inherit;
+  }
 }
-.triangle:before,
-.triangle:after {
-  content: "";
-  position: absolute;
-  background-color: inherit;
-}
+
 .triangle,
 .triangle:before,
 .triangle:after {

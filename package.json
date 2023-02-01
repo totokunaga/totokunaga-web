@@ -27,6 +27,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@types/react-redux": "^7.1.25",
     "@types/uuid": "^9.0.0",
     "eslint-config-prettier": "^8.6.0",
