@@ -137,6 +137,7 @@ const Grid: React.FC<GridProp> = (props) => {
         });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     algorithm,
     algorithmSpeed,
@@ -162,6 +163,7 @@ const Grid: React.FC<GridProp> = (props) => {
       setGrid([...grid]);
       dispatch(setClearExecuted(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearExecuted]);
 
   // When non-blocked cell clear
@@ -177,6 +179,7 @@ const Grid: React.FC<GridProp> = (props) => {
       setGrid([...grid]);
       setUnmarkExecuted(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unmarkExecuted, setUnmarkExecuted]);
 
   // When a client window size is changed
@@ -199,6 +202,7 @@ const Grid: React.FC<GridProp> = (props) => {
       }
     }
     setGrid(resizedGrid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowSize, colSize]);
 
   return (

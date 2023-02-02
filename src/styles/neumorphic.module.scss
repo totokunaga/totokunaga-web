@@ -1,16 +1,30 @@
-$shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
-  -0.2rem -0.2rem 0.5rem var(--white);
-$inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
-  inset -0.2rem -0.2rem 0.5rem var(--white);
+$shadow: 4px 4px 8px var(--greyLight-2), -2.7px -2.7px 6.7px var(--white);
+$inner-shadow: inset 2.5px 2.5px 6.5px var(--greyLight-2),
+  inset -2.5px -2.5px 6.5px var(--white);
+
+$slim-shadow: 3px 3px 6px var(--greyLight-2), -2px -2px 6px var(--white);
+$slim-inner-shadow: inset 2px 2px 5.5px var(--greyLight-2),
+  inset -2px -2px 5.5px var(--white);
+
+$primary-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
+  inset -0.2rem -0.2rem 1rem var(--primary-dark);
+$primary-inner-shadow: inset 2.5px 2.5px 6.5px var(--primary-dark),
+  inset -2.5px -2.5px 6.5px var(--primary-light);
+
+$secondary-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-light),
+  inset -0.2rem -0.2rem 1rem var(--secondary-dark);
+$secondary-inner-shadow: inset 2.5px 2.5px 6.5px var(--secondary-dark),
+  inset -2.5px -2.5px 6.5px var(--secondary-light);
+
+$navy: #00265b;
+$primary: #6d5dfc;
+$primaryDark: #5b0eeb;
 
 .root {
   padding: 16px 24px;
   border-radius: 15px;
   box-shadow: $shadow;
   justify-self: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: 0.3s ease;
   border: none;
   background-color: var(--greyLight-1);
@@ -18,36 +32,40 @@ $inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
   user-select: none;
   -webkit-user-select: none;
   font-family: var(--font-sans-serif);
-  color: var(--primary);
-  fill: var(--primary);
+  color: var(--navy-color);
+  fill: var(--navy-color);
+
+  &.down {
+    box-shadow: $inner-shadow;
+  }
+
+  // PARAGRAPH
+  &.paragraph {
+    color: var(--navy-color);
+    user-select: text;
+    -webkit-user-select: text;
+    &:hover,
+    &:active {
+      color: var(--navy-color);
+      box-shadow: $shadow;
+    }
+  }
 
   // BUTTON
   &.button {
     font-size: 16px;
     cursor: pointer;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    fill: var(--primary);
     &.primary {
       padding: 12px 24px;
       background: var(--primary);
       box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
-        inset -0.2rem -0.2rem 1rem var(--primary-dark), $shadow;
-      color: var(--greyLight-1);
-      fill: var(--greyLight-1);
-
-      &:hover {
-        color: var(--white);
-        fill: var(--greyLight-1);
-      }
-      &:active {
-        box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-dark),
-          inset -0.2rem -0.2rem 1rem var(--primary-light);
-      }
-    }
-    &.secondary {
-      padding: 12px 24px;
-      background: var(--secondary);
-      box-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-light),
-        inset -0.2rem -0.2rem 1rem var(--secondary-dark), $shadow;
+        inset -0.2rem -0.2rem 1rem var(--primary-dark);
       color: var(--greyLight-1);
       fill: var(--greyLight-1);
 
@@ -56,9 +74,31 @@ $inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
         fill: var(--white);
       }
       &:active {
-        box-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-dark),
-          inset -0.2rem -0.2rem 1rem var(--secondary-light);
+        box-shadow: $primary-inner-shadow;
       }
+    }
+    &.secondary {
+      padding: 12px 24px;
+      background: var(--secondary);
+      box-shadow: $secondary-shadow;
+      color: var(--greyLight-1);
+      fill: var(--greyLight-1);
+
+      &:hover {
+        color: var(--white);
+        fill: var(--white);
+      }
+      &:active {
+        box-shadow: $secondary-inner-shadow;
+      }
+    }
+
+    &:hover {
+      color: var(--primary-dark);
+      fill: var(--primary-dark);
+    }
+    &:active {
+      box-shadow: $inner-shadow;
     }
   }
 
@@ -68,17 +108,66 @@ $inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
     font-size: 16px;
     padding: 10px 20px 10px 15px;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    fill: var(--primary);
+    &.slim {
+      font-size: 12px;
+      padding: 6px 12px 6px 9px;
+      box-shadow: $slim-shadow;
+      &.checked {
+        color: var(--primary-dark);
+        box-shadow: $slim-inner-shadow;
+      }
+    }
     &.checked {
       color: var(--primary-dark);
       box-shadow: $inner-shadow;
     }
+    &.no_content {
+      padding: 8px;
+    }
   }
 
-  &:hover {
-    color: var(--primary-dark);
-    fill: var(--primary-dark);
+  // LINE
+  &.line {
+    width: 5px;
+    margin: 5px auto;
+    padding: 0px;
+    background-color: var(--primary);
+    box-shadow: inset 1.5px 1.5px 4.5px var(--primary-dark),
+      inset -1.5px -1.5px 4.5px var(--primary-light);
+    &.animate {
+      animation-name: opacity-animation;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+    &:hover,
+    &:active {
+      box-shadow: inset 1.5px 1.5px 4.5px var(--primary-dark),
+        inset -1.5px -1.5px 4.5px var(--primary-light);
+      background-color: var(--primary);
+    }
   }
-  &:active {
-    box-shadow: $inner-shadow;
+}
+
+@keyframes opacity-animation {
+  0% {
+    opacity: 1;
   }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+:export {
+  navy: $navy;
+  primary: $primary;
+  primaryDark: $primaryDark;
 }

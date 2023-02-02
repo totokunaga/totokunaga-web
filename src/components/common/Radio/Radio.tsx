@@ -1,36 +1,50 @@
 import style from "./radio.module.scss";
-import neumorphicStyle from "@styles/neumorphic.module.scss";
+import neumorphic from "@styles/neumorphic.module.scss";
+import { useMemo } from "react";
+
+export type Size = "Slim" | "Normal";
 
 type RadioProp = {
-  items: any[];
-  value: any;
-  onChange: (value: any) => void;
+  content?: any;
+  checked: boolean;
+  pushed?: boolean;
+  sub?: boolean;
+  animate?: boolean;
+  size?: Size;
+  fontColor?: string;
 };
 
-export const Radio: React.FC<RadioProp> = ({ items, value, onChange }) => {
-  return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {items.map((item) => {
-        const checkedClass = item === value && style.checked;
+export const Radio: React.FC<RadioProp> = ({
+  content,
+  checked,
+  pushed,
+  sub,
+  animate,
+  size,
+  fontColor,
+}) => {
+  const wrapperClassName = useMemo(() => {
+    const classes = [neumorphic.root, neumorphic.radio];
+    if (pushed) classes.push(neumorphic.down);
+    if (!content) classes.push(neumorphic.no_content);
+    if (size === "Slim") classes.push(neumorphic.slim);
+    return classes.join(" ");
+  }, [content]);
 
-        return (
-          <div
-            key={item}
-            style={{
-              margin: "0px 8px 10px 0px",
-              borderRadius: 20,
-            }}
-            onClick={() => onChange(item)}
-          >
-            <div
-              className={`${neumorphicStyle.root} ${neumorphicStyle.radio} ${checkedClass}`}
-            >
-              <div className={`${style.radio_circle} ${checkedClass}`} />
-              <span>{item}</span>
-            </div>
-          </div>
-        );
-      })}
+  const circleClassName = useMemo(() => {
+    const classes = [style.radio_circle, neumorphic.radio];
+    if (sub) classes.push(style.sub);
+    if (animate) classes.push(style.animate);
+    if (checked) classes.push(style.checked);
+    if (!content) classes.push(style.no_content);
+    if (size === "Slim") classes.push(style.slim);
+    return classes.join(" ");
+  }, [sub, animate, checked, content]);
+
+  return (
+    <div className={wrapperClassName} style={{ color: fontColor }}>
+      <div className={circleClassName} />
+      <span>{content}</span>
     </div>
   );
 };

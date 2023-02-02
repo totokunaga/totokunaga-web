@@ -1,5 +1,4 @@
 import styles from "./cell.module.scss";
-import Image from "next/image";
 import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
 import { useCallback, useMemo } from "react";
@@ -43,7 +42,7 @@ export const Cell: React.FC<CellProp> = ({
         onClick(coordinate);
       }
     },
-    [coordinate, onClick, isStart, isEnd]
+    [coordinate, onClick, isStart, isEnd, disabled]
   );
 
   return (
@@ -61,7 +60,12 @@ export const Cell: React.FC<CellProp> = ({
     >
       {isStart ? <Arrow /> : undefined}
       {isEnd ? (
-        <Icon icon={"star"} width={21} height={21} fill={"#F4BB44"} />
+        <Icon
+          icon={"star"}
+          width={symbolSize}
+          height={symbolSize}
+          fill={"#F4BB44"}
+        />
       ) : undefined}
     </div>
   );

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Cell, cellTypes } from "../Cell";
 import defaultStyle from "@styles/default.module.scss";
-import { Button, Checkbox, Radio, Slider } from "@components/common";
+import { Button, Checkbox, RadioBlock, Slider } from "@components/common";
 import { ClearableCellType } from "@utils/types";
 import {
   selectPathfindingController,
@@ -34,16 +34,22 @@ export const ConfigModalContent: React.FC<{
       newClearableCells[value] = !clearableCells[value];
       dispatch(setClearableCells(newClearableCells));
     },
-    [clearableCells]
+    [clearableCells, dispatch]
   );
 
-  const onChangeAlgorithm = useCallback((value: Pathfinding) => {
-    dispatch(setPathfindingAlgorithm(value));
-  }, []);
+  const onChangeAlgorithm = useCallback(
+    (value: Pathfinding) => {
+      dispatch(setPathfindingAlgorithm(value));
+    },
+    [dispatch]
+  );
 
-  const onChangeSpeed = useCallback((value: number) => {
-    dispatch(setPathfindingAlgorithmSpeed(value));
-  }, []);
+  const onChangeSpeed = useCallback(
+    (value: number) => {
+      dispatch(setPathfindingAlgorithmSpeed(value));
+    },
+    [dispatch]
+  );
 
   const getSpeedAmount = useCallback((value: number) => {
     const roundAmount = 100;
@@ -67,7 +73,7 @@ export const ConfigModalContent: React.FC<{
       <h2 style={{ marginBottom: 16 }}>Configuration</h2>
       <h3 style={{ marginBottom: 16 }}>Algorithm</h3>
       <div style={{ marginBottom: 12 }}>
-        <Radio
+        <RadioBlock
           items={Object.keys(pathfindingNames)}
           value={algorithm}
           onChange={onChangeAlgorithm}
@@ -114,7 +120,6 @@ export const ConfigModalContent: React.FC<{
           }}
           fontSize={16}
           fontWeight={700}
-          // flexGrow={0}
           type={"normal"}
         >
           {"Close Configuration"}

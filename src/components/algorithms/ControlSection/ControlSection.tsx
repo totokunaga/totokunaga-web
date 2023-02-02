@@ -60,14 +60,11 @@ const ControlSection: React.FC<{
           fontWeight={400}
         >
           <div className={style.horizontallyAligned}>
-            <span style={{ marginRight: 8 }}>Algorithm:</span>
-            <span
-              className={style.code}
-              style={{ marginRight: 8, fontSize: 20 }}
-            >
+            <Icon icon={"sharp-setting"} width={24} height={24} />
+            <span style={{ margin: "0px 8px" }}>Algorithm:</span>
+            <span className={style.code} style={{ fontSize: 20 }}>
               {algorithm}
             </span>
-            <Icon icon={"sharp-setting"} width={20} height={20} />
           </div>
         </Button>
       </div>

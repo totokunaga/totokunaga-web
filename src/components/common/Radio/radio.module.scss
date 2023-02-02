@@ -1,3 +1,15 @@
+@keyframes opacity-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .radio_circle {
   width: 16px;
   height: 16px;
@@ -5,7 +17,23 @@
   background-color: var(--greyDark);
   margin-right: 8px;
   transition: all 0.1s ease-in-out;
-}
-.radio_circle.checked {
-  background-color: var(--primary-dark);
+  &.slim {
+    width: 10px;
+    height: 10px;
+  }
+  &.checked {
+    background-color: var(--primary-dark);
+    &.sub {
+      opacity: 0.4;
+    }
+    &.animate {
+      animation-name: opacity-animation;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+  }
+  &.no_content {
+    margin-right: 0;
+  }
 }

@@ -5,4 +5,5 @@ export * from "./Modal";
 export * from "./Checkbox";
 export * from "./Slider";
 export * from "./Radio";
+export * from "./ProgressSteps";
 export * from "./Icon";
