@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import style from "./button.module.scss";
+import React, { ReactNode, useMemo } from "react";
+import style from "@styles/neumorphic.module.scss";
 
 type NeumorphicButtonProp = {
   onClick?: () => any;
@@ -24,9 +24,11 @@ export const Button: React.FC<NeumorphicButtonProp> = ({
   type = "normal",
   children,
 }) => {
+  const typeClassName = useMemo(() => type !== "normal" && style[type], [type]);
+
   return (
     <button
-      className={`${style.btn} ${type !== "normal" && style[type]}`}
+      className={`${style.root} ${style.button} ${typeClassName}`}
       onClick={onClick}
       style={{
         margin,

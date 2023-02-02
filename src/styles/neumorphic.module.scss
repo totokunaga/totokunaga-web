@@ -1,0 +1,84 @@
+$shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+  -0.2rem -0.2rem 0.5rem var(--white);
+$inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+  inset -0.2rem -0.2rem 0.5rem var(--white);
+
+.root {
+  padding: 16px 24px;
+  border-radius: 15px;
+  box-shadow: $shadow;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
+  border: none;
+  background-color: var(--greyLight-1);
+  transition: all 0.15s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: var(--font-sans-serif);
+  color: var(--primary);
+  fill: var(--primary);
+
+  // BUTTON
+  &.button {
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    &.primary {
+      padding: 12px 24px;
+      background: var(--primary);
+      box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
+        inset -0.2rem -0.2rem 1rem var(--primary-dark), $shadow;
+      color: var(--greyLight-1);
+      fill: var(--greyLight-1);
+
+      &:hover {
+        color: var(--white);
+        fill: var(--greyLight-1);
+      }
+      &:active {
+        box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-dark),
+          inset -0.2rem -0.2rem 1rem var(--primary-light);
+      }
+    }
+    &.secondary {
+      padding: 12px 24px;
+      background: var(--secondary);
+      box-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-light),
+        inset -0.2rem -0.2rem 1rem var(--secondary-dark), $shadow;
+      color: var(--greyLight-1);
+      fill: var(--greyLight-1);
+
+      &:hover {
+        color: var(--white);
+        fill: var(--white);
+      }
+      &:active {
+        box-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-dark),
+          inset -0.2rem -0.2rem 1rem var(--secondary-light);
+      }
+    }
+  }
+
+  // RADIO
+  &.radio {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px 10px 15px;
+    border-radius: 20px;
+    &.checked {
+      color: var(--primary-dark);
+      box-shadow: $inner-shadow;
+    }
+  }
+
+  &:hover {
+    color: var(--primary-dark);
+    fill: var(--primary-dark);
+  }
+  &:active {
+    box-shadow: $inner-shadow;
+  }
+}

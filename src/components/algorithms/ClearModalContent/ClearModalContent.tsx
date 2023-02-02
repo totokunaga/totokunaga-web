@@ -58,8 +58,8 @@ export const ClearModalContent: React.FC<{
         style={{ marginTop: 24, color: "rgba(0, 38, 91, 0.5)", fontSize: 14 }}
       >
         <p>
-          This prompt won't be shown from next time. You can update the clear
-          cell configuration from <b>"Algorithm" button</b> if needed
+          This prompt won't be shown from next time. You can update the
+          configuration from <b>"Algorithm" button</b> if needed
         </p>
       </div>
 

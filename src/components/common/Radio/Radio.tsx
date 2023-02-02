@@ -1,5 +1,5 @@
-import { Icon } from "../Icon";
 import style from "./radio.module.scss";
+import neumorphicStyle from "@styles/neumorphic.module.scss";
 
 type RadioProp = {
   items: any[];
@@ -12,6 +12,7 @@ export const Radio: React.FC<RadioProp> = ({ items, value, onChange }) => {
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {items.map((item) => {
         const checkedClass = item === value && style.checked;
+
         return (
           <div
             key={item}
@@ -21,7 +22,9 @@ export const Radio: React.FC<RadioProp> = ({ items, value, onChange }) => {
             }}
             onClick={() => onChange(item)}
           >
-            <div className={`${style.radio} ${checkedClass}`}>
+            <div
+              className={`${neumorphicStyle.root} ${neumorphicStyle.radio} ${checkedClass}`}
+            >
               <div className={`${style.radio_circle} ${checkedClass}`} />
               <span>{item}</span>
             </div>
