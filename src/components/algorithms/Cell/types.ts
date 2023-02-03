@@ -1,8 +1,9 @@
 import Coordinate from "@utils/classes/Coordinate";
+import { CellType } from "@utils/types";
 
 export type CellProp = {
   size: number;
-  status: number;
+  status: CellType;
   isStart?: boolean;
   isEnd?: boolean;
   coordinate?: Coordinate;

@@ -1,5 +1,5 @@
-import { CELL_EMPTY } from "@components/algorithms";
 import Coordinate from "@utils/classes/Coordinate";
+import { EMPTY_0 } from "@utils/types";
 
 export const isValidCell = (
   grid: number[][],
@@ -9,8 +9,6 @@ export const isValidCell = (
   const { row, col } = coordinate;
 
   return (
-    coordinate.isInbound() &&
-    !visited[row][col] &&
-    grid[row][col] === CELL_EMPTY
+    coordinate.isInbound() && !visited[row][col] && grid[row][col] === EMPTY_0
   );
 };

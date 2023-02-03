@@ -13,7 +13,8 @@ const Experience: React.FC<{
     <div>
       <div style={{ margin: "6px 0px 4px 0px" }}>
         <p style={{ fontWeight: 500 }}>
-          {entityName} <span style={{ fontSize: 15 }}>- {title}</span>
+          {entityName}{" "}
+          <span style={{ fontSize: 15, fontWeight: 300 }}>- {title}</span>
         </p>
       </div>
       {explanations.map((exp, i) => (
@@ -63,9 +64,9 @@ const Index = () => {
 
           <div style={{ marginBottom: 40 }}>
             <div style={{ display: "flex" }}>
-              <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
+              <h2 className={textStyle.underline} style={{ marginBottom: 12 }}>
                 Experience & Education
-              </h3>
+              </h2>
             </div>
             <ProgressSteps
               type={"vertical"}
@@ -119,9 +120,9 @@ const Index = () => {
           </div>
 
           <div style={{ display: "flex" }}>
-            <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
+            <h2 className={textStyle.underline} style={{ marginBottom: 12 }}>
               Skills & Certifications
-            </h3>
+            </h2>
           </div>
           <div
             className={`${neumorphic.root} ${neumorphic.down}`}
@@ -135,7 +136,7 @@ const Index = () => {
                 items={frontendSkills}
                 value={null}
                 fontColor={neumorphic.primaryDark}
-                size={"Slim"}
+                size={"slim"}
               />
             </div>
 
@@ -147,7 +148,7 @@ const Index = () => {
                 items={backendSkills}
                 value={null}
                 fontColor={neumorphic.primaryDark}
-                size={"Slim"}
+                size={"slim"}
               />
             </div>
 
@@ -159,7 +160,7 @@ const Index = () => {
                 items={cloudSkills}
                 value={null}
                 fontColor={neumorphic.primaryDark}
-                size={"Slim"}
+                size={"slim"}
               />
             </div>
           </div>

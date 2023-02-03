@@ -1,0 +1,31 @@
+// Neumorphic box shadows
+@mixin neumorphic-shadow {
+  box-shadow: 0.2rem 0.2rem 0.4rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
+}
+@mixin neumorphic-inner-shadow {
+  box-shadow: inset 0.1rem 0.1rem 0.3rem var(--greyLight-2),
+    inset -0.1rem -0.1rem 0.3rem var(--white);
+}
+
+$upper-left-size: inset 0.2rem 0.2rem 1rem;
+$bottom-right-size: inset -0.2rem -0.2rem 1rem;
+$inner-upper-left-size: inset 0.2rem 0.2rem 0.5rem;
+$inner-bottom-right-size: inset -0.2rem -0.2rem 0.5rem;
+@mixin primary-shadow {
+  box-shadow: $upper-left-size var(--primary-light),
+    $bottom-right-size var(--primary-dark);
+}
+@mixin primary-inner-shadow {
+  box-shadow: $inner-upper-left-size var(--primary-dark),
+    $inner-bottom-right-size var(--primary-light);
+}
+
+@mixin secondary-shadow {
+  box-shadow: $upper-left-size var(--secondary-light),
+    $bottom-right-size var(--secondary-dark);
+}
+@mixin secondary-inner-shadow {
+  box-shadow: $inner-upper-left-size var(--secondary-dark),
+    $inner-bottom-right-size var(--secondary-light);
+}

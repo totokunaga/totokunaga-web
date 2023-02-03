@@ -1,29 +1,13 @@
-$shadow: 4px 4px 8px var(--greyLight-2), -2.7px -2.7px 6.7px var(--white);
-$inner-shadow: inset 2.5px 2.5px 6.5px var(--greyLight-2),
-  inset -2.5px -2.5px 6.5px var(--white);
-
-$slim-shadow: 3px 3px 6px var(--greyLight-2), -2px -2px 6px var(--white);
-$slim-inner-shadow: inset 2px 2px 5.5px var(--greyLight-2),
-  inset -2px -2px 5.5px var(--white);
-
-$primary-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
-  inset -0.2rem -0.2rem 1rem var(--primary-dark);
-$primary-inner-shadow: inset 2.5px 2.5px 6.5px var(--primary-dark),
-  inset -2.5px -2.5px 6.5px var(--primary-light);
-
-$secondary-shadow: inset 0.2rem 0.2rem 1rem var(--secondary-light),
-  inset -0.2rem -0.2rem 1rem var(--secondary-dark);
-$secondary-inner-shadow: inset 2.5px 2.5px 6.5px var(--secondary-dark),
-  inset -2.5px -2.5px 6.5px var(--secondary-light);
+@import "@styles/mixin.module.scss";
 
 $navy: #00265b;
 $primary: #6d5dfc;
 $primaryDark: #5b0eeb;
 
 .root {
+  @include neumorphic-shadow;
   padding: 16px 24px;
   border-radius: 15px;
-  box-shadow: $shadow;
   justify-self: center;
   transition: 0.3s ease;
   border: none;
@@ -36,7 +20,7 @@ $primaryDark: #5b0eeb;
   fill: var(--navy-color);
 
   &.down {
-    box-shadow: $inner-shadow;
+    @include neumorphic-inner-shadow;
   }
 
   // PARAGRAPH
@@ -47,7 +31,7 @@ $primaryDark: #5b0eeb;
     &:hover,
     &:active {
       color: var(--navy-color);
-      box-shadow: $shadow;
+      @include neumorphic-shadow;
     }
   }
 
@@ -74,13 +58,13 @@ $primaryDark: #5b0eeb;
         fill: var(--white);
       }
       &:active {
-        box-shadow: $primary-inner-shadow;
+        @include primary-inner-shadow;
       }
     }
     &.secondary {
+      @include secondary-shadow;
       padding: 12px 24px;
       background: var(--secondary);
-      box-shadow: $secondary-shadow;
       color: var(--greyLight-1);
       fill: var(--greyLight-1);
 
@@ -89,7 +73,7 @@ $primaryDark: #5b0eeb;
         fill: var(--white);
       }
       &:active {
-        box-shadow: $secondary-inner-shadow;
+        @include secondary-inner-shadow;
       }
     }
 
@@ -98,7 +82,7 @@ $primaryDark: #5b0eeb;
       fill: var(--primary-dark);
     }
     &:active {
-      box-shadow: $inner-shadow;
+      @include neumorphic-inner-shadow;
     }
   }
 
@@ -116,15 +100,15 @@ $primaryDark: #5b0eeb;
     &.slim {
       font-size: 12px;
       padding: 6px 12px 6px 9px;
-      box-shadow: $slim-shadow;
+      @include neumorphic-shadow;
       &.checked {
         color: var(--primary-dark);
-        box-shadow: $slim-inner-shadow;
+        @include neumorphic-inner-shadow;
       }
     }
     &.checked {
       color: var(--primary-dark);
-      box-shadow: $inner-shadow;
+      @include neumorphic-inner-shadow;
     }
     &.no_content {
       padding: 8px;
@@ -141,6 +125,7 @@ $primaryDark: #5b0eeb;
       inset -1.5px -1.5px 4.5px var(--primary-light);
     &.animate {
       animation-name: opacity-animation;
+      animation-name: opacity-animation;
       animation-duration: 3s;
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;
@@ -150,6 +135,20 @@ $primaryDark: #5b0eeb;
       box-shadow: inset 1.5px 1.5px 4.5px var(--primary-dark),
         inset -1.5px -1.5px 4.5px var(--primary-light);
       background-color: var(--primary);
+    }
+  }
+
+  // CHECKBOX
+  &.checkbox {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.checked {
+      background-color: var(--primary);
+      @include primary-inner-shadow;
     }
   }
 }

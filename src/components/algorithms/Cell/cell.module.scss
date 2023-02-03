@@ -1,43 +1,39 @@
-$shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
-  -0.2rem -0.2rem 0.5rem var(--white);
-$inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
-  inset -0.2rem -0.2rem 0.5rem var(--white);
+@import "@styles/mixin.module.scss";
 
-.cell,
-.cell_marked,
-.cell_blocked,
-.cell_in_path {
+.cell {
   margin: 0.5px;
   border-radius: 2px;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
-}
-
-.cell {
   background-color: #f3f6fa;
   border: solid 0.5px #d8dded;
-}
-.cell:hover {
-  background-color: #eeeeee;
-}
-.cell:active {
-  background-color: #cccccc;
-}
+  &:hover {
+    background-color: #eeeeee;
+  }
+  &:active {
+    background-color: #cccccc;
+  }
 
-.cell_marked {
-  background-color: #b6d0e2;
-  border: solid 0.5px #b6d0e2;
-}
-.cell_in_path {
-  background-color: #2ebb98;
-  border: solid 0.5px #2ebb98;
-}
+  &.Visited {
+    background-color: #b6d0e2;
+    border: solid 0.5px #b6d0e2;
+  }
 
-.cell_blocked {
-  background-color: var(--navy-color);
-  border: solid 0.5px var(--navy-color);
-}
-.cell_selected {
-  background-color: #fcd3e3;
-  border: solid 0.5px #fcd3e3;
+  &.Path {
+    background-color: #2ebb98;
+    border: solid 0.5px #2ebb98;
+  }
+
+  &.Blocked {
+    // background-color: var(--primary);
+    // border: solid 0.5px var(--primary);
+    background-color: var(--navy-color);
+    border: solid 0.5px var(--navy-color);
+    // @include primary-shadow;
+  }
+
+  &.Selected {
+    background-color: #fcd3e3;
+    border: solid 0.5px #fcd3e3;
+  }
 }

@@ -1,14 +1,15 @@
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
+import { CellType } from "@utils/types";
 import { COLS, ROWS } from "../constants";
-import { CellInfo } from "../types";
+import { CellInfo, PathfindingArg } from "../types";
 import { isValidCell } from "./helper-functions";
 
-export const bfs = (
-  grid: number[][],
-  start: Coordinate,
-  end: Coordinate
-): [CellInfo[], (Coordinate | null)[][]] => {
+export const bfs = ({
+  grid,
+  start,
+  end,
+}: PathfindingArg): [CellInfo[], (Coordinate | null)[][]] => {
   let q: CellInfo[] = [[start, null]];
   const rowSize = grid.length;
   const colSize = grid[0].length;

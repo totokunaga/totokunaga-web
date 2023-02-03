@@ -91,24 +91,26 @@ export const ConfigModalContent: React.FC<{
       </div>
 
       <h3 style={{ marginBottom: 16 }}>Cell clear setting</h3>
-      {cellTypes.map(({ type, name }, i) => (
+      {cellTypes.map((type, i) => (
         <div
           key={type}
           className={defaultStyle.horizontallyAligned}
           style={{ marginBottom: 8 }}
         >
-          <Checkbox
-            checked={clearableCells[name]}
-            onChecked={() => onClearableCellChecked(name)}
-            value={0}
-          />
+          <div style={{ marginRight: 12 }}>
+            <Checkbox
+              checked={clearableCells[type]}
+              onChecked={() => onClearableCellChecked(type)}
+              value={0}
+            />
+          </div>
           <div
             className={defaultStyle.horizontallyAligned}
             style={{ cursor: "pointer" }}
-            onClick={() => onClearableCellChecked(name)}
+            onClick={() => onClearableCellChecked(type)}
           >
             <Cell size={30} status={type} disabled={true} />
-            <span style={{ margin: "0px 0px 0px 8px" }}>{name}</span>
+            <span style={{ margin: "0px 0px 0px 8px" }}>{type}</span>
           </div>
         </div>
       ))}

@@ -1,29 +1,12 @@
-import styles from "./cell.module.scss";
+import style from "./cell.module.scss";
 import { Arrow } from "../Arrow";
 import { CellProp } from "./types";
 import { useCallback, useMemo } from "react";
 import Coordinate from "@utils/classes/Coordinate";
-import { ClearableCellType } from "@utils/types";
+import { ClearableCellType, BLOCKED, PATH, VISITED } from "@utils/types";
 import { Icon } from "@components/common";
 
-const cellStyle = [
-  styles.cell,
-  styles.cell_blocked,
-  styles.cell_marked,
-  styles.cell_in_path,
-  styles.cell_selected,
-];
-
-export const CELL_EMPTY = 0;
-export const CELL_BLOCKED = 1;
-export const CELL_MARKED = 2;
-export const CELL_IN_PATH = 3;
-export const CELL_SELECTED = 4;
-export const cellTypes: Array<{ type: number; name: ClearableCellType }> = [
-  { type: CELL_BLOCKED, name: "Blocked" },
-  { type: CELL_MARKED, name: "Visited" },
-  { type: CELL_IN_PATH, name: "Path" },
-];
+export const cellTypes: Array<ClearableCellType> = [BLOCKED, VISITED, PATH];
 
 export const Cell: React.FC<CellProp> = ({
   size,
@@ -34,7 +17,10 @@ export const Cell: React.FC<CellProp> = ({
   disabled = false,
   onClick,
 }) => {
-  const symbolSize = useMemo(() => Math.floor((5 * size) / 6), [size]);
+  const cellClassName = useMemo(() => {
+    const classes = [style.cell, style[status]];
+    return classes.join(" ");
+  }, [status]);
 
   const onClickCell = useCallback(
     (coordinate?: Coordinate) => {
@@ -47,7 +33,7 @@ export const Cell: React.FC<CellProp> = ({
 
   return (
     <div
-      className={cellStyle[status]}
+      className={cellClassName}
       onClick={() => onClickCell(coordinate)}
       style={{
         width: size,
@@ -62,8 +48,8 @@ export const Cell: React.FC<CellProp> = ({
       {isEnd ? (
         <Icon
           icon={"star"}
-          width={symbolSize}
-          height={symbolSize}
+          width={"1.35rem"}
+          height={"1.35rem"}
           fill={"#F4BB44"}
         />
       ) : undefined}

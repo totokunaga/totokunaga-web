@@ -15,8 +15,8 @@ const Icons: Record<IconType, any> = {
 };
 
 type IconProp = {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   fill?: string;
   icon: IconType;
 };

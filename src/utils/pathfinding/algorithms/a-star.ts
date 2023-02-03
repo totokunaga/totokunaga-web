@@ -2,7 +2,7 @@ import Coordinate from "@utils/classes/Coordinate";
 import MinHeap from "@utils/classes/MinHeap";
 import { initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "../constants";
-import { CellInfo } from "../types";
+import { CellInfo, PathfindingArg } from "../types";
 import { isValidCell } from "./helper-functions";
 
 type WeightedCoordinate = [CellInfo, number];
@@ -10,11 +10,11 @@ const isLessThan = (one: WeightedCoordinate, two: WeightedCoordinate) => {
   return one[1] < two[1];
 };
 
-export const aStar = (
-  grid: number[][],
-  start: Coordinate,
-  end: Coordinate
-): [CellInfo[], (Coordinate | null)[][]] => {
+export const aStar = ({
+  grid,
+  start,
+  end,
+}: PathfindingArg): [CellInfo[], (Coordinate | null)[][]] => {
   const initEntry: WeightedCoordinate = [[start, null], 0];
   const heap = new MinHeap<WeightedCoordinate>([initEntry], isLessThan);
 

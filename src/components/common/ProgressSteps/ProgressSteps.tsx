@@ -63,7 +63,7 @@ const Step: React.FC<StepProp> = ({
   return (
     <div style={wrapperClassName}>
       <div style={radioWrapperClassName}>
-        <Radio checked={true} animate={focused} pushed={true} />
+        <Radio checked={true} animate={focused} />
         {!isLastStep && (
           <div className={lineClassName} style={{ height: lineHeight }} />
         )}

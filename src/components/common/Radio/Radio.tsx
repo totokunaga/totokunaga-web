@@ -2,12 +2,11 @@ import style from "./radio.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
 import { useMemo } from "react";
 
-export type Size = "Slim" | "Normal";
+export type Size = "slim" | "normal";
 
 type RadioProp = {
   content?: any;
   checked: boolean;
-  pushed?: boolean;
   sub?: boolean;
   animate?: boolean;
   size?: Size;
@@ -17,7 +16,6 @@ type RadioProp = {
 export const Radio: React.FC<RadioProp> = ({
   content,
   checked,
-  pushed,
   sub,
   animate,
   size,
@@ -25,11 +23,11 @@ export const Radio: React.FC<RadioProp> = ({
 }) => {
   const wrapperClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.radio];
-    if (pushed) classes.push(neumorphic.down);
+    if (checked) classes.push(neumorphic.down);
     if (!content) classes.push(neumorphic.no_content);
-    if (size === "Slim") classes.push(neumorphic.slim);
+    if (size === "slim") classes.push(neumorphic.slim);
     return classes.join(" ");
-  }, [content]);
+  }, [content, checked, size]);
 
   const circleClassName = useMemo(() => {
     const classes = [style.radio_circle, neumorphic.radio];
@@ -37,7 +35,7 @@ export const Radio: React.FC<RadioProp> = ({
     if (animate) classes.push(style.animate);
     if (checked) classes.push(style.checked);
     if (!content) classes.push(style.no_content);
-    if (size === "Slim") classes.push(style.slim);
+    if (size === "slim") classes.push(style.slim);
     return classes.join(" ");
   }, [sub, animate, checked, content]);
 

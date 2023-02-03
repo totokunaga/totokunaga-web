@@ -12,36 +12,17 @@ $checked-transition: all 0.1s ease-in-out;
   width: 1px;
 }
 
-.checkbox {
-  width: 30px;
-  height: 30px;
-  border: solid 1px var(--navy-color);
-  border-radius: 20px;
-  cursor: pointer;
-  margin: 0px 8px 0px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: $checked-transition;
-}
-.checkbox.checked {
-  background-color: var(--navy-color);
-}
-
 .checkmark {
   content: "";
-  visibility: hidden;
-  width: 0px;
-  height: 0px;
-  margin: 0px;
-  border-left: 2px solid white;
-  border-bottom: 2px solid white;
+  border-left: 2.5px solid var(--primary);
+  border-bottom: 2.5px solid var(--primary);
   transform: rotate(-45deg);
-  transition: $checked-transition;
-}
-.checkmark.checked {
   visibility: visible;
   width: 15px;
   height: 7.5px;
   margin: 0px 0px 5px 0px;
+}
+.checkmark.checked {
+  border-left: 2.5px solid var(--white);
+  border-bottom: 2.5px solid var(--white);
 }

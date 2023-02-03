@@ -3,12 +3,9 @@ import { useSelector } from "react-redux";
 import { Button, Icon, Modal } from "@components/common";
 import style from "@styles/default.module.scss";
 import { pathfindingText } from "@utils/constants";
-import { CELL_SIZE } from "@utils/pathfinding";
-import { selectPathfindingController, selectWindow } from "@utils/slices";
-import { Cell, cellTypes } from "../Cell";
+import { selectPathfindingController } from "@utils/slices";
 import { ClearModalContent } from "../ClearModalContent";
 import { ConfigModalContent } from "../ConfigModalContent";
-import Triangle from "../Triangle";
 
 const ControlSection: React.FC<{
   onStartClick: () => void;
@@ -68,17 +65,6 @@ const ControlSection: React.FC<{
           </div>
         </Button>
       </div>
-
-      {/* {deviceType !== "SMARTPHONE" && (
-        <div style={{ display: "flex", margin: "0px 8px 12px 0px" }}>
-          {cellTypes.map(({ type, name }, i) => (
-            <div key={type} className={style.horizontallyAligned}>
-              <Cell size={0.8 * CELL_SIZE} status={type} disabled={true} />
-              <span style={{ margin: "0px 10px 0px 5px" }}>{name}</span>
-            </div>
-          ))}
-        </div>
-      )} */}
 
       <Modal
         isShown={isClearModalShown}

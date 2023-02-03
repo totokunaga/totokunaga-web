@@ -6,20 +6,27 @@ import {
   PATH_FOUND_DELAY,
   MARK_DELAY,
 } from "@utils/pathfinding/constants";
-import {
-  Cell,
-  CELL_BLOCKED,
-  CELL_EMPTY,
-  CELL_IN_PATH,
-  CELL_MARKED,
-  CELL_SELECTED,
-} from "../Cell";
+import { Cell } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
 import { useSelector } from "react-redux";
 import { selectPathfindingController, setClearExecuted } from "@utils/slices";
 import { useDispatch } from "react-redux";
+import {
+  BLOCKED,
+  BLOCKED_2,
+  cellMap,
+  CellType,
+  EMPTY,
+  EMPTY_0,
+  PATH,
+  PATH_3,
+  SELECTED,
+  SELECTED_4,
+  VISITED,
+  VISITED_1,
+} from "@utils/types";
 
 const Grid: React.FC<GridProp> = (props) => {
   const {
@@ -32,7 +39,7 @@ const Grid: React.FC<GridProp> = (props) => {
     setUnmarkExecuted,
   } = props;
 
-  const [grid, setGrid] = useState(initMatrix(rowSize, colSize, CELL_EMPTY));
+  const [grid, setGrid] = useState(initMatrix(rowSize, colSize, EMPTY_0));
   const [start, setStart] = useState(new Coordinate(0, 0, grid));
   const [end, setEnd] = useState(
     new Coordinate(rowSize - 1, colSize - 1, grid)
@@ -53,25 +60,25 @@ const Grid: React.FC<GridProp> = (props) => {
             if (isStartFocused) {
               setStart(coordinate);
               setStartFocused(false);
-              grid[start.row][start.col] = CELL_EMPTY;
+              grid[start.row][start.col] = EMPTY_0;
             } else {
               setEnd(coordinate);
               setEndFocused(false);
-              grid[end.row][end.col] = CELL_EMPTY;
+              grid[end.row][end.col] = EMPTY_0;
             }
-            grid[row][col] = CELL_EMPTY;
+            grid[row][col] = EMPTY_0;
             setGrid([...grid]);
           }
         } else {
           if (coordinate.isEqual(start)) {
             setStartFocused(true);
-            grid[row][col] = CELL_SELECTED;
+            grid[row][col] = SELECTED_4;
           } else if (coordinate.isEqual(end)) {
             setEndFocused(true);
-            grid[row][col] = CELL_SELECTED;
+            grid[row][col] = SELECTED_4;
           } else {
             const status = grid[row][col];
-            grid[row][col] = Number(status !== 1);
+            grid[row][col] = status !== BLOCKED_2 ? BLOCKED_2 : EMPTY_0;
           }
           setGrid([...grid]);
         }
@@ -94,19 +101,19 @@ const Grid: React.FC<GridProp> = (props) => {
     if (algorithmExecuted) {
       grid.forEach((r, i) =>
         r.forEach((c, j) => {
-          grid[i][j] = grid[i][j] === CELL_BLOCKED ? CELL_BLOCKED : CELL_EMPTY;
+          grid[i][j] = grid[i][j] === BLOCKED_2 ? BLOCKED_2 : EMPTY_0;
         })
       );
       setGrid([...grid]);
 
-      const [visitedCells, prevs] = pathfindingAlgorithms[algorithm](
+      const [visitedCells, prevs] = pathfindingAlgorithms[algorithm]({
         grid,
         start,
-        end
-      );
+        end,
+      });
       visitedCells.forEach(([coordinate], i) => {
         setTimeout(() => {
-          onColored(coordinate, CELL_MARKED);
+          onColored(coordinate, VISITED_1);
         }, (i * MARK_DELAY) / algorithmSpeed);
       });
 
@@ -129,7 +136,7 @@ const Grid: React.FC<GridProp> = (props) => {
         const timeoutOffset = (visitedSize * MARK_DELAY) / algorithmSpeed;
         cellsInPath.forEach((coordinate, i) => {
           setTimeout(() => {
-            onColored(coordinate, CELL_IN_PATH);
+            onColored(coordinate, PATH_3);
             if (i === 0) {
               setAlgorithmExecuted(false);
             }
@@ -152,12 +159,12 @@ const Grid: React.FC<GridProp> = (props) => {
     if (clearExecuted) {
       grid.forEach((r, i) =>
         r.forEach((c, j) => {
-          if (clearableCells.Blocked && grid[i][j] === CELL_BLOCKED)
-            grid[i][j] = CELL_EMPTY;
-          else if (clearableCells.Path && grid[i][j] === CELL_IN_PATH)
-            grid[i][j] = CELL_EMPTY;
-          else if (clearableCells.Visited && grid[i][j] === CELL_MARKED)
-            grid[i][j] = CELL_EMPTY;
+          if (clearableCells.Blocked && grid[i][j] === BLOCKED_2)
+            grid[i][j] = EMPTY_0;
+          else if (clearableCells.Path && grid[i][j] === PATH_3)
+            grid[i][j] = EMPTY_0;
+          else if (clearableCells.Visited && grid[i][j] === VISITED_1)
+            grid[i][j] = EMPTY_0;
         })
       );
       setGrid([...grid]);
@@ -171,8 +178,8 @@ const Grid: React.FC<GridProp> = (props) => {
     if (unmarkExecuted) {
       grid.forEach((r, i) =>
         r.forEach((c, j) => {
-          if (grid[i][j] !== CELL_BLOCKED) {
-            grid[i][j] = CELL_EMPTY;
+          if (grid[i][j] !== BLOCKED_2) {
+            grid[i][j] = EMPTY_0;
           }
         })
       );
@@ -184,7 +191,7 @@ const Grid: React.FC<GridProp> = (props) => {
 
   // When a client window size is changed
   useEffect(() => {
-    const resizedGrid = initMatrix(rowSize, colSize, CELL_EMPTY);
+    const resizedGrid = initMatrix(rowSize, colSize, EMPTY_0);
 
     const resizedRow = resizedGrid.length;
     const resizedCol = resizedRow ? resizedGrid[0].length : 0;
@@ -197,7 +204,7 @@ const Grid: React.FC<GridProp> = (props) => {
     if (middleCol) {
       for (let r = oneThirdRow; r < (oneThirdRow + 1) * 2; r++) {
         if (resizedGrid.length > 0) {
-          resizedGrid[r][middleCol] = CELL_BLOCKED;
+          resizedGrid[r][middleCol] = BLOCKED_2;
         }
       }
     }
@@ -220,7 +227,7 @@ const Grid: React.FC<GridProp> = (props) => {
               <Cell
                 key={c}
                 size={cellSize}
-                status={type}
+                status={cellMap[type]}
                 isStart={isStart}
                 isEnd={isEnd}
                 coordinate={coordinate}

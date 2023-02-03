@@ -1,14 +1,14 @@
-import { CELL_BLOCKED } from "@components/algorithms";
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
+import { BLOCKED, BLOCKED_2 } from "@utils/types";
 import { COLS, ROWS } from "../constants";
-import { CellInfo } from "../types";
+import { CellInfo, PathfindingArg } from "../types";
 
-export const bidirectional = (
-  grid: number[][],
-  start: Coordinate,
-  end: Coordinate
-): [CellInfo[], (Coordinate | null)[][]] => {
+export const bidirectional = ({
+  grid,
+  start,
+  end,
+}: PathfindingArg): [CellInfo[], (Coordinate | null)[][]] => {
   let qStart: CellInfo[] = [[start, null]];
   let qEnd: CellInfo[] = [[end, null]];
   let middleFromStart = start;
@@ -53,7 +53,7 @@ export const bidirectional = (
 
         if (
           nextCoordinateStart.isInbound() &&
-          grid[nextRowStart][nextColStart] !== CELL_BLOCKED
+          grid[nextRowStart][nextColStart] !== BLOCKED_2
         ) {
           const type = types[nextRowStart][nextColStart];
           if (type === -1) {
@@ -70,7 +70,7 @@ export const bidirectional = (
 
         if (
           nextCoordinateEnd.isInbound() &&
-          grid[nextRowEnd][nextColEnd] !== CELL_BLOCKED
+          grid[nextRowEnd][nextColEnd] !== BLOCKED_2
         ) {
           const type = types[nextRowEnd][nextColEnd];
           if (type === 1) {
@@ -99,7 +99,7 @@ export const bidirectional = (
         const nextCoordinate = new Coordinate(nextRow, nextCol, grid);
         if (
           nextCoordinate.isInbound() &&
-          grid[nextRow][nextCol] !== CELL_BLOCKED
+          grid[nextRow][nextCol] !== BLOCKED_2
         ) {
           const type = types[nextRow][nextCol];
           if (type === -1) {
@@ -128,7 +128,7 @@ export const bidirectional = (
         const nextCoordinate = new Coordinate(nextRow, nextCol, grid);
         if (
           nextCoordinate.isInbound() &&
-          grid[nextRow][nextCol] !== CELL_BLOCKED
+          grid[nextRow][nextCol] !== BLOCKED_2
         ) {
           const type = types[nextRow][nextCol];
           if (type === 1) {
