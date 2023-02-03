@@ -4,15 +4,13 @@ import neumorphic from "@styles/neumorphic.module.scss";
 import { Icon, MyHead, ProgressSteps, RadioBlock } from "@components/common";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
-import { Accordion } from "@components/common/Accordion";
 import { Experience } from "@components/me";
+import { meTexts } from "./constants";
 
-const frontendSkills = ["React + NextJS", "Cypress", "SCSS/SASS"];
-const backendSkills = ["ExpressJS", "MySQL", "cassandra", "TypeORM", "OAuth"];
-const cloudSkills = ["Kubernetes", "GCP", "Docker"];
 const neumorphicDown = [neumorphic.root, neumorphic.down].join(" ");
 
 const { root } = pages;
+const { introduction, experiences, skills } = meTexts;
 
 const Index = () => {
   const router = useRouter();
@@ -34,18 +32,15 @@ const Index = () => {
             className={`${neumorphic.root} ${neumorphic.paragraph}`}
             style={{ marginBottom: 40 }}
           >
-            <p style={{ marginBottom: 12 }}>
-              I&apos;m Tomoya Tokunaga, a software engineer based in Tokyo,
-              Japan.
-            </p>
-            <p style={{ marginBottom: 12 }}>
-              Currently working at Rakuten Mobile as a lead developer of web
-              applications for B2C customers.
-            </p>
-            <p>
-              All my personal projects, past experiences and skills/technologies
-              are listed below.
-            </p>
+            {introduction.map((text, i) => (
+              <p
+                style={{
+                  marginBottom: i !== introduction.length - 1 ? 12 : 0,
+                }}
+              >
+                {text}
+              </p>
+            ))}
           </div>
 
           <div style={{ marginBottom: 40 }}>
@@ -80,65 +75,13 @@ const Index = () => {
             </div>
             <ProgressSteps
               type={"vertical"}
-              items={[
-                {
-                  name: "rm",
-                  component: (
-                    <Experience
-                      entityName="Rakuten Mobile"
-                      title="Lead developer"
-                      periods={[
-                        "Oct, 2021 - current",
-                        "Oct, 2020 - Sep, 2021 as Frontend developer",
-                      ]}
-                      accordionTitle={"Projects"}
-                      explanations={[
-                        {
-                          subtitle: "#1. B2C ISP website",
-                          content: "hello",
-                        },
-                      ]}
-                    />
-                  ),
-                },
-                {
-                  name: "mercari",
-                  component: (
-                    <Experience
-                      entityName="Mercari"
-                      title="Internship"
-                      periods={["Jul, 2019 - Sep, 2019"]}
-                      accordionTitle={"Projects"}
-                      explanations={[]}
-                    />
-                  ),
-                },
-                {
-                  name: "gs",
-                  component: (
-                    <Experience
-                      entityName="Goldman Sachs"
-                      title="Internship"
-                      periods={["Aug, 2018 - Sep, 2018"]}
-                      accordionTitle={"Projects"}
-                      explanations={[]}
-                    />
-                  ),
-                },
-                {
-                  name: "ucsd",
-                  component: (
-                    <Experience
-                      entityName="UC San Diego"
-                      title="B.S. Math-Computer Science"
-                      periods={["Sep, 2016 - Jun, 2020"]}
-                      accordionTitle={"Projects"}
-                      explanations={[]}
-                    />
-                  ),
-                },
-              ]}
-              current={"rm"}
+              items={experiences.map((exp) => {
+                return {
+                  name: exp.entityName,
+                  component: <Experience {...exp} />,
+                };
+              })}
+              current={experiences[0].entityName}
             />
           </div>
 
@@ -148,38 +91,18 @@ const Index = () => {
             </h2>
           </div>
           <div className={neumorphicDown} style={{ marginBottom: 20 }}>
-            <div style={{ marginBottom: 8 }}>
+            {skills.map(({ title, list }) => (
               <div style={{ marginBottom: 8 }}>
-                <span style={{ fontWeight: 500 }}>Frontend:</span>
+                <div style={{ marginBottom: 8 }}>
+                  <span style={{ fontWeight: 500 }}>{title}:</span>
+                </div>
+                <RadioBlock
+                  items={list}
+                  value={null}
+                  fontColor={neumorphic.navy}
+                />
               </div>
-              <RadioBlock
-                items={frontendSkills}
-                value={null}
-                fontColor={neumorphic.navy}
-              />
-            </div>
-
-            <div style={{ marginBottom: 8 }}>
-              <div style={{ marginBottom: 8 }}>
-                <span style={{ fontWeight: 500 }}>Backend:</span>
-              </div>
-              <RadioBlock
-                items={backendSkills}
-                value={null}
-                fontColor={neumorphic.navy}
-              />
-            </div>
-
-            <div>
-              <div style={{ marginBottom: 8 }}>
-                <span style={{ fontWeight: 500 }}>Cloud:</span>
-              </div>
-              <RadioBlock
-                items={cloudSkills}
-                value={null}
-                fontColor={neumorphic.navy}
-              />
-            </div>
+            ))}
           </div>
         </div>
       </div>

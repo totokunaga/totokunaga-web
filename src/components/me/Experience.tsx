@@ -1,11 +1,11 @@
 import { Accordion } from "@components/common/Accordion";
 
-type ExperienceProp = {
+export type ExperienceProp = {
   entityName: string;
   title: string;
   periods: string[];
-  accordionTitle: string;
-  explanations: Array<{ subtitle: string; content: string }>;
+  accordionTitle?: string;
+  explanations?: Array<{ subtitle: string; content: string }>;
 };
 
 export const Experience: React.FC<ExperienceProp> = ({
@@ -30,24 +30,26 @@ export const Experience: React.FC<ExperienceProp> = ({
           </div>
         ))}
       </div>
-      <div style={{ marginBottom: 8 }}>
-        <Accordion name={accordionTitle} componentId={entityName + title}>
-          {explanations.map(({ subtitle, content }, i) => (
-            <div key={i}>
-              <p
-                style={{
-                  fontWeight: 500,
-                  marginBottom: 10,
-                  fontSize: "min(3.7vw, 16px)",
-                }}
-              >
-                {subtitle}
-              </p>
-              <p style={{ fontSize: "min(3.75vw, 16px)" }}>{content}</p>
-            </div>
-          ))}
-        </Accordion>
-      </div>
+      {accordionTitle && explanations && (
+        <div style={{ marginBottom: 8 }}>
+          <Accordion name={accordionTitle} componentId={entityName + title}>
+            {explanations.map(({ subtitle, content }, i) => (
+              <div key={i}>
+                <p
+                  style={{
+                    fontWeight: 500,
+                    marginBottom: 10,
+                    fontSize: "min(3.7vw, 16px)",
+                  }}
+                >
+                  {subtitle}
+                </p>
+                <p style={{ fontSize: "min(3.75vw, 16px)" }}>{content}</p>
+              </div>
+            ))}
+          </Accordion>
+        </div>
+      )}
     </div>
   );
 };
