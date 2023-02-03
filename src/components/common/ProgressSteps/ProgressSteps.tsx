@@ -28,7 +28,7 @@ const Step: React.FC<StepProp> = ({
   const [lineHeight, setLineHeight] = useState(0);
   const componentId = useMemo(() => String(name), [name]);
 
-  const wrapperClassName = useMemo(() => {
+  const wrapperStyle = useMemo(() => {
     const horizontalStyle = {};
     const verticalStyle = {
       display: "flex",
@@ -36,7 +36,7 @@ const Step: React.FC<StepProp> = ({
     return type === "horizontal" ? horizontalStyle : verticalStyle;
   }, [type]);
 
-  const radioWrapperClassName = useMemo(() => {
+  const radioWrapperStyle = useMemo(() => {
     const horizontalStyle = {};
     const verticalStyle = {
       marginRight: 16,
@@ -61,14 +61,16 @@ const Step: React.FC<StepProp> = ({
   }, [componentId]);
 
   return (
-    <div style={wrapperClassName}>
-      <div style={radioWrapperClassName}>
+    <div style={wrapperStyle}>
+      <div style={{ ...radioWrapperStyle }}>
         <Radio checked={true} animate={focused} />
         {!isLastStep && (
           <div className={lineClassName} style={{ height: lineHeight }} />
         )}
       </div>
-      <div id={componentId}>{component}</div>
+      <div id={componentId} style={{ flexGrow: 1, maxWidth: 700 }}>
+        {component}
+      </div>
     </div>
   );
 };

@@ -17,3 +17,13 @@ export const pages = {
     title: "Tomoya Tokunaga",
   },
 };
+
+const pathFirstLevel = {
+  root: "/",
+  me: "/",
+  algorigthms: "/algorithms",
+};
+const pathSecondLevel = {
+  pathfinding: pathFirstLevel.algorigthms + "/pathfinding",
+};
+export const paths = { ...pathFirstLevel, ...pathSecondLevel };

@@ -1,6 +1,5 @@
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
-import { CellType } from "@utils/types";
 import { COLS, ROWS } from "../constants";
 import { CellInfo, PathfindingArg } from "../types";
 import { isValidCell } from "./helper-functions";

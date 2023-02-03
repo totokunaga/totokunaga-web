@@ -5,12 +5,13 @@ import { useMemo } from "react";
 export type Size = "slim" | "normal";
 
 type RadioProp = {
-  content?: any;
+  content?: string;
   checked: boolean;
   sub?: boolean;
   animate?: boolean;
   size?: Size;
   fontColor?: string;
+  circleColor?: string;
 };
 
 export const Radio: React.FC<RadioProp> = ({
@@ -20,6 +21,7 @@ export const Radio: React.FC<RadioProp> = ({
   animate,
   size,
   fontColor,
+  circleColor,
 }) => {
   const wrapperClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.radio];
@@ -41,7 +43,10 @@ export const Radio: React.FC<RadioProp> = ({
 
   return (
     <div className={wrapperClassName} style={{ color: fontColor }}>
-      <div className={circleClassName} />
+      <div
+        className={circleClassName}
+        style={{ backgroundColor: circleColor }}
+      />
       <span>{content}</span>
     </div>
   );

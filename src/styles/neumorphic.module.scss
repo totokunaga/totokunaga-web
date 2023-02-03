@@ -9,7 +9,6 @@ $primaryDark: #5b0eeb;
   padding: 16px 24px;
   border-radius: 15px;
   justify-self: center;
-  transition: 0.3s ease;
   border: none;
   background-color: var(--greyLight-1);
   transition: all 0.15s ease-in-out;
@@ -21,6 +20,17 @@ $primaryDark: #5b0eeb;
 
   &.down {
     @include neumorphic-inner-shadow;
+  }
+
+  // CHIP
+  &.chip {
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 14px 20px;
+    color: var(--primary-dark);
+    fill: var(--primary-dark);
   }
 
   // PARAGRAPH
@@ -37,19 +47,18 @@ $primaryDark: #5b0eeb;
 
   // BUTTON
   &.button {
-    font-size: 16px;
     cursor: pointer;
+    font-size: min(4vw, 18px);
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary);
-    fill: var(--primary);
+    color: var(--primary-dark);
+    fill: var(--primary-dark);
     &.primary {
+      @include inward-shodow(var(--primary-light), var(--primary-dark));
       padding: 12px 24px;
       background: var(--primary);
-      box-shadow: inset 0.2rem 0.2rem 1rem var(--primary-light),
-        inset -0.2rem -0.2rem 1rem var(--primary-dark);
       color: var(--greyLight-1);
       fill: var(--greyLight-1);
 
@@ -58,11 +67,11 @@ $primaryDark: #5b0eeb;
         fill: var(--white);
       }
       &:active {
-        @include primary-inner-shadow;
+        @include inward-inner-shodow(var(--primary-dark), var(--primary-light));
       }
     }
     &.secondary {
-      @include secondary-shadow;
+      @include inward-shodow(var(--secondary-light), var(--secondary-dark));
       padding: 12px 24px;
       background: var(--secondary);
       color: var(--greyLight-1);
@@ -73,13 +82,16 @@ $primaryDark: #5b0eeb;
         fill: var(--white);
       }
       &:active {
-        @include secondary-inner-shadow;
+        @include inward-inner-shodow(
+          var(--secondary-dark),
+          var(--secondary-light)
+        );
       }
     }
 
     &:hover {
-      color: var(--primary-dark);
-      fill: var(--primary-dark);
+      color: var(--deep-primary-dark);
+      fill: var(--deep-primary-dark);
     }
     &:active {
       @include neumorphic-inner-shadow;
@@ -89,8 +101,8 @@ $primaryDark: #5b0eeb;
   // RADIO
   &.radio {
     cursor: pointer;
-    font-size: 16px;
     padding: 10px 20px 10px 15px;
+    font-size: min(4vw, 18px);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -125,7 +137,6 @@ $primaryDark: #5b0eeb;
       inset -1.5px -1.5px 4.5px var(--primary-light);
     &.animate {
       animation-name: opacity-animation;
-      animation-name: opacity-animation;
       animation-duration: 3s;
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;
@@ -141,15 +152,31 @@ $primaryDark: #5b0eeb;
   // CHECKBOX
   &.checkbox {
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     &.checked {
       background-color: var(--primary);
-      @include primary-inner-shadow;
+      @include inward-inner-shodow(var(--primary-dark), var(--primary-light));
     }
+  }
+
+  // ACCORDION
+  &.accordion {
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 12px 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+  }
+
+  &.icon {
+    padding: 6px;
+    @include shodow-shallower(var(--white), var(--greyLight-2));
   }
 }
 

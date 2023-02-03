@@ -5,6 +5,7 @@ type RadioBlockProp = {
   value: any;
   onChange?: (value: any) => void;
   fontColor?: string;
+  circleColor?: string;
   size?: Size;
 };
 
@@ -13,6 +14,7 @@ export const RadioBlock: React.FC<RadioBlockProp> = ({
   value,
   onChange,
   fontColor,
+  circleColor,
   size,
 }) => {
   return (
@@ -31,6 +33,7 @@ export const RadioBlock: React.FC<RadioBlockProp> = ({
               content={item}
               checked={item === value}
               fontColor={fontColor}
+              circleColor={circleColor}
               size={size}
             />
           </div>

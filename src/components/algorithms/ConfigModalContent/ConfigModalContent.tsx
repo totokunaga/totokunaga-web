@@ -81,7 +81,7 @@ export const ConfigModalContent: React.FC<{
       </div>
 
       <h3 style={{ marginBottom: 16 }}>Animation speed</h3>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: 32 }}>
         <Slider
           initValue={algorithmSpeed}
           onChange={onChangeSpeed}
@@ -120,7 +120,7 @@ export const ConfigModalContent: React.FC<{
             dispatch(setClearExecuted(true));
             onClose();
           }}
-          fontSize={16}
+          // fontSize={16}
           fontWeight={700}
           type={"normal"}
         >

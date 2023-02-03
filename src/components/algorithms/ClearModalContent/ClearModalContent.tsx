@@ -56,12 +56,10 @@ export const ClearModalContent: React.FC<{
         </div>
       ))}
 
-      <div
-        style={{ marginTop: 24, color: "rgba(0, 38, 91, 0.5)", fontSize: 14 }}
-      >
+      <div style={{ marginTop: 24, color: "rgba(0, 38, 91, 0.5)" }}>
         <p>
           This prompt won&apos;t be shown from next time. You can update the
-          configuration from <b>&quot;Algorithm&quot; button</b> if needed
+          configuration from <b>&quot;Algorithm&quot;</b> button if needed
         </p>
       </div>
 
@@ -71,7 +69,6 @@ export const ClearModalContent: React.FC<{
             dispatch(setClearExecuted(true));
             onClose();
           }}
-          fontSize={16}
           fontWeight={700}
           type={"normal"}
         >

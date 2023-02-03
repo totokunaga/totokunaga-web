@@ -1,9 +1,11 @@
+@import "@styles/mixin.module.scss";
+
 @keyframes opacity-animation {
   0% {
     opacity: 1;
   }
   50% {
-    opacity: 0.1;
+    opacity: 0.35;
   }
   100% {
     opacity: 1;
@@ -17,12 +19,17 @@
   background-color: var(--greyDark);
   margin-right: 8px;
   transition: all 0.1s ease-in-out;
+  @include inward-inner-shodow-shallower(
+    var(--greyDark-dark),
+    var(--greyLight-1)
+  );
   &.slim {
     width: 10px;
     height: 10px;
   }
   &.checked {
     background-color: var(--primary-dark);
+    box-shadow: none;
     &.sub {
       opacity: 0.4;
     }

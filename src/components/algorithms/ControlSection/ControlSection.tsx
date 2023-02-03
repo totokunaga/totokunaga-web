@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Icon, Modal } from "@components/common";
-import style from "@styles/default.module.scss";
 import { pathfindingText } from "@utils/constants";
 import { selectPathfindingController } from "@utils/slices";
 import { ClearModalContent } from "../ClearModalContent";
 import { ConfigModalContent } from "../ConfigModalContent";
+import style from "@styles/default.module.scss";
 
 const ControlSection: React.FC<{
   onStartClick: () => void;
@@ -57,7 +57,12 @@ const ControlSection: React.FC<{
           fontWeight={400}
         >
           <div className={style.horizontallyAligned}>
-            <Icon icon={"sharp-setting"} width={24} height={24} />
+            <Icon
+              icon={"sharp-setting"}
+              width={24}
+              height={24}
+              animation={"rotate"}
+            />
             <span style={{ margin: "0px 8px" }}>Algorithm:</span>
             <span className={style.code} style={{ fontSize: 20 }}>
               {algorithm}

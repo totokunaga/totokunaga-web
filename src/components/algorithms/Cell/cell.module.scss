@@ -25,11 +25,8 @@
   }
 
   &.Blocked {
-    // background-color: var(--primary);
-    // border: solid 0.5px var(--primary);
     background-color: var(--navy-color);
     border: solid 0.5px var(--navy-color);
-    // @include primary-shadow;
   }
 
   &.Selected {

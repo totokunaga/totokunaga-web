@@ -1,5 +1,3 @@
-import { CellType } from "@utils/types";
-
 class Coordinate {
   row: number;
   col: number;
