@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Radio } from "../Radio";
 import neumorphic from "@styles/neumorphic.module.scss";
 
@@ -6,27 +6,43 @@ type Direction = "horizontal" | "vertical";
 
 type ProgressStepProp = {
   type: Direction;
-  items: Array<{ name: string | number; component: ReactNode }>;
+  items: Array<{
+    name: string | number;
+    component: (arg: any) => any;
+    args: any;
+  }>;
   current: string | number;
 };
 
 type StepProp = {
+  order: number;
   name: string | number;
   type: Direction;
   focused: boolean;
-  component: ReactNode;
+  Component: (arg: any) => any;
+  args: any;
   isLastStep?: boolean;
 };
 
 const Step: React.FC<StepProp> = ({
+  order,
   name,
   type,
   focused,
-  component,
+  Component,
+  args,
   isLastStep,
 }) => {
   const [lineHeight, setLineHeight] = useState(0);
-  const componentId = useMemo(() => String(name), [name]);
+  const [grownHeight, setGrownHeight] = useState(0);
+  const componentId = useMemo(() => String(name + order.toString()), [name]);
+  const childComponent = useMemo(() => {
+    args.componentId = componentId;
+    args.onResize = (value: number) => {
+      setTimeout(() => setGrownHeight(value), 175);
+    };
+    return <Component {...args} />;
+  }, []);
 
   const wrapperStyle = useMemo(() => {
     const horizontalStyle = {};
@@ -56,9 +72,12 @@ const Step: React.FC<StepProp> = ({
     const stepHeight = 32;
     const componentElement = document.getElementById(componentId);
     const lineHeight =
-      (componentElement?.clientHeight || 0) - 2 * marginY - stepHeight / 2;
+      (componentElement?.clientHeight || 0) -
+      2 * marginY -
+      stepHeight / 2 +
+      grownHeight;
     setLineHeight(lineHeight);
-  }, [componentId]);
+  }, [componentId, grownHeight]);
 
   return (
     <div style={wrapperStyle}>
@@ -68,9 +87,7 @@ const Step: React.FC<StepProp> = ({
           <div className={lineClassName} style={{ height: lineHeight }} />
         )}
       </div>
-      <div id={componentId} style={{ flexGrow: 1, maxWidth: 700 }}>
-        {component}
-      </div>
+      <div style={{ flexGrow: 1, maxWidth: 700 }}>{childComponent}</div>
     </div>
   );
 };
@@ -82,13 +99,15 @@ export const ProgressSteps: React.FC<ProgressStepProp> = ({
 }) => {
   return (
     <div>
-      {items.map(({ name, component }, i) => (
+      {items.map(({ name, component, args }, i) => (
         <Step
           key={name}
+          order={i}
           name={name}
           type={type}
           focused={name === current}
-          component={component}
+          Component={component}
+          args={args}
           isLastStep={i === items.length - 1}
         />
       ))}

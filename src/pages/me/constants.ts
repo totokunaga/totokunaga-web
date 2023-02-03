@@ -27,14 +27,24 @@ export const meTexts = {
       title: "Internship",
       periods: ["Jul, 2019 - Sep, 2019"],
       accordionTitle: "Projects",
-      explanations: [],
+      explanations: [
+        {
+          subtitle: "Mercari intern project",
+          content: "hello",
+        },
+      ],
     },
     {
       entityName: "Goldman Sachs",
       title: "Internship",
       periods: ["Aug, 2018 - Sep, 2018"],
       accordionTitle: "Projects",
-      explanations: [],
+      explanations: [
+        {
+          subtitle: "Goldman Sachs intern project",
+          content: "hello",
+        },
+      ],
     },
     {
       entityName: "UC San Diego",

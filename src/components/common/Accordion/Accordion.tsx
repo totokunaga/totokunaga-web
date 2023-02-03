@@ -7,12 +7,14 @@ type AccordionProp = {
   name: string;
   componentId: string;
   children?: ReactNode;
+  onResize?: (value: number) => void;
 };
 
 export const Accordion: React.FC<AccordionProp> = ({
   name,
   children,
   componentId,
+  onResize,
 }) => {
   const [opened, setOpened] = useState(false);
 
@@ -35,16 +37,19 @@ export const Accordion: React.FC<AccordionProp> = ({
 
   const onClick = useCallback(() => {
     const contentElement = document.getElementById(componentId);
+    const contentPadding = 24;
     if (contentElement) {
+      const currentHeight = contentElement.scrollHeight || 0;
       if (!opened) {
-        const currentHeight = contentElement.scrollHeight || 0;
         contentElement.style.maxHeight = `${currentHeight}px`;
+        onResize && onResize(currentHeight - contentPadding);
       } else {
         contentElement.style.maxHeight = "0px";
+        onResize && onResize((currentHeight - contentPadding) * -1);
       }
     }
     setOpened(!opened);
-  }, [opened]);
+  }, [opened, onResize]);
 
   return (
     <div className={wrapperClassName} onClick={onClick}>

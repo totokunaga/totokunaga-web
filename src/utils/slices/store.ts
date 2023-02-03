@@ -5,8 +5,10 @@ import {
   windowSlice,
   pathfindingControllerSlice,
 } from "./algorithms/pathfinding";
+import globalSlice from "./globalSlice";
 
 const rootReducer = combineReducers({
+  global: globalSlice,
   timeout: timeoutSlice.reducer,
   grid: gridSlice.reducer,
   window: windowSlice.reducer,

@@ -6,6 +6,8 @@ export type ExperienceProp = {
   periods: string[];
   accordionTitle?: string;
   explanations?: Array<{ subtitle: string; content: string }>;
+  onResize?: (value: number) => void;
+  componentId: string;
 };
 
 export const Experience: React.FC<ExperienceProp> = ({
@@ -14,9 +16,11 @@ export const Experience: React.FC<ExperienceProp> = ({
   periods,
   explanations,
   accordionTitle,
+  onResize,
+  componentId,
 }) => {
   return (
-    <div>
+    <div id={componentId}>
       <div style={{ margin: "6px 0px 4px 0px" }}>
         <p style={{ fontWeight: 500 }}>
           {entityName}{" "}
@@ -32,7 +36,11 @@ export const Experience: React.FC<ExperienceProp> = ({
       </div>
       {accordionTitle && explanations && (
         <div style={{ marginBottom: 8 }}>
-          <Accordion name={accordionTitle} componentId={entityName + title}>
+          <Accordion
+            name={accordionTitle}
+            componentId={entityName + title}
+            onResize={onResize}
+          >
             {explanations.map(({ subtitle, content }, i) => (
               <div key={i}>
                 <p

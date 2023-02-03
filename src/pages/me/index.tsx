@@ -79,7 +79,8 @@ const Index = () => {
               items={experiences.map((exp) => {
                 return {
                   name: exp.entityName,
-                  component: <Experience {...exp} />,
+                  component: Experience,
+                  args: exp,
                 };
               })}
               current={experiences[0].entityName}
