@@ -34,6 +34,7 @@ const Index = () => {
           >
             {introduction.map((text, i) => (
               <p
+                key={i}
                 style={{
                   marginBottom: i !== introduction.length - 1 ? 12 : 0,
                 }}
@@ -91,8 +92,8 @@ const Index = () => {
             </h2>
           </div>
           <div className={neumorphicDown} style={{ marginBottom: 20 }}>
-            {skills.map(({ title, list }) => (
-              <div style={{ marginBottom: 8 }}>
+            {skills.map(({ title, list }, i) => (
+              <div key={i} style={{ marginBottom: 8 }}>
                 <div style={{ marginBottom: 8 }}>
                   <span style={{ fontWeight: 500 }}>{title}:</span>
                 </div>
