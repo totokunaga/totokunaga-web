@@ -25,7 +25,10 @@ export const Radio: React.FC<RadioProp> = ({
 }) => {
   const wrapperClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.radio];
-    if (checked) classes.push(neumorphic.down);
+    if (checked) {
+      classes.push(neumorphic.down);
+      classes.push(neumorphic.checked);
+    }
     if (!content) classes.push(neumorphic.no_content);
     if (size === "slim") classes.push(neumorphic.slim);
     return classes.join(" ");

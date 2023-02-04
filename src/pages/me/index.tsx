@@ -7,7 +7,6 @@ import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "@utils/constants";
-import Image from "next/image";
 import { useWindowSize } from "@utils/hooks";
 import { useEffect, useState } from "react";
 
@@ -43,7 +42,7 @@ const Index = () => {
           <div style={{ display: "flex", position: "relative" }}>
             <div className={meStyle.profile_image_wrapper}>
               <div className={neumorphicDown} style={{ padding: 12 }}>
-                <Image
+                <img
                   alt={"profile"}
                   src={"/profile.jpg"}
                   width={profileSize}

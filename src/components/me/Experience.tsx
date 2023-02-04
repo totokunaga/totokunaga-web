@@ -22,7 +22,7 @@ export const Experience: React.FC<ExperienceProp> = ({
   return (
     <div id={componentId}>
       <div style={{ margin: "6px 0px 4px 0px" }}>
-        <p style={{ fontWeight: 500 }}>
+        <p style={{ fontWeight: 500, marginRight: 5 }}>
           {entityName}{" "}
           <span style={{ fontSize: 15, fontWeight: 300 }}>- {title}</span>
         </p>
@@ -30,7 +30,7 @@ export const Experience: React.FC<ExperienceProp> = ({
       <div style={{ marginBottom: 12 }}>
         {periods.map((exp, i) => (
           <div key={i}>
-            <p style={{ fontSize: 15 }}>{exp}</p>
+            <p style={{ fontSize: "max(min(3.5vw, 15px), 14px" }}>{exp}</p>
           </div>
         ))}
       </div>

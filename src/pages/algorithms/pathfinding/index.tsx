@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import style from "@styles/default.module.scss";
-import Grid from "@components/algorithms/Grid/Grid";
+import { Grid, ControlSection } from "@components/algorithms";
 import { CELL_SIZE } from "@utils/constants";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
@@ -11,7 +11,6 @@ import {
   pathfindingConfigId,
   pathfindingPageId,
 } from "@utils/constants";
-import ControlSection from "@components/algorithms/ControlSection";
 import { setWidth } from "@utils/slices";
 import { getStripeSize } from "@utils/functions";
 

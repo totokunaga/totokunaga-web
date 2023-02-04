@@ -1,8 +1,8 @@
 import Coordinate from "@utils/classes/Coordinate";
-import { CellType } from "@utils/types";
+import { CellType, CSSStyle } from "@utils/types";
 
-export type CellProp = {
-  size: number;
+export type CellProp = CSSStyle & {
+  size: number | string;
   status: CellType;
   isStart?: boolean;
   isEnd?: boolean;

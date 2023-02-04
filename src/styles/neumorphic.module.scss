@@ -107,8 +107,8 @@ $primaryDark: #5b0eeb;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary);
-    fill: var(--primary);
+    color: var(--greyLight-3);
+    fill: var(--greyLight-3);
     @media (max-width: 520px) {
       font-size: min(4vw, 15px);
     }
@@ -123,6 +123,7 @@ $primaryDark: #5b0eeb;
     }
     &.checked {
       color: var(--primary-dark);
+      fill: var(--primary-dark);
       @include neumorphic-inner-shadow;
     }
     &.no_content {

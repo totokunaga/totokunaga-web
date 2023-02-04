@@ -17,7 +17,7 @@ import {
   VISITED_1,
 } from "@utils/types";
 
-const Grid: React.FC<GridProp> = (props) => {
+export const Grid: React.FC<GridProp> = (props) => {
   const {
     rowSize,
     colSize,
@@ -229,5 +229,3 @@ const Grid: React.FC<GridProp> = (props) => {
     </div>
   );
 };
-
-export default Grid;

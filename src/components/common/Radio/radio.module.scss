@@ -28,8 +28,11 @@
     height: 10px;
   }
   &.checked {
-    background-color: var(--primary-dark);
-    box-shadow: none;
+    background-color: var(--primary);
+    @include inward-inner-shodow-shallower(
+      var(--deep-primary-dark),
+      var(--primary-light)
+    );
     &.sub {
       opacity: 0.4;
     }

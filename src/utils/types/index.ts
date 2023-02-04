@@ -3,4 +3,25 @@ export const SMARTPHONE = "SMARTPHONE";
 export const TABLET = "TABLET";
 export const DESKTOP = "DESKTOP";
 
+export type CSSStyle = {
+  margin?: number | string;
+  marginTop?: number | string;
+  marginRight?: number | string;
+  marginBottom?: number | string;
+  marginLeft?: number | string;
+  padding?: number | string;
+  paddingTop?: number | string;
+  paddingRight?: number | string;
+  paddingBottom?: number | string;
+  paddingLeft?: number | string;
+  fontSize?: number | string;
+  fontFamily?: string;
+  color?: string;
+  backgroundColor?: string;
+  border?: string;
+  borderRadius?: number | string;
+  borderColor?: string;
+  cursor?: string;
+};
+
 export * from "./pages";

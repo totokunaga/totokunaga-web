@@ -16,6 +16,7 @@ export const Cell: React.FC<CellProp> = ({
   coordinate,
   disabled = false,
   onClick,
+  ...prop
 }) => {
   const cellClassName = useMemo(() => {
     const classes = [style.cell, style[status]];
@@ -42,6 +43,7 @@ export const Cell: React.FC<CellProp> = ({
         justifyContent: "center",
         alignItems: "center",
         cursor: disabled ? "default" : undefined,
+        ...prop,
       }}
     >
       {isStart ? <Arrow /> : undefined}

@@ -7,7 +7,7 @@ import { ClearModalContent } from "../ClearModalContent";
 import { ConfigModalContent } from "../ConfigModalContent";
 import style from "@styles/default.module.scss";
 
-const ControlSection: React.FC<{
+export const ControlSection: React.FC<{
   onStartClick: () => void;
   algorithmExecuted: boolean;
 }> = ({ onStartClick, algorithmExecuted }) => {
@@ -87,5 +87,3 @@ const ControlSection: React.FC<{
     </div>
   );
 };
-
-export default ControlSection;
