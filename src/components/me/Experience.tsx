@@ -47,12 +47,14 @@ export const Experience: React.FC<ExperienceProp> = ({
                   style={{
                     fontWeight: 500,
                     marginBottom: 10,
-                    fontSize: "min(3.7vw, 16px)",
+                    fontSize: "max(min(3.7vw, 16px), 14px)",
                   }}
                 >
                   {subtitle}
                 </p>
-                <p style={{ fontSize: "min(3.75vw, 16px)" }}>{content}</p>
+                <p style={{ fontSize: "max(min(3.75vw, 16px), 14px)" }}>
+                  {content}
+                </p>
               </div>
             ))}
           </Accordion>

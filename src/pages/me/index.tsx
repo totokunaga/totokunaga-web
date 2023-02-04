@@ -23,7 +23,7 @@ const Index = () => {
 
   useEffect(() => {
     if (width) {
-      setProfileSize(Math.min(Math.round(width / 3.5), 126));
+      setProfileSize(Math.min(Math.round(width / 4), 126));
     }
   }, [width]);
 

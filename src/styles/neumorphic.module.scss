@@ -102,13 +102,16 @@ $primaryDark: #5b0eeb;
   &.radio {
     cursor: pointer;
     padding: 10px 20px 10px 15px;
-    font-size: min(4vw, 18px);
+    font-size: min(4vw, 16px);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--primary);
     fill: var(--primary);
+    @media (max-width: 520px) {
+      font-size: min(4vw, 15px);
+    }
     &.slim {
       font-size: 12px;
       padding: 6px 12px 6px 9px;

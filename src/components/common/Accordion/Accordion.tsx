@@ -63,7 +63,7 @@ export const Accordion: React.FC<AccordionProp> = ({
           style={{
             fontWeight: 400,
             flexGrow: 1,
-            fontSize: "min(3.75vw, 16px)",
+            fontSize: "max(min(3.75vw, 16px), 14px)",
           }}
         >
           {name}

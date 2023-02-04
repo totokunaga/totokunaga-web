@@ -140,7 +140,7 @@ h4 {
   font-size: min(4.5vw, 25px);
 }
 p {
-  font-size: min(4vw, 19px);
+  font-size: max(min(4vw, 19px), 14px);
   font-weight: 300;
 }
 
