@@ -1,11 +1,15 @@
 import style from "@styles/default.module.scss";
 import textStyle from "@styles/text.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
+import meStyle from "./me.module.scss";
 import { Icon, MyHead, ProgressSteps, RadioBlock } from "@components/common";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "./constants";
+import Image from "next/image";
+import { useWindowSize } from "@utils/hooks";
+import { useEffect, useState } from "react";
 
 const neumorphicDown = [neumorphic.root, neumorphic.down].join(" ");
 
@@ -14,6 +18,14 @@ const { introduction, experiences, skills } = meTexts;
 
 const Index = () => {
   const router = useRouter();
+  const { width } = useWindowSize();
+  const [profileSize, setProfileSize] = useState(0);
+
+  useEffect(() => {
+    if (width) {
+      setProfileSize(Math.min(Math.round(width / 3.5), 126));
+    }
+  }, [width]);
 
   return (
     <>
@@ -28,20 +40,34 @@ const Index = () => {
           <h1 className={style.font} style={{ marginBottom: 16 }}>
             Hello,
           </h1>
-          <div
-            className={`${neumorphic.root} ${neumorphic.paragraph}`}
-            style={{ marginBottom: 40 }}
-          >
-            {introduction.map((text, i) => (
-              <p
-                key={i}
-                style={{
-                  marginBottom: i !== introduction.length - 1 ? 12 : 0,
-                }}
-              >
-                {text}
-              </p>
-            ))}
+          <div style={{ display: "flex", position: "relative" }}>
+            <div className={meStyle.profile_image_wrapper}>
+              <div className={neumorphicDown} style={{ padding: 12 }}>
+                <Image
+                  alt={"profile"}
+                  src={"/profile.jpg"}
+                  width={profileSize}
+                  height={profileSize}
+                  draggable={false}
+                  style={{ borderRadius: 15 }}
+                />
+              </div>
+            </div>
+            <div
+              className={`${neumorphic.root} ${neumorphic.paragraph} ${meStyle.profile_description_wrapper}`}
+            >
+              <div className={meStyle.profile_description_float} />
+              {introduction.map((text, i) => (
+                <p
+                  key={i}
+                  style={{
+                    marginBottom: i !== introduction.length - 1 ? 12 : 0,
+                  }}
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
           </div>
 
           <div style={{ marginBottom: 40 }}>

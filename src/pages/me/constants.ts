@@ -3,7 +3,7 @@ import { ExperienceProp } from "@components/me";
 export const meTexts = {
   introduction: [
     "I'm Tomoya Tokunaga, a software engineer based in Tokyo, Japan.",
-    "Currently working at Rakuten Mobile as a lead developer of web applications for B2C customers.,",
+    "Currently working at Rakuten Mobile as a lead developer of web applications for B2C customers.",
     "All my personal projects, past experiences and skills/technologies are listed below.",
   ],
   experiences: [
