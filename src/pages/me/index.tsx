@@ -6,7 +6,7 @@ import { Icon, MyHead, ProgressSteps, RadioBlock } from "@components/common";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
-import { meTexts } from "./constants";
+import { meTexts } from "@utils/constants";
 import Image from "next/image";
 import { useWindowSize } from "@utils/hooks";
 import { useEffect, useState } from "react";

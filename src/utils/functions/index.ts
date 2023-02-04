@@ -1,3 +1,5 @@
+export * from "./pages";
+
 export const initMatrix = <T>(
   rowSize: number,
   colSize: number,

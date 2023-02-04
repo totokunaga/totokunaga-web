@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Pathfinding } from "@utils/pathfinding";
+import { Pathfinding } from "@utils/types";
 import { slicerNames } from "@utils/slices/slicerNames";
 import { RootState } from "@utils/slices/store";
 import { ClearableCellType } from "@utils/types";

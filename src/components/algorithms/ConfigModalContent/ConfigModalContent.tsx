@@ -11,7 +11,7 @@ import {
   setPathfindingAlgorithm,
   setPathfindingAlgorithmSpeed,
 } from "@utils/slices";
-import { Pathfinding } from "@utils/pathfinding";
+import { Pathfinding } from "@utils/types";
 
 export const pathfindingNames: Record<Pathfinding, string> = {
   BFS: "BFS",

@@ -1,8 +1,8 @@
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
-import { BLOCKED, BLOCKED_2 } from "@utils/types";
-import { COLS, ROWS } from "../constants";
-import { CellInfo, PathfindingArg } from "../types";
+import { BLOCKED_2 } from "@utils/types";
+import { COLS, ROWS } from "@utils/constants";
+import { CellInfo, PathfindingArg } from "@utils/types";
 
 export const bidirectional = ({
   grid,

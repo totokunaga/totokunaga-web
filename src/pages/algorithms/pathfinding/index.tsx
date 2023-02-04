@@ -3,17 +3,19 @@ import { useDispatch } from "react-redux";
 
 import style from "@styles/default.module.scss";
 import Grid from "@components/algorithms/Grid/Grid";
-import { CELL_SIZE } from "@utils/pathfinding";
+import { CELL_SIZE } from "@utils/constants";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
 import {
-  pageInfo,
+  pages,
   pathfindingConfigId,
   pathfindingPageId,
 } from "@utils/constants";
 import ControlSection from "@components/algorithms/ControlSection";
 import { setWidth } from "@utils/slices";
 import { getStripeSize } from "@utils/functions";
+
+const { pathfinding } = pages;
 
 const AlgorithmHome: React.FC = () => {
   const { width, height } = useWindowSize();
@@ -53,11 +55,11 @@ const AlgorithmHome: React.FC = () => {
 
   return (
     <>
-      <MyHead {...pageInfo} />
+      <MyHead {...pathfinding} />
       <div className={style.root}>
         <div id={pathfindingPageId}>
           <div id={pathfindingConfigId}>
-            <h3 style={{ marginBottom: 8 }}>{pageInfo.headerTitle}</h3>
+            <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
             <ControlSection
               onStartClick={onStartClick}
               algorithmExecuted={algorithmExecuted}

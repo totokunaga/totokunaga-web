@@ -1,30 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  CELL_SIZE,
-  pathfindingAlgorithms,
-  PATH_FOUND_DELAY,
-  MARK_DELAY,
-} from "@utils/pathfinding/constants";
+import { CELL_SIZE, PATH_FOUND_DELAY, MARK_DELAY } from "@utils/constants";
 import { Cell } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
-import { initMatrix } from "@utils/functions";
+import { initMatrix, pathfindingAlgorithms } from "@utils/functions";
 import { useSelector } from "react-redux";
 import { selectPathfindingController, setClearExecuted } from "@utils/slices";
 import { useDispatch } from "react-redux";
 import {
-  BLOCKED,
   BLOCKED_2,
   cellMap,
-  CellType,
-  EMPTY,
   EMPTY_0,
-  PATH,
   PATH_3,
-  SELECTED,
   SELECTED_4,
-  VISITED,
   VISITED_1,
 } from "@utils/types";
 

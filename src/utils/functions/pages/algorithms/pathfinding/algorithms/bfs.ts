@@ -1,8 +1,7 @@
 import Coordinate from "@utils/classes/Coordinate";
 import { initMatrix } from "@utils/functions";
-import { CellType } from "@utils/types";
-import { COLS, ROWS } from "../constants";
-import { CellInfo, PathfindingArg } from "../types";
+import { COLS, ROWS } from "@utils/constants";
+import { CellInfo, PathfindingArg } from "@utils/types";
 import { isValidCell } from "./helper-functions";
 
 export const bfs = ({
