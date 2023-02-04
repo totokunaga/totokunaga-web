@@ -57,7 +57,7 @@ const AlgorithmHome: React.FC = () => {
       <div className={style.root}>
         <div id={pathfindingPageId}>
           <div id={pathfindingConfigId}>
-            <h2 style={{ marginBottom: 8 }}>{pageInfo.headerTitle}</h2>
+            <h3 style={{ marginBottom: 8 }}>{pageInfo.headerTitle}</h3>
             <ControlSection
               onStartClick={onStartClick}
               algorithmExecuted={algorithmExecuted}

@@ -72,14 +72,14 @@ const Index = () => {
 
           <div style={{ marginBottom: 40 }}>
             <div style={{ display: "flex" }}>
-              <h2 className={textStyle.underline} style={{ marginBottom: 20 }}>
+              <h3 className={textStyle.underline} style={{ marginBottom: 20 }}>
                 Personal projects
-              </h2>
+              </h3>
             </div>
             <div style={{ display: "flex" }}>
               <div
                 className={`${neumorphic.root} ${neumorphic.chip}`}
-                onClick={() => router.push(paths.pathfinding)}
+                onClick={() => router.push(paths.algorigthms)}
               >
                 <div style={{ marginRight: 8 }}>
                   <Icon
@@ -96,9 +96,9 @@ const Index = () => {
 
           <div style={{ marginBottom: 40 }}>
             <div style={{ display: "flex" }}>
-              <h2 className={textStyle.underline} style={{ marginBottom: 12 }}>
+              <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
                 Experience & Education
-              </h2>
+              </h3>
             </div>
             <ProgressSteps
               type={"vertical"}
@@ -114,9 +114,9 @@ const Index = () => {
           </div>
 
           <div style={{ display: "flex" }}>
-            <h2 className={textStyle.underline} style={{ marginBottom: 12 }}>
+            <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
               Skills & Certifications
-            </h2>
+            </h3>
           </div>
           <div className={neumorphicDown} style={{ marginBottom: 20 }}>
             {skills.map(({ title, list }, i) => (
