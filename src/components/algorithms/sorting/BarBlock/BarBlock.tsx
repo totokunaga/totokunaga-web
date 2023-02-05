@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { InnerValue, SortingAnimation } from "@utils/types";
 import { Bar } from "../Bar";
 import style from "../Bar/bar.module.scss";
+import { animateBars } from "@utils/functions";
 
 type BarBlockProp = {
   barWidth?: number;
@@ -8,43 +10,32 @@ type BarBlockProp = {
   swapAnimationSpeed?: number;
 };
 
-type InnerValue = {
-  value: number;
-  position: number;
-  size: number;
-  left: number | string;
-};
-
 const heightUnit = 45;
 const spaceAmount = 8;
 
-const swapInnerValues = (
-  innerValues: InnerValue[],
-  i: number,
-  j: number,
-  heightUnit: number,
-  spaceAmount: number
-) => {
-  innerValues[i].position = j;
-  innerValues[j].position = i;
-  innerValues[i].left = (heightUnit + spaceAmount) * j;
-  innerValues[j].left = (heightUnit + spaceAmount) * i;
-  return innerValues;
-};
+const animations: SortingAnimation[] = [
+  { type: "focus", positionOne: 0, positionTwo: 0, duration: 1000 },
+  { type: "compare", positionOne: 0, positionTwo: 1, duration: 1000 },
+  { type: "compare", positionOne: 0, positionTwo: 2, duration: 1000 },
+  { type: "swap", positionOne: 0, positionTwo: 2, duration: 1000 },
+  { type: "swap", positionOne: 1, positionTwo: 2, duration: 1000 },
+  { type: "reset", positionOne: 0, positionTwo: 0, duration: 1000 },
+];
 
 export const BarBlock: React.FC<BarBlockProp> = ({
   barWidth,
   values,
   swapAnimationSpeed = 0.5,
 }) => {
-  const [innerValues, setInnerValues] = useState<InnerValue[]>(
+  const [barInfo, setBarInfo] = useState<InnerValue[]>(
     values.map((v, i) => ({
       value: v,
-      position: i,
+      status: "normal",
       size: heightUnit * v,
       left: (heightUnit + spaceAmount) * i,
     }))
   );
+  const [barIds, setBarIds] = useState<number[]>(values.map((v, i) => i));
 
   const barBlockClassName = useMemo(() => {
     const classes = [style.barblock];
@@ -52,21 +43,35 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, []);
 
   const barClassName = useMemo(() => {
-    const classes = [style.bar];
+    const classes = [style.bar_wrapper];
     return classes.join(" ");
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setInnerValues([
-        ...swapInnerValues(innerValues, 0, 2, heightUnit, spaceAmount),
-      ]);
-    }, 400);
+    let timeoutAmount = 0;
+    let baseBarIds = barIds;
+    let baseBarInfo = barInfo;
+    animations.forEach((animation) => {
+      timeoutAmount += animation.duration;
+      setTimeout(() => {
+        const [newBarInfo, newBarIds] = animateBars(
+          baseBarInfo,
+          baseBarIds,
+          animation
+        );
+        baseBarIds = newBarIds;
+        baseBarInfo = newBarInfo;
+        // console.log(baseBarIds, newBarIds);
+        setBarInfo(newBarInfo);
+        setBarIds(newBarIds);
+      }, timeoutAmount);
+    });
   }, []);
+  console.log(barInfo);
 
   return (
     <div className={barBlockClassName}>
-      {innerValues.map(({ value, size, left }, i) => (
+      {barInfo.map(({ status, value, size, left }, i) => (
         <div
           key={i}
           className={barClassName}
@@ -77,6 +82,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
           }}
         >
           <Bar
+            status={status}
             height={size}
             width={heightUnit}
             direction={"horizontal"}

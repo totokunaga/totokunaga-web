@@ -1,8 +1,27 @@
+@import "@styles/mixin.module.scss";
 .barblock {
   position: relative;
   height: 50vh;
 }
 
-.bar {
+.bar_wrapper {
   position: absolute;
+}
+
+.bar {
+  &.swap {
+    color: var(--white);
+    background-color: var(--primary);
+    @include inward-shodow(var(--primary-light), var(--primary-dark));
+  }
+  &.focus {
+    color: var(--white);
+    background-color: var(--secondary);
+    @include inward-shodow(var(--secondary-light), var(--secondary-dark));
+  }
+  &.compare {
+    color: var(--navy-color);
+    background-color: var(--green);
+    @include inward-shodow(var(--green-light), var(--green-dark));
+  }
 }

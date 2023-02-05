@@ -1,8 +1,10 @@
 import { useMemo } from "react";
 import neumorphic from "@styles/neumorphic.module.scss";
 import style from "./bar.module.scss";
+import { SortingAnimationType } from "@utils/types";
 
 type BarProp = {
+  status?: SortingAnimationType;
   width?: number;
   height?: number;
   direction?: "horizontal" | "vertical";
@@ -10,15 +12,17 @@ type BarProp = {
 };
 
 export const Bar: React.FC<BarProp> = ({
+  status = "normal",
   width = 150,
   height = 50,
   direction = "vertical",
   value,
 }) => {
   const barClassName = useMemo(() => {
-    const classes = [neumorphic.root];
+    const classes = [neumorphic.root, style.bar];
+    if (status !== "normal") classes.push(style[status]);
     return classes.join(" ");
-  }, []);
+  }, [status]);
 
   return (
     // <div style={{ display: "flex" }}>
