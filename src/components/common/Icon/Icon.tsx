@@ -6,6 +6,7 @@ import PlayIcon from "@assets/play.svg";
 import TrashBinIcon from "@assets/trash-bin.svg";
 import RocketIcon from "@assets/rocket-outline.svg";
 import CloseIcon from "@assets/close.svg";
+import WarningIcon from "@assets/warning.svg";
 
 type IconType =
   | "star"
@@ -14,6 +15,7 @@ type IconType =
   | "sharp-setting"
   | "trash-bin"
   | "close"
+  | "warning"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -26,6 +28,7 @@ const Icons: Record<IconType, any> = {
   "trash-bin": TrashBinIcon,
   rocket: RocketIcon,
   close: CloseIcon,
+  warning: WarningIcon,
 };
 
 type IconProp = {

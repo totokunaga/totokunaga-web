@@ -20,6 +20,7 @@ export const Cell: React.FC<CellProp> = ({
 }) => {
   const cellClassName = useMemo(() => {
     const classes = [style.cell, style[status]];
+    if (disabled) classes.push(style.disabled);
     return classes.join(" ");
   }, [status]);
 

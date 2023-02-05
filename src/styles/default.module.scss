@@ -20,3 +20,13 @@
     align-items: unset;
   }
 }
+
+$greyLight1: #e6e7ed;
+$greyLight2: #9c9da1;
+$greyLight3: #6a6b6d;
+
+:export {
+  greyLigh1: $greyLight1;
+  greyLight2: $greyLight2;
+  greyLight3: $greyLight3;
+}
