@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Cell } from "../pathfinding";
 
 const gridSize = 5;
-const startAnimationOffset = 500;
+const startAnimationOffset = 100;
 const restartAnimationOffset = 1500;
 const animationSpeed = 250;
 const cellAnimationOrder: {
@@ -75,9 +75,9 @@ export const MiniPathfinding: React.FC = () => {
                 status={cellMap[value]}
                 isStart={isStart}
                 isEnd={isEnd}
-                size={"min(10vw, 35px)"}
+                size={"min(9vw, 35px)"}
                 cursor={"pointer"}
-                margin={2.5}
+                margin={"min(.5vw, 2.5px)"}
                 disabled={true}
               />
             );

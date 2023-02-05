@@ -16,7 +16,7 @@ import { getStripeSize } from "@utils/functions";
 
 const { pathfinding } = pages;
 
-const AlgorithmHome: React.FC = () => {
+const PathfindingIndex: React.FC = () => {
   const { width, height } = useWindowSize();
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
@@ -79,4 +79,4 @@ const AlgorithmHome: React.FC = () => {
   );
 };
 
-export default AlgorithmHome;
+export default PathfindingIndex;

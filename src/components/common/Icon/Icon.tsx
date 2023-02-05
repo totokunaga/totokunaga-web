@@ -7,6 +7,7 @@ import TrashBinIcon from "@assets/trash-bin.svg";
 import RocketIcon from "@assets/rocket-outline.svg";
 import CloseIcon from "@assets/close.svg";
 import WarningIcon from "@assets/warning.svg";
+import { CSSStyle } from "@utils/types";
 
 type IconType =
   | "star"
@@ -31,7 +32,7 @@ const Icons: Record<IconType, any> = {
   warning: WarningIcon,
 };
 
-type IconProp = {
+type IconProp = CSSStyle & {
   width?: number | string;
   height?: number | string;
   fill?: string;
@@ -45,10 +46,11 @@ export const Icon: React.FC<IconProp> = ({
   width = 16,
   fill,
   animation,
+  margin,
 }) => {
   const Component = Icons[icon];
   return (
-    <div className={animation && style[animation]}>
+    <div className={animation && style[animation]} style={{ margin }}>
       <Component
         width={width}
         height={height}

@@ -51,8 +51,8 @@ export const Cell: React.FC<CellProp> = ({
       {isEnd ? (
         <Icon
           icon={"star"}
-          width={"1.35rem"}
-          height={"1.35rem"}
+          width={"1.4rem"}
+          height={"1.4rem"}
           fill={"#F4BB44"}
         />
       ) : undefined}

@@ -49,7 +49,7 @@ export const meTexts = {
     {
       entityName: "UC San Diego",
       title: "B.S. Math-Computer Science",
-      periods: ["Sep, 2016 - Jun, 2020"],
+      periods: ["Class of 2020"],
     },
   ] as ExperienceProp[],
   skills: [

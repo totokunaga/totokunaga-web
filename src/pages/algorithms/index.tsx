@@ -5,7 +5,7 @@ import defaultStyle from "@styles/default.module.scss";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 
-const { pathfinding } = paths;
+const { pathfinding, sorting } = paths;
 const { algorithms } = pages;
 
 const AlgorithmIndex: React.FC = () => {
@@ -24,6 +24,8 @@ const AlgorithmIndex: React.FC = () => {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-around",
+            maxWidth: 1024,
+            margin: "0px auto",
           }}
         >
           <Panel
@@ -31,7 +33,7 @@ const AlgorithmIndex: React.FC = () => {
             onClick={() => router.push(pathfinding)}
             component={<MiniPathfinding />}
           />
-          <Panel title={"Sorting"} disabled={true} />
+          <Panel title={"Sorting"} onClick={() => router.push(sorting)} />
           <Panel title={"Searching"} disabled={true} />
         </div>
       </div>
