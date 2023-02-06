@@ -7,6 +7,7 @@
     "dev:fresh": "rm -rf .next && yarn dev",
     "build": "next build",
     "start": "next start",
+    "deploy": "./deployment/deploy.sh -a frontend -c gcp -e prod",
     "lint": "next lint --dir ./src",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
     "reinstall": "rm -rf node_modules && yarn"
