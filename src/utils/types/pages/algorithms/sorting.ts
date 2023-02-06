@@ -5,7 +5,7 @@ export type BarStatus =
   | "compare"
   | "range"
   | "done";
-export type SortingAnimationType = BarStatus | "clear" | "reset";
+export type SortingAnimationType = BarStatus | "clear" | "reset" | "move";
 
 export type InnerValue = {
   value: number;

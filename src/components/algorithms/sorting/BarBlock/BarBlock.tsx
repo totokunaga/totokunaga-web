@@ -12,8 +12,10 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
   selectSortindingController,
+  setBarRandamized,
   setSortingAlgorithmExecuted,
 } from "@utils/slices";
+import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/shuffle";
 
 type BarBlockProp = {
   barWidth?: number;
@@ -82,7 +84,33 @@ export const BarBlock: React.FC<BarBlockProp> = ({
     }
   }, [algorithmExecuted]);
 
-  console.log(barInfo, barIds);
+  useEffect(() => {
+    if (randomizeExecuted) {
+      const sortingAnimations = shuffle(barIds.map((i) => barInfo[i].value));
+
+      let timeoutAmount = 0;
+      let baseBarIds = barIds;
+      let baseBarInfo = barInfo;
+      sortingAnimations.forEach((animation, i) => {
+        timeoutAmount += animation.duration;
+        setTimeout(() => {
+          const [newBarInfo, newBarIds] = animateBars(
+            baseBarInfo,
+            baseBarIds,
+            animation
+          );
+          baseBarIds = newBarIds;
+          baseBarInfo = newBarInfo;
+          setBarInfo(newBarInfo);
+          setBarIds(newBarIds);
+
+          if (i === sortingAnimations.length - 1) {
+            dispatch(setBarRandamized(false));
+          }
+        }, timeoutAmount);
+      });
+    }
+  }, [randomizeExecuted]);
 
   return (
     <div className={barBlockClassName} style={{ margin: "0px auto 0px auto" }}>

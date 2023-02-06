@@ -76,6 +76,19 @@ export const animateBars = (
       }
       break;
 
+    case "move":
+      const [movedBarInfo, movedBarIds] = swapInnerValues(
+        newBarInfo,
+        newBarIds,
+        positionOne!,
+        positionTwo!,
+        heightUnit,
+        spaceAmount
+      );
+      newBarInfo = movedBarInfo;
+      newBarIds = movedBarIds;
+      break;
+
     case "range":
       for (let i = positionOne!; i < positionTwo! + 1; i++) {
         newBarInfo[barIds[i]].status = type;
@@ -119,6 +132,7 @@ export const getSortingAnimation = (
     case "range":
     case "swap":
     case "compare":
+    case "move":
       result.positionOne = positions[0];
       result.positionTwo = positions.length > 1 ? positions[1] : positions[0];
       break;
