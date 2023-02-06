@@ -3,17 +3,11 @@ import { pages } from "@utils/constants";
 import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { useEffect, useState } from "react";
-import { quicksort } from "@utils/functions/pages/algorithms/sorting/algorithms/quick-sort";
 
 const { sorting } = pages;
 
 const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([7, 4, 5, 1, 3, 6, 2]);
-
-  useEffect(() => {
-    const copy = [...values];
-    console.log(quicksort(copy));
-  }, []);
 
   return (
     <>

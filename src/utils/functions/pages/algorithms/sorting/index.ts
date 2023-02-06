@@ -5,6 +5,22 @@ import {
   SortingAnimationType,
 } from "@utils/types";
 
+export const initBars = (values: number[]): InnerValue[] => {
+  const n = values.length;
+  const mostLeft = (heightUnit + spaceAmount) * (-n / 2);
+
+  return values.map((v, i) => {
+    const left = mostLeft + (heightUnit + spaceAmount) * i;
+
+    return {
+      value: v,
+      status: "normal",
+      size: heightUnit * v,
+      left,
+    };
+  });
+};
+
 export const swapInnerValues = (
   barInfo: InnerValue[],
   barIds: number[],
@@ -13,8 +29,10 @@ export const swapInnerValues = (
   heightUnit: number,
   spaceAmount: number
 ): [InnerValue[], number[]] => {
-  barInfo[barIds[i]].left = (heightUnit + spaceAmount) * j;
-  barInfo[barIds[j]].left = (heightUnit + spaceAmount) * i;
+  const n = barInfo.length;
+  const mostLeft = (heightUnit + spaceAmount) * (-n / 2);
+  barInfo[barIds[i]].left = mostLeft + (heightUnit + spaceAmount) * j;
+  barInfo[barIds[j]].left = mostLeft + (heightUnit + spaceAmount) * i;
 
   const temp = barIds[i];
   barIds[i] = barIds[j];
@@ -92,6 +110,7 @@ export const getSortingAnimation = (
     type,
     duration: duration === undefined ? sortingAnimationSpeed[type] : duration,
   };
+  result.duration /= 1.25;
   switch (type) {
     case "focus":
     case "done":

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { InnerValue, SortingAnimation } from "@utils/types";
 import { Bar } from "../Bar";
 import style from "../Bar/bar.module.scss";
-import { animateBars } from "@utils/functions";
+import { animateBars, initBars } from "@utils/functions";
 import {
   quicksort,
   selectionSort,
@@ -22,14 +22,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   values,
   swapAnimationSpeed = 0.5,
 }) => {
-  const [barInfo, setBarInfo] = useState<InnerValue[]>(
-    values.map((v, i) => ({
-      value: v,
-      status: "normal",
-      size: heightUnit * v,
-      left: (heightUnit + spaceAmount) * i,
-    }))
-  );
+  const [barInfo, setBarInfo] = useState<InnerValue[]>(initBars(values));
   const [barIds, setBarIds] = useState<number[]>(values.map((v, i) => i));
 
   const barBlockClassName = useMemo(() => {
@@ -65,7 +58,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, []);
 
   return (
-    <div className={barBlockClassName}>
+    <div className={barBlockClassName} style={{ margin: "0px auto 0px auto" }}>
       {barInfo.map(({ status, value, size, left }, i) => (
         <div
           key={i}
