@@ -7,7 +7,6 @@ import { ClearableCellType } from "@utils/types";
 import {
   selectPathfindingController,
   setClearableCells,
-  setClearExecuted,
   setPathfindingAlgorithm,
   setPathfindingAlgorithmSpeed,
 } from "@utils/slices";
@@ -115,15 +114,7 @@ export const ConfigModalContent: React.FC<{
         </div>
       ))}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-        <Button
-          onClick={() => {
-            dispatch(setClearExecuted(true));
-            onClose();
-          }}
-          // fontSize={16}
-          fontWeight={700}
-          type={"normal"}
-        >
+        <Button onClick={() => onClose()} fontWeight={700} type={"normal"}>
           {"Close Configuration"}
         </Button>
       </div>

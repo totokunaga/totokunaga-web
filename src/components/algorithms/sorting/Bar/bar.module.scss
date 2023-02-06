@@ -25,9 +25,6 @@
     @include inward-shodow(var(--secondary-light), var(--secondary-dark));
   }
   &.compare {
-    // color: var(--navy-color);
-    // background-color: var(--blueGrey);
-    // @include inward-shodow(var(--blueGrey-light), var(--blueGrey-dark));
     color: var(--white);
     background-color: var(--primary);
     @include inward-shodow(var(--primary-light), var(--primary-dark));

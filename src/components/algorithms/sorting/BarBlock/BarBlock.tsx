@@ -36,6 +36,10 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, []);
 
   useEffect(() => {
+    setBarInfo(initBars(values));
+  }, [values]);
+
+  useEffect(() => {
     const sortingAnimations = quicksort(barInfo.map((b) => b.value));
 
     let timeoutAmount = 0;
@@ -55,7 +59,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
         setBarIds(newBarIds);
       }, timeoutAmount);
     });
-  }, []);
+  }, [values]);
 
   return (
     <div className={barBlockClassName} style={{ margin: "0px auto 0px auto" }}>

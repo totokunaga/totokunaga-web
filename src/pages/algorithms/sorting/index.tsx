@@ -7,7 +7,11 @@ import { useEffect, useState } from "react";
 const { sorting } = pages;
 
 const SortingIndex: React.FC = () => {
-  const [values, setValues] = useState<number[]>([7, 4, 5, 1, 3, 6, 2]);
+  const [values, setValues] = useState<number[]>([]);
+
+  useEffect(() => {
+    setValues([7, 4, 5, 1, 3, 6, 2]);
+  }, []);
 
   return (
     <>

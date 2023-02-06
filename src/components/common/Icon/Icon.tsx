@@ -42,8 +42,8 @@ type IconProp = CSSStyle & {
 
 export const Icon: React.FC<IconProp> = ({
   icon,
-  height = 16,
-  width = 16,
+  height,
+  width,
   fill,
   animation,
   margin,
@@ -52,8 +52,8 @@ export const Icon: React.FC<IconProp> = ({
   return (
     <div className={animation && style[animation]} style={{ margin }}>
       <Component
-        width={width}
-        height={height}
+        width={width || height}
+        height={height || width}
         style={{ display: "block", fill }}
       />
     </div>

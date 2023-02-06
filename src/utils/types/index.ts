@@ -15,6 +15,7 @@ export type CSSStyle = {
   paddingBottom?: number | string;
   paddingLeft?: number | string;
   fontSize?: number | string;
+  fontWeight?: number | string;
   fontFamily?: string;
   color?: string;
   backgroundColor?: string;
@@ -22,6 +23,7 @@ export type CSSStyle = {
   borderRadius?: number | string;
   borderColor?: string;
   cursor?: string;
+  flexGrow?: number;
 };
 
 export * from "./pages";

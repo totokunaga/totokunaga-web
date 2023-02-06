@@ -1,16 +1,12 @@
 import React, { ReactNode, useMemo } from "react";
 import style from "@styles/neumorphic.module.scss";
+import { CSSStyle } from "@utils/types";
 
-type NeumorphicButtonProp = {
+type NeumorphicButtonProp = CSSStyle & {
   onClick?: () => any;
   children?: ReactNode;
-  margin?: number | string;
-  padding?: number | string;
-  fontWeight?: number | string;
-  fontSize?: number | string;
-  backgroundColor?: string;
-  flexGrow?: number;
   type?: "secondary" | "normal" | "primary";
+  className?: string;
 };
 
 export const Button: React.FC<NeumorphicButtonProp> = ({
@@ -22,13 +18,19 @@ export const Button: React.FC<NeumorphicButtonProp> = ({
   backgroundColor,
   flexGrow = 1,
   type = "normal",
+  className,
   children,
 }) => {
-  const typeClassName = useMemo(() => type !== "normal" && style[type], [type]);
+  const buttonClassName = useMemo(() => {
+    const classes = [style.root, style.button];
+    if (type !== "normal") classes.push(style[type]);
+    if (className) classes.push(className);
+    return classes.join(" ");
+  }, [type, className]);
 
   return (
     <button
-      className={`${style.root} ${style.button} ${typeClassName}`}
+      className={buttonClassName}
       onClick={onClick}
       style={{
         margin,
