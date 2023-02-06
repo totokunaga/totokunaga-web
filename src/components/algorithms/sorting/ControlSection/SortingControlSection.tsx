@@ -1,5 +1,5 @@
-import { useCallback } from "react";
-import { Button, Icon } from "@components/common";
+import { useCallback, useState } from "react";
+import { Button, Icon, Modal } from "@components/common";
 import defaultStyle from "@styles/default.module.scss";
 import style from "./controlSection.module.scss";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import {
   setSortingAlgorithmExecuted,
 } from "@utils/slices";
 import { useDispatch } from "react-redux";
+import { SortingConfigModalContent } from "../ConfigModalContent";
 
 const leftmostFirstRowButtonClassName = [
   style.first_row_button,
@@ -23,9 +24,9 @@ const leftmostSecondRowButtonClassName = [
   style.leftmost,
 ].join(" ");
 
-export const SortingControlSection: React.FC<{
-  onStartClick: () => void;
-}> = ({ onStartClick }) => {
+export const SortingControlSection: React.FC = () => {
+  const [isConfigModalShown, setConfigModalShown] = useState(false);
+
   const dispatch = useDispatch();
   const { algorithm, algorithmExecuted, randomizeExecuted } = useSelector(
     selectSortindingController
@@ -72,7 +73,7 @@ export const SortingControlSection: React.FC<{
       <div style={{ display: "flex" }}>
         <Button
           className={leftmostSecondRowButtonClassName}
-          onClick={() => {}}
+          onClick={() => setConfigModalShown(true)}
           type={"normal"}
           padding={"12px 24px"}
           fontWeight={400}
@@ -86,6 +87,13 @@ export const SortingControlSection: React.FC<{
           </div>
         </Button>
       </div>
+
+      <Modal
+        isShown={isConfigModalShown}
+        onClose={() => setConfigModalShown(false)}
+      >
+        <SortingConfigModalContent onClose={() => setConfigModalShown(false)} />
+      </Modal>
     </div>
   );
 };

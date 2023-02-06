@@ -7,8 +7,8 @@ import { ClearableCellType } from "@utils/types";
 import {
   selectPathfindingController,
   setClearableCells,
-  setSortindingAlgorithm,
-  setSortingAlgorithmSpeed,
+  setPathfindingAlgorithm,
+  setPathfindingAlgorithmSpeed,
 } from "@utils/slices";
 import { Pathfinding } from "@utils/types";
 
@@ -38,14 +38,14 @@ export const ConfigModalContent: React.FC<{
 
   const onChangeAlgorithm = useCallback(
     (value: Pathfinding) => {
-      dispatch(setSortindingAlgorithm(value));
+      dispatch(setPathfindingAlgorithm(value));
     },
     [dispatch]
   );
 
   const onChangeSpeed = useCallback(
     (value: number) => {
-      dispatch(setSortingAlgorithmSpeed(value));
+      dispatch(setPathfindingAlgorithmSpeed(value));
     },
     [dispatch]
   );

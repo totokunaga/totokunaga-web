@@ -1,13 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { InnerValue, SortingAnimation } from "@utils/types";
+import { InnerValue } from "@utils/types";
 import { Bar } from "../Bar";
 import style from "../Bar/bar.module.scss";
 import { animateBars, initBars } from "@utils/functions";
-import {
-  quicksort,
-  selectionSort,
-  sortingAlgorithms,
-} from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { sortingAlgorithms } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -24,7 +20,6 @@ type BarBlockProp = {
 };
 
 const heightUnit = 45;
-const spaceAmount = 8;
 
 export const BarBlock: React.FC<BarBlockProp> = ({
   barWidth,
