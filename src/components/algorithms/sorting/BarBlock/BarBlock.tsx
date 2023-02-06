@@ -51,7 +51,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, [values]);
 
   useEffect(() => {
-    setTransitionSpeed(baseTransitionSpeed * algorithmSpeed);
+    setTransitionSpeed(baseTransitionSpeed / algorithmSpeed);
   }, [algorithmSpeed]);
 
   useEffect(() => {

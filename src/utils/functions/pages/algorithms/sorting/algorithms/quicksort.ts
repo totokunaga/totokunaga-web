@@ -26,8 +26,9 @@ const quicksortHelper = (
     if (values[i] <= pivot) {
       if (swapIdx < i) {
         animations.push(getSortingAnimation("swap", [swapIdx, i]));
-        animations.push(getSortingAnimation("range", [swapIdx, i]));
       }
+      animations.push(getSortingAnimation("range", [swapIdx, i]));
+
       swap(values, swapIdx, i);
       swapIdx++;
 

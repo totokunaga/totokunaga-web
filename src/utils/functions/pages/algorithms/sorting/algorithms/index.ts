@@ -1,9 +1,9 @@
 import { SortingAlgorithm, SortingFunction } from "@utils/types";
-import { quicksort } from "./quick-sort";
+import { quicksort } from "./quicksort";
 import { selectionSort } from "./selection-sort";
 
 export * from "./selection-sort";
-export * from "./quick-sort";
+export * from "./quicksort";
 export * from "./shuffle";
 
 export const sortingAlgorithms: Record<SortingAlgorithm, SortingFunction> = {
