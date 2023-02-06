@@ -4,6 +4,7 @@ import {
   gridSlice,
   windowSlice,
   pathfindingControllerSlice,
+  sortingControllerSlice,
 } from "./algorithms/pathfinding";
 import globalSlice from "./globalSlice";
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   grid: gridSlice.reducer,
   window: windowSlice.reducer,
   pathfindingController: pathfindingControllerSlice.reducer,
+  sortingController: sortingControllerSlice.reducer,
 });
 
 export const store = configureStore({

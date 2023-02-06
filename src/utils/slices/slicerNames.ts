@@ -4,4 +4,5 @@ export const slicerNames = {
   grid: "grid",
   window: "window",
   pathfindingController: "pathfindingController",
+  sortingController: "sortindingController",
 };

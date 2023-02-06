@@ -21,3 +21,6 @@ export type SortingAnimation = {
   positions?: number[];
   duration: number;
 };
+
+export type SortingAlgorithm = "Quicksort" | "Selection sort";
+export type SortingFunction = (values: number[]) => SortingAnimation[];

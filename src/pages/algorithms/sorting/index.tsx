@@ -3,6 +3,7 @@ import { pages } from "@utils/constants";
 import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { useEffect, useState } from "react";
+import { SortingControlSection } from "@components/algorithms";
 
 const { sorting } = pages;
 
@@ -18,10 +19,11 @@ const SortingIndex: React.FC = () => {
       <MyHead {...sorting} />
       <div
         className={style.root}
-        style={{ display: "flex", flexDirection: "column" }}
+        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
       >
         <h3 style={{ marginBottom: 8 }}>Sorting</h3>
-        <div style={{ display: "flex" }}>
+        <SortingControlSection onStartClick={() => {}} />
+        <div id={"barblock-wrapper"} style={{ display: "flex", flex: 1 }}>
           <BarBlock values={values} />
         </div>
       </div>

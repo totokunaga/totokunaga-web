@@ -7,6 +7,7 @@ import TrashBinIcon from "@assets/trash-bin.svg";
 import RocketIcon from "@assets/rocket-outline.svg";
 import CloseIcon from "@assets/close.svg";
 import WarningIcon from "@assets/warning.svg";
+import ShuffleIcon from "@assets/shuffle.svg";
 import { CSSStyle } from "@utils/types";
 
 type IconType =
@@ -17,6 +18,7 @@ type IconType =
   | "trash-bin"
   | "close"
   | "warning"
+  | "shuffle"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -30,6 +32,7 @@ const Icons: Record<IconType, any> = {
   rocket: RocketIcon,
   close: CloseIcon,
   warning: WarningIcon,
+  shuffle: ShuffleIcon,
 };
 
 type IconProp = CSSStyle & {

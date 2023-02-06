@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import style from "@styles/default.module.scss";
-import { Grid, ControlSection } from "@components/algorithms";
+import { Grid, SortingControlSection } from "@components/algorithms";
 import { CELL_SIZE } from "@utils/constants";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
@@ -59,7 +59,7 @@ const PathfindingIndex: React.FC = () => {
         <div id={pathfindingPageId}>
           <div id={pathfindingConfigId}>
             <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
-            <ControlSection
+            <SortingControlSection
               onStartClick={onStartClick}
               algorithmExecuted={algorithmExecuted}
             />
