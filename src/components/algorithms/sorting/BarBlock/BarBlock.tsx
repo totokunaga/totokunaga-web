@@ -12,27 +12,28 @@ import {
   setSortingAlgorithmExecuted,
 } from "@utils/slices";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/shuffle";
+import { barBlockBottomOffset } from "@utils/constants";
 
 type BarBlockProp = {
-  barWidth?: number;
+  barWidth: number;
+  heightUnit: number;
   values: number[];
-  swapAnimationSpeed?: number;
 };
 
-const heightUnit = 45;
+const baseTransitionSpeed = 0.3;
 
 export const BarBlock: React.FC<BarBlockProp> = ({
   barWidth,
+  heightUnit,
   values,
-  swapAnimationSpeed = 0.5,
 }) => {
   const [barInfo, setBarInfo] = useState<InnerValue[]>([]);
   const [barIds, setBarIds] = useState<number[]>([]);
+  const [transitionSpeed, setTransitionSpeed] = useState(baseTransitionSpeed);
 
   const dispatch = useDispatch();
-  const { algorithm, algorithmExecuted, randomizeExecuted } = useSelector(
-    selectSortindingController
-  );
+  const { algorithm, algorithmExecuted, randomizeExecuted, algorithmSpeed } =
+    useSelector(selectSortindingController);
 
   const barBlockClassName = useMemo(() => {
     const classes = [style.barblock];
@@ -45,9 +46,13 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, []);
 
   useEffect(() => {
-    setBarInfo(initBars(values));
+    setBarInfo(initBars(values, barWidth, heightUnit));
     setBarIds(values.map((v, i) => i));
   }, [values]);
+
+  useEffect(() => {
+    setTransitionSpeed(baseTransitionSpeed * algorithmSpeed);
+  }, [algorithmSpeed]);
 
   useEffect(() => {
     if (algorithmExecuted) {
@@ -64,6 +69,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
           const [newBarInfo, newBarIds] = animateBars(
             baseBarInfo,
             baseBarIds,
+            barWidth,
             animation
           );
           baseBarIds = newBarIds;
@@ -92,6 +98,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
           const [newBarInfo, newBarIds] = animateBars(
             baseBarInfo,
             baseBarIds,
+            barWidth,
             animation
           );
           baseBarIds = newBarIds;
@@ -114,15 +121,15 @@ export const BarBlock: React.FC<BarBlockProp> = ({
           key={i}
           className={barClassName}
           style={{
-            bottom: 60,
+            bottom: barBlockBottomOffset,
             left,
-            transition: `all ${swapAnimationSpeed}s ease-in-out`,
+            transition: `left ${transitionSpeed}s ease-in-out`,
           }}
         >
           <Bar
             status={status}
             height={size}
-            width={heightUnit}
+            width={barWidth}
             direction={"horizontal"}
             value={value}
           />

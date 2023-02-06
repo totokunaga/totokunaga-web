@@ -1,16 +1,21 @@
-import { sortingAnimationSpeed } from "@utils/constants";
+import { sortingAnimationSpeed, spaceBetweenBars } from "@utils/constants";
+import { store } from "@utils/slices";
 import {
   InnerValue,
   SortingAnimation,
   SortingAnimationType,
 } from "@utils/types";
 
-export const initBars = (values: number[]): InnerValue[] => {
+export const initBars = (
+  values: number[],
+  barWidth: number,
+  heightUnit: number
+): InnerValue[] => {
   const n = values.length;
-  const mostLeft = (heightUnit + spaceAmount) * (-n / 2);
+  const mostLeft = (barWidth + spaceBetweenBars) * (-n / 2);
 
   return values.map((v, i) => {
-    const left = mostLeft + (heightUnit + spaceAmount) * i;
+    const left = mostLeft + (barWidth + spaceBetweenBars) * i;
 
     return {
       value: v,
@@ -26,13 +31,12 @@ export const swapInnerValues = (
   barIds: number[],
   i: number,
   j: number,
-  heightUnit: number,
-  spaceAmount: number
+  barWidth: number
 ): [InnerValue[], number[]] => {
   const n = barInfo.length;
-  const mostLeft = (heightUnit + spaceAmount) * (-n / 2);
-  barInfo[barIds[i]].left = mostLeft + (heightUnit + spaceAmount) * j;
-  barInfo[barIds[j]].left = mostLeft + (heightUnit + spaceAmount) * i;
+  const mostLeft = (barWidth + spaceBetweenBars) * (-n / 2);
+  barInfo[barIds[i]].left = mostLeft + (barWidth + spaceBetweenBars) * j;
+  barInfo[barIds[j]].left = mostLeft + (barWidth + spaceBetweenBars) * i;
 
   const temp = barIds[i];
   barIds[i] = barIds[j];
@@ -40,12 +44,10 @@ export const swapInnerValues = (
   return [barInfo, barIds];
 };
 
-const heightUnit = 45;
-const spaceAmount = 8;
-
 export const animateBars = (
   barInfo: InnerValue[],
   barIds: number[],
+  barWidth: number,
   animation: SortingAnimation
 ): [InnerValue[], number[]] => {
   const { type, positionOne, positionTwo, positions } = animation;
@@ -68,8 +70,7 @@ export const animateBars = (
           newBarIds,
           positionOne!,
           positionTwo!,
-          heightUnit,
-          spaceAmount
+          barWidth
         );
         newBarInfo = swappedBarInfo;
         newBarIds = swappedBarIds;
@@ -82,8 +83,7 @@ export const animateBars = (
         newBarIds,
         positionOne!,
         positionTwo!,
-        heightUnit,
-        spaceAmount
+        barWidth
       );
       newBarInfo = movedBarInfo;
       newBarIds = movedBarIds;
@@ -119,11 +119,14 @@ export const getSortingAnimation = (
   positions: number[],
   duration?: number
 ) => {
+  const { algorithmSpeed } = store.getState().sortingController;
   const result: SortingAnimation = {
     type,
     duration: duration === undefined ? sortingAnimationSpeed[type] : duration,
   };
-  result.duration /= 1.25;
+
+  result.duration /= algorithmSpeed;
+
   switch (type) {
     case "focus":
     case "done":

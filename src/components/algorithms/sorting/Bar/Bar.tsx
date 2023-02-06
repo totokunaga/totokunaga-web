@@ -39,6 +39,11 @@ export const Bar: React.FC<BarProp> = ({
       {status === "done" && (
         <div className={style.checkmark} style={{ marginBottom: 16 }} />
       )}
+      {height < 40 && (
+        <div style={{ marginBottom: 6 }}>
+          <span>{value}</span>
+        </div>
+      )}
       <div
         className={barClassName}
         style={{
@@ -49,7 +54,7 @@ export const Bar: React.FC<BarProp> = ({
           textAlign: "center",
         }}
       >
-        <span>{value}</span>
+        {height >= 40 && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
       <div
         className={underbarClassName}

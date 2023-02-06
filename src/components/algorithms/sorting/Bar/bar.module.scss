@@ -9,6 +9,9 @@
 }
 
 .bar {
+  color: var(--greyLight-3);
+  // transition: background-color 0s;
+
   &.swap {
     color: var(--white);
     background-color: var(--primary);
@@ -36,7 +39,7 @@
   border-radius: 10px;
   background-color: var(--greyLight-2);
   opacity: 0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
   &.visible {
     opacity: 1;
   }

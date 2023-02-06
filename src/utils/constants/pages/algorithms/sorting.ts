@@ -11,3 +11,12 @@ export const sortingAnimationSpeed: Record<SortingAnimationType, number> = {
   reset: 300,
   move: 0,
 };
+
+export const BAR_BLOCK_WRAPPER = "barblock-wrapper";
+export const defaultHeightUnit = 45;
+export const defaultBarWidth = 45;
+export const spaceBetweenBars = 8;
+
+export const barBlockBottomOffset = 65;
+export const barIconSize = 32;
+export const maxBars = 17;
