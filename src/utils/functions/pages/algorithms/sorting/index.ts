@@ -25,30 +25,36 @@ export const animateBars = (
   barIds: number[],
   animation: SortingAnimation
 ): [InnerValue[], number[]] => {
-  const { type, positionOne, positionTwo } = animation;
+  const { type, positionOne, positionTwo, positions } = animation;
   let newBarInfo = barInfo.map((info) => ({ ...info }));
   let newBarIds = [...barIds];
 
   switch (type) {
     case "focus":
-      newBarInfo[barIds[positionOne]].status = type;
+    case "done":
+      newBarInfo[barIds[positionOne!]].status = type;
       break;
     case "swap":
     case "compare":
-      newBarInfo[barIds[positionOne]].status = type;
-      newBarInfo[barIds[positionTwo]].status = type;
+      newBarInfo[barIds[positionOne!]].status = type;
+      newBarInfo[barIds[positionTwo!]].status = type;
       if (type === "swap") {
         const [swappedBarInfo, swappedBarIds] = swapInnerValues(
           newBarInfo,
           newBarIds,
-          positionOne,
-          positionTwo,
+          positionOne!,
+          positionTwo!,
           heightUnit,
           spaceAmount
         );
         newBarInfo = swappedBarInfo;
         newBarIds = swappedBarIds;
       }
+      break;
+    case "clear":
+      positions?.forEach((i) => {
+        newBarInfo[barIds[i]].status = "normal";
+      });
       break;
     case "reset":
       for (let i = 0; i < newBarInfo.length; i++) {

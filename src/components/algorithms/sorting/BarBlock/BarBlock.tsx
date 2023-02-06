@@ -3,6 +3,7 @@ import { InnerValue, SortingAnimation } from "@utils/types";
 import { Bar } from "../Bar";
 import style from "../Bar/bar.module.scss";
 import { animateBars } from "@utils/functions";
+import { selectionSort } from "@utils/functions/pages/algorithms/sorting/algorithms";
 
 type BarBlockProp = {
   barWidth?: number;
@@ -48,10 +49,14 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, []);
 
   useEffect(() => {
+    const [sortedValues, sortingAnimations] = selectionSort(
+      barInfo.map((b) => b.value)
+    );
+
     let timeoutAmount = 0;
     let baseBarIds = barIds;
     let baseBarInfo = barInfo;
-    animations.forEach((animation) => {
+    sortingAnimations.forEach((animation) => {
       timeoutAmount += animation.duration;
       setTimeout(() => {
         const [newBarInfo, newBarIds] = animateBars(
@@ -61,13 +66,11 @@ export const BarBlock: React.FC<BarBlockProp> = ({
         );
         baseBarIds = newBarIds;
         baseBarInfo = newBarInfo;
-        // console.log(baseBarIds, newBarIds);
         setBarInfo(newBarInfo);
         setBarIds(newBarIds);
       }, timeoutAmount);
     });
   }, []);
-  console.log(barInfo);
 
   return (
     <div className={barBlockClassName}>

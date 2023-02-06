@@ -25,19 +25,24 @@ export const Bar: React.FC<BarProp> = ({
   }, [status]);
 
   return (
-    // <div style={{ display: "flex" }}>
     <div
-      className={barClassName}
-      style={{
-        width: direction === "horizontal" ? width : height,
-        height: direction === "horizontal" ? height : width,
-        padding: 12,
-        borderRadius: 10,
-        textAlign: "center",
-      }}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <span>{value}</span>
+      {status === "done" && (
+        <div className={style.checkmark} style={{ marginBottom: 16 }} />
+      )}
+      <div
+        className={barClassName}
+        style={{
+          width: direction === "horizontal" ? width : height,
+          height: direction === "horizontal" ? height : width,
+          padding: 12,
+          borderRadius: 10,
+          textAlign: "center",
+        }}
+      >
+        <span>{value}</span>
+      </div>
     </div>
-    // </div>
   );
 };

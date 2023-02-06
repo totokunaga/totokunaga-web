@@ -1,4 +1,10 @@
-export type BarStatus = "normal" | "swap" | "focus" | "compare" | "range";
+export type BarStatus =
+  | "normal"
+  | "swap"
+  | "focus"
+  | "compare"
+  | "range"
+  | "done";
 export type SortingAnimationType = BarStatus | "clear" | "reset";
 
 export type InnerValue = {
@@ -10,7 +16,8 @@ export type InnerValue = {
 
 export type SortingAnimation = {
   type: SortingAnimationType;
-  positionOne: number;
-  positionTwo: number;
+  positionOne?: number;
+  positionTwo?: number;
+  positions?: number[];
   duration: number;
 };

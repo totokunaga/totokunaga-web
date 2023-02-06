@@ -1,7 +1,7 @@
 @import "@styles/mixin.module.scss";
 .barblock {
   position: relative;
-  height: 50vh;
+  height: 70vh;
 }
 
 .bar_wrapper {
@@ -14,6 +14,11 @@
     background-color: var(--primary);
     @include inward-shodow(var(--primary-light), var(--primary-dark));
   }
+  &.done {
+    color: var(--white);
+    background-color: var(--green);
+    @include inward-shodow(var(--green-light), var(--green-dark));
+  }
   &.focus {
     color: var(--white);
     background-color: var(--secondary);
@@ -23,5 +28,34 @@
     color: var(--navy-color);
     background-color: var(--green);
     @include inward-shodow(var(--green-light), var(--green-dark));
+  }
+}
+
+.checkmark {
+  content: "";
+  border-left: 2.5px solid var(--green);
+  border-bottom: 2.5px solid var(--green);
+  transform: rotate(-45deg);
+  visibility: visible;
+  width: 15px;
+  height: 7.5px;
+  margin: 0px 0px 5px 0px;
+  opacity: 0;
+
+  animation-name: disappearing;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes disappearing {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
