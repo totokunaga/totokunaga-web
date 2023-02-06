@@ -25,9 +25,23 @@
     @include inward-shodow(var(--secondary-light), var(--secondary-dark));
   }
   &.compare {
-    color: var(--navy-color);
-    background-color: var(--green);
-    @include inward-shodow(var(--green-light), var(--green-dark));
+    // color: var(--navy-color);
+    // background-color: var(--blueGrey);
+    // @include inward-shodow(var(--blueGrey-light), var(--blueGrey-dark));
+    color: var(--white);
+    background-color: var(--primary);
+    @include inward-shodow(var(--primary-light), var(--primary-dark));
+  }
+}
+
+.line {
+  height: 6px;
+  border-radius: 10px;
+  background-color: var(--greyLight-2);
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  &.visible {
+    opacity: 1;
   }
 }
 

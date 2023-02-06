@@ -3,7 +3,10 @@ import { InnerValue, SortingAnimation } from "@utils/types";
 import { Bar } from "../Bar";
 import style from "../Bar/bar.module.scss";
 import { animateBars } from "@utils/functions";
-import { selectionSort } from "@utils/functions/pages/algorithms/sorting/algorithms";
+import {
+  quicksort,
+  selectionSort,
+} from "@utils/functions/pages/algorithms/sorting/algorithms";
 
 type BarBlockProp = {
   barWidth?: number;
@@ -13,15 +16,6 @@ type BarBlockProp = {
 
 const heightUnit = 45;
 const spaceAmount = 8;
-
-const animations: SortingAnimation[] = [
-  { type: "focus", positionOne: 0, positionTwo: 0, duration: 1000 },
-  { type: "compare", positionOne: 0, positionTwo: 1, duration: 1000 },
-  { type: "compare", positionOne: 0, positionTwo: 2, duration: 1000 },
-  { type: "swap", positionOne: 0, positionTwo: 2, duration: 1000 },
-  { type: "swap", positionOne: 1, positionTwo: 2, duration: 1000 },
-  { type: "reset", positionOne: 0, positionTwo: 0, duration: 1000 },
-];
 
 export const BarBlock: React.FC<BarBlockProp> = ({
   barWidth,
@@ -49,9 +43,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, []);
 
   useEffect(() => {
-    const [sortedValues, sortingAnimations] = selectionSort(
-      barInfo.map((b) => b.value)
-    );
+    const sortingAnimations = quicksort(barInfo.map((b) => b.value));
 
     let timeoutAmount = 0;
     let baseBarIds = barIds;

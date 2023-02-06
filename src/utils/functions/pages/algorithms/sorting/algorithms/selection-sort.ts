@@ -1,40 +1,36 @@
 import { SortingAnimation } from "@utils/types";
 import { swap } from ".";
+import { getSortingAnimation } from "..";
 
-export const selectionSort = (
-  values: number[]
-): [number[], SortingAnimation[]] => {
+export const selectionSort = (values: number[]): SortingAnimation[] => {
   const n = values.length;
   const animations: SortingAnimation[] = [];
 
   for (let i = 0; i < n; i++) {
     let smallestIdx = i;
-    for (let j = i; j < n; j++) {
+    animations.push(getSortingAnimation("range", [i, n - 1]));
+    animations.push(getSortingAnimation("focus", [smallestIdx]));
+
+    for (let j = i + 1; j < n; j++) {
+      animations.push(getSortingAnimation("compare", [j]));
       if (values[smallestIdx] > values[j]) {
+        animations.push(getSortingAnimation("range", [smallestIdx]));
         smallestIdx = j;
+        animations.push(getSortingAnimation("focus", [smallestIdx], 0));
+        continue;
+      }
+
+      if (smallestIdx !== j) {
+        animations.push(getSortingAnimation("range", [j]));
       }
     }
 
     if (smallestIdx !== i) {
       swap(values, i, smallestIdx);
-      animations.push({
-        type: "swap",
-        positionOne: i,
-        positionTwo: smallestIdx,
-        duration: 500,
-      });
-      animations.push({
-        type: "clear",
-        positions: [smallestIdx],
-        duration: 400,
-      });
+      animations.push(getSortingAnimation("swap", [i, smallestIdx]));
     }
-    animations.push({
-      type: "done",
-      positionOne: i,
-      duration: 200,
-    });
+    animations.push(getSortingAnimation("done", [i]));
   }
 
-  return [values, animations];
+  return animations;
 };

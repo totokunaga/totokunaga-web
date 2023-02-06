@@ -24,6 +24,14 @@ export const Bar: React.FC<BarProp> = ({
     return classes.join(" ");
   }, [status]);
 
+  const underbarClassName = useMemo(() => {
+    const classes = [style.line];
+    if (status === "range" || status === "focus" || status === "compare") {
+      classes.push(style.visible);
+    }
+    return classes.join(" ");
+  }, [status]);
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -43,6 +51,13 @@ export const Bar: React.FC<BarProp> = ({
       >
         <span>{value}</span>
       </div>
+      <div
+        className={underbarClassName}
+        style={{
+          marginTop: 12,
+          width: (direction === "horizontal" ? width : height) - 10,
+        }}
+      />
     </div>
   );
 };
