@@ -1,8 +1,9 @@
 import { isTouchDevice } from "@utils/functions";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import style from "./slider.module.scss";
 
 type SliderProp = {
+  name: string;
   initValue: number;
   onChange: (value: number) => void;
   getUpdateValue: (value: number) => number;
@@ -10,16 +11,27 @@ type SliderProp = {
 };
 
 export const Slider: React.FC<SliderProp> = ({
+  name,
   initValue,
   onChange,
   getUpdateValue,
   getDisplayValue,
 }) => {
+  const elementIds = useMemo(
+    () => ({
+      target: "slider-target" + name,
+      btn: "slider-btn" + name,
+      color: "slider-color" + name,
+      tooltip: "slider-tooltip" + name,
+    }),
+    []
+  );
+
   useEffect(() => {
-    const target: any = document.getElementById("slider-target");
-    const btn: any = document.getElementById("slider-btn");
-    const color: any = document.getElementById("slider-color");
-    const tooltip: any = document.getElementById("slider-tooltip");
+    const target: any = document.getElementById(elementIds.target);
+    const btn: any = document.getElementById(elementIds.btn);
+    const color: any = document.getElementById(elementIds.color);
+    const tooltip: any = document.getElementById(elementIds.tooltip);
 
     const touchDevice = isTouchDevice();
     const event = {
@@ -80,18 +92,22 @@ export const Slider: React.FC<SliderProp> = ({
   }, []);
 
   return (
-    <div id={"slider-target"} className={style.slider} onMouseMove={(e) => {}}>
+    <div
+      id={elementIds.target}
+      className={style.slider}
+      onMouseMove={(e) => {}}
+    >
       <div className={`${style.slider} ${style.box}`}>
         <span
-          id={"slider-btn"}
+          id={elementIds.btn}
           className={`${style.slider} ${style.btn}`}
         ></span>
         <span
-          id={"slider-color"}
+          id={elementIds.color}
           className={`${style.slider} ${style.color}`}
         ></span>
         <span
-          id={"slider-tooltip"}
+          id={elementIds.tooltip}
           className={`${style.slider} ${style.tooltip}`}
         >
           {getDisplayValue(initValue)}

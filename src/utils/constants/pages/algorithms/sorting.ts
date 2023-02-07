@@ -16,6 +16,7 @@ export const baseColoringSpped = 0.15;
 export const baseTransitionSpeed = 0.3;
 
 export const BAR_BLOCK_WRAPPER = "barblock-wrapper";
+export const minBars = 6;
 export const defaultHeightUnit = 45;
 export const defaultBarWidth = 45;
 export const spaceBetweenBars = 8;

@@ -14,55 +14,50 @@ import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { useEffect, useState } from "react";
 import { SortingControlSection } from "@components/algorithms";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { getBarSizeFromAmount, getDefaultBarSize } from "@utils/functions";
+import { useSelector } from "react-redux";
+import { selectSortindingController } from "@utils/slices";
 
 const { sorting } = pages;
-
-const minBars = 7;
 
 const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);
   const [barWidth, setBarWidth] = useState<number>(0);
   const [heightUnit, setHeightUnit] = useState<number>(0);
 
+  const { numberOfBars } = useSelector(selectSortindingController);
+
   useEffect(() => {
-    const wrapperElement = document.getElementById(BAR_BLOCK_WRAPPER);
-    if (wrapperElement) {
-      const parentWidth = wrapperElement.clientWidth;
-      const parentHeight = wrapperElement.clientHeight;
+    if (barWidth === 0) {
+      const {
+        numBars: defaultNumBars,
+        barWidth: defaultBarWidth,
+        heightUnit: defaultHeightUnit,
+      } = getDefaultBarSize();
 
-      const barWidth = Math.min(
-        Math.floor(parentWidth / minBars),
-        defaultBarWidth
-      );
-      let numBars = Math.min(
-        Math.floor(parentWidth / (barWidth + spaceBetweenBars)),
-        maxBars
-      );
+      const randomValues = Array.from(
+        { length: defaultNumBars },
+        () => null
+      ).map((_, i) => i + 1);
+      shuffle(randomValues);
 
-      const barBlockContainerHeight =
-        parentHeight - barBlockBottomOffset - barIconSize;
-      const heightUnit = Math.min(
-        Math.max(
-          Math.floor(barBlockContainerHeight / numBars),
-          defaultHeightUnit
-        ),
-        defaultHeightUnit
-      );
+      setBarWidth(defaultBarWidth);
+      setHeightUnit(defaultHeightUnit);
+      setValues(randomValues);
+    } else {
+      const { heightUnit: resizedHeightUnit, barWidth: resizedBarWidth } =
+        getBarSizeFromAmount(numberOfBars);
 
-      while (numBars * heightUnit > barBlockContainerHeight) {
-        numBars--;
-      }
-
-      const randomValues = Array.from({ length: numBars }, () => null).map(
+      const randomValues = Array.from({ length: numberOfBars }, () => null).map(
         (_, i) => i + 1
       );
       shuffle(randomValues);
 
-      setBarWidth(barWidth);
-      setHeightUnit(heightUnit);
+      setBarWidth(resizedBarWidth);
+      setHeightUnit(resizedHeightUnit);
       setValues(randomValues);
     }
-  }, []);
+  }, [numberOfBars]);
 
   return (
     <>

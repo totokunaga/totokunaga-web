@@ -8,6 +8,7 @@ type sortingControllerSliceProp = {
   algorithmSpeed: number;
   algorithmExecuted: boolean;
   randomizeExecuted: boolean;
+  numberOfBars: number;
 };
 
 export const sortingControllerSliceInitState: sortingControllerSliceProp = {
@@ -15,6 +16,7 @@ export const sortingControllerSliceInitState: sortingControllerSliceProp = {
   algorithmSpeed: 1,
   algorithmExecuted: false,
   randomizeExecuted: false,
+  numberOfBars: 6,
 };
 
 export const sortingControllerSlice = createSlice({
@@ -36,6 +38,9 @@ export const sortingControllerSlice = createSlice({
     setBarRandamized: (state, action: PayloadAction<boolean>) => {
       state.randomizeExecuted = action.payload;
     },
+    setNumberOfBars: (state, action: PayloadAction<number>) => {
+      state.numberOfBars = action.payload;
+    },
   },
 });
 
@@ -44,7 +49,9 @@ export const {
   setSortingAlgorithmSpeed,
   setSortingAlgorithmExecuted,
   setBarRandamized,
+  setNumberOfBars,
 } = sortingControllerSlice.actions;
+
 export const selectSortindingController = (state: RootState) =>
   state.sortingController;
 

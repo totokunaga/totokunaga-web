@@ -39,22 +39,22 @@ export const Bar: React.FC<BarProp> = ({
       {status === "done" && (
         <div className={style.checkmark} style={{ marginBottom: 16 }} />
       )}
-      {height < 40 && (
+      {/* {height < 40 && (
         <div style={{ marginBottom: 6 }}>
           <span>{value}</span>
         </div>
-      )}
+      )} */}
       <div
         className={barClassName}
         style={{
           width: direction === "horizontal" ? width : height,
           height: direction === "horizontal" ? height : width,
-          padding: 12,
+          padding: width / 4,
           borderRadius: 10,
           textAlign: "center",
         }}
       >
-        {height >= 40 && <span style={{ fontWeight: 500 }}>{value}</span>}
+        {width > 18 && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
       <div
         className={underbarClassName}

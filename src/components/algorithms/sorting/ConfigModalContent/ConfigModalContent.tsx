@@ -1,6 +1,7 @@
 import { Button, RadioBlock, Slider } from "@components/common";
 import {
   selectSortindingController,
+  setNumberOfBars,
   setSortindingAlgorithm,
   setSortingAlgorithmSpeed,
 } from "@utils/slices";
@@ -19,7 +20,9 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
   onClose,
 }) => {
   const dispatch = useDispatch();
-  const { algorithm, algorithmSpeed } = useSelector(selectSortindingController);
+  const { algorithm, algorithmSpeed, numberOfBars } = useSelector(
+    selectSortindingController
+  );
 
   const onChangeAlgorithm = useCallback(
     (value: SortingAlgorithm) => {
@@ -31,6 +34,13 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
   const onChangeSpeed = useCallback(
     (value: number) => {
       dispatch(setSortingAlgorithmSpeed(value));
+    },
+    [dispatch]
+  );
+
+  const onChangeNumberOfBars = useCallback(
+    (value: number) => {
+      dispatch(setNumberOfBars(value));
     },
     [dispatch]
   );
@@ -52,6 +62,20 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
     return `x${displayed}`;
   }, []);
 
+  const getBarAmount = useCallback((value: number) => {
+    const baseValue = 50;
+    const middleValue = 12; // # of bars in [1, 25]
+
+    const scaled = value / baseValue;
+    let numberOfBars = scaled * middleValue;
+    const rounded = Math.round(numberOfBars) + 1;
+    return rounded > 0 ? rounded : 1;
+  }, []);
+
+  const getDisplayedBarAmount = useCallback((value: number) => {
+    return String(value);
+  }, []);
+
   return (
     <div>
       <h2 style={{ marginBottom: 16 }}>Configuration</h2>
@@ -67,10 +91,22 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
       <h3 style={{ marginBottom: 16 }}>Animation speed</h3>
       <div style={{ marginBottom: 32 }}>
         <Slider
+          name={"animationSpeed"}
           initValue={algorithmSpeed}
           onChange={onChangeSpeed}
           getUpdateValue={getSpeedAmount}
           getDisplayValue={getDisplayedSpeed}
+        />
+      </div>
+
+      <h3 style={{ marginBottom: 16 }}>Number of Bars</h3>
+      <div style={{ marginBottom: 32 }}>
+        <Slider
+          name={"numberOfBars"}
+          initValue={numberOfBars}
+          onChange={onChangeNumberOfBars}
+          getUpdateValue={getBarAmount}
+          getDisplayValue={getDisplayedBarAmount}
         />
       </div>
 
