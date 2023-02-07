@@ -2,10 +2,6 @@ import {
   barBlockBottomOffset,
   barIconSize,
   BAR_BLOCK_WRAPPER,
-  defaultBarWidth,
-  defaultHeightUnit,
-  maxBars,
-  minBars,
   sortingAnimationSpeed,
   spaceBetweenBars,
 } from "@utils/constants";

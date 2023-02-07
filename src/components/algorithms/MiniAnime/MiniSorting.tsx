@@ -8,7 +8,7 @@ import { InnerValue, SortingAnimation } from "@utils/types";
 import { useEffect, useState } from "react";
 import { Bar } from "../sorting";
 
-const values = [4, 2, 5, 3, 1];
+const values = [4, 1, 5, 3, 2];
 const miniBarWrapperId = "mini-bar-wrapper";
 const mobileMarginX = 4;
 const mobileMarginTop = 4;
@@ -55,9 +55,6 @@ export const MiniSorting: React.FC = () => {
         ({ type }) => type === "swap"
       );
       const animations: SortingAnimation[] = [];
-      animations.push(
-        getSortingAnimation("clear", [0, values.length - 1], 500)
-      );
       baseAnimations.forEach((animation) => {
         animation.duration = 500;
         animations.push(animation);
@@ -77,9 +74,10 @@ export const MiniSorting: React.FC = () => {
       barIds.forEach((i) => {
         animations.push(getSortingAnimation("done", [i], i === 0 ? 500 : 300));
       });
-      shuffle(values);
-      animations.push(
-        getSortingAnimation("clear", [0, values.length - 1], 1500)
+
+      animations.push(getSortingAnimation("reset", [], 1500));
+      shuffle(values).forEach((animation) =>
+        animations.push({ ...animation, duration: 0 })
       );
 
       let timeoutAmount = 0;
@@ -102,9 +100,15 @@ export const MiniSorting: React.FC = () => {
           setBarIds(newBarIds);
 
           if (i === animations.length - 1) {
-            setDoneAnimation(true);
-            setBarInfo(initBars(values, barWidth, heightUnit, margin.x, false));
-            setBarIds(values.map((_, i) => i));
+            const newNewBarInfo = values.map(
+              (v) => newBarInfo.find((b) => b.value === v)!
+            );
+            setBarInfo(newNewBarInfo);
+            setBarIds(barIds.map((_, i) => i));
+
+            setTimeout(() => {
+              setDoneAnimation(true);
+            }, 850);
           }
         }, timeoutAmount);
       });
