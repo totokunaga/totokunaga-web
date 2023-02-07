@@ -1,1 +1,1 @@
-export * from "./ControlSection";
+export * from "./PathfindingControlSection";

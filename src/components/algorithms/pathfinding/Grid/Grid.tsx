@@ -1,20 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { CELL_SIZE, PATH_FOUND_DELAY, MARK_DELAY } from "@utils/constants";
+import { CELL_SIZE } from "@utils/constants";
 import { Cell } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
 import {
   animateCell,
-  aStar,
-  bfs,
-  bidirectional,
-  dfs,
   initMatrix,
   pathfindingAlgorithms,
 } from "@utils/functions";
 import { useSelector } from "react-redux";
-import { selectPathfindingController, setClearExecuted } from "@utils/slices";
+import {
+  selectPathfindingController,
+  setClearExecuted,
+  setPathfindingAlgorithmExecuted,
+} from "@utils/slices";
 import { useDispatch } from "react-redux";
 import {
   BLOCKED_2,
@@ -30,8 +30,6 @@ export const Grid: React.FC<GridProp> = (props) => {
     rowSize,
     colSize,
     cellSize = CELL_SIZE,
-    algorithmExecuted,
-    setAlgorithmExecuted,
     unmarkExecuted,
     setUnmarkExecuted,
   } = props;
@@ -45,7 +43,7 @@ export const Grid: React.FC<GridProp> = (props) => {
   const [isEndFocused, setEndFocused] = useState(false);
 
   const dispatch = useDispatch();
-  const { clearExecuted, clearableCells, algorithm, algorithmSpeed } =
+  const { clearExecuted, clearableCells, algorithm, algorithmExecuted } =
     useSelector(selectPathfindingController);
 
   const onClickCell = useCallback(
@@ -105,14 +103,14 @@ export const Grid: React.FC<GridProp> = (props) => {
           setGrid(newGrid);
 
           if (i === animations.length - 1) {
-            setAlgorithmExecuted(false);
+            dispatch(setPathfindingAlgorithmExecuted(false));
           }
         }, timeoutAmount);
 
         timeoutAmount += animation.duration;
       });
     }
-  }, [algorithm, algorithmExecuted, setAlgorithmExecuted, start, end]);
+  }, [dispatch, algorithm, algorithmExecuted, start, end]);
 
   // When "Clear" button is hit
   useEffect(() => {

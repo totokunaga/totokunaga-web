@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import style from "@styles/default.module.scss";
-import { ControlSection, Grid } from "@components/algorithms";
+import { PathfindingControlSection, Grid } from "@components/algorithms";
 import { CELL_SIZE } from "@utils/constants";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
@@ -11,8 +11,9 @@ import {
   pathfindingConfigId,
   pathfindingPageId,
 } from "@utils/constants";
-import { setWidth } from "@utils/slices";
+import { selectPathfindingController, setWidth } from "@utils/slices";
 import { getStripeSize } from "@utils/functions";
+import { useSelector } from "react-redux";
 
 const { pathfinding } = pages;
 
@@ -21,16 +22,10 @@ const PathfindingIndex: React.FC = () => {
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
   const [cellSize, setCellSize] = useState(0);
-  const [algorithmExecuted, setAlgorithmExecuted] = useState(false);
   const [unmarkExecuted, setUnmarkExecuted] = useState(false);
 
   const dispatch = useDispatch();
-
-  const onStartClick = useCallback(() => {
-    if (!algorithmExecuted) {
-      setAlgorithmExecuted(!algorithmExecuted);
-    }
-  }, [algorithmExecuted]);
+  const { algorithmExecuted } = useSelector(selectPathfindingController);
 
   useEffect(() => {
     if (!algorithmExecuted && width && height) {
@@ -59,17 +54,12 @@ const PathfindingIndex: React.FC = () => {
         <div id={pathfindingPageId}>
           <div id={pathfindingConfigId}>
             <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
-            <ControlSection
-              onStartClick={onStartClick}
-              algorithmExecuted={algorithmExecuted}
-            />
+            <PathfindingControlSection />
           </div>
           <Grid
             rowSize={rowSize}
             colSize={colSize}
             cellSize={cellSize}
-            algorithmExecuted={algorithmExecuted}
-            setAlgorithmExecuted={setAlgorithmExecuted}
             unmarkExecuted={unmarkExecuted}
             setUnmarkExecuted={setUnmarkExecuted}
           />

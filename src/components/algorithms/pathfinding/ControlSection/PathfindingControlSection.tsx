@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Icon, Modal } from "@components/common";
 import { pathfindingText } from "@utils/constants";
-import { selectPathfindingController } from "@utils/slices";
+import {
+  selectPathfindingController,
+  setPathfindingAlgorithmExecuted,
+} from "@utils/slices";
 import { ClearModalContent } from "../ClearModalContent";
 import { ConfigModalContent } from "../ConfigModalContent";
 import defaultStyle from "@styles/default.module.scss";
 import style from "./controlSection.module.scss";
+import { useDispatch } from "react-redux";
 
 const leftmostFirstRowButtonClassName = [
   style.first_row_button,
@@ -21,14 +25,20 @@ const leftmostSecondRowButtonClassName = [
   style.leftmost,
 ].join(" ");
 
-export const ControlSection: React.FC<{
-  onStartClick: () => void;
-  algorithmExecuted: boolean;
-}> = ({ onStartClick, algorithmExecuted }) => {
+export const PathfindingControlSection: React.FC = () => {
   const [isClearModalShown, setClearModalShown] = useState(false);
   const [isConfigModalShown, setConfigModalShown] = useState(false);
 
-  const { algorithm } = useSelector(selectPathfindingController);
+  const dispatch = useDispatch();
+  const { algorithm, algorithmExecuted } = useSelector(
+    selectPathfindingController
+  );
+
+  const onStartClick = useCallback(() => {
+    if (!algorithmExecuted) {
+      dispatch(setPathfindingAlgorithmExecuted(true));
+    }
+  }, [dispatch, algorithmExecuted]);
 
   return (
     <div className={style.wrapper}>

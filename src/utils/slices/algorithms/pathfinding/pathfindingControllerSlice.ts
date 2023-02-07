@@ -22,7 +22,7 @@ export const pathfindingControllerSliceInitState: pathfindingControllerSliceProp
     clearExecuted: false,
     algorithm: "BFS",
     algorithmSpeed: 1,
-    algorithmExecuted: true,
+    algorithmExecuted: false,
   };
 
 export const pathfindingControllerSlice = createSlice({

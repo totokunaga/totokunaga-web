@@ -5,7 +5,7 @@ import {
   windowSlice,
   pathfindingControllerSlice,
   sortingControllerSlice,
-} from "./algorithms/pathfinding";
+} from "./algorithms";
 import globalSlice from "./globalSlice";
 
 const rootReducer = combineReducers({
