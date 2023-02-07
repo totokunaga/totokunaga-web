@@ -1,6 +1,10 @@
 import { spaceBetweenBars } from "@utils/constants";
-import { animateBars, initBars } from "@utils/functions";
-import { InnerValue, SortingAlgorithm, SortingAnimation } from "@utils/types";
+import { animateBars, getSortingAnimation, initBars } from "@utils/functions";
+import {
+  bubblesort,
+  shuffle,
+} from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { InnerValue, SortingAnimation } from "@utils/types";
 import { useEffect, useState } from "react";
 import { Bar } from "../sorting";
 
@@ -10,10 +14,6 @@ const mobileMarginX = 4;
 const mobileMarginTop = 4;
 const marginX = 24;
 const marginTop = 16;
-
-const animations: SortingAnimation[] = [
-  { type: "swap", positionOne: 0, positionTwo: 4, duration: 500 },
-];
 
 export const MiniSorting: React.FC = () => {
   const [barInfo, setBarInfo] = useState<InnerValue[]>([]);
@@ -51,7 +51,36 @@ export const MiniSorting: React.FC = () => {
   useEffect(() => {
     if (barInfo.length && barIds.length && doneAnimation) {
       setDoneAnimation(false);
-      // const animations: SortingAnimation[] = [];
+      const baseAnimations: SortingAnimation[] = bubblesort(values).filter(
+        ({ type }) => type === "swap"
+      );
+      const animations: SortingAnimation[] = [];
+      animations.push(
+        getSortingAnimation("clear", [0, values.length - 1], 500)
+      );
+      baseAnimations.forEach((animation) => {
+        animation.duration = 500;
+        animations.push(animation);
+        const clearAnimation1: SortingAnimation = getSortingAnimation(
+          "clear",
+          [animation.positionOne!],
+          500
+        );
+        const clearAnimation2: SortingAnimation = getSortingAnimation(
+          "clear",
+          [animation.positionTwo!],
+          0
+        );
+        animations.push(clearAnimation1);
+        animations.push(clearAnimation2);
+      });
+      barIds.forEach((i) => {
+        animations.push(getSortingAnimation("done", [i], i === 0 ? 500 : 300));
+      });
+      shuffle(values);
+      animations.push(
+        getSortingAnimation("clear", [0, values.length - 1], 1500)
+      );
 
       let timeoutAmount = 0;
       let baseBarIds = barIds;
@@ -73,7 +102,9 @@ export const MiniSorting: React.FC = () => {
           setBarIds(newBarIds);
 
           if (i === animations.length - 1) {
-            // setDoneAnimation(true);
+            setDoneAnimation(true);
+            setBarInfo(initBars(values, barWidth, heightUnit, margin.x, false));
+            setBarIds(values.map((_, i) => i));
           }
         }, timeoutAmount);
       });
