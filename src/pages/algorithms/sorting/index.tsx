@@ -13,7 +13,10 @@ import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { useEffect, useState } from "react";
 import { SortingControlSection } from "@components/algorithms";
-import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
+import {
+  bubblesort,
+  shuffle,
+} from "@utils/functions/pages/algorithms/sorting/algorithms";
 
 const { sorting } = pages;
 

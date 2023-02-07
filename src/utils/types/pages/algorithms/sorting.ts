@@ -22,5 +22,5 @@ export type SortingAnimation = {
   duration: number;
 };
 
-export type SortingAlgorithm = "Quicksort" | "Selection";
+export type SortingAlgorithm = "Quicksort" | "Selection" | "Bubble";
 export type SortingFunction = (values: number[]) => SortingAnimation[];

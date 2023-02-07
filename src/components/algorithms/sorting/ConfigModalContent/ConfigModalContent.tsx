@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 export const sortingNames: Record<SortingAlgorithm, string> = {
   Quicksort: "Quicksort",
   Selection: "Selection",
+  Bubble: "Bubble",
 };
 
 export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
