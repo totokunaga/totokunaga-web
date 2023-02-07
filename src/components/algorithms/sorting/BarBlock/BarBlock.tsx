@@ -15,7 +15,7 @@ import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/sh
 import {
   barBlockBottomOffset,
   baseColoringSpped,
-  baseTransitionSpeed,
+  baseSwapSpeed,
 } from "@utils/constants";
 
 type BarBlockProp = CSSStyle & {
@@ -35,7 +35,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   const [barInfo, setBarInfo] = useState<InnerValue[]>([]);
   const [barIds, setBarIds] = useState<number[]>([]);
   const [coloringSpeed, setColoringSpeed] = useState(baseColoringSpped);
-  const [swapSpeed, setSwapSpeed] = useState(baseColoringSpped);
+  const [swapSpeed, setSwapSpeed] = useState(baseSwapSpeed);
 
   const dispatch = useDispatch();
   const { algorithm, algorithmExecuted, randomizeExecuted, algorithmSpeed } =
@@ -57,7 +57,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, [values]);
 
   useEffect(() => {
-    setSwapSpeed(baseTransitionSpeed / algorithmSpeed);
+    setSwapSpeed(baseSwapSpeed / algorithmSpeed);
     setColoringSpeed(baseColoringSpped / algorithmSpeed);
   }, [algorithmSpeed]);
 
@@ -130,7 +130,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
           style={{
             bottom: bottomOffset,
             left,
-            transition: `left ${swapSpeed}s ease-in-out, background-color ${coloringSpeed}s`,
+            transition: `left ${swapSpeed}s ease-in-out`,
           }}
         >
           <Bar
@@ -139,6 +139,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
             width={barWidth}
             direction={"horizontal"}
             value={value}
+            transition={`background-color ${coloringSpeed}s`}
             {...props}
           />
         </div>

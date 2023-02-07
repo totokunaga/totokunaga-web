@@ -10,10 +10,11 @@ export const sortingAnimationSpeed: Record<SortingAnimationType, number> = {
   clear: 150,
   reset: 150,
   move: 0,
+  none: 0,
 };
 
-export const baseColoringSpped = 0.15;
-export const baseTransitionSpeed = 0.3;
+export const baseColoringSpped = 0.1;
+export const baseSwapSpeed = 0.25;
 
 export const BAR_BLOCK_WRAPPER = "barblock-wrapper";
 export const minBars = 6;

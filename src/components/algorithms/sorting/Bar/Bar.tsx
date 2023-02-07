@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import neumorphic from "@styles/neumorphic.module.scss";
 import style from "./bar.module.scss";
-import { SortingAnimationType } from "@utils/types";
+import { CSSStyle, SortingAnimationType } from "@utils/types";
 
-type BarProp = {
+type BarProp = CSSStyle & {
   status?: SortingAnimationType;
   width?: number;
   height?: number;
@@ -17,6 +17,7 @@ export const Bar: React.FC<BarProp> = ({
   height = 50,
   direction = "vertical",
   value,
+  transition,
 }) => {
   const barClassName = useMemo(() => {
     const classes = [neumorphic.root, style.bar];
@@ -54,6 +55,7 @@ export const Bar: React.FC<BarProp> = ({
           display: "flex",
           alignItems: isLargeEnough ? undefined : "center",
           justifyContent: "center",
+          transition,
         }}
       >
         {isLargeEnough && <span style={{ fontWeight: 500 }}>{value}</span>}

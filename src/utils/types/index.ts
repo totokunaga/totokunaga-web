@@ -24,6 +24,7 @@ export type CSSStyle = {
   borderColor?: string;
   cursor?: string;
   flexGrow?: number;
+  transition?: string;
 };
 
 export * from "./pages";
