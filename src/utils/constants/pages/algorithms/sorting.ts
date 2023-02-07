@@ -1,16 +1,19 @@
 import { SortingAnimationType } from "@utils/types";
 
 export const sortingAnimationSpeed: Record<SortingAnimationType, number> = {
-  normal: 200,
+  normal: 150,
   swap: 300,
-  focus: 200,
-  compare: 200,
-  range: 300,
-  done: 200,
-  clear: 200,
-  reset: 200,
+  focus: 150,
+  compare: 150,
+  range: 150,
+  done: 150,
+  clear: 150,
+  reset: 150,
   move: 0,
 };
+
+export const baseColoringSpped = 0.15;
+export const baseTransitionSpeed = 0.3;
 
 export const BAR_BLOCK_WRAPPER = "barblock-wrapper";
 export const defaultHeightUnit = 45;

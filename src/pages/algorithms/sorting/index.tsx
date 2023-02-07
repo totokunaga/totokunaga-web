@@ -13,10 +13,7 @@ import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { useEffect, useState } from "react";
 import { SortingControlSection } from "@components/algorithms";
-import {
-  bubblesort,
-  shuffle,
-} from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
 
 const { sorting } = pages;
 
@@ -37,17 +34,24 @@ const SortingIndex: React.FC = () => {
         Math.floor(parentWidth / minBars),
         defaultBarWidth
       );
-      const numBars = Math.min(
+      let numBars = Math.min(
         Math.floor(parentWidth / (barWidth + spaceBetweenBars)),
         maxBars
       );
 
+      const barBlockContainerHeight =
+        parentHeight - barBlockBottomOffset - barIconSize;
       const heightUnit = Math.min(
-        Math.floor(
-          (parentHeight - barBlockBottomOffset - barIconSize) / numBars
+        Math.max(
+          Math.floor(barBlockContainerHeight / numBars),
+          defaultHeightUnit
         ),
         defaultHeightUnit
       );
+
+      while (numBars * heightUnit > barBlockContainerHeight) {
+        numBars--;
+      }
 
       const randomValues = Array.from({ length: numBars }, () => null).map(
         (_, i) => i + 1
