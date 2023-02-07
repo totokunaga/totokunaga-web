@@ -16,7 +16,7 @@ export const sortingControllerSliceInitState: sortingControllerSliceProp = {
   algorithmSpeed: 1,
   algorithmExecuted: false,
   randomizeExecuted: false,
-  numberOfBars: 6,
+  numberOfBars: 7,
 };
 
 export const sortingControllerSlice = createSlice({

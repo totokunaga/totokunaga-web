@@ -32,6 +32,11 @@ export const Bar: React.FC<BarProp> = ({
     return classes.join(" ");
   }, [status]);
 
+  const isLargeEnough = useMemo(
+    () => width > 18 && height > 32,
+    [width, height]
+  );
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -39,22 +44,19 @@ export const Bar: React.FC<BarProp> = ({
       {status === "done" && (
         <div className={style.checkmark} style={{ marginBottom: 16 }} />
       )}
-      {/* {height < 40 && (
-        <div style={{ marginBottom: 6 }}>
-          <span>{value}</span>
-        </div>
-      )} */}
       <div
         className={barClassName}
         style={{
           width: direction === "horizontal" ? width : height,
           height: direction === "horizontal" ? height : width,
-          padding: width / 4,
+          padding: isLargeEnough ? Math.min(width, height) / 4 : 0,
           borderRadius: 10,
-          textAlign: "center",
+          display: "flex",
+          alignItems: isLargeEnough ? undefined : "center",
+          justifyContent: "center",
         }}
       >
-        {width > 18 && <span style={{ fontWeight: 500 }}>{value}</span>}
+        {isLargeEnough && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
       <div
         className={underbarClassName}

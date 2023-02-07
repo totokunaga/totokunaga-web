@@ -36,44 +36,6 @@ export const initBars = (
   });
 };
 
-export const getDefaultBarSize = () => {
-  const wrapperElement = document.getElementById(BAR_BLOCK_WRAPPER);
-  let numBars = 0;
-  let heightUnit = 0;
-  let barWidth = 0;
-
-  if (wrapperElement) {
-    const parentWidth = wrapperElement.clientWidth;
-    const parentHeight = wrapperElement.clientHeight;
-
-    barWidth = Math.min(
-      Math.floor(parentWidth / (minBars + 1)),
-      defaultBarWidth
-    );
-    numBars = Math.min(
-      Math.floor(parentWidth / (barWidth + spaceBetweenBars)),
-      maxBars
-    );
-
-    const barBlockContainerHeight =
-      parentHeight - barBlockBottomOffset - barIconSize;
-
-    heightUnit = Math.min(
-      Math.max(
-        Math.floor(barBlockContainerHeight / numBars),
-        defaultHeightUnit
-      ),
-      defaultHeightUnit
-    );
-
-    while (numBars * heightUnit > barBlockContainerHeight) {
-      numBars--;
-    }
-  }
-
-  return { numBars, heightUnit, barWidth };
-};
-
 export const getBarSizeFromAmount = (numBars: number) => {
   const wrapperElement = document.getElementById(BAR_BLOCK_WRAPPER);
   let barWidth = 0;

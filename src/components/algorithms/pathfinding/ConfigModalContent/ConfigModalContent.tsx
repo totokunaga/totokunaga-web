@@ -82,6 +82,7 @@ export const ConfigModalContent: React.FC<{
       <h3 style={{ marginBottom: 16 }}>Animation speed</h3>
       <div style={{ marginBottom: 32 }}>
         <Slider
+          name={"pathfindingAlgorithmSpeed"}
           initValue={algorithmSpeed}
           onChange={onChangeSpeed}
           getUpdateValue={getSpeedAmount}

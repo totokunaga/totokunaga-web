@@ -64,12 +64,12 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
 
   const getBarAmount = useCallback((value: number) => {
     const baseValue = 50;
-    const middleValue = 12; // # of bars in [1, 25]
+    const middleValue = 11; // # of bars in [1, 25]
 
     const scaled = value / baseValue;
     let numberOfBars = scaled * middleValue;
-    const rounded = Math.round(numberOfBars) + 1;
-    return rounded > 0 ? rounded : 1;
+    const rounded = Math.round(numberOfBars) + 2;
+    return rounded > 0 ? rounded : 2;
   }, []);
 
   const getDisplayedBarAmount = useCallback((value: number) => {
@@ -91,7 +91,7 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
       <h3 style={{ marginBottom: 16 }}>Animation speed</h3>
       <div style={{ marginBottom: 32 }}>
         <Slider
-          name={"animationSpeed"}
+          name={"sortingAnimationSpeed"}
           initValue={algorithmSpeed}
           onChange={onChangeSpeed}
           getUpdateValue={getSpeedAmount}
