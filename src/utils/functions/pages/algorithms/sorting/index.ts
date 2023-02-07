@@ -19,13 +19,18 @@ import {
 export const initBars = (
   values: number[],
   barWidth: number,
-  heightUnit: number
+  heightUnit: number,
+  startOffset = 0,
+  withNegativeOffset = true
 ): InnerValue[] => {
   const n = values.length;
   const mostLeft = (barWidth + spaceBetweenBars) * (-n / 2);
 
   return values.map((v, i) => {
-    const left = mostLeft + (barWidth + spaceBetweenBars) * i;
+    const left =
+      (withNegativeOffset ? mostLeft : 0) +
+      (barWidth + spaceBetweenBars) * i +
+      startOffset;
 
     return {
       value: v,
@@ -59,12 +64,20 @@ export const swapInnerValues = (
   barIds: number[],
   i: number,
   j: number,
-  barWidth: number
+  barWidth: number,
+  startOffset = 0,
+  withNegativeOffset = true
 ): [InnerValue[], number[]] => {
   const n = barInfo.length;
   const mostLeft = (barWidth + spaceBetweenBars) * (-n / 2);
-  barInfo[barIds[i]].left = mostLeft + (barWidth + spaceBetweenBars) * j;
-  barInfo[barIds[j]].left = mostLeft + (barWidth + spaceBetweenBars) * i;
+  barInfo[barIds[i]].left =
+    (withNegativeOffset ? mostLeft : 0) +
+    (barWidth + spaceBetweenBars) * j +
+    startOffset;
+  barInfo[barIds[j]].left =
+    (withNegativeOffset ? mostLeft : 0) +
+    (barWidth + spaceBetweenBars) * i +
+    startOffset;
 
   const temp = barIds[i];
   barIds[i] = barIds[j];
@@ -76,7 +89,9 @@ export const animateBars = (
   barInfo: InnerValue[],
   barIds: number[],
   barWidth: number,
-  animation: SortingAnimation
+  animation: SortingAnimation,
+  startOffset = 0,
+  withNegativeOffset = true
 ): [InnerValue[], number[]] => {
   const { type, positionOne, positionTwo, positions } = animation;
   let newBarInfo = barInfo.map((info) => ({ ...info }));
@@ -98,7 +113,9 @@ export const animateBars = (
           newBarIds,
           positionOne!,
           positionTwo!,
-          barWidth
+          barWidth,
+          startOffset,
+          withNegativeOffset
         );
         newBarInfo = swappedBarInfo;
         newBarIds = swappedBarIds;
@@ -111,7 +128,9 @@ export const animateBars = (
         newBarIds,
         positionOne!,
         positionTwo!,
-        barWidth
+        barWidth,
+        startOffset,
+        withNegativeOffset
       );
       newBarInfo = movedBarInfo;
       newBarIds = movedBarIds;
