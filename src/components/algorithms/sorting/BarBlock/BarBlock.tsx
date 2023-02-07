@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { InnerValue } from "@utils/types";
+import { CSSStyle, InnerValue } from "@utils/types";
 import { Bar } from "../Bar";
 import style from "../Bar/bar.module.scss";
 import { animateBars, initBars } from "@utils/functions";
@@ -18,16 +18,19 @@ import {
   baseTransitionSpeed,
 } from "@utils/constants";
 
-type BarBlockProp = {
+type BarBlockProp = CSSStyle & {
   barWidth: number;
   heightUnit: number;
   values: number[];
+  bottomOffset?: number;
 };
 
 export const BarBlock: React.FC<BarBlockProp> = ({
   barWidth,
   heightUnit,
   values,
+  bottomOffset = barBlockBottomOffset,
+  ...props
 }) => {
   const [barInfo, setBarInfo] = useState<InnerValue[]>([]);
   const [barIds, setBarIds] = useState<number[]>([]);
@@ -125,7 +128,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
           key={i}
           className={barClassName}
           style={{
-            bottom: barBlockBottomOffset,
+            bottom: bottomOffset,
             left,
             transition: `left ${swapSpeed}s ease-in-out, background-color ${coloringSpeed}s`,
           }}
@@ -136,6 +139,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({
             width={barWidth}
             direction={"horizontal"}
             value={value}
+            {...props}
           />
         </div>
       ))}

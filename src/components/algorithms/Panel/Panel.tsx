@@ -29,7 +29,14 @@ export const Panel: React.FC<PanelProp> = ({
       onClick={onClick}
       style={{ cursor: !disabled ? "pointer" : "default" }}
     >
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          width: "100%",
+        }}
+      >
         <h4
           style={{
             textAlign: "center",

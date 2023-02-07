@@ -1,4 +1,4 @@
-import { MiniPathfinding } from "@components/algorithms";
+import { MiniPathfinding, MiniSorting } from "@components/algorithms";
 import { Panel } from "@components/algorithms/Panel";
 import { MyHead } from "@components/common";
 import defaultStyle from "@styles/default.module.scss";
@@ -33,7 +33,11 @@ const AlgorithmIndex: React.FC = () => {
             onClick={() => router.push(pathfinding)}
             component={<MiniPathfinding />}
           />
-          <Panel title={"Sorting"} onClick={() => router.push(sorting)} />
+          <Panel
+            title={"Sorting"}
+            onClick={() => router.push(sorting)}
+            component={<MiniSorting />}
+          />
           <Panel title={"Searching"} disabled={true} />
         </div>
       </div>
