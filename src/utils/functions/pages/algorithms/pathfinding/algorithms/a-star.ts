@@ -1,8 +1,8 @@
 import Coordinate from "@utils/classes/Coordinate";
 import MinHeap from "@utils/classes/MinHeap";
-import { initMatrix } from "@utils/functions";
+import { getPathfindingAnimation, initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "@utils/constants";
-import { CellInfo, PathfindingArg } from "@utils/types";
+import { CellInfo, PathfindingAnimation, PathfindingArg } from "@utils/types";
 import { isValidCell } from "./helper-functions";
 
 type WeightedCoordinate = [CellInfo, number];
@@ -14,7 +14,9 @@ export const aStar = ({
   grid,
   start,
   end,
-}: PathfindingArg): [CellInfo[], (Coordinate | null)[][]] => {
+}: PathfindingArg): PathfindingAnimation[] => {
+  const animations: PathfindingAnimation[] = [];
+
   const initEntry: WeightedCoordinate = [[start, null], 0];
   const heap = new MinHeap<WeightedCoordinate>([initEntry], isLessThan);
 
@@ -34,9 +36,12 @@ export const aStar = ({
     }
 
     visitedCells.push([coordinate, prev]);
+    animations.push(getPathfindingAnimation("visit", [coordinate]));
+
     prevs[row][col] = prev || start;
     if (coordinate.isEqual(end)) {
-      return [visitedCells, prevs];
+      break;
+      // return [visitedCells, prevs];
     }
 
     const potentialDistanceFromStart = distances[row][col] + 1;
@@ -62,5 +67,25 @@ export const aStar = ({
     }
   }
 
-  return [visitedCells, prevs];
+  if (prevs[end.row][end.col]) {
+    const cellsInPath: Coordinate[] = [];
+    let currentCell = end;
+    while (!currentCell.isEqual(start)) {
+      cellsInPath.push(currentCell);
+      const nextCell = prevs[currentCell.row][currentCell.col];
+      if (nextCell) {
+        currentCell = nextCell;
+      }
+    }
+    cellsInPath.push(start);
+
+    const pathSize = cellsInPath.length;
+    cellsInPath.forEach((_, i) => {
+      animations.push(
+        getPathfindingAnimation("trace", [cellsInPath[pathSize - i - 1]])
+      );
+    });
+  }
+
+  return animations;
 };

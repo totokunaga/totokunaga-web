@@ -4,7 +4,15 @@ import { CELL_SIZE, PATH_FOUND_DELAY, MARK_DELAY } from "@utils/constants";
 import { Cell } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
-import { initMatrix, pathfindingAlgorithms } from "@utils/functions";
+import {
+  animateCell,
+  aStar,
+  bfs,
+  bidirectional,
+  dfs,
+  initMatrix,
+  pathfindingAlgorithms,
+} from "@utils/functions";
 import { useSelector } from "react-redux";
 import { selectPathfindingController, setClearExecuted } from "@utils/slices";
 import { useDispatch } from "react-redux";
@@ -76,15 +84,6 @@ export const Grid: React.FC<GridProp> = (props) => {
     [start, end, grid, algorithmExecuted, isStartFocused, isEndFocused]
   );
 
-  const onColored = useCallback(
-    (coordinate: Coordinate, color: number) => {
-      const { row, col } = coordinate;
-      grid[row][col] = color;
-      setGrid([...grid]);
-    },
-    [grid]
-  );
-
   // When "Start" button is hit
   useEffect(() => {
     if (algorithmExecuted) {
@@ -95,53 +94,25 @@ export const Grid: React.FC<GridProp> = (props) => {
       );
       setGrid([...grid]);
 
-      const [visitedCells, prevs] = pathfindingAlgorithms[algorithm]({
-        grid,
-        start,
-        end,
-      });
-      visitedCells.forEach(([coordinate], i) => {
+      const animations = pathfindingAlgorithms[algorithm]({ grid, start, end });
+
+      let timeoutAmount = 0;
+      let baseGrid = grid;
+      animations.forEach((animation, i) => {
         setTimeout(() => {
-          onColored(coordinate, VISITED_1);
-        }, (i * MARK_DELAY) / algorithmSpeed);
-      });
+          const newGrid = animateCell(baseGrid, animation);
+          baseGrid = newGrid;
+          setGrid(newGrid);
 
-      if (!prevs[end.row][end.col]) {
-        setAlgorithmExecuted(false);
-      } else {
-        const cellsInPath: Coordinate[] = [];
-        let currentCell = end;
-        while (!currentCell.isEqual(start)) {
-          cellsInPath.push(currentCell);
-          const nextCell = prevs[currentCell.row][currentCell.col];
-          if (nextCell) {
-            currentCell = nextCell;
+          if (i === animations.length - 1) {
+            setAlgorithmExecuted(false);
           }
-        }
-        cellsInPath.push(start);
+        }, timeoutAmount);
 
-        const pathSize = cellsInPath.length;
-        const visitedSize = visitedCells.length;
-        const timeoutOffset = (visitedSize * MARK_DELAY) / algorithmSpeed;
-        cellsInPath.forEach((coordinate, i) => {
-          setTimeout(() => {
-            onColored(coordinate, PATH_3);
-            if (i === 0) {
-              setAlgorithmExecuted(false);
-            }
-          }, timeoutOffset + (pathSize - i - 1) * PATH_FOUND_DELAY);
-        });
-      }
+        timeoutAmount += animation.duration;
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    algorithm,
-    algorithmSpeed,
-    algorithmExecuted,
-    setAlgorithmExecuted,
-    start,
-    end,
-  ]);
+  }, [algorithm, algorithmExecuted, setAlgorithmExecuted, start, end]);
 
   // When "Clear" button is hit
   useEffect(() => {
@@ -159,7 +130,6 @@ export const Grid: React.FC<GridProp> = (props) => {
       setGrid([...grid]);
       dispatch(setClearExecuted(false));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearExecuted]);
 
   // When non-blocked cell clear
@@ -175,7 +145,6 @@ export const Grid: React.FC<GridProp> = (props) => {
       setGrid([...grid]);
       setUnmarkExecuted(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unmarkExecuted, setUnmarkExecuted]);
 
   // When a client window size is changed
@@ -198,7 +167,6 @@ export const Grid: React.FC<GridProp> = (props) => {
       }
     }
     setGrid(resizedGrid);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowSize, colSize]);
 
   return (

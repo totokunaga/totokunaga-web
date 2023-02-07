@@ -1,5 +1,5 @@
 import { DropdownItem } from "@components/common/DropdownList";
-import { Pathfinding } from "@utils/types";
+import { Pathfinding, PathfindingAnimationType } from "@utils/types";
 
 export const pathfindingText = {
   startButton: "Start",
@@ -34,3 +34,12 @@ export const algorithmOptions: DropdownItem<string>[] = [
   { name: "A*", value: pathfindingNames["A*"] },
   { name: "Bidirectional", value: pathfindingNames.Bidirectional },
 ];
+
+export const pathfindingAnimationSpeed: Record<
+  PathfindingAnimationType,
+  number
+> = {
+  visit: 6,
+  push: 150,
+  trace: 30,
+};

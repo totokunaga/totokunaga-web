@@ -1,6 +1,6 @@
 import Coordinate from "@utils/classes/Coordinate";
-import { initMatrix } from "@utils/functions";
-import { BLOCKED_2 } from "@utils/types";
+import { getPathfindingAnimation, initMatrix } from "@utils/functions";
+import { BLOCKED_2, PathfindingAnimation } from "@utils/types";
 import { COLS, ROWS } from "@utils/constants";
 import { CellInfo, PathfindingArg } from "@utils/types";
 
@@ -8,7 +8,9 @@ export const bidirectional = ({
   grid,
   start,
   end,
-}: PathfindingArg): [CellInfo[], (Coordinate | null)[][]] => {
+}: PathfindingArg): PathfindingAnimation[] => {
+  const animations: PathfindingAnimation[] = [];
+
   let qStart: CellInfo[] = [[start, null]];
   let qEnd: CellInfo[] = [[end, null]];
   let middleFromStart = start;
@@ -38,6 +40,9 @@ export const bidirectional = ({
       const { row: rowEnd, col: colEnd } = currentEnd;
       visitedCells.push([currentStart, prevStart]);
       visitedCells.push([currentEnd, prevEnd]);
+      animations.push(
+        getPathfindingAnimation("visit", [currentStart, currentEnd])
+      );
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRowStart = rowStart + ROWS[i];
@@ -92,6 +97,7 @@ export const bidirectional = ({
       const [current, prev] = q.pop() as CellInfo;
       const { row, col } = current;
       visitedCells.push([current, prev]);
+      animations.push(getPathfindingAnimation("visit", [current]));
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRow = row + ROWS[i];
@@ -121,6 +127,7 @@ export const bidirectional = ({
       const [current, prev] = q.pop() as CellInfo;
       const { row, col } = current;
       visitedCells.push([current, prev]);
+      animations.push(getPathfindingAnimation("visit", [current]));
 
       for (let i = 0; i < ROWS.length; i++) {
         const nextRow = row + ROWS[i];
@@ -160,6 +167,10 @@ export const bidirectional = ({
     const { row: rowEnd, col: colEnd } = currentEnd;
     visitedCells.push([currentEnd, prevEnd]);
     prevs[rowEnd][colEnd] = prevEnd;
+
+    animations.push(
+      getPathfindingAnimation("visit", [currentStart, currentEnd])
+    );
   }
 
   while (qStart.length > 0) {
@@ -167,6 +178,8 @@ export const bidirectional = ({
     const { row, col } = current;
     visitedCells.push([current, prev]);
     prevs[row][col] = prev;
+
+    animations.push(getPathfindingAnimation("visit", [current]));
   }
 
   while (qEnd.length > 0) {
@@ -174,6 +187,8 @@ export const bidirectional = ({
     const { row, col } = current;
     visitedCells.push([current, prev]);
     prevs[row][col] = prev;
+
+    animations.push(getPathfindingAnimation("visit", [current]));
   }
 
   let prev = middleFromStart;
@@ -186,5 +201,25 @@ export const bidirectional = ({
   }
   prevs[current.row][current.col] = prev;
 
-  return [visitedCells, prevs];
+  if (prevs[end.row][end.col]) {
+    const cellsInPath: Coordinate[] = [];
+    let currentCell = end;
+    while (!currentCell.isEqual(start)) {
+      cellsInPath.push(currentCell);
+      const nextCell = prevs[currentCell.row][currentCell.col];
+      if (nextCell) {
+        currentCell = nextCell;
+      }
+    }
+    cellsInPath.push(start);
+
+    const pathSize = cellsInPath.length;
+    cellsInPath.forEach((_, i) => {
+      animations.push(
+        getPathfindingAnimation("trace", [cellsInPath[pathSize - i - 1]])
+      );
+    });
+  }
+
+  return animations;
 };

@@ -19,6 +19,13 @@ const AlgorithmIndex: React.FC = () => {
           Algorithm Visualizer
         </h2>
 
+        <div style={{ textAlign: "center", marginBottom: 32 }}>
+          <p style={{ marginBottom: 8 }}>
+            Visualizes / Animates famous algorithms
+          </p>
+          <p>Click panels to proceed</p>
+        </div>
+
         <div
           style={{
             display: "flex",

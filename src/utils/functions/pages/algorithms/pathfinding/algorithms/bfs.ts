@@ -1,14 +1,16 @@
 import Coordinate from "@utils/classes/Coordinate";
-import { initMatrix } from "@utils/functions";
+import { getPathfindingAnimation, initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "@utils/constants";
-import { CellInfo, PathfindingArg } from "@utils/types";
+import { CellInfo, PathfindingAnimation, PathfindingArg } from "@utils/types";
 import { isValidCell } from "./helper-functions";
 
 export const bfs = ({
   grid,
   start,
   end,
-}: PathfindingArg): [CellInfo[], (Coordinate | null)[][]] => {
+}: PathfindingArg): PathfindingAnimation[] => {
+  const animations: PathfindingAnimation[] = [];
+
   let q: CellInfo[] = [[start, null]];
   const rowSize = grid.length;
   const colSize = grid[0].length;
@@ -16,17 +18,22 @@ export const bfs = ({
   const visitedCells: CellInfo[] = [];
 
   prevs[start.row][start.col] = start;
+  let pathFound = false;
 
-  while (q.length > 0) {
+  while (!pathFound && q.length > 0) {
     const next: CellInfo[] = [];
 
     for (const [current, prev] of q) {
       const { row, col } = current;
       visitedCells.push([current, prev]);
+      animations.push(getPathfindingAnimation("visit", [current]));
       if (current.isEqual(end)) {
-        return [visitedCells, prevs];
+        pathFound = true;
+        break;
+        // return [visitedCells, prevs];
       }
 
+      const candidateCoordinates: Coordinate[] = [];
       for (let i = 0; i < ROWS.length; i++) {
         const nextRow = row + ROWS[i];
         const nextCol = col + COLS[i];
@@ -34,12 +41,34 @@ export const bfs = ({
         if (isValidCell(grid, prevs, nextCoordinate)) {
           prevs[nextRow][nextCol] = current;
           next.push([nextCoordinate, current]);
+          candidateCoordinates.push(nextCoordinate);
         }
       }
+      // animations.push(getPathfindingAnimation("push", candidateCoordinates));
     }
 
     q = next;
   }
 
-  return [visitedCells, prevs];
+  if (prevs[end.row][end.col]) {
+    const cellsInPath: Coordinate[] = [];
+    let currentCell = end;
+    while (!currentCell.isEqual(start)) {
+      cellsInPath.push(currentCell);
+      const nextCell = prevs[currentCell.row][currentCell.col];
+      if (nextCell) {
+        currentCell = nextCell;
+      }
+    }
+    cellsInPath.push(start);
+
+    const pathSize = cellsInPath.length;
+    cellsInPath.forEach((_, i) => {
+      animations.push(
+        getPathfindingAnimation("trace", [cellsInPath[pathSize - i - 1]])
+      );
+    });
+  }
+
+  return animations;
 };
