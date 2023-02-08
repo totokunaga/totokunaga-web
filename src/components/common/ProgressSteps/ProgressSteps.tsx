@@ -22,13 +22,11 @@ type StepProp = {
 const Step: React.FC<StepProp> = ({
   order,
   name,
-  type,
   focused,
   component,
   isLastStep,
 }) => {
   const [lineHeight, setLineHeight] = useState(0);
-  // const [grownHeight, setGrownHeight] = useState(0);
   const componentId = useMemo(() => name + " " + String(order), [name]);
 
   useEffect(() => {
@@ -38,43 +36,14 @@ const Step: React.FC<StepProp> = ({
     }
   }, []);
 
-  // const wrapperStyle = useMemo(() => {
-  //   const horizontalStyle = {};
-  //   const verticalStyle = {
-  //     display: "flex",
-  //   };
-  //   return type === "horizontal" ? horizontalStyle : verticalStyle;
-  // }, [type]);
-
-  // const radioWrapperStyle = useMemo(() => {
-  //   const horizontalStyle = {};
-  //   const verticalStyle = {
-  //     marginRight: 16,
-  //   };
-
-  //   return type === "horizontal" ? horizontalStyle : verticalStyle;
-  // }, [type]);
-
   const lineClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.line];
     if (focused) classes.push(neumorphic.animate);
     return classes.join(" ");
   }, [focused]);
 
-  // useEffect(() => {
-  //   const marginY = 5;
-  //   const stepHeight = 32;
-  //   const componentElement = document.getElementById(componentId);
-  //   const lineHeight =
-  //     (componentElement?.clientHeight || 0) -
-  //     2 * marginY -
-  //     stepHeight / 2 +
-  //     grownHeight;
-  //   setLineHeight(lineHeight);
-  // }, [componentId, grownHeight]);
-
   return (
-    <div>
+    <>
       <div style={{ display: "flex", alignItems: "center" }}>
         <div style={{ marginRight: 16 }}>
           <Radio checked={true} animate={focused} />
@@ -91,7 +60,7 @@ const Step: React.FC<StepProp> = ({
         </div>
       </div>
       <div id={componentId} style={{ display: "flex" }}>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", width: "100%" }}>
           <div
             className={lineClassName}
             style={{
@@ -103,7 +72,7 @@ const Step: React.FC<StepProp> = ({
           {component}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

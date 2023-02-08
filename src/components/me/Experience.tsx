@@ -25,7 +25,7 @@ export const Experience: React.FC<ExperienceProp> = ({
   }, [isDetailsShown]);
 
   return (
-    <div>
+    <div style={{ flex: 1 }}>
       <div style={{ marginBottom: 12 }}>
         {periods.map((exp, i) => (
           <div key={i}>
@@ -35,35 +35,33 @@ export const Experience: React.FC<ExperienceProp> = ({
       </div>
 
       {explanations && (
-        <>
-          <div
-            className={projectDetailsClassName}
-            onClick={onClickProjectDetails}
-            style={{
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              borderRadius: 8,
-            }}
-          >
-            <div style={{ flex: 1 }}>
-              <span>Click to see project details</span>
-            </div>
-            <div
-              className={`${neumorphic.root} ${neumorphic.icon}`}
-              style={{ transform: "rotate(45deg)" }}
-            >
-              <Icon icon={"close"} width={16} height={16} />
-            </div>
+        <div
+          className={projectDetailsClassName}
+          onClick={onClickProjectDetails}
+          style={{
+            flex: 1,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            borderRadius: 8,
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <span>Click to see project details</span>
           </div>
-
+          <div
+            className={`${neumorphic.root} ${neumorphic.icon}`}
+            style={{ transform: "rotate(45deg)" }}
+          >
+            <Icon icon={"close"} width={16} height={16} />
+          </div>
           <Modal
             isShown={isDetailsShown}
             onClose={() => setDetailsShown(false)}
           >
             <ExperienceModalContent explanations={explanations} />
           </Modal>
-        </>
+        </div>
       )}
     </div>
   );
