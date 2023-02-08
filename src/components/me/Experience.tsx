@@ -27,7 +27,7 @@ export const Experience: React.FC<ExperienceProp> = ({
 
   return (
     <div style={{ flex: 1 }}>
-      <div style={{ margin: "6px 0 12px 0" }}>
+      <div style={{ margin: "6px 0 12px 0", display: "flex" }}>
         {periods.map((exp, i) => (
           <p key={i} style={{ fontSize: 15 }}>
             {exp}
@@ -48,7 +48,7 @@ export const Experience: React.FC<ExperienceProp> = ({
             marginBottom: 10,
           }}
         >
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, display: "flex" }}>
             <p>Click to see project details</p>
           </div>
           <div

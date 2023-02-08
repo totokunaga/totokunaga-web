@@ -45,7 +45,7 @@ const PathfindingIndex: React.FC = () => {
 
       dispatch(setWidth(width));
     }
-  }, [width]);
+  }, [height, width]);
 
   return (
     <>

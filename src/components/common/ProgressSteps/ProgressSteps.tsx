@@ -31,12 +31,12 @@ const Step: React.FC<StepProp> = ({
   const [lineHeight, setLineHeight] = useState(0);
   const componentId = useMemo(() => name + " " + String(order), [name]);
 
-  // useEffect(() => {
-  //   const stepLineWrapper = document.getElementById(componentId);
-  //   if (stepLineWrapper) {
-  //     setLineHeight(stepLineWrapper.clientHeight);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const stepLineWrapper = document.getElementById(componentId);
+    if (stepLineWrapper) {
+      setLineHeight(stepLineWrapper.clientHeight);
+    }
+  }, []);
 
   const lineClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.line];
