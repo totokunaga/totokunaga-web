@@ -1,5 +1,7 @@
 import { ExperienceProp } from "@components/me";
 
+export const meRootId = "me-root";
+
 export const meTexts = {
   introduction: [
     "I'm Tomoya Tokunaga, a software engineer based in Tokyo, Japan.",
@@ -18,7 +20,7 @@ export const meTexts = {
       explanations: [
         {
           subtitle: "#1. B2C ISP website",
-          content: "hello",
+          content: "Hello World",
         },
       ],
     },

@@ -7,8 +7,7 @@ import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "@utils/constants";
-import { useWindowSize } from "@utils/hooks";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 const neumorphicDown = [neumorphic.root, neumorphic.down].join(" ");
 
@@ -17,25 +16,21 @@ const { introduction, experiences, skills } = meTexts;
 
 const Index = () => {
   const router = useRouter();
-  const { width } = useWindowSize();
-  const [profileSize, setProfileSize] = useState(0);
 
-  useEffect(() => {
-    if (width) {
-      setProfileSize(Math.min(Math.round(width / 4), 126));
-    }
-  }, [width]);
+  const introductionClassName = useMemo(() => {
+    const classes = [
+      neumorphic.root,
+      neumorphic.paragraph,
+      meStyle.profile_description_wrapper,
+    ];
+    return classes.join(" ");
+  }, []);
 
   return (
     <>
       <MyHead {...root} />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ padding: 24, maxWidth: 900 }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ padding: 24 }}>
           <h1 className={style.font} style={{ marginBottom: 16 }}>
             Hello,
           </h1>
@@ -45,16 +40,12 @@ const Index = () => {
                 <img
                   alt={"profile"}
                   src={"/profile.jpg"}
-                  width={profileSize}
-                  height={profileSize}
+                  className={meStyle.profile_image}
                   draggable={false}
-                  style={{ borderRadius: 15 }}
                 />
               </div>
             </div>
-            <div
-              className={`${neumorphic.root} ${neumorphic.paragraph} ${meStyle.profile_description_wrapper}`}
-            >
+            <div className={introductionClassName}>
               <div className={meStyle.profile_description_float} />
               {introduction.map((text, i) => (
                 <p
@@ -69,7 +60,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: 40 }}>
+          <div style={{ marginBottom: 50 }}>
             <div style={{ display: "flex" }}>
               <h3 className={textStyle.underline} style={{ marginBottom: 20 }}>
                 Personal projects
@@ -93,7 +84,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: 40 }}>
+          <div style={{ marginBottom: 50 }}>
             <div style={{ display: "flex" }}>
               <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
                 Experience & Education

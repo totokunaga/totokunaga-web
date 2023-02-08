@@ -1,4 +1,6 @@
-import { Accordion } from "@components/common/Accordion";
+import { Icon, Modal } from "@components/common";
+import { Fragment, useCallback, useMemo, useState } from "react";
+import neumorphic from "@styles/neumorphic.module.scss";
 
 export type ExperienceProp = {
   entityName: string;
@@ -15,10 +17,19 @@ export const Experience: React.FC<ExperienceProp> = ({
   title,
   periods,
   explanations,
-  accordionTitle,
-  onResize,
   componentId,
 }) => {
+  const [isDetailsShown, setDetailsShown] = useState(false);
+
+  const projectDetailsClassName = useMemo(() => {
+    const classes = [neumorphic.root, neumorphic.down];
+    return classes.join(" ");
+  }, []);
+
+  const onClickProjectDetails = useCallback(() => {
+    setDetailsShown(!isDetailsShown);
+  }, [isDetailsShown]);
+
   return (
     <div id={componentId}>
       <div style={{ margin: "6px 0px 4px 0px" }}>
@@ -34,32 +45,53 @@ export const Experience: React.FC<ExperienceProp> = ({
           </div>
         ))}
       </div>
-      {accordionTitle && explanations && (
-        <div style={{ marginBottom: 8 }}>
-          <Accordion
-            name={accordionTitle}
-            componentId={entityName + title}
-            onResize={onResize}
+
+      {explanations && (
+        <>
+          <div
+            className={projectDetailsClassName}
+            onClick={onClickProjectDetails}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              borderRadius: 8,
+            }}
           >
-            {explanations.map(({ subtitle, content }, i) => (
-              <div key={i}>
-                <p
-                  style={{
-                    fontWeight: 500,
-                    marginBottom: 10,
-                    fontSize: "max(min(3.7vw, 16px), 14px)",
-                  }}
-                >
-                  {subtitle}
-                </p>
-                <p style={{ fontSize: "max(min(3.75vw, 16px), 14px)" }}>
-                  {content}
-                </p>
-              </div>
-            ))}
-          </Accordion>
-        </div>
+            <div style={{ flex: 1 }}>
+              <span>Click to see project details</span>
+            </div>
+            <div
+              className={`${neumorphic.root} ${neumorphic.icon}`}
+              style={{ transform: "rotate(45deg)" }}
+            >
+              <Icon icon={"close"} width={16} height={16} />
+            </div>
+          </div>
+
+          <Modal
+            isShown={isDetailsShown}
+            onClose={() => setDetailsShown(false)}
+          >
+            <ExperienceModalContent explanations={explanations} />
+          </Modal>
+        </>
       )}
     </div>
+  );
+};
+
+const ExperienceModalContent: React.FC<Partial<ExperienceProp>> = ({
+  explanations,
+}) => {
+  return (
+    <>
+      {explanations?.map(({ subtitle, content }, i) => (
+        <Fragment key={i}>
+          <h4 style={{ marginBottom: 24 }}>{subtitle}</h4>
+          <p>{content}</p>
+        </Fragment>
+      ))}
+    </>
   );
 };

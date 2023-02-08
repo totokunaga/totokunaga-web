@@ -8,6 +8,7 @@ import RocketIcon from "@assets/rocket-outline.svg";
 import CloseIcon from "@assets/close.svg";
 import WarningIcon from "@assets/warning.svg";
 import ShuffleIcon from "@assets/shuffle.svg";
+
 import { CSSStyle } from "@utils/types";
 
 type IconType =
