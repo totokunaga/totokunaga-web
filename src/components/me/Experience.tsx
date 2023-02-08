@@ -28,14 +28,11 @@ export const Experience: React.FC<ExperienceProp> = ({
   return (
     <div style={{ flex: 1 }}>
       <div style={{ margin: "6px 0 12px 0" }}>
-        <span className={text.smallest}>
-          {periods.map((exp, i) => (
-            <Fragment key={i}>
-              {exp}
-              <br />
-            </Fragment>
-          ))}
-        </span>
+        {periods.map((exp, i) => (
+          <p key={i} style={{ fontSize: 15 }}>
+            {exp}
+          </p>
+        ))}
       </div>
 
       {explanations && (
@@ -52,7 +49,7 @@ export const Experience: React.FC<ExperienceProp> = ({
           }}
         >
           <div style={{ flex: 1 }}>
-            <span className={text.smallest}>Click to see project details</span>
+            <p>Click to see project details</p>
           </div>
           <div
             className={`${neumorphic.root} ${neumorphic.icon}`}
