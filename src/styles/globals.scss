@@ -135,13 +135,13 @@ h1 {
   font-size: min(12vw, 80px);
 }
 h2 {
-  font-size: min(7vw, 32px);
+  font-size: max(min(7vw, 32px), 16px);
 }
 h3 {
   font-size: min(6vw, 25px);
 }
 h4 {
-  font-size: min(4.5vw, 25px);
+  font-size: max(min(4.5vw, 25px), 15.5px);
 }
 p {
   font-size: max(min(4vw, 19px), 14px);

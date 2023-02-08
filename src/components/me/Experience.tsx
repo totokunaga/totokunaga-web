@@ -6,18 +6,12 @@ export type ExperienceProp = {
   entityName: string;
   title: string;
   periods: string[];
-  accordionTitle?: string;
   explanations?: Array<{ subtitle: string; content: string }>;
-  onResize?: (value: number) => void;
-  componentId: string;
 };
 
 export const Experience: React.FC<ExperienceProp> = ({
-  entityName,
-  title,
   periods,
   explanations,
-  componentId,
 }) => {
   const [isDetailsShown, setDetailsShown] = useState(false);
 
@@ -31,13 +25,7 @@ export const Experience: React.FC<ExperienceProp> = ({
   }, [isDetailsShown]);
 
   return (
-    <div id={componentId}>
-      <div style={{ margin: "6px 0px 4px 0px" }}>
-        <p style={{ fontWeight: 500, marginRight: 5 }}>
-          {entityName}{" "}
-          <span style={{ fontSize: 15, fontWeight: 300 }}>- {title}</span>
-        </p>
-      </div>
+    <div>
       <div style={{ marginBottom: 12 }}>
         {periods.map((exp, i) => (
           <div key={i}>

@@ -16,11 +16,10 @@ export const meTexts = {
         "Oct, 2021 - current",
         "Oct, 2020 - Sep, 2021 as Frontend developer",
       ],
-      accordionTitle: "Projects",
       explanations: [
         {
           subtitle: "#1. B2C ISP website",
-          content: "Hello World",
+          content: Array.from({ length: 500 }, () => "Hello World"),
         },
       ],
     },
@@ -28,7 +27,6 @@ export const meTexts = {
       entityName: "Mercari",
       title: "Internship",
       periods: ["Jul, 2019 - Sep, 2019"],
-      accordionTitle: "Projects",
       explanations: [
         {
           subtitle: "Mercari intern project",
@@ -40,7 +38,6 @@ export const meTexts = {
       entityName: "Goldman Sachs",
       title: "Internship",
       periods: ["Aug, 2018 - Sep, 2018"],
-      accordionTitle: "Projects",
       explanations: [
         {
           subtitle: "Goldman Sachs intern project",

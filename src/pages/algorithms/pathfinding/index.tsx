@@ -51,7 +51,10 @@ const PathfindingIndex: React.FC = () => {
     <>
       <MyHead {...pathfinding} />
       <div className={style.root}>
-        <div id={pathfindingPageId}>
+        <div
+          id={pathfindingPageId}
+          style={{ display: "flex", flexDirection: "column" }}
+        >
           <div id={pathfindingConfigId}>
             <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
             <PathfindingControlSection />

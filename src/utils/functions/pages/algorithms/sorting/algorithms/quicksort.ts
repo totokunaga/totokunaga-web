@@ -15,19 +15,20 @@ const quicksortHelper = (
     return animations;
   }
 
-  animations.push(getSortingAnimation("range", [left, right]));
+  // animations.push(getSortingAnimation("range", [left, right]));
 
   const pivot = values[right];
   let swapIdx = left;
   animations.push(getSortingAnimation("focus", [right]));
 
   for (let i = left; i < right; i++) {
-    animations.push(getSortingAnimation("compare", [i]));
+    // animations.push(getSortingAnimation("compare", [i]));
     if (values[i] <= pivot) {
       if (swapIdx < i) {
         animations.push(getSortingAnimation("swap", [swapIdx, i]));
+        animations.push(getSortingAnimation("range", [swapIdx, i]));
       }
-      animations.push(getSortingAnimation("range", [swapIdx, i]));
+      // animations.push(getSortingAnimation("range", [swapIdx, i]));
 
       swap(values, swapIdx, i);
       swapIdx++;
@@ -35,7 +36,7 @@ const quicksortHelper = (
       continue;
     }
 
-    animations.push(getSortingAnimation("range", [i]));
+    // animations.push(getSortingAnimation("range", [i]));
   }
 
   if (swapIdx < right) {

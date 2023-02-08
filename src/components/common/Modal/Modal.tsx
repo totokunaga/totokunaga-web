@@ -35,8 +35,8 @@ export const Modal: React.FC<ModalProp> = ({ isShown, onClose, children }) => {
           onClick={onClose}
           style={{
             position: "absolute",
-            top: 8,
-            right: 8,
+            top: 12,
+            right: 12,
             borderRadius: 50,
             cursor: "pointer",
           }}

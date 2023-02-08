@@ -43,7 +43,10 @@ export const Bar: React.FC<BarProp> = ({
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       {status === "done" && (
-        <div className={style.checkmark} style={{ marginBottom: 16 }} />
+        <div
+          className={style.checkmark}
+          style={{ marginBottom: "min(4.5vw, 16px)" }}
+        />
       )}
       <div
         className={barClassName}

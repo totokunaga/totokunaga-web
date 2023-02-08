@@ -50,8 +50,8 @@
   border-bottom: 2.5px solid var(--green);
   transform: rotate(-45deg);
   visibility: visible;
-  width: 15px;
-  height: 7.5px;
+  width: min(4.5vw, 15px);
+  height: min(3.5vw, 7.5px);
   margin: 0px 0px 5px 0px;
   opacity: 0;
 
