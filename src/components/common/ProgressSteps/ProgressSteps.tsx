@@ -6,13 +6,14 @@ type Direction = "horizontal" | "vertical";
 
 type ProgressStepProp = {
   type: Direction;
-  items: Array<{ name: string; component: ReactNode }>;
+  items: Array<{ name: string; component: ReactNode; title: ReactNode }>;
   current: string | number;
 };
 
 type StepProp = {
   order: number;
   name: string | number;
+  title: ReactNode;
   type: Direction;
   focused: boolean;
   component: ReactNode;
@@ -22,6 +23,7 @@ type StepProp = {
 const Step: React.FC<StepProp> = ({
   order,
   name,
+  title,
   focused,
   component,
   isLastStep,
@@ -48,16 +50,7 @@ const Step: React.FC<StepProp> = ({
         <div style={{ marginRight: 16 }}>
           <Radio checked={true} animate={focused} />
         </div>
-        <div>
-          <p>
-            <span style={{ fontWeight: 500 }}>
-              {name}
-              <span style={{ fontWeight: 300, fontSize: 15, marginLeft: 5 }}>
-                - Lead developer
-              </span>
-            </span>
-          </p>
-        </div>
+        {title}
       </div>
       <div id={componentId} style={{ display: "flex" }}>
         <div style={{ display: "flex", width: "100%" }}>
@@ -83,7 +76,7 @@ export const ProgressSteps: React.FC<ProgressStepProp> = ({
 }) => {
   return (
     <div>
-      {items.map(({ name, component }, i) => (
+      {items.map(({ name, component, title }, i) => (
         <Step
           key={i}
           order={i}
@@ -91,6 +84,7 @@ export const ProgressSteps: React.FC<ProgressStepProp> = ({
           type={type}
           focused={name === current}
           component={component}
+          title={title}
           isLastStep={i === items.length - 1}
         />
       ))}

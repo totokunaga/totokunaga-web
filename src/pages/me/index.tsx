@@ -7,15 +7,58 @@ import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "@utils/constants";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const neumorphicDown = [neumorphic.root, neumorphic.down].join(" ");
 
 const { root } = pages;
 const { introduction, experiences, skills } = meTexts;
 
+const greeting = {
+  en: "Hello,",
+  ja: "こんにちは",
+};
+
 const Index = () => {
   const router = useRouter();
+
+  const [typewriterLang, setTypewriterLang] = useState<"ja" | "en">("en");
+  const [typewriterVal, setTypewriterVal] = useState("");
+  const [typewriterHeight, setTypewriterHeight] = useState(0);
+
+  useEffect(() => {
+    const greetingElement = document.getElementById("greeting");
+    if (greetingElement) {
+      setTypewriterHeight(greetingElement.clientHeight * 0.75);
+    }
+  }, [typewriterLang]);
+
+  useEffect(() => {
+    const charArr = Array.from(greeting[typewriterLang]);
+    const forwardTimeoutAmount = 400;
+    const backwardTimeoutAmount = 200;
+
+    let timeoutAmount = 500;
+    charArr.forEach((_, i) => {
+      timeoutAmount += forwardTimeoutAmount * 0.35;
+      setTimeout(() => {
+        setTypewriterVal(charArr.slice(0, i + 1).join(""));
+      }, timeoutAmount);
+    });
+
+    timeoutAmount += 3000;
+    charArr.forEach((_, i) => {
+      timeoutAmount += backwardTimeoutAmount;
+      setTimeout(() => {
+        setTypewriterVal(charArr.slice(0, charArr.length - i - 1).join(""));
+      }, timeoutAmount);
+    });
+
+    timeoutAmount += 1000;
+    setTimeout(() => {
+      setTypewriterLang(typewriterLang === "en" ? "ja" : "en");
+    }, timeoutAmount);
+  }, [typewriterLang]);
 
   const introductionClassName = useMemo(() => {
     const classes = [
@@ -31,9 +74,34 @@ const Index = () => {
       <MyHead {...root} />
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ padding: 24 }}>
-          <h1 className={style.font} style={{ marginBottom: 16 }}>
-            Hello,
-          </h1>
+          <div
+            id={"greeting"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: 16,
+              height: "min(12.5vw, 110px)",
+            }}
+          >
+            <h1
+              style={{
+                marginRight: 5,
+                fontSize:
+                  typewriterLang === "ja" ? "min(9vw, 70px)" : undefined,
+                fontFamily:
+                  typewriterLang === "ja"
+                    ? `'Noto Sans JP', sans-serif`
+                    : undefined,
+              }}
+            >
+              {typewriterVal}
+            </h1>
+            <div
+              className={style.typewriter}
+              style={{ height: typewriterHeight }}
+            />
+          </div>
+
           <div style={{ display: "flex", position: "relative" }}>
             <div className={meStyle.profile_image_wrapper}>
               <div className={neumorphicDown} style={{ padding: 12 }}>
@@ -96,6 +164,24 @@ const Index = () => {
                 return {
                   name: exp.entityName,
                   component: <Experience {...exp} />,
+                  title: (
+                    <div>
+                      <p>
+                        <span style={{ fontWeight: 500 }}>
+                          {exp.entityName}
+                          <span
+                            style={{
+                              fontWeight: 300,
+                              fontSize: 15,
+                              marginLeft: 5,
+                            }}
+                          >
+                            - {exp.title}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  ),
                 };
               })}
               current={experiences[0].entityName}

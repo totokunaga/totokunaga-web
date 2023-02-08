@@ -22,6 +22,8 @@
   &.Path {
     background-color: #2ebb98;
     border: solid 0.5px #2ebb98;
+    // background-color: var(--green);
+    // @include inward-shodow-shallower(var(--green-light), var(--green-dark));
   }
 
   &.Blocked {

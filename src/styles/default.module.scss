@@ -21,6 +21,31 @@
   }
 }
 
+.typewriter {
+  height: min(12vw, 80px);
+  width: 2px;
+  background-color: var(--navy-color);
+  animation-name: blink;
+  animation-duration: 1.35s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0;
+  }
+  66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 $greyLight1: #e6e7ed;
 $greyLight2: #9c9da1;
 $greyLight3: #6a6b6d;

@@ -44,6 +44,7 @@ export const Experience: React.FC<ExperienceProp> = ({
             display: "flex",
             alignItems: "center",
             borderRadius: 8,
+            marginBottom: 10,
           }}
         >
           <div style={{ flex: 1 }}>
@@ -71,13 +72,13 @@ const ExperienceModalContent: React.FC<Partial<ExperienceProp>> = ({
   explanations,
 }) => {
   return (
-    <>
+    <div style={{ maxHeight: "75vh", overflowY: "auto" }}>
       {explanations?.map(({ subtitle, content }, i) => (
         <Fragment key={i}>
           <h4 style={{ marginBottom: 24 }}>{subtitle}</h4>
           <p>{content}</p>
         </Fragment>
       ))}
-    </>
+    </div>
   );
 };

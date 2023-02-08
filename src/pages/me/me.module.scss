@@ -20,6 +20,10 @@
     top: max(-20vw, -70px);
     right: 10px;
   }
+  @media (max-width: 325px) {
+    top: max(-20vw, -70px);
+    right: -10px;
+  }
 }
 
 .profile_description_wrapper {
