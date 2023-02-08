@@ -22,6 +22,7 @@ export const defaultHeightUnit = 45;
 export const defaultBarWidth = 45;
 export const spaceBetweenBars = 8;
 
-export const barBlockBottomOffset = 75;
+// export const barBlockBottomOffset = 75;
+export const barBlockBottomOffset = 0;
 export const barIconSize = 32;
 export const maxBars = 17;

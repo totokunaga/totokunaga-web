@@ -36,9 +36,9 @@ const Index = () => {
   useEffect(() => {
     const charArr = Array.from(greeting[typewriterLang]);
     const forwardTimeoutAmount = 400;
-    const backwardTimeoutAmount = 200;
+    const backwardTimeoutAmount = 100;
 
-    let timeoutAmount = 500;
+    let timeoutAmount = 1000;
     charArr.forEach((_, i) => {
       timeoutAmount += forwardTimeoutAmount * 0.35;
       setTimeout(() => {
@@ -46,7 +46,7 @@ const Index = () => {
       }, timeoutAmount);
     });
 
-    timeoutAmount += 3000;
+    timeoutAmount += 4000;
     charArr.forEach((_, i) => {
       timeoutAmount += backwardTimeoutAmount;
       setTimeout(() => {
@@ -54,7 +54,6 @@ const Index = () => {
       }, timeoutAmount);
     });
 
-    timeoutAmount += 1000;
     setTimeout(() => {
       setTypewriterLang(typewriterLang === "en" ? "ja" : "en");
     }, timeoutAmount);
@@ -166,20 +165,18 @@ const Index = () => {
                   component: <Experience {...exp} />,
                   title: (
                     <div>
-                      <p>
-                        <span style={{ fontWeight: 500 }}>
-                          {exp.entityName}
-                          <span
-                            style={{
-                              fontWeight: 300,
-                              fontSize: 15,
-                              marginLeft: 5,
-                            }}
-                          >
-                            - {exp.title}
-                          </span>
+                      <span style={{ fontWeight: 500 }}>
+                        {exp.entityName}
+                        <span
+                          style={{
+                            fontWeight: 300,
+                            fontSize: 15,
+                            marginLeft: 5,
+                          }}
+                        >
+                          - {exp.title}
                         </span>
-                      </p>
+                      </span>
                     </div>
                   ),
                 };

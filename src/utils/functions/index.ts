@@ -38,3 +38,11 @@ export const getStripeSize = (width: number, maxStripeSize: number) => {
 export const isTouchDevice = () => {
   return "ontouchstart" in window || navigator.maxTouchPoints > 0;
 };
+
+export const isiOSDevice = () => {
+  return Boolean(
+    navigator.userAgent.match(/iPad/i) ||
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/Safari/i)
+  );
+};

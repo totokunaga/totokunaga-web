@@ -17,3 +17,8 @@
     background-color: #50c878;
   }
 }
+
+.smallest {
+  font-weight: 300;
+  font-size: max(min(3.5vw, 15px), 14px);
+}

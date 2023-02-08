@@ -1,6 +1,7 @@
 import { Icon, Modal } from "@components/common";
 import { Fragment, useCallback, useMemo, useState } from "react";
 import neumorphic from "@styles/neumorphic.module.scss";
+import text from "@styles/text.module.scss";
 
 export type ExperienceProp = {
   entityName: string;
@@ -26,12 +27,15 @@ export const Experience: React.FC<ExperienceProp> = ({
 
   return (
     <div style={{ flex: 1 }}>
-      <div style={{ marginBottom: 12 }}>
-        {periods.map((exp, i) => (
-          <div key={i}>
-            <p style={{ fontSize: "max(min(3.5vw, 15px), 14px" }}>{exp}</p>
-          </div>
-        ))}
+      <div style={{ margin: "6px 0 12px 0" }}>
+        <span className={text.smallest}>
+          {periods.map((exp, i) => (
+            <Fragment key={i}>
+              {exp}
+              <br />
+            </Fragment>
+          ))}
+        </span>
       </div>
 
       {explanations && (
@@ -48,7 +52,7 @@ export const Experience: React.FC<ExperienceProp> = ({
           }}
         >
           <div style={{ flex: 1 }}>
-            <span>Click to see project details</span>
+            <span className={text.smallest}>Click to see project details</span>
           </div>
           <div
             className={`${neumorphic.root} ${neumorphic.icon}`}

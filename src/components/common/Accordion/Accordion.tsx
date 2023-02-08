@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import neumorphic from "@styles/neumorphic.module.scss";
 import style from "./accordion.module.scss";
+import text from "./text.module.scss";
 import { Icon } from "../Icon";
 
 type AccordionProp = {
@@ -59,13 +60,7 @@ export const Accordion: React.FC<AccordionProp> = ({
           alignItems: "center",
         }}
       >
-        <p
-          style={{
-            fontWeight: 400,
-            flexGrow: 1,
-            fontSize: "max(min(3.75vw, 16px), 14px)",
-          }}
-        >
+        <p className={text.smallest} style={{ fontWeight: 400, flexGrow: 1 }}>
           {name}
         </p>
         <div className={`${neumorphic.root} ${neumorphic.icon}`}>

@@ -54,7 +54,11 @@ const SortingIndex: React.FC = () => {
       <MyHead {...sorting} />
       <div
         className={style.root}
-        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: `100dvh`,
+        }}
       >
         <h3 style={{ marginBottom: 8 }}>Sorting</h3>
         <SortingControlSection />
