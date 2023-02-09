@@ -26,15 +26,14 @@ export const Experience: React.FC<ExperienceProp> = ({
   }, [isDetailsShown]);
 
   return (
-    <div style={{ flex: 1 }}>
-      <div style={{ margin: "6px 0 12px 0", display: "flex" }}>
+    <>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         {periods.map((exp, i) => (
-          <p key={i} style={{ fontSize: 15 }}>
+          <p key={i} className={text.smallest}>
             {exp}
           </p>
         ))}
       </div>
-
       {explanations && (
         <div
           className={projectDetailsClassName}
@@ -45,11 +44,11 @@ export const Experience: React.FC<ExperienceProp> = ({
             display: "flex",
             alignItems: "center",
             borderRadius: 8,
-            marginBottom: 10,
+            marginTop: 10,
           }}
         >
           <div style={{ flex: 1, display: "flex" }}>
-            <p>Click to see project details</p>
+            <p className={text.smallest}>Click to see project details</p>
           </div>
           <div
             className={`${neumorphic.root} ${neumorphic.icon}`}
@@ -65,7 +64,7 @@ export const Experience: React.FC<ExperienceProp> = ({
           </Modal>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -52,18 +52,17 @@ const Step: React.FC<StepProp> = ({
         </div>
         {title}
       </div>
-      <div id={componentId} style={{ display: "flex" }}>
-        <div style={{ display: "flex", width: "100%" }}>
-          <div
-            className={lineClassName}
-            style={{
-              margin: "5px 30px 5px 13.5px",
-              height: isLastStep ? 0 : lineHeight,
-              opacity: isLastStep ? 0 : 1,
-            }}
-          />
-          {component}
-        </div>
+      <div style={{ position: "relative", margin: "4px 0px 16px 48px" }}>
+        {component}
+        <div
+          className={lineClassName}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: -34.5,
+            minHeight: isLastStep ? 0 : "100%",
+          }}
+        />
       </div>
     </>
   );

@@ -72,21 +72,21 @@ const Index = () => {
     <>
       <MyHead {...root} />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ padding: 24 }}>
+        <div className={style.root}>
           <div
             id={"greeting"}
             style={{
               display: "flex",
               alignItems: "center",
-              marginBottom: 16,
-              height: "min(12.5vw, 110px)",
+              marginBottom: "1rem",
+              height: "min(12.5vw, 7rem)",
             }}
           >
             <h1
               style={{
-                marginRight: 5,
+                marginRight: "0.5rem",
                 fontSize:
-                  typewriterLang === "ja" ? "min(9vw, 70px)" : undefined,
+                  typewriterLang === "ja" ? "min(8.5vw, 5.5rem)" : undefined,
                 fontFamily:
                   typewriterLang === "ja"
                     ? `'Noto Sans JP', sans-serif`
@@ -103,7 +103,7 @@ const Index = () => {
 
           <div style={{ display: "flex", position: "relative" }}>
             <div className={meStyle.profile_image_wrapper}>
-              <div className={neumorphicDown} style={{ padding: 12 }}>
+              <div className={neumorphicDown} style={{ padding: "10%" }}>
                 <img
                   alt={"profile"}
                   src={"/profile.jpg"}
@@ -118,7 +118,7 @@ const Index = () => {
                 <p
                   key={i}
                   style={{
-                    marginBottom: i !== introduction.length - 1 ? 12 : 0,
+                    marginBottom: i !== introduction.length - 1 ? "0.85em" : 0,
                   }}
                 >
                   {text}
@@ -129,9 +129,7 @@ const Index = () => {
 
           <div style={{ marginBottom: 50 }}>
             <div style={{ display: "flex" }}>
-              <h3 className={textStyle.underline} style={{ marginBottom: 20 }}>
-                Personal projects
-              </h3>
+              <h3 className={textStyle.underline}>Personal projects</h3>
             </div>
             <div style={{ display: "flex" }}>
               <div
@@ -146,16 +144,14 @@ const Index = () => {
                     animation={"shake"}
                   />
                 </div>
-                <span>Algorithm Visualizer</span>
+                <span className={textStyle.normal}>Algorithm Visualizer</span>
               </div>
             </div>
           </div>
 
           <div style={{ marginBottom: 50 }}>
             <div style={{ display: "flex" }}>
-              <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
-                Experience & Education
-              </h3>
+              <h3 className={textStyle.underline}>Experience & Education</h3>
             </div>
             <ProgressSteps
               type={"vertical"}
@@ -165,18 +161,18 @@ const Index = () => {
                   component: <Experience {...exp} />,
                   title: (
                     <div>
-                      <span style={{ fontWeight: 500 }}>
+                      <h4>
                         {exp.entityName}
                         <span
                           style={{
                             fontWeight: 300,
-                            fontSize: 15,
+                            fontSize: "0.85em",
                             marginLeft: 5,
                           }}
                         >
                           - {exp.title}
                         </span>
-                      </span>
+                      </h4>
                     </div>
                   ),
                 };
@@ -186,15 +182,19 @@ const Index = () => {
           </div>
 
           <div style={{ display: "flex" }}>
-            <h3 className={textStyle.underline} style={{ marginBottom: 12 }}>
-              Skills & Certifications
-            </h3>
+            <h3 className={textStyle.underline}>Skills & Certifications</h3>
           </div>
-          <div className={neumorphicDown} style={{ marginBottom: 20 }}>
+          <div className={neumorphicDown} style={{ marginBottom: "1rem" }}>
             {skills.map(({ title, list }, i) => (
-              <div key={i} style={{ marginBottom: 8 }}>
-                <div style={{ marginBottom: 8 }}>
-                  <span style={{ fontWeight: 500 }}>{title}:</span>
+              <div
+                key={i}
+                style={{ marginBottom: i < skills.length - 1 ? "0.85rem" : 0 }}
+              >
+                <div
+                  className={textStyle.normal}
+                  style={{ fontWeight: 500, marginBottom: "1em" }}
+                >
+                  {title}:
                 </div>
                 <RadioBlock
                   items={list}

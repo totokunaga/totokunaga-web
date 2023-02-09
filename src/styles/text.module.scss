@@ -18,7 +18,11 @@
   }
 }
 
+.normal {
+  font-size: max(min(4vw, 1rem), 0.85rem);
+  font-weight: 400;
+}
 .smallest {
+  font-size: max(min(4vw, 0.95rem), 0.75rem);
   font-weight: 300;
-  font-size: max(min(3.5vw, 15px), 14px);
 }

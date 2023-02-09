@@ -133,19 +133,20 @@ a {
 }
 
 h1 {
-  font-size: min(12vw, 80px);
+  font-size: min(12vw, 5rem);
 }
 h2 {
   font-size: max(min(7vw, 32px), 16px);
 }
 h3 {
-  font-size: min(6vw, 25px);
+  font-size: max(min(6vw, 2rem), 0.95rem);
+  margin-bottom: 1em;
 }
 h4 {
-  font-size: max(min(4.5vw, 25px), 15.5px);
+  font-size: max(min(4.5vw, 1.5rem), 0.9rem);
 }
 p {
-  font-size: max(min(4vw, 19px), 14px);
+  font-size: max(min(4vw, 1.2rem), 0.85rem);
   font-weight: 300;
 }
 
