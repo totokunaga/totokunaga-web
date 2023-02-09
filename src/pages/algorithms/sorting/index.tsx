@@ -13,13 +13,19 @@ const { sorting } = pages;
 
 const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);
-  // const [barWidth, setBarWidth] = useState(0);
-  // const [heightUnit, setHeightUnit] = useState(0);
 
   const { numberOfBars } = useSelector(selectSortindingController);
 
   useEffect(() => {
     let resizedNumberOfBars = numberOfBars;
+
+    const barBlockWrapper = document.getElementById(BAR_BLOCK_WRAPPER);
+    if (barBlockWrapper) {
+      const width = barBlockWrapper.clientWidth;
+      if (width > 520) {
+        resizedNumberOfBars = 13;
+      }
+    }
 
     const randomValues = Array.from(
       { length: resizedNumberOfBars },
@@ -44,7 +50,7 @@ const SortingIndex: React.FC = () => {
       >
         <h3 style={{ marginBottom: 8 }}>Sorting</h3>
         <SortingControlSection />
-        <div style={{ display: "flex", flex: 1 }}>
+        <div id={BAR_BLOCK_WRAPPER} style={{ display: "flex", flex: 1 }}>
           <BarBlock values={values} />
         </div>
       </div>

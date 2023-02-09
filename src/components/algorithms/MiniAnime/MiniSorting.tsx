@@ -110,8 +110,9 @@ export const MiniSorting: React.FC = () => {
           <Fragment key={i}>
             <TestBar
               status={status}
-              height={`${Math.floor(16 * value)}%`}
+              height={`${Math.floor((85 / values.length) * value)}%`}
               width={"80%"}
+              showValue={false}
               translate={{ x: relativeIndex, y: 0 }}
               transition={`all ${
                 sortingTransitionSpeed[status] * 2

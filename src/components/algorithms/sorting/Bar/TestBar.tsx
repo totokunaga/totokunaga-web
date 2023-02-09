@@ -1,14 +1,16 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import neumorphic from "@styles/neumorphic.module.scss";
 import style from "./bar.module.scss";
 import { CSSStyle, SortingAnimationType } from "@utils/types";
+import { useWindowSize } from "@utils/hooks";
 
 type BarProp = CSSStyle & {
   status?: SortingAnimationType;
   width?: number | string;
   height?: number | string;
-  value?: string | number;
+  value?: number;
   translate: { x: number; y: number };
+  showValue: boolean;
 };
 
 export const TestBar: React.FC<BarProp> = ({
@@ -18,6 +20,7 @@ export const TestBar: React.FC<BarProp> = ({
   value,
   transition,
   translate,
+  showValue,
 }) => {
   const barClassName = useMemo(() => {
     const classes = [neumorphic.root, style.bar];
@@ -25,13 +28,9 @@ export const TestBar: React.FC<BarProp> = ({
     return classes.join(" ");
   }, [status]);
 
-  const isLargeEnough = useMemo(
-    () => width > 18 && height > 32,
-    [width, height]
-  );
-
   return (
     <div
+      id={"sortable-bar-" + value}
       style={{
         height: "100%",
         display: "flex",
@@ -47,11 +46,10 @@ export const TestBar: React.FC<BarProp> = ({
         style={{
           width,
           height,
-          padding: "10%",
+          padding: "20%",
           margin: "auto auto 0px auto",
           borderRadius: 10,
           display: "flex",
-          alignItems: isLargeEnough ? undefined : "center",
           justifyContent: "center",
           position: "relative",
         }}
@@ -62,7 +60,7 @@ export const TestBar: React.FC<BarProp> = ({
             style={{ position: "absolute", top: "max(-7.5vw, -24px)" }}
           />
         )}
-        {isLargeEnough && <span style={{ fontWeight: 500 }}>{value}</span>}
+        {showValue && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
     </div>
   );

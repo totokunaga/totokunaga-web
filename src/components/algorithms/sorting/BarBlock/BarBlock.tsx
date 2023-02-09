@@ -12,6 +12,7 @@ import {
 } from "@utils/slices";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/shuffle";
 import { sortingTransitionSpeed } from "@utils/constants";
+import { useWindowSize } from "@utils/hooks";
 
 type BarBlockProp = CSSStyle & {
   values: number[];
@@ -21,6 +22,8 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   const [innerValues, setInnerValues] = useState<number[]>([]);
   const [bars, setBars] = useState<SortableBar[]>([]);
   const [indexes, setIndexes] = useState<number[]>([]);
+  const [showValue, setShowValue] = useState(true);
+  const { width } = useWindowSize();
 
   const dispatch = useDispatch();
   const { algorithm, algorithmSpeed, algorithmExecuted, randomizeExecuted } =
@@ -31,6 +34,13 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
     setBars(initTestBars(values));
     setIndexes(values.map((_, i) => i));
   }, [values]);
+
+  useEffect(() => {
+    const barElement = document.getElementById("sortable-bar-1");
+    if (barElement) {
+      setShowValue(barElement.clientWidth > 24);
+    }
+  }, [values, width]);
 
   useEffect(() => {
     if (algorithmExecuted) {
@@ -84,13 +94,15 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
         return (
           <Fragment key={i}>
             <TestBar
+              value={value}
               status={status}
-              height={`${Math.floor(14 * value)}%`}
+              height={`${Math.floor((95 / values.length) * value)}%`}
               width={"80%"}
               translate={{ x: relativeIndex, y: 0 }}
               transition={`all ${
                 sortingTransitionSpeed[status] / algorithmSpeed
               }s ease-in-out`}
+              showValue={showValue}
             />
           </Fragment>
         );
