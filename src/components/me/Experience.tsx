@@ -29,7 +29,11 @@ export const Experience: React.FC<ExperienceProp> = ({
     <>
       <div style={{ display: "flex", flexDirection: "column" }}>
         {periods.map((exp, i) => (
-          <p key={i} className={text.smallest}>
+          <p
+            key={i}
+            className={text.smallest}
+            style={{ display: "flex", marginBottom: "0.2em" }}
+          >
             {exp}
           </p>
         ))}

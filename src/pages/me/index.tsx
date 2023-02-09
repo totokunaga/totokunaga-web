@@ -190,12 +190,16 @@ const Index = () => {
                 key={i}
                 style={{ marginBottom: i < skills.length - 1 ? "0.85rem" : 0 }}
               >
-                <div
+                <p
                   className={textStyle.normal}
-                  style={{ fontWeight: 500, marginBottom: "1em" }}
+                  style={{
+                    fontWeight: 500,
+                    marginBottom: "1em",
+                    display: "flex",
+                  }}
                 >
                   {title}:
-                </div>
+                </p>
                 <RadioBlock
                   items={list}
                   value={null}
