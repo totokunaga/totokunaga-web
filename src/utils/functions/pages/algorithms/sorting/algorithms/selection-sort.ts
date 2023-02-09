@@ -1,6 +1,6 @@
 import { SortingAnimation, SortingPrevAnimationType } from "@utils/types";
 import { swap } from ".";
-import { getSortingAnimation2 } from "..";
+import { getSortingAnimation } from "..";
 
 export const selectionSort = (values: number[]): SortingAnimation[] => {
   const n = values.length;
@@ -9,36 +9,34 @@ export const selectionSort = (values: number[]): SortingAnimation[] => {
 
   for (let i = 0; i < n; i++) {
     let smallestIdx = i;
-    animations.push(getSortingAnimation2("range", [i, n - 1], prevAnimation));
-    animations.push(
-      getSortingAnimation2("focus", [smallestIdx], prevAnimation)
-    );
+    animations.push(getSortingAnimation("range", [i, n - 1], prevAnimation));
+    animations.push(getSortingAnimation("focus", [smallestIdx], prevAnimation));
 
     for (let j = i + 1; j < n; j++) {
-      animations.push(getSortingAnimation2("compare", [j], prevAnimation));
+      animations.push(getSortingAnimation("compare", [j], prevAnimation));
       if (values[smallestIdx] > values[j]) {
         animations.push(
-          getSortingAnimation2("range", [smallestIdx], prevAnimation)
+          getSortingAnimation("range", [smallestIdx], prevAnimation)
         );
         smallestIdx = j;
         animations.push(
-          getSortingAnimation2("focus", [smallestIdx], prevAnimation)
+          getSortingAnimation("focus", [smallestIdx], prevAnimation)
         );
         continue;
       }
 
       if (smallestIdx !== j) {
-        animations.push(getSortingAnimation2("range", [j], prevAnimation));
+        animations.push(getSortingAnimation("range", [j], prevAnimation));
       }
     }
 
     if (smallestIdx !== i) {
       swap(values, i, smallestIdx);
       animations.push(
-        getSortingAnimation2("swap", [i, smallestIdx], prevAnimation)
+        getSortingAnimation("swap", [i, smallestIdx], prevAnimation)
       );
     }
-    animations.push(getSortingAnimation2("done", [i], prevAnimation));
+    animations.push(getSortingAnimation("done", [i], prevAnimation));
   }
 
   return animations;

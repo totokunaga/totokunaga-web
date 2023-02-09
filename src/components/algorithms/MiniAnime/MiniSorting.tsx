@@ -1,10 +1,5 @@
 import { sortingTransitionSpeed } from "@utils/constants";
-import {
-  animateTestBars,
-  getSortingAnimation,
-  getSortingAnimation2,
-  initTestBars,
-} from "@utils/functions";
+import { animateBars, getSortingAnimation, initBars } from "@utils/functions";
 import {
   bubblesort,
   shuffle,
@@ -16,7 +11,7 @@ import {
   SortingPrevAnimationType,
 } from "@utils/types";
 import { Fragment, useEffect, useState } from "react";
-import { TestBar } from "../sorting";
+import { Bar } from "../sorting";
 
 const values = [4, 1, 5, 3, 2];
 
@@ -28,7 +23,7 @@ export const MiniSorting: React.FC = () => {
   useEffect(() => {
     if (isReset) {
       setReset(false);
-      let newBars = bars.length ? [...bars] : initTestBars(values);
+      let newBars = bars.length ? [...bars] : initBars(values);
       let newIndexes = indexes.length ? [...indexes] : values.map((_, i) => i);
 
       setBars(newBars);
@@ -46,7 +41,7 @@ export const MiniSorting: React.FC = () => {
         filteredAnimations.push(animation);
         prevAnimation.type = animation.type;
         filteredAnimations.push(
-          getSortingAnimation2(
+          getSortingAnimation(
             "clear",
             values.map((_, i) => i),
             prevAnimation
@@ -63,7 +58,7 @@ export const MiniSorting: React.FC = () => {
       animations.forEach((animation) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
-          animateTestBars(newBars, newIndexes, animation);
+          animateBars(newBars, newIndexes, animation);
           setBars([...newBars]);
           setIndexes([...newIndexes]);
         }, timeoutAmount);
@@ -73,10 +68,10 @@ export const MiniSorting: React.FC = () => {
       newIndexes.forEach((i) => {
         timeoutAmount += 300;
         setTimeout(() => {
-          animateTestBars(
+          animateBars(
             newBars,
             newIndexes,
-            getSortingAnimation("done", [i], 100)
+            getSortingAnimation("done", [i], prevAnimation)
           );
           setBars([...newBars]);
           setIndexes([...newIndexes]);
@@ -84,7 +79,7 @@ export const MiniSorting: React.FC = () => {
           if (i === newIndexes.length - 1) {
             shuffle(values);
             setTimeout(() => {
-              setBars(initTestBars(values));
+              setBars(initBars(values));
               setIndexes(values.map((_, i) => i));
             }, 750);
 
@@ -108,7 +103,7 @@ export const MiniSorting: React.FC = () => {
       {bars.map(({ value, status, relativeIndex }, i) => {
         return (
           <Fragment key={i}>
-            <TestBar
+            <Bar
               status={status}
               height={`${Math.floor((85 / values.length) * value)}%`}
               width={"80%"}

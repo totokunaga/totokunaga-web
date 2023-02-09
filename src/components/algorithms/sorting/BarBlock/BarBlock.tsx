@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { CSSStyle, SortableBar } from "@utils/types";
-import { TestBar } from "../Bar";
-import { animateTestBars, initTestBars } from "@utils/functions";
+import { Bar } from "../Bar";
+import { animateBars, initBars } from "@utils/functions";
 import { sortingAlgorithms } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -31,7 +31,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
 
   useEffect(() => {
     setInnerValues(values);
-    setBars(initTestBars(values));
+    setBars(initBars(values));
     setIndexes(values.map((_, i) => i));
   }, [values]);
 
@@ -52,7 +52,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
       sortingAnimations.forEach((animation, i) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
-          animateTestBars(newBars, newIndexes, animation);
+          animateBars(newBars, newIndexes, animation);
           setBars([...newBars]);
           setIndexes([...newIndexes]);
 
@@ -76,7 +76,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
       sortingAnimations.forEach((animation, i) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
-          animateTestBars(newBars, newIndexes, animation);
+          animateBars(newBars, newIndexes, animation);
           setBars([...newBars]);
           setIndexes([...newIndexes]);
 
@@ -93,7 +93,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
       {bars.map(({ value, status, relativeIndex }, i) => {
         return (
           <Fragment key={i}>
-            <TestBar
+            <Bar
               value={value}
               status={status}
               height={`${Math.floor((95 / values.length) * value)}%`}

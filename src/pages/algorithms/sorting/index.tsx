@@ -5,7 +5,6 @@ import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { useEffect, useState } from "react";
 import { SortingControlSection } from "@components/algorithms";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
-import { getBarSizeFromAmount } from "@utils/functions";
 import { useSelector } from "react-redux";
 import { selectSortindingController } from "@utils/slices";
 

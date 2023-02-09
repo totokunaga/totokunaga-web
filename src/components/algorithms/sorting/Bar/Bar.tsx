@@ -5,19 +5,21 @@ import { CSSStyle, SortingAnimationType } from "@utils/types";
 
 type BarProp = CSSStyle & {
   status?: SortingAnimationType;
-  width?: number;
-  height?: number;
-  direction?: "horizontal" | "vertical";
-  value?: string | number;
+  width?: number | string;
+  height?: number | string;
+  value?: number;
+  translate: { x: number; y: number };
+  showValue: boolean;
 };
 
 export const Bar: React.FC<BarProp> = ({
   status = "normal",
   width = 150,
   height = 50,
-  direction = "vertical",
   value,
   transition,
+  translate,
+  showValue,
 }) => {
   const barClassName = useMemo(() => {
     const classes = [neumorphic.root, style.bar];
@@ -25,55 +27,40 @@ export const Bar: React.FC<BarProp> = ({
     return classes.join(" ");
   }, [status]);
 
-  const underbarClassName = useMemo(() => {
-    const classes = [style.line];
-    if (status === "range" || status === "focus" || status === "compare") {
-      classes.push(style.visible);
-    }
-    return classes.join(" ");
-  }, [status]);
-
-  const isLargeEnough = useMemo(
-    () => width > 18 && height > 32,
-    [width, height]
-  );
-
   return (
     <div
+      id={"sortable-bar-" + value}
       style={{
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        width: "100%",
+        transform: `translate(${translate.x * 100}%, ${translate.y * 100}%)`,
+        transition,
       }}
     >
-      {status === "done" && (
-        <div
-          className={style.checkmark}
-          style={{ marginBottom: "min(4.5vw, 16px)" }}
-        />
-      )}
       <div
         className={barClassName}
         style={{
-          width: direction === "horizontal" ? width : height,
-          height: direction === "horizontal" ? height : width,
-          padding: isLargeEnough ? Math.min(width, height) / 4 : 0,
+          width,
+          height,
+          padding: "20%",
+          margin: "auto auto 0px auto",
           borderRadius: 10,
           display: "flex",
-          alignItems: isLargeEnough ? undefined : "center",
           justifyContent: "center",
-          transition,
+          position: "relative",
         }}
       >
-        {isLargeEnough && <span style={{ fontWeight: 500 }}>{value}</span>}
+        {status === "done" && (
+          <div
+            className={style.checkmark}
+            style={{ position: "absolute", top: "max(-7.5vw, -24px)" }}
+          />
+        )}
+        {showValue && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
-      <div
-        className={underbarClassName}
-        style={{
-          marginTop: 12,
-          width: (direction === "horizontal" ? width : height) - 10,
-        }}
-      />
     </div>
   );
 };
