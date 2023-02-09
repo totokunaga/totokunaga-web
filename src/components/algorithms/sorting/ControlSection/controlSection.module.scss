@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
-  // align-items: center;
   @media (max-width: 520px) {
+    margin: 1.5rem 0px 0.5rem 0px;
     flex-direction: column;
   }
 }
@@ -21,6 +21,7 @@
   &.leftmost {
     @media (max-width: 520px) {
       margin-left: 0;
+      margin-bottom: 0;
     }
   }
 }

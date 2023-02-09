@@ -48,9 +48,11 @@ const SortingIndex: React.FC = () => {
         }}
       >
         <h3 style={{ marginBottom: 8 }}>Sorting</h3>
-        <SortingControlSection />
-        <div id={BAR_BLOCK_WRAPPER} style={{ display: "flex", flex: 1 }}>
-          <BarBlock values={values} />
+        <div className={style.mobile_friendly_flex} style={{ height: "100%" }}>
+          <SortingControlSection />
+          <div id={BAR_BLOCK_WRAPPER} style={{ display: "flex", flex: 1 }}>
+            <BarBlock values={values} />
+          </div>
         </div>
       </div>
     </>

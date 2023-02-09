@@ -29,7 +29,6 @@ export const Bar: React.FC<BarProp> = ({
 
   return (
     <div
-      id={"sortable-bar-" + value}
       style={{
         height: "100%",
         display: "flex",
@@ -41,6 +40,7 @@ export const Bar: React.FC<BarProp> = ({
       }}
     >
       <div
+        id={"bar-" + value}
         className={barClassName}
         style={{
           width,

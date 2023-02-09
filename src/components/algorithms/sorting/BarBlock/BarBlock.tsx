@@ -36,9 +36,10 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   }, [values]);
 
   useEffect(() => {
-    const barElement = document.getElementById("sortable-bar-1");
+    const barElement = document.getElementById("bar-1");
     if (barElement) {
-      setShowValue(barElement.clientWidth > 24);
+      console.log(barElement.clientWidth, barElement.clientHeight);
+      setShowValue(barElement.clientWidth > 24 && barElement.clientHeight > 24);
     }
   }, [values, width]);
 

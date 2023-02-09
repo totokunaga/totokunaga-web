@@ -31,6 +31,14 @@
   animation-timing-function: linear;
 }
 
+.mobile_friendly_flex {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 520px) {
+    flex-direction: column-reverse;
+  }
+}
+
 @keyframes blink {
   0% {
     opacity: 1;
