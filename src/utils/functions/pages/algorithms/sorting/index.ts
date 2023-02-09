@@ -3,6 +3,7 @@ import {
   barIconSize,
   BAR_BLOCK_WRAPPER,
   sortingAnimationSpeed,
+  sortingTransitionSpeed,
   spaceBetweenBars,
 } from "@utils/constants";
 import { store } from "@utils/slices";
@@ -31,8 +32,8 @@ export const swapBars = (
   const idxDiff = largerIdx - smallerIdx;
   const smallerBarIndex = indexes[smallerIdx];
   const largerBarIndex = indexes[largerIdx];
-  bars[smallerBarIndex].relativeIndex -= idxDiff;
-  bars[largerBarIndex].relativeIndex += idxDiff;
+  bars[smallerBarIndex].relativeIndex += idxDiff;
+  bars[largerBarIndex].relativeIndex -= idxDiff;
 
   const temp = indexes[smallerIdx];
   indexes[smallerIdx] = indexes[largerIdx];
@@ -236,7 +237,8 @@ export const animateBars = (
 export const getSortingAnimation = (
   type: SortingAnimationType,
   positions: number[],
-  duration?: number
+  duration?: number,
+  prevAnimation?: SortingAnimationType
 ) => {
   const { algorithmSpeed } = store.getState().sortingController;
   const result: SortingAnimation = {
@@ -244,6 +246,9 @@ export const getSortingAnimation = (
     duration: duration === undefined ? sortingAnimationSpeed[type] : duration,
   };
 
+  if (prevAnimation) {
+    result.duration = sortingTransitionSpeed[prevAnimation] * 1000;
+  }
   result.duration /= algorithmSpeed;
 
   switch (type) {

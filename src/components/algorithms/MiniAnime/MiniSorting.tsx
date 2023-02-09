@@ -1,4 +1,7 @@
-import { spaceBetweenBars } from "@utils/constants";
+import {
+  sortingAnimationSpeed,
+  sortingTransitionSpeed,
+} from "@utils/constants";
 import {
   animateBars,
   animateTestBars,
@@ -37,11 +40,19 @@ export const MiniSorting: React.FC = () => {
       setBars(newBars);
       setIndexes(newIndexes);
 
-      const animations = bubblesort(values)
-        .filter(({ type }) => type === "swap")
-        .map((a) => ({ ...a, duration: 750 }));
+      const bubblesortAnimations = bubblesort(values);
+      let animations = bubblesortAnimations.filter(
+        ({ type }) => type === "swap" || type === "range"
+      );
 
-      let timeoutAmount = 0;
+      let prevAnimation: SortingAnimationType = "none";
+      animations = animations.map((animation) => {
+        animation.duration = sortingTransitionSpeed[prevAnimation] * 1750;
+        prevAnimation = animation.type;
+        return animation;
+      });
+
+      let timeoutAmount = 500;
       animations.forEach((animation) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
@@ -51,8 +62,9 @@ export const MiniSorting: React.FC = () => {
         }, timeoutAmount);
       });
 
+      timeoutAmount += 350;
       newIndexes.forEach((i) => {
-        timeoutAmount += 500;
+        timeoutAmount += 300;
         setTimeout(() => {
           animateTestBars(
             newBars,
@@ -61,20 +73,17 @@ export const MiniSorting: React.FC = () => {
           );
           setBars([...newBars]);
           setIndexes([...newIndexes]);
-        }, timeoutAmount);
-      });
 
-      timeoutAmount += 1000;
-      const shuffleAnimations = shuffle(values);
-      shuffleAnimations.forEach((animation, i) => {
-        timeoutAmount += animation.duration;
-        setTimeout(() => {
-          animateTestBars(newBars, newIndexes, animation);
-          setBars([...newBars]);
-          setIndexes([...newIndexes]);
+          if (i === newIndexes.length - 1) {
+            shuffle(values);
+            setTimeout(() => {
+              setBars(initTestBars(values));
+              setIndexes(values.map((_, i) => i));
+            }, 750);
 
-          if (i === shuffleAnimations.length - 1) {
-            setReset(true);
+            setTimeout(() => {
+              setReset(true);
+            }, 1500);
           }
         }, timeoutAmount);
       });
@@ -87,9 +96,6 @@ export const MiniSorting: React.FC = () => {
         display: "flex",
         flex: 1,
         justifyContent: "center",
-        position: "relative",
-        flexDirection: "row-reverse",
-        transform: "scaleX(-1) scaleY(-1)",
       }}
     >
       {bars.map(({ value, status, relativeIndex }, i) => {
@@ -101,7 +107,9 @@ export const MiniSorting: React.FC = () => {
               width={"80%"}
               direction={"horizontal"}
               translate={{ x: relativeIndex, y: 0 }}
-              transition={"all 0.75s ease-in-out"}
+              transition={`all ${
+                sortingTransitionSpeed[status] * 2
+              }s ease-in-out`}
             />
           </Fragment>
         );

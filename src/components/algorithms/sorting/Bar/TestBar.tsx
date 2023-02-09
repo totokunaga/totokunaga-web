@@ -27,14 +27,6 @@ export const TestBar: React.FC<BarProp> = ({
     return classes.join(" ");
   }, [status]);
 
-  const underbarClassName = useMemo(() => {
-    const classes = [style.line];
-    if (status === "range" || status === "focus" || status === "compare") {
-      classes.push(style.visible);
-    }
-    return classes.join(" ");
-  }, [status]);
-
   const isLargeEnough = useMemo(
     () => width > 18 && height > 32,
     [width, height]
@@ -43,6 +35,7 @@ export const TestBar: React.FC<BarProp> = ({
   return (
     <div
       style={{
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -57,24 +50,22 @@ export const TestBar: React.FC<BarProp> = ({
           width: direction === "horizontal" ? width : height,
           height: direction === "horizontal" ? height : width,
           padding: "10%",
+          margin: "auto auto 0px auto",
           borderRadius: 10,
           display: "flex",
           alignItems: isLargeEnough ? undefined : "center",
           justifyContent: "center",
-          transform: "scaleY(-1) scaleX(-1)",
+          position: "relative",
         }}
       >
+        {status === "done" && (
+          <div
+            className={style.checkmark}
+            style={{ position: "absolute", top: "max(-7.5vw, -24px)" }}
+          />
+        )}
         {isLargeEnough && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
-      {status === "done" && (
-        <div
-          className={style.checkmark}
-          style={{
-            marginTop: "min(4.5vw, 16px)",
-            transform: "rotate(135deg)",
-          }}
-        />
-      )}
     </div>
   );
 };

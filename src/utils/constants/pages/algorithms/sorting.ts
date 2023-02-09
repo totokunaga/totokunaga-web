@@ -1,7 +1,7 @@
 import { SortingAnimationType } from "@utils/types";
 
 export const sortingAnimationSpeed: Record<SortingAnimationType, number> = {
-  normal: 150,
+  normal: 300,
   swap: 300,
   focus: 150,
   compare: 150,
@@ -9,6 +9,19 @@ export const sortingAnimationSpeed: Record<SortingAnimationType, number> = {
   done: 150,
   clear: 150,
   reset: 150,
+  move: 0,
+  none: 0,
+};
+
+export const sortingTransitionSpeed: Record<SortingAnimationType, number> = {
+  normal: 0.5,
+  swap: 0.5,
+  focus: 0.5,
+  compare: 0.5,
+  range: 0.1,
+  done: 0.5,
+  clear: 0.5,
+  reset: 0.5,
   move: 0,
   none: 0,
 };
