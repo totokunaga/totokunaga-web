@@ -1,61 +1,72 @@
-import { SortingAnimation } from "@utils/types";
+import { SortingAnimation, SortingPrevAnimationType } from "@utils/types";
 import { swap } from ".";
-import { getSortingAnimation } from "..";
+import { getSortingAnimation2 } from "..";
 
 const quicksortHelper = (
   values: number[],
   left: number,
   right: number,
-  animations: SortingAnimation[]
+  animations: SortingAnimation[],
+  prevAnimation: SortingPrevAnimationType
 ) => {
   if (left >= right) {
     if (left === right) {
-      animations.push(getSortingAnimation("done", [left]));
+      animations.push(getSortingAnimation2("done", [left], prevAnimation));
     }
     return animations;
   }
 
-  // animations.push(getSortingAnimation("range", [left, right]));
-
   const pivot = values[right];
   let swapIdx = left;
-  animations.push(getSortingAnimation("focus", [right]));
+  animations.push(getSortingAnimation2("focus", [right], prevAnimation));
 
   for (let i = left; i < right; i++) {
-    // animations.push(getSortingAnimation("compare", [i]));
     if (values[i] <= pivot) {
       if (swapIdx < i) {
-        animations.push(getSortingAnimation("swap", [swapIdx, i]));
-        animations.push(getSortingAnimation("range", [swapIdx, i]));
+        animations.push(
+          getSortingAnimation2("swap", [swapIdx, i], prevAnimation)
+        );
+        animations.push(
+          getSortingAnimation2("range", [swapIdx, i], prevAnimation)
+        );
       }
-      // animations.push(getSortingAnimation("range", [swapIdx, i]));
 
       swap(values, swapIdx, i);
       swapIdx++;
 
       continue;
     }
-
-    // animations.push(getSortingAnimation("range", [i]));
   }
 
   if (swapIdx < right) {
     swap(values, swapIdx, right);
-    animations.push(getSortingAnimation("swap", [swapIdx, right]));
+    animations.push(
+      getSortingAnimation2("swap", [swapIdx, right], prevAnimation)
+    );
   }
-  animations.push(getSortingAnimation("done", [swapIdx]));
+  animations.push(getSortingAnimation2("done", [swapIdx], prevAnimation));
 
   if (swapIdx > left)
-    animations.push(getSortingAnimation("clear", [left, swapIdx - 1], 0));
+    animations.push(
+      getSortingAnimation2("clear", [left, swapIdx - 1], prevAnimation)
+    );
   if (swapIdx < right)
-    animations.push(getSortingAnimation("clear", [swapIdx + 1, right], 0));
+    animations.push(
+      getSortingAnimation2("clear", [swapIdx + 1, right], prevAnimation)
+    );
 
-  quicksortHelper(values, left, swapIdx - 1, animations);
-  quicksortHelper(values, swapIdx + 1, right, animations);
+  quicksortHelper(values, left, swapIdx - 1, animations, prevAnimation);
+  quicksortHelper(values, swapIdx + 1, right, animations, prevAnimation);
   return animations;
 };
 
 export const quicksort = (values: number[]) => {
-  const animations = quicksortHelper(values, 0, values.length - 1, []);
+  const animations = quicksortHelper(
+    values,
+    0,
+    values.length - 1,
+    [],
+    new SortingPrevAnimationType("none")
+  );
   return animations;
 };

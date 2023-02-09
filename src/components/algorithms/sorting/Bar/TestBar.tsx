@@ -7,7 +7,6 @@ type BarProp = CSSStyle & {
   status?: SortingAnimationType;
   width?: number | string;
   height?: number | string;
-  direction?: "horizontal" | "vertical";
   value?: string | number;
   translate: { x: number; y: number };
 };
@@ -16,7 +15,6 @@ export const TestBar: React.FC<BarProp> = ({
   status = "normal",
   width = 150,
   height = 50,
-  direction = "vertical",
   value,
   transition,
   translate,
@@ -47,8 +45,8 @@ export const TestBar: React.FC<BarProp> = ({
       <div
         className={barClassName}
         style={{
-          width: direction === "horizontal" ? width : height,
-          height: direction === "horizontal" ? height : width,
+          width,
+          height,
           padding: "10%",
           margin: "auto auto 0px auto",
           borderRadius: 10,

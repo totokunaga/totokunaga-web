@@ -12,6 +12,14 @@ export type SortingAnimationType =
   | "move"
   | "none";
 
+export class SortingPrevAnimationType {
+  type: SortingAnimationType;
+
+  constructor(type: SortingAnimationType) {
+    this.type = type;
+  }
+}
+
 export type SortableBar = {
   value: number;
   status: SortingAnimationType;

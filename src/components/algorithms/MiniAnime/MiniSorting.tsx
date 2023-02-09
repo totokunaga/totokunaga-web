@@ -1,28 +1,22 @@
+import { sortingTransitionSpeed } from "@utils/constants";
 import {
-  sortingAnimationSpeed,
-  sortingTransitionSpeed,
-} from "@utils/constants";
-import {
-  animateBars,
   animateTestBars,
   getSortingAnimation,
-  initBars,
+  getSortingAnimation2,
   initTestBars,
-  swapBars,
 } from "@utils/functions";
 import {
   bubblesort,
   shuffle,
 } from "@utils/functions/pages/algorithms/sorting/algorithms";
-import { useWindowSize } from "@utils/hooks";
 import {
-  InnerValue,
   SortableBar,
   SortingAnimation,
   SortingAnimationType,
+  SortingPrevAnimationType,
 } from "@utils/types";
 import { Fragment, useEffect, useState } from "react";
-import { Bar, TestBar } from "../sorting";
+import { TestBar } from "../sorting";
 
 const values = [4, 1, 5, 3, 2];
 
@@ -42,15 +36,28 @@ export const MiniSorting: React.FC = () => {
 
       const bubblesortAnimations = bubblesort(values);
       let animations = bubblesortAnimations.filter(
-        ({ type }) => type === "swap" || type === "range"
+        ({ type }) => type === "swap"
       );
 
-      let prevAnimation: SortingAnimationType = "none";
-      animations = animations.map((animation) => {
-        animation.duration = sortingTransitionSpeed[prevAnimation] * 1750;
-        prevAnimation = animation.type;
+      let prevAnimation = new SortingPrevAnimationType("none");
+      const filteredAnimations: SortingAnimation[] = [];
+      animations.forEach((animation) => {
+        animation.duration = sortingTransitionSpeed[prevAnimation.type] * 1250;
+        filteredAnimations.push(animation);
+        prevAnimation.type = animation.type;
+        filteredAnimations.push(
+          getSortingAnimation2(
+            "clear",
+            values.map((_, i) => i),
+            prevAnimation
+          )
+        );
+        filteredAnimations[filteredAnimations.length - 1].duration =
+          sortingTransitionSpeed[prevAnimation.type] * 1250;
+        prevAnimation.type = "clear";
         return animation;
       });
+      animations = filteredAnimations;
 
       let timeoutAmount = 500;
       animations.forEach((animation) => {
@@ -105,7 +112,6 @@ export const MiniSorting: React.FC = () => {
               status={status}
               height={`${Math.floor(16 * value)}%`}
               width={"80%"}
-              direction={"horizontal"}
               translate={{ x: relativeIndex, y: 0 }}
               transition={`all ${
                 sortingTransitionSpeed[status] * 2

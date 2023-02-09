@@ -1,63 +1,48 @@
-import { SortingAnimation, SortingAnimationType } from "@utils/types";
+import {
+  SortingAnimation,
+  SortingAnimationType,
+  SortingPrevAnimationType,
+} from "@utils/types";
 import { swap } from ".";
-import { getSortingAnimation } from "..";
+import { getSortingAnimation2 } from "..";
 
 export const bubblesort = (values: number[]) => {
   const n = values.length;
   const animations: SortingAnimation[] = [];
-  let prevAnimation: SortingAnimationType = "none";
+  let prevAnimation = new SortingPrevAnimationType("none");
 
   for (let i = 0; i < n - 1; i++) {
     let swapped = false;
     animations.push(
-      getSortingAnimation("range", [0, n - i - 1], undefined, prevAnimation)
+      getSortingAnimation2("range", [0, n - i - 1], prevAnimation)
     );
-    prevAnimation = "swap";
 
     for (let j = 1; j < n - i; j++) {
-      animations.push(
-        getSortingAnimation("compare", [j], undefined, prevAnimation)
-      );
-      prevAnimation = "compare";
+      animations.push(getSortingAnimation2("compare", [j], prevAnimation));
       if (values[j - 1] > values[j]) {
+        animations.push(getSortingAnimation2("focus", [j - 1], prevAnimation));
         animations.push(
-          getSortingAnimation("focus", [j - 1], undefined, prevAnimation)
+          getSortingAnimation2("swap", [j - 1, j], prevAnimation)
         );
-        prevAnimation = "focus";
         animations.push(
-          getSortingAnimation("swap", [j - 1, j], undefined, prevAnimation)
+          getSortingAnimation2("range", [j - 1, j], prevAnimation)
         );
-        prevAnimation = "swap";
-        animations.push(
-          getSortingAnimation("range", [j - 1, j], undefined, prevAnimation)
-        );
-        prevAnimation = "range";
 
         swap(values, j, j - 1);
         swapped = true;
         continue;
       }
-      animations.push(
-        getSortingAnimation("range", [j], undefined, prevAnimation)
-      );
-      prevAnimation = "range";
+      animations.push(getSortingAnimation2("range", [j], prevAnimation));
     }
-    animations.push(
-      getSortingAnimation("done", [n - i - 1], undefined, prevAnimation)
-    );
-    prevAnimation = "done";
+    animations.push(getSortingAnimation2("done", [n - i - 1], prevAnimation));
 
     if (!swapped) {
       for (let j = n - i - 2; j > 0; j--) {
-        animations.push(
-          getSortingAnimation("done", [j], undefined, prevAnimation)
-        );
-        prevAnimation = "done";
+        animations.push(getSortingAnimation2("done", [j], prevAnimation));
       }
       break;
     }
   }
-  animations.push(getSortingAnimation("done", [0], undefined, prevAnimation));
-  prevAnimation = "done";
+  animations.push(getSortingAnimation2("done", [0], prevAnimation));
   return animations;
 };

@@ -12,6 +12,7 @@ import {
   SortableBar,
   SortingAnimation,
   SortingAnimationType,
+  SortingPrevAnimationType,
 } from "@utils/types";
 
 // Test Bar
@@ -86,6 +87,45 @@ export const animateTestBars = (
     default:
       break;
   }
+};
+
+export const getSortingAnimation2 = (
+  type: SortingAnimationType,
+  positions: number[],
+  prevAnimation: SortingPrevAnimationType
+) => {
+  const { algorithmSpeed } = store.getState().sortingController;
+  const result: SortingAnimation = {
+    type,
+    duration: 0,
+  };
+
+  if (prevAnimation) {
+    result.duration = sortingTransitionSpeed[prevAnimation.type] * 1000;
+  }
+  result.duration /= algorithmSpeed;
+
+  switch (type) {
+    case "focus":
+    case "done":
+      result.positionOne = positions[0];
+      break;
+    case "range":
+    case "swap":
+    case "compare":
+    case "move":
+      result.positionOne = positions[0];
+      result.positionTwo = positions.length > 1 ? positions[1] : positions[0];
+      break;
+    case "clear":
+      result.positions = positions;
+      break;
+    default:
+      break;
+  }
+
+  prevAnimation.type = type;
+  return result;
 };
 
 // Bar

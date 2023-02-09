@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { CSSStyle, InnerValue } from "@utils/types";
-import { Bar } from "../Bar";
-import style from "../Bar/bar.module.scss";
-import { animateBars, initBars } from "@utils/functions";
+import { Fragment, useEffect, useState } from "react";
+import { CSSStyle, SortableBar } from "@utils/types";
+import { TestBar } from "../Bar";
+import { animateTestBars, initTestBars } from "@utils/functions";
 import { sortingAlgorithms } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -12,77 +11,40 @@ import {
   setSortingAlgorithmExecuted,
 } from "@utils/slices";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/shuffle";
-import {
-  barBlockBottomOffset,
-  baseColoringSpped,
-  baseSwapSpeed,
-} from "@utils/constants";
+import { sortingTransitionSpeed } from "@utils/constants";
 
 type BarBlockProp = CSSStyle & {
-  barWidth: number;
-  heightUnit: number;
   values: number[];
-  bottomOffset?: number;
 };
 
-export const BarBlock: React.FC<BarBlockProp> = ({
-  barWidth,
-  heightUnit,
-  values,
-  bottomOffset = barBlockBottomOffset,
-  ...props
-}) => {
-  const [barInfo, setBarInfo] = useState<InnerValue[]>([]);
-  const [barIds, setBarIds] = useState<number[]>([]);
-  const [coloringSpeed, setColoringSpeed] = useState(baseColoringSpped);
-  const [swapSpeed, setSwapSpeed] = useState(baseSwapSpeed);
+export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
+  const [innerValues, setInnerValues] = useState<number[]>([]);
+  const [bars, setBars] = useState<SortableBar[]>([]);
+  const [indexes, setIndexes] = useState<number[]>([]);
 
   const dispatch = useDispatch();
-  const { algorithm, algorithmExecuted, randomizeExecuted, algorithmSpeed } =
+  const { algorithm, algorithmSpeed, algorithmExecuted, randomizeExecuted } =
     useSelector(selectSortindingController);
 
-  const barBlockClassName = useMemo(() => {
-    const classes = [style.barblock];
-    return classes.join(" ");
-  }, []);
-
-  const barClassName = useMemo(() => {
-    const classes = [style.bar_wrapper];
-    return classes.join(" ");
-  }, []);
-
   useEffect(() => {
-    setBarInfo(initBars(values, barWidth, heightUnit));
-    setBarIds(values.map((v, i) => i));
+    setInnerValues(values);
+    setBars(initTestBars(values));
+    setIndexes(values.map((_, i) => i));
   }, [values]);
 
   useEffect(() => {
-    setSwapSpeed(baseSwapSpeed / algorithmSpeed);
-    setColoringSpeed(baseColoringSpped / algorithmSpeed);
-  }, [algorithmSpeed]);
-
-  useEffect(() => {
     if (algorithmExecuted) {
-      const sortingAnimations = sortingAlgorithms[algorithm](
-        barIds.map((i) => barInfo[i].value)
-      );
+      const sortingAnimations = sortingAlgorithms[algorithm](innerValues);
 
       let timeoutAmount = 0;
-      let baseBarIds = barIds;
-      let baseBarInfo = barInfo;
+      let newBars = [...bars];
+      let newIndexes = [...indexes];
       sortingAnimations.forEach((animation, i) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
-          const [newBarInfo, newBarIds] = animateBars(
-            baseBarInfo,
-            baseBarIds,
-            barWidth,
-            animation
-          );
-          baseBarIds = newBarIds;
-          baseBarInfo = newBarInfo;
-          setBarInfo(newBarInfo);
-          setBarIds(newBarIds);
+          animateTestBars(newBars, newIndexes, animation);
+          setBars([...newBars]);
+          setIndexes([...newIndexes]);
 
           if (i === sortingAnimations.length - 1) {
             dispatch(setSortingAlgorithmExecuted(false));
@@ -94,24 +56,19 @@ export const BarBlock: React.FC<BarBlockProp> = ({
 
   useEffect(() => {
     if (randomizeExecuted) {
-      const sortingAnimations = shuffle(barIds.map((i) => barInfo[i].value));
+      const shuffledValues = [...innerValues];
+      const sortingAnimations = shuffle(shuffledValues);
+      setInnerValues(shuffledValues);
 
       let timeoutAmount = 0;
-      let baseBarIds = barIds;
-      let baseBarInfo = barInfo;
+      let newBars = [...bars];
+      let newIndexes = [...indexes];
       sortingAnimations.forEach((animation, i) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
-          const [newBarInfo, newBarIds] = animateBars(
-            baseBarInfo,
-            baseBarIds,
-            barWidth,
-            animation
-          );
-          baseBarIds = newBarIds;
-          baseBarInfo = newBarInfo;
-          setBarInfo(newBarInfo);
-          setBarIds(newBarIds);
+          animateTestBars(newBars, newIndexes, animation);
+          setBars([...newBars]);
+          setIndexes([...newIndexes]);
 
           if (i === sortingAnimations.length - 1) {
             dispatch(setBarRandamized(false));
@@ -122,28 +79,22 @@ export const BarBlock: React.FC<BarBlockProp> = ({
   }, [randomizeExecuted]);
 
   return (
-    <div className={barBlockClassName} style={{ margin: "0px auto 0px auto" }}>
-      {barInfo.map(({ status, value, size, left }, i) => (
-        <div
-          key={i}
-          className={barClassName}
-          style={{
-            bottom: bottomOffset,
-            left,
-            transition: `left ${swapSpeed}s ease-in-out`,
-          }}
-        >
-          <Bar
-            status={status}
-            height={size}
-            width={barWidth}
-            direction={"horizontal"}
-            value={value}
-            transition={`background-color ${coloringSpeed}s`}
-            {...props}
-          />
-        </div>
-      ))}
+    <div style={{ height: "100%", width: "100%", display: "flex" }}>
+      {bars.map(({ value, status, relativeIndex }, i) => {
+        return (
+          <Fragment key={i}>
+            <TestBar
+              status={status}
+              height={`${Math.floor(14 * value)}%`}
+              width={"80%"}
+              translate={{ x: relativeIndex, y: 0 }}
+              transition={`all ${
+                sortingTransitionSpeed[status] / algorithmSpeed
+              }s ease-in-out`}
+            />
+          </Fragment>
+        );
+      })}
     </div>
   );
 };
