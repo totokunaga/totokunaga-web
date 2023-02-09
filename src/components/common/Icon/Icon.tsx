@@ -54,11 +54,11 @@ export const Icon: React.FC<IconProp> = ({
 }) => {
   const Component = Icons[icon];
   return (
-    <div className={animation && style[animation]} style={{ margin }}>
+    <div className={animation && style[animation]}>
       <Component
         width={width || height}
         height={height || width}
-        style={{ display: "block", fill }}
+        style={{ display: "block", fill, margin }}
       />
     </div>
   );

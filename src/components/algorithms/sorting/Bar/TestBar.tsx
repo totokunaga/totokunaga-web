@@ -5,19 +5,21 @@ import { CSSStyle, SortingAnimationType } from "@utils/types";
 
 type BarProp = CSSStyle & {
   status?: SortingAnimationType;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   direction?: "horizontal" | "vertical";
   value?: string | number;
+  translate: { x: number; y: number };
 };
 
-export const Bar: React.FC<BarProp> = ({
+export const TestBar: React.FC<BarProp> = ({
   status = "normal",
   width = 150,
   height = 50,
   direction = "vertical",
   value,
   transition,
+  translate,
 }) => {
   const barClassName = useMemo(() => {
     const classes = [neumorphic.root, style.bar];
@@ -44,36 +46,35 @@ export const Bar: React.FC<BarProp> = ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        width: "100%",
+        transform: `translate(${translate.x * 100}%, ${translate.y * 100}%)`,
+        transition,
       }}
     >
-      {status === "done" && (
-        <div
-          className={style.checkmark}
-          style={{ marginBottom: "min(4.5vw, 16px)" }}
-        />
-      )}
       <div
         className={barClassName}
         style={{
           width: direction === "horizontal" ? width : height,
           height: direction === "horizontal" ? height : width,
-          padding: isLargeEnough ? Math.min(width, height) / 4 : 0,
+          padding: "10%",
           borderRadius: 10,
           display: "flex",
           alignItems: isLargeEnough ? undefined : "center",
           justifyContent: "center",
-          transition,
+          transform: "scaleY(-1) scaleX(-1)",
         }}
       >
         {isLargeEnough && <span style={{ fontWeight: 500 }}>{value}</span>}
       </div>
-      <div
-        className={underbarClassName}
-        style={{
-          marginTop: 12,
-          width: (direction === "horizontal" ? width : height) - 10,
-        }}
-      />
+      {status === "done" && (
+        <div
+          className={style.checkmark}
+          style={{
+            marginTop: "min(4.5vw, 16px)",
+            transform: "rotate(135deg)",
+          }}
+        />
+      )}
     </div>
   );
 };

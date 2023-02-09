@@ -1,6 +1,7 @@
 import { ReactNode, useMemo } from "react";
 import neumorphic from "@styles/neumorphic.module.scss";
 import style from "./panel.module.scss";
+import text from "@styles/text.module.scss";
 import defaultStyle from "@styles/default.module.scss";
 import { Icon } from "@components/common";
 
@@ -50,7 +51,6 @@ export const Panel: React.FC<PanelProp> = ({
         ) : (
           <div
             style={{
-              flexGrow: 1,
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -59,11 +59,17 @@ export const Panel: React.FC<PanelProp> = ({
           >
             <Icon
               icon={"warning"}
-              width={"10rem"}
-              height={"10rem"}
+              width={"85%"}
+              height={"85%"}
+              margin={"0 auto"}
               fill={defaultStyle.greyLight3}
             />
-            <p style={{ color: defaultStyle.greyLight3 }}>Under development</p>
+            <p
+              className={text.larger}
+              style={{ color: defaultStyle.greyLight3, textAlign: "center" }}
+            >
+              Under development
+            </p>
           </div>
         )}
       </div>

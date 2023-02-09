@@ -8,10 +8,86 @@ import {
 import { store } from "@utils/slices";
 import {
   InnerValue,
+  SortableBar,
   SortingAnimation,
   SortingAnimationType,
 } from "@utils/types";
 
+// Test Bar
+export const initTestBars = (values: number[]): SortableBar[] => {
+  return values.map((v) => ({
+    value: v,
+    status: "normal",
+    relativeIndex: 0,
+  }));
+};
+
+export const swapBars = (
+  bars: SortableBar[],
+  indexes: number[],
+  smallerIdx: number,
+  largerIdx: number
+) => {
+  const idxDiff = largerIdx - smallerIdx;
+  const smallerBarIndex = indexes[smallerIdx];
+  const largerBarIndex = indexes[largerIdx];
+  bars[smallerBarIndex].relativeIndex -= idxDiff;
+  bars[largerBarIndex].relativeIndex += idxDiff;
+
+  const temp = indexes[smallerIdx];
+  indexes[smallerIdx] = indexes[largerIdx];
+  indexes[largerIdx] = temp;
+};
+
+export const animateTestBars = (
+  bars: SortableBar[],
+  indexes: number[],
+  animation: SortingAnimation
+) => {
+  const { type, positionOne, positionTwo, positions } = animation;
+  switch (type) {
+    case "focus":
+    case "done":
+      bars[indexes[positionOne!]].status = type;
+      break;
+
+    case "swap":
+    case "compare":
+      bars[indexes[positionOne!]].status = type;
+      bars[indexes[positionTwo!]].status = type;
+      if (type === "swap") {
+        swapBars(bars, indexes, positionOne!, positionTwo!);
+      }
+      break;
+
+    case "move":
+      swapBars(bars, indexes, positionOne!, positionTwo!);
+      break;
+
+    case "range":
+      for (let i = positionOne!; i < positionTwo! + 1; i++) {
+        bars[indexes[i]].status = type;
+      }
+      break;
+
+    case "clear":
+      positions?.forEach((i) => {
+        bars[indexes[i]].status = "normal";
+      });
+      break;
+
+    case "reset":
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].status = "normal";
+      }
+      break;
+
+    default:
+      break;
+  }
+};
+
+// Bar
 export const initBars = (
   values: number[],
   barWidth: number,

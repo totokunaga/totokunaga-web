@@ -12,6 +12,12 @@ export type SortingAnimationType =
   | "move"
   | "none";
 
+export type SortableBar = {
+  value: number;
+  status: SortingAnimationType;
+  relativeIndex: number;
+};
+
 export type InnerValue = {
   value: number;
   status: SortingAnimationType;

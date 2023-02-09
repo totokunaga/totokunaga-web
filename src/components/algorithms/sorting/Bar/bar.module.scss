@@ -10,6 +10,9 @@
 
 .bar {
   color: var(--greyLight-3);
+  &.reversed {
+    @include neumorphic-shadow-reversed();
+  }
 
   &.swap {
     color: var(--white);

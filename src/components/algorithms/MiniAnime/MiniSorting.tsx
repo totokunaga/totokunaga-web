@@ -1,149 +1,111 @@
 import { spaceBetweenBars } from "@utils/constants";
-import { animateBars, getSortingAnimation, initBars } from "@utils/functions";
+import {
+  animateBars,
+  animateTestBars,
+  getSortingAnimation,
+  initBars,
+  initTestBars,
+  swapBars,
+} from "@utils/functions";
 import {
   bubblesort,
   shuffle,
 } from "@utils/functions/pages/algorithms/sorting/algorithms";
-import { InnerValue, SortingAnimation } from "@utils/types";
-import { useEffect, useState } from "react";
-import { Bar } from "../sorting";
+import { useWindowSize } from "@utils/hooks";
+import {
+  InnerValue,
+  SortableBar,
+  SortingAnimation,
+  SortingAnimationType,
+} from "@utils/types";
+import { Fragment, useEffect, useState } from "react";
+import { Bar, TestBar } from "../sorting";
 
 const values = [4, 1, 5, 3, 2];
-const miniBarWrapperId = "mini-bar-wrapper";
-const mobileMarginX = 4;
-const mobileMarginTop = 4;
-const marginX = 24;
-const marginTop = 16;
 
 export const MiniSorting: React.FC = () => {
-  const [barInfo, setBarInfo] = useState<InnerValue[]>([]);
-  const [barIds, setBarIds] = useState<number[]>([]);
-  const [doneAnimation, setDoneAnimation] = useState(true);
-
-  const [barWidth, setBarWidth] = useState(0);
-  const [heightUnit, setHeightUnit] = useState(0);
-  const [margin, setMargin] = useState({ x: 0, top: 0 });
+  const [bars, setBars] = useState<SortableBar[]>([]);
+  const [indexes, setIndexes] = useState<number[]>([]);
+  const [isReset, setReset] = useState(true);
 
   useEffect(() => {
-    const n = values.length;
-    const wrapperElement = document.getElementById(miniBarWrapperId);
-    if (wrapperElement) {
-      const parentHeight = wrapperElement.clientHeight;
-      const parentWidth = wrapperElement.clientWidth;
-      const margin = {
-        x: parentWidth < 175 ? mobileMarginX : marginX,
-        top: parentWidth < 175 ? mobileMarginTop : marginTop,
-      };
+    if (isReset) {
+      setReset(false);
+      let newBars = bars.length ? [...bars] : initTestBars(values);
+      let newIndexes = indexes.length ? [...indexes] : values.map((_, i) => i);
 
-      const heightUnit = Math.floor((parentHeight - 32 - margin.top) / n);
-      const barWidth = Math.floor(
-        (parentWidth - (n - 1) * spaceBetweenBars - margin.x * 2) / n
-      );
+      setBars(newBars);
+      setIndexes(newIndexes);
 
-      setBarWidth(barWidth);
-      setHeightUnit(heightUnit);
-      setBarInfo(initBars(values, barWidth, heightUnit, margin.x, false));
-      setBarIds(values.map((_, i) => i));
-      setMargin(margin);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (barInfo.length && barIds.length && doneAnimation) {
-      setDoneAnimation(false);
-      const baseAnimations: SortingAnimation[] = bubblesort(values).filter(
-        ({ type }) => type === "swap"
-      );
-      const animations: SortingAnimation[] = [];
-      baseAnimations.forEach((animation) => {
-        animation.duration = 500;
-        animations.push(animation);
-        const clearAnimation1: SortingAnimation = getSortingAnimation(
-          "clear",
-          [animation.positionOne!],
-          500
-        );
-        const clearAnimation2: SortingAnimation = getSortingAnimation(
-          "clear",
-          [animation.positionTwo!],
-          0
-        );
-        animations.push(clearAnimation1);
-        animations.push(clearAnimation2);
-      });
-      barIds.forEach((i) => {
-        animations.push(getSortingAnimation("done", [i], i === 0 ? 500 : 300));
-      });
-
-      animations.push(getSortingAnimation("reset", [], 1500));
-      shuffle(values).forEach((animation) =>
-        animations.push({ ...animation, duration: 0 })
-      );
+      const animations = bubblesort(values)
+        .filter(({ type }) => type === "swap")
+        .map((a) => ({ ...a, duration: 750 }));
 
       let timeoutAmount = 0;
-      let baseBarIds = barIds;
-      let baseBarInfo = barInfo;
-      animations.forEach((animation, i) => {
+      animations.forEach((animation) => {
         timeoutAmount += animation.duration;
         setTimeout(() => {
-          const [newBarInfo, newBarIds] = animateBars(
-            baseBarInfo,
-            baseBarIds,
-            barWidth,
-            animation,
-            margin.x,
-            false
+          animateTestBars(newBars, newIndexes, animation);
+          setBars([...newBars]);
+          setIndexes([...newIndexes]);
+        }, timeoutAmount);
+      });
+
+      newIndexes.forEach((i) => {
+        timeoutAmount += 500;
+        setTimeout(() => {
+          animateTestBars(
+            newBars,
+            newIndexes,
+            getSortingAnimation("done", [i], 100)
           );
-          baseBarIds = newBarIds;
-          baseBarInfo = newBarInfo;
-          setBarInfo(newBarInfo);
-          setBarIds(newBarIds);
+          setBars([...newBars]);
+          setIndexes([...newIndexes]);
+        }, timeoutAmount);
+      });
 
-          if (i === animations.length - 1) {
-            const newNewBarInfo = values.map(
-              (v) => newBarInfo.find((b) => b.value === v)!
-            );
-            setBarInfo(newNewBarInfo);
-            setBarIds(barIds.map((_, i) => i));
+      timeoutAmount += 1000;
+      const shuffleAnimations = shuffle(values);
+      shuffleAnimations.forEach((animation, i) => {
+        timeoutAmount += animation.duration;
+        setTimeout(() => {
+          animateTestBars(newBars, newIndexes, animation);
+          setBars([...newBars]);
+          setIndexes([...newIndexes]);
 
-            setTimeout(() => {
-              setDoneAnimation(true);
-            }, 850);
+          if (i === shuffleAnimations.length - 1) {
+            setReset(true);
           }
         }, timeoutAmount);
       });
     }
-  }, [barInfo, doneAnimation]);
+  }, [isReset]);
 
   return (
     <div
-      id={miniBarWrapperId}
       style={{
         display: "flex",
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
         position: "relative",
+        flexDirection: "row-reverse",
+        transform: "scaleX(-1) scaleY(-1)",
       }}
     >
-      {barInfo.map(({ value, status, left }, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left,
-            transition: `left 0.5s ease-in-out, background-color 0.5s`,
-          }}
-        >
-          <Bar
-            status={status}
-            height={value * heightUnit}
-            width={barWidth}
-            direction={"horizontal"}
-          />
-        </div>
-      ))}
+      {bars.map(({ value, status, relativeIndex }, i) => {
+        return (
+          <Fragment key={i}>
+            <TestBar
+              status={status}
+              height={`${Math.floor(16 * value)}%`}
+              width={"80%"}
+              direction={"horizontal"}
+              translate={{ x: relativeIndex, y: 0 }}
+              transition={"all 0.75s ease-in-out"}
+            />
+          </Fragment>
+        );
+      })}
     </div>
   );
 };
