@@ -1,1 +1,1 @@
-export * from "./ConfigModalContent";
+export * from "./SortingConfigModalContent";

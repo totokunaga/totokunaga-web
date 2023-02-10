@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, RadioBlock, Slider } from "@components/common";
 import {
   selectSortindingController,
@@ -6,9 +8,7 @@ import {
   setSortingAlgorithmSpeed,
 } from "@utils/slices";
 import { SortingAlgorithm } from "@utils/types";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import textStyle from "@styles/text.module.scss";
 
 export const sortingNames: Record<SortingAlgorithm, string> = {
   Quicksort: "Quicksort",
@@ -78,7 +78,7 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
 
   return (
     <div>
-      <h2 style={{ marginBottom: 16 }}>Configuration</h2>
+      <h3 style={{ marginBottom: 16 }}>Configuration</h3>
       <h3 style={{ marginBottom: 16 }}>Algorithm</h3>
       <div style={{ marginBottom: 12 }}>
         <RadioBlock
@@ -88,7 +88,12 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
         />
       </div>
 
-      <h3 style={{ marginBottom: 16 }}>Animation speed</h3>
+      <p
+        className={textStyle.xlarger}
+        style={{ fontWeight: 700, marginBottom: "0.75em" }}
+      >
+        Animation speed
+      </p>
       <div style={{ marginBottom: 32 }}>
         <Slider
           name={"sortingAnimationSpeed"}
@@ -99,7 +104,12 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
         />
       </div>
 
-      <h3 style={{ marginBottom: 16 }}>Number of Bars</h3>
+      <p
+        className={textStyle.xlarger}
+        style={{ fontWeight: 700, marginBottom: "0.75em" }}
+      >
+        Number of Bars
+      </p>
       <div style={{ marginBottom: 32 }}>
         <Slider
           name={"numberOfBars"}

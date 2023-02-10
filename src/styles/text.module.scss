@@ -18,6 +18,9 @@
   }
 }
 
+.xlarger {
+  font-size: max(min(5.5vw, 1.75rem), 1.25rem);
+}
 .larger {
   font-size: max(min(4.5vw, 1.25rem), 0.95rem);
 }
