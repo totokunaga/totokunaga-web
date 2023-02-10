@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { CELL_SIZE } from "@utils/constants";
-import { Cell, TestCell } from "../Cell";
+import { pathfindingPageId } from "@utils/constants";
+import { TestCell } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
 import {
@@ -26,13 +26,7 @@ import {
 } from "@utils/types";
 
 export const Grid: React.FC<GridProp> = (props) => {
-  const {
-    rowSize,
-    colSize,
-    cellSize = CELL_SIZE,
-    unmarkExecuted,
-    setUnmarkExecuted,
-  } = props;
+  const { rowSize, colSize, unmarkExecuted, setUnmarkExecuted } = props;
 
   const [grid, setGrid] = useState(initMatrix(rowSize, colSize, EMPTY_0));
   const [start, setStart] = useState(new Coordinate(0, 0, grid));
@@ -168,7 +162,15 @@ export const Grid: React.FC<GridProp> = (props) => {
   }, [rowSize, colSize]);
 
   return (
-    <div style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+    <div
+      id={pathfindingPageId}
+      style={{
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       {grid.map((row, r) => (
         <div
           key={r}
@@ -198,57 +200,6 @@ export const Grid: React.FC<GridProp> = (props) => {
           })}
         </div>
       ))}
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {grid.length &&
-          grid[0].map((type, c) => {
-            const coordinate = new Coordinate(0, c, grid);
-            const isStart = start.isEqual(coordinate);
-            const isEnd = end.isEqual(coordinate);
-            return (
-              <TestCell
-                key={c}
-                width={`${Math.floor(100 / grid[0].length)}%`}
-                // height={`${Math.floor(100 / grid[0].length)}%`}
-                height={`${Math.floor(100 / grid.length)}%`}
-                status={"Blocked"}
-                isStart={isStart}
-                isEnd={isEnd}
-                coordinate={coordinate}
-                onClick={onClickCell}
-              />
-            );
-          })}
-      </div> */}
-      {/* {grid.map((row, r) => (
-        <div
-          key={r}
-          style={{ display: "flex", justifyContent: "space-evenly" }}
-        >
-          {row.map((type, c) => {
-            const coordinate = new Coordinate(r, c, grid);
-            const isStart = start.isEqual(coordinate);
-            const isEnd = end.isEqual(coordinate);
-            return (
-              <Cell
-                key={c}
-                size={cellSize}
-                status={cellMap[type]}
-                isStart={isStart}
-                isEnd={isEnd}
-                coordinate={coordinate}
-                onClick={onClickCell}
-              />
-            );
-          })}
-        </div>
-      ))} */}
     </div>
   );
 };

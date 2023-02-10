@@ -11,8 +11,7 @@ import {
   pathfindingConfigId,
   pathfindingPageId,
 } from "@utils/constants";
-import { selectPathfindingController, setWidth } from "@utils/slices";
-import { getStripeSize } from "@utils/functions";
+import { selectPathfindingController } from "@utils/slices";
 import { useSelector } from "react-redux";
 
 const { pathfinding } = pages;
@@ -21,29 +20,22 @@ const PathfindingIndex: React.FC = () => {
   const { width, height } = useWindowSize();
   const [rowSize, setRowSize] = useState(0);
   const [colSize, setColSize] = useState(0);
-  const [cellSize, setCellSize] = useState(0);
   const [unmarkExecuted, setUnmarkExecuted] = useState(false);
 
-  const dispatch = useDispatch();
   const { algorithmExecuted } = useSelector(selectPathfindingController);
 
   useEffect(() => {
     if (!algorithmExecuted && width && height && rowSize === 0) {
       const d = document;
       const pathfindingPage = d.getElementById(pathfindingPageId);
-      const pathfindingConfig = d.getElementById(pathfindingConfigId);
-      const pageWidth = pathfindingPage?.clientWidth || 0;
-      const topHeight = pathfindingConfig?.clientHeight || 0;
-
-      const gridHeight = height - topHeight - 16;
-      const gridWidth = pageWidth;
-      const [cellSize, colSize] = getStripeSize(gridWidth, CELL_SIZE);
-      const rowSize = Math.max(Math.floor(gridHeight / cellSize), 15);
-      setCellSize(cellSize);
-      setColSize(Math.floor(colSize) - 1);
-      setRowSize(Math.floor(rowSize) - 1);
-
-      dispatch(setWidth(width));
+      if (pathfindingPage) {
+        const gridHeight = pathfindingPage.clientHeight;
+        const gridWidth = pathfindingPage.clientWidth;
+        const rowSize = Math.max(Math.floor(gridHeight / CELL_SIZE), 15);
+        const colSize = Math.floor(gridWidth / CELL_SIZE);
+        setRowSize(rowSize);
+        setColSize(colSize);
+      }
     }
   }, [width, height]);
 
@@ -52,20 +44,21 @@ const PathfindingIndex: React.FC = () => {
       <MyHead {...pathfinding} />
       <div className={style.root} style={{ height: "100dvh" }}>
         <div
-          id={pathfindingPageId}
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
-          <div id={pathfindingConfigId}>
-            <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
+          <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
+          <div
+            className={style.mobile_friendly_flex}
+            style={{ height: "100%" }}
+          >
             <PathfindingControlSection />
+            <Grid
+              rowSize={rowSize}
+              colSize={colSize}
+              unmarkExecuted={unmarkExecuted}
+              setUnmarkExecuted={setUnmarkExecuted}
+            />
           </div>
-          <Grid
-            rowSize={rowSize}
-            colSize={colSize}
-            cellSize={cellSize}
-            unmarkExecuted={unmarkExecuted}
-            setUnmarkExecuted={setUnmarkExecuted}
-          />
         </div>
       </div>
     </>
