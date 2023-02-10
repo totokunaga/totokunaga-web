@@ -2,8 +2,9 @@ import Coordinate from "@utils/classes/Coordinate";
 import { CellType, CSSStyle } from "@utils/types";
 
 export type CellProp = CSSStyle & {
-  size: number | string;
   status: CellType;
+  height: number | string;
+  width: number | string;
   isStart?: boolean;
   isEnd?: boolean;
   coordinate?: Coordinate;

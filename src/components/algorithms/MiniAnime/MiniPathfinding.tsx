@@ -1,7 +1,7 @@
 import { initMatrix } from "@utils/functions";
 import { BLOCKED_2, cellMap, EMPTY_0, PATH_3 } from "@utils/types";
 import { useEffect, useState } from "react";
-import { TestCell } from "../pathfinding";
+import { Cell } from "../pathfinding";
 
 const gridSize = 5;
 const startAnimationOffset = 100;
@@ -81,7 +81,7 @@ export const MiniPathfinding: React.FC = () => {
             const isStart = r === 2 && c == 0;
             const isEnd = r === 4 && c == 4;
             return (
-              <TestCell
+              <Cell
                 key={c}
                 status={cellMap[value]}
                 isStart={isStart}

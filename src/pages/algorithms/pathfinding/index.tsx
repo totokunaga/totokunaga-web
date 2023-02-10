@@ -31,7 +31,7 @@ const PathfindingIndex: React.FC = () => {
       if (pathfindingPage) {
         const gridHeight = pathfindingPage.clientHeight;
         const gridWidth = pathfindingPage.clientWidth;
-        const rowSize = Math.max(Math.floor(gridHeight / CELL_SIZE), 15);
+        const rowSize = Math.floor(gridHeight / CELL_SIZE);
         const colSize = Math.floor(gridWidth / CELL_SIZE);
         setRowSize(rowSize);
         setColSize(colSize);

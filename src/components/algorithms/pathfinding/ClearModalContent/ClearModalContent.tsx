@@ -50,7 +50,7 @@ export const ClearModalContent: React.FC<{
             style={{ cursor: "pointer" }}
             onClick={() => onChecked(type)}
           >
-            <Cell size={30} status={type} disabled={true} />
+            <Cell height={30} width={30} status={type} disabled={true} />
             <span style={{ margin: "0px 0px 0px 8px" }}>{type}</span>
           </div>
         </div>

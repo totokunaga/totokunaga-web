@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { pathfindingPageId } from "@utils/constants";
-import { TestCell } from "../Cell";
+import { Cell } from "../Cell";
 import { GridProp } from "./types";
 import Coordinate from "@utils/classes/Coordinate";
 import {
@@ -176,7 +176,7 @@ export const Grid: React.FC<GridProp> = (props) => {
           key={r}
           style={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "space-around",
             width: "100%",
             height: "100%",
           }}
@@ -186,10 +186,10 @@ export const Grid: React.FC<GridProp> = (props) => {
             const isStart = start.isEqual(coordinate);
             const isEnd = end.isEqual(coordinate);
             return (
-              <TestCell
+              <Cell
                 key={c}
                 width={`100%`}
-                height={`95%`}
+                height={`96%`}
                 status={cellMap[type]}
                 isStart={isStart}
                 isEnd={isEnd}

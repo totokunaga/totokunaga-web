@@ -109,7 +109,7 @@ export const ConfigModalContent: React.FC<{
             style={{ cursor: "pointer" }}
             onClick={() => onClearableCellChecked(type)}
           >
-            <Cell size={30} status={type} disabled={true} />
+            <Cell width={30} height={30} status={type} disabled={true} />
             <span style={{ margin: "0px 0px 0px 8px" }}>{type}</span>
           </div>
         </div>

@@ -1,15 +1,15 @@
 import style from "./cell.module.scss";
-import { Arrow } from "../Arrow";
-import { CellProp } from "./types";
 import { useCallback, useMemo } from "react";
 import Coordinate from "@utils/classes/Coordinate";
-import { ClearableCellType, BLOCKED, PATH, VISITED } from "@utils/types";
 import { Icon } from "@components/common";
+import { BLOCKED, ClearableCellType, PATH, VISITED } from "@utils/types";
+import { CellProp } from "./types";
 
 export const cellTypes: Array<ClearableCellType> = [BLOCKED, VISITED, PATH];
 
 export const Cell: React.FC<CellProp> = ({
-  size,
+  width,
+  height,
   status,
   isStart = false,
   isEnd = false,
@@ -38,8 +38,8 @@ export const Cell: React.FC<CellProp> = ({
       className={cellClassName}
       onClick={() => onClickCell(coordinate)}
       style={{
-        width: size,
-        height: size,
+        width,
+        height,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -47,15 +47,18 @@ export const Cell: React.FC<CellProp> = ({
         ...prop,
       }}
     >
-      {isStart ? <Arrow /> : undefined}
-      {isEnd ? (
+      {isStart && (
+        <Icon icon={"chevron"} width={"100%"} height={"100%"} margin={"auto"} />
+      )}
+      {isEnd && (
         <Icon
           icon={"star"}
-          width={"1.4rem"}
-          height={"1.4rem"}
+          width={"88%"}
+          height={"88%"}
           fill={"#F4BB44"}
+          margin={"auto"}
         />
-      ) : undefined}
+      )}
     </div>
   );
 };
