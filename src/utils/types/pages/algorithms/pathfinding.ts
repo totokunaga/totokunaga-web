@@ -35,7 +35,12 @@ export type PathfindingAnimation = {
 
 export type CellInfo = [Coordinate, Coordinate | null];
 
-export type Pathfinding = "BFS" | "DFS" | "A*" | "Bidirectional";
+export type Pathfinding =
+  | "BFS"
+  | "DFS"
+  | "A*"
+  | "Bidirectional"
+  | "Random Walk";
 export type PathfindingArg = {
   grid: number[][];
   start: Coordinate;

@@ -30,7 +30,6 @@ export const bfs = ({
       if (current.isEqual(end)) {
         pathFound = true;
         break;
-        // return [visitedCells, prevs];
       }
 
       const candidateCoordinates: Coordinate[] = [];
@@ -44,7 +43,6 @@ export const bfs = ({
           candidateCoordinates.push(nextCoordinate);
         }
       }
-      // animations.push(getPathfindingAnimation("push", candidateCoordinates));
     }
 
     q = next;

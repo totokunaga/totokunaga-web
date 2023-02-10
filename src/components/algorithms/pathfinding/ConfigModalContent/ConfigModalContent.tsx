@@ -17,6 +17,7 @@ export const pathfindingNames: Record<Pathfinding, string> = {
   DFS: "DFS",
   "A*": "A*",
   Bidirectional: "Bidirectional",
+  "Random Walk": "Random Walk",
 };
 
 export const ConfigModalContent: React.FC<{
@@ -73,7 +74,7 @@ export const ConfigModalContent: React.FC<{
       <h3 style={{ marginBottom: 16 }}>Algorithm</h3>
       <div style={{ marginBottom: 12 }}>
         <RadioBlock
-          items={Object.keys(pathfindingNames)}
+          items={Object.values(pathfindingNames)}
           value={algorithm}
           onChange={onChangeAlgorithm}
         />
