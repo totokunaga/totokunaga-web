@@ -64,7 +64,7 @@ export const MiniPathfinding: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         flexGrow: 1,
-        padding: "6.5% 2.5%",
+        padding: "10% 7.5%",
       }}
     >
       {grid.map((row, r) => (
