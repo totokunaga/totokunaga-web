@@ -1,12 +1,12 @@
 import { initMatrix } from "@utils/functions";
 import { BLOCKED_2, cellMap, EMPTY_0, PATH_3 } from "@utils/types";
 import { useEffect, useState } from "react";
-import { Cell } from "../pathfinding";
+import { Cell, TestCell } from "../pathfinding";
 
 const gridSize = 5;
 const startAnimationOffset = 100;
-const restartAnimationOffset = 1500;
-const animationSpeed = 250;
+const restartAnimationOffset = 750;
+const animationSpeed = 400;
 const cellAnimationOrder: {
   r: number;
   c: number;
@@ -37,7 +37,9 @@ export const MiniPathfinding: React.FC = () => {
     if (doneAnimation) {
       setTimeout(() => {
         setGrid(initMatrix(gridSize, gridSize, EMPTY_0));
-        setDoneAnimation(false);
+        setTimeout(() => {
+          setDoneAnimation(false);
+        }, restartAnimationOffset);
       }, restartAnimationOffset);
     } else {
       let extraTimeout = 0;
@@ -62,22 +64,31 @@ export const MiniPathfinding: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         flexGrow: 1,
+        padding: "6.5% 2.5%",
       }}
     >
       {grid.map((row, r) => (
-        <div key={r} style={{ display: "flex" }}>
+        <div
+          key={r}
+          style={{
+            display: "flex",
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+          }}
+        >
           {row.map((value, c) => {
             const isStart = r === 2 && c == 0;
             const isEnd = r === 4 && c == 4;
             return (
-              <Cell
+              <TestCell
                 key={c}
                 status={cellMap[value]}
                 isStart={isStart}
                 isEnd={isEnd}
-                size={"min(9vw, 35px)"}
+                width={`${Math.floor(85 / gridSize)}%`}
+                height={"95%"}
                 cursor={"pointer"}
-                margin={"min(.5vw, 2.5px)"}
                 disabled={true}
               />
             );

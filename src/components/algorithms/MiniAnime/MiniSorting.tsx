@@ -7,7 +7,6 @@ import {
 import {
   SortableBar,
   SortingAnimation,
-  SortingAnimationType,
   SortingPrevAnimationType,
 } from "@utils/types";
 import { Fragment, useEffect, useState } from "react";

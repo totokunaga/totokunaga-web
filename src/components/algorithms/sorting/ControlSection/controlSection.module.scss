@@ -1,8 +1,10 @@
 .wrapper {
   display: flex;
+  @media (max-width: 620px) {
+    flex-direction: column;
+  }
   @media (max-width: 520px) {
     margin: 1.5rem 0px 0.5rem 0px;
-    flex-direction: column;
   }
 }
 
