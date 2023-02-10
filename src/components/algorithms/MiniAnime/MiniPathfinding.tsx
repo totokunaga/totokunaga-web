@@ -6,7 +6,7 @@ import { Cell } from "../pathfinding";
 const gridSize = 5;
 const startAnimationOffset = 100;
 const restartAnimationOffset = 750;
-const animationSpeed = 400;
+const animationSpeed = 300;
 const cellAnimationOrder: {
   r: number;
   c: number;
