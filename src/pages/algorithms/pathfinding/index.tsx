@@ -28,7 +28,7 @@ const PathfindingIndex: React.FC = () => {
   const { algorithmExecuted } = useSelector(selectPathfindingController);
 
   useEffect(() => {
-    if (!algorithmExecuted && width && height) {
+    if (!algorithmExecuted && width && height && rowSize === 0) {
       const d = document;
       const pathfindingPage = d.getElementById(pathfindingPageId);
       const pathfindingConfig = d.getElementById(pathfindingConfigId);
@@ -45,15 +45,15 @@ const PathfindingIndex: React.FC = () => {
 
       dispatch(setWidth(width));
     }
-  }, [height, width]);
+  }, [width, height]);
 
   return (
     <>
       <MyHead {...pathfinding} />
-      <div className={style.root}>
+      <div className={style.root} style={{ height: "100dvh" }}>
         <div
           id={pathfindingPageId}
-          style={{ display: "flex", flexDirection: "column" }}
+          style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
           <div id={pathfindingConfigId}>
             <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>

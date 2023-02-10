@@ -1,7 +1,7 @@
 import { initMatrix } from "@utils/functions";
 import { BLOCKED_2, cellMap, EMPTY_0, PATH_3 } from "@utils/types";
 import { useEffect, useState } from "react";
-import { Cell, TestCell } from "../pathfinding";
+import { TestCell } from "../pathfinding";
 
 const gridSize = 5;
 const startAnimationOffset = 100;

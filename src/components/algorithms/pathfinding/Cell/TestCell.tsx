@@ -1,5 +1,4 @@
 import style from "./cell.module.scss";
-import { Arrow } from "../Arrow";
 import { useCallback, useMemo } from "react";
 import Coordinate from "@utils/classes/Coordinate";
 import { Icon } from "@components/common";
@@ -57,13 +56,13 @@ export const TestCell: React.FC<TestCellProp> = ({
       }}
     >
       {isStart && (
-        <Icon icon={"chevron"} width={"80%"} height={"80%"} margin={"auto"} />
+        <Icon icon={"chevron"} width={"100%"} height={"100%"} margin={"auto"} />
       )}
       {isEnd && (
         <Icon
           icon={"star"}
-          width={"80%"}
-          height={"80%"}
+          width={"88%"}
+          height={"88%"}
           fill={"#F4BB44"}
           margin={"auto"}
         />
