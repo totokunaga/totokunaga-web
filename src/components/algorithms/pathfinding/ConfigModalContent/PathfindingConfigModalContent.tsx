@@ -106,13 +106,7 @@ export const ConfigModalContent: React.FC<{
   return (
     <div id={configModalContentId}>
       <h3 id={configModalTitleId}>Configuration</h3>
-      <div
-        id={configOptionsWrapperId}
-        style={{
-          // overflowY: "scroll",
-          height: configOptionsHeight,
-        }}
-      >
+      <div id={configOptionsWrapperId} style={{ height: configOptionsHeight }}>
         <p
           className={textStyle.xlarger}
           style={{ fontWeight: 700, marginBottom: "0.75em" }}

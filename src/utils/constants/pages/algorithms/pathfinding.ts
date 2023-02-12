@@ -24,6 +24,7 @@ export const pathfindingNames: Record<Pathfinding, string> = {
   DFS: "DFS",
   "A*": "A*",
   Bidirectional: "Bidirectional",
+  "Random Walk": "Random Walk",
 };
 
 export const algorithmOptions: DropdownItem<string>[] = [

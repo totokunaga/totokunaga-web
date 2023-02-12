@@ -12,7 +12,6 @@ import {
 } from "@utils/slices";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/shuffle";
 import { sortingTransitionSpeed } from "@utils/constants";
-import { useWindowSize } from "@utils/hooks";
 
 type BarBlockProp = CSSStyle & {
   values: number[];
@@ -23,7 +22,6 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   const [bars, setBars] = useState<SortableBar[]>([]);
   const [indexes, setIndexes] = useState<number[]>([]);
   const [showValue, setShowValue] = useState(true);
-  const { width } = useWindowSize();
 
   const dispatch = useDispatch();
   const { algorithm, algorithmSpeed, algorithmExecuted, randomizeExecuted } =
@@ -38,10 +36,11 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   useEffect(() => {
     const barElement = document.getElementById("bar-1");
     if (barElement) {
-      console.log(barElement.clientWidth, barElement.clientHeight);
-      setShowValue(barElement.clientWidth > 24 && barElement.clientHeight > 24);
+      const barWidth = barElement.clientWidth;
+      const barHeight = barElement.clientHeight;
+      setShowValue(barWidth > 32 && barHeight > 32);
     }
-  }, [values, width]);
+  });
 
   useEffect(() => {
     if (algorithmExecuted) {
