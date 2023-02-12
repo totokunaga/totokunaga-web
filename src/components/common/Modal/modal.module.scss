@@ -11,15 +11,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // opacity: 1;
-  // pointer-events: visible;
   transition: all 0.2s ease-in-out;
   z-index: 5;
-
-  // &.hidden {
-  //   opacity: 0;
-  //   pointer-events: none;
-  // }
 }
 
 .modal_content {
@@ -33,9 +26,4 @@
   opacity: 1;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
-
-  // &.hidden {
-  //   opacity: 0;
-  //   pointer-events: none;
-  // }
 }
