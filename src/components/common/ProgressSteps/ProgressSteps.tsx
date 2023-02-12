@@ -21,23 +21,11 @@ type StepProp = {
 };
 
 const Step: React.FC<StepProp> = ({
-  order,
-  name,
   title,
   focused,
   component,
   isLastStep,
 }) => {
-  const [lineHeight, setLineHeight] = useState(0);
-  const componentId = useMemo(() => name + " " + String(order), [name]);
-
-  useEffect(() => {
-    const stepLineWrapper = document.getElementById(componentId);
-    if (stepLineWrapper) {
-      setLineHeight(stepLineWrapper.clientHeight);
-    }
-  }, []);
-
   const lineClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.line];
     if (focused) classes.push(neumorphic.animate);

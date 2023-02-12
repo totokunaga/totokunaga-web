@@ -2,7 +2,7 @@ import style from "@styles/default.module.scss";
 import textStyle from "@styles/text.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
 import meStyle from "./me.module.scss";
-import { Icon, MyHead, ProgressSteps, RadioBlock } from "@components/common";
+import { MyHead, ProgressSteps, RadioBlock } from "@components/common";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
@@ -131,21 +131,28 @@ const Index = () => {
             <div style={{ display: "flex" }}>
               <h3 className={textStyle.underline}>Personal projects</h3>
             </div>
-            <div style={{ display: "flex" }}>
-              <div
-                className={`${neumorphic.root} ${neumorphic.chip}`}
-                onClick={() => router.push(paths.algorigthms)}
-              >
-                <div style={{ marginRight: 8 }}>
-                  <Icon
-                    icon={"rocket"}
-                    width={20}
-                    height={20}
-                    animation={"shake"}
-                  />
-                </div>
-                <span className={textStyle.normal}>Algorithm Visualizer</span>
+            <div
+              onClick={() => router.push(paths.algorigthms)}
+              className={`${neumorphic.root}`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "1.5rem",
+                borderRadius: "1em",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              <div style={{ width: "min(12.5%, 48px)", marginRight: 12 }}>
+                <img
+                  alt={"algorithm"}
+                  src={"/neural.png"}
+                  width={"100%"}
+                  style={{ margin: "0 auto" }}
+                  draggable={false}
+                />
               </div>
+              <span className={textStyle.larger}>Algorithm Visualizer</span>
             </div>
           </div>
 
@@ -161,7 +168,7 @@ const Index = () => {
                   component: <Experience {...exp} />,
                   title: (
                     <div>
-                      <h4>
+                      <h4 style={{ marginBottom: 0 }}>
                         {exp.entityName}
                         <span
                           style={{

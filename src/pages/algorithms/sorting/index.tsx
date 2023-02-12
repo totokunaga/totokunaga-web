@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import { MyHead } from "@components/common";
-import { BAR_BLOCK_WRAPPER, pages } from "@utils/constants";
+import { BAR_BLOCK_WRAPPER, pages, paths } from "@utils/constants";
 import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
-import { useEffect, useState } from "react";
 import { SortingControlSection } from "@components/algorithms";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
-import { useSelector } from "react-redux";
 import { selectSortindingController } from "@utils/slices";
 
 const { sorting } = pages;
@@ -14,6 +15,7 @@ const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);
 
   const { numberOfBars } = useSelector(selectSortindingController);
+  const router = useRouter();
 
   useEffect(() => {
     let resizedNumberOfBars = numberOfBars;
@@ -21,7 +23,8 @@ const SortingIndex: React.FC = () => {
     const barBlockWrapper = document.getElementById(BAR_BLOCK_WRAPPER);
     if (barBlockWrapper) {
       const width = barBlockWrapper.clientWidth;
-      if (width > 520) {
+      const isInitialization = values.length === 0;
+      if (isInitialization && width > 520) {
         resizedNumberOfBars = 13;
       }
     }
@@ -47,10 +50,40 @@ const SortingIndex: React.FC = () => {
           height: `100dvh`,
         }}
       >
-        <h3 style={{ marginBottom: 8 }}>Sorting</h3>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "1rem",
+          }}
+          onClick={() => router.push(paths.algorigthms)}
+        >
+          <div
+            style={{
+              width: "min(12.5%, 40px)",
+              marginRight: 5,
+              cursor: "pointer",
+            }}
+          >
+            <img
+              alt={"algorithm"}
+              src={"/neural.png"}
+              width={"100%"}
+              style={{ margin: "0 auto" }}
+              draggable={false}
+            />
+          </div>
+          <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
+            Sorting
+          </h3>
+        </div>
+
         <div className={style.mobile_friendly_flex} style={{ height: "100%" }}>
           <SortingControlSection />
-          <div id={BAR_BLOCK_WRAPPER} style={{ display: "flex", flex: 1 }}>
+          <div
+            id={BAR_BLOCK_WRAPPER}
+            style={{ display: "flex", flex: 1, justifyContent: "center" }}
+          >
             <BarBlock values={values} />
           </div>
         </div>

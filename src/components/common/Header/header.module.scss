@@ -1,0 +1,17 @@
+.wrapper {
+  background-color: var(--deep-navy);
+  color: var(--greyLight-1);
+  padding: 1.5em;
+  user-select: none;
+  -webkit-user-select: none;
+
+  @media (max-width: 520px) {
+    display: flex;
+    justify-content: center;
+    padding: 1.25em 1.5em;
+  }
+}
+
+.icon_wrapper {
+  width: min(4vw, 20px);
+}

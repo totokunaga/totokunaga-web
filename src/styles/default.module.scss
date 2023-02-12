@@ -54,12 +54,38 @@
   }
 }
 
+// Personal projects
+.gradient {
+  background: linear-gradient(-45deg, #e1468c, #726cf8);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+  height: 100%;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+$navy: #00265b;
+$deep-navy: #000f23;
 $greyLight1: #e6e7ed;
 $greyLight2: #9c9da1;
 $greyLight3: #6a6b6d;
 
 :export {
-  greyLigh1: $greyLight1;
+  navy: $navy;
+  deepNavy: $deep-navy;
+  greyLight1: $greyLight1;
   greyLight2: $greyLight2;
   greyLight3: $greyLight3;
+  iconLight: #07f9ff;
+  icon: #1a96e9;
 }

@@ -12,6 +12,7 @@ import {
 } from "@utils/slices";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms/shuffle";
 import { sortingTransitionSpeed } from "@utils/constants";
+import barStyle from "../Bar/bar.module.scss";
 
 type BarBlockProp = CSSStyle & {
   values: number[];
@@ -38,7 +39,8 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
     if (barElement) {
       const barWidth = barElement.clientWidth;
       const barHeight = barElement.clientHeight;
-      setShowValue(barWidth > 32 && barHeight > 32);
+      console.log(barHeight);
+      setShowValue(barWidth > 24 && barHeight > 32);
     }
   });
 
@@ -89,7 +91,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   }, [randomizeExecuted]);
 
   return (
-    <div style={{ height: "100%", width: "100%", display: "flex" }}>
+    <div className={barStyle.barblock_wrapper}>
       {bars.map(({ value, status, relativeIndex }, i) => {
         return (
           <Fragment key={i}>

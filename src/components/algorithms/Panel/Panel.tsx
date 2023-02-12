@@ -57,6 +57,12 @@ export const Panel: React.FC<PanelProp> = ({
               alignItems: "center",
             }}
           >
+            <p
+              className={text.larger}
+              style={{ color: defaultStyle.greyLight3, textAlign: "center" }}
+            >
+              (Under development)
+            </p>
             <Icon
               icon={"warning"}
               width={"85%"}
@@ -64,12 +70,6 @@ export const Panel: React.FC<PanelProp> = ({
               margin={"0 auto"}
               fill={defaultStyle.greyLight3}
             />
-            <p
-              className={text.larger}
-              style={{ color: defaultStyle.greyLight3, textAlign: "center" }}
-            >
-              Under development
-            </p>
           </div>
         )}
       </div>

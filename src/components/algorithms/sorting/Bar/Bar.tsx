@@ -27,6 +27,8 @@ export const Bar: React.FC<BarProp> = ({
     return classes.join(" ");
   }, [status]);
 
+  const isSmallest = useMemo(() => value === 1, [value]);
+
   return (
     <div
       style={{
@@ -45,11 +47,12 @@ export const Bar: React.FC<BarProp> = ({
         style={{
           width,
           height,
-          padding: "20%",
+          padding: "0 20%",
           margin: "auto auto 0px auto",
           borderRadius: 10,
           display: "flex",
           justifyContent: "center",
+          alignItems: isSmallest ? "center" : undefined,
           position: "relative",
         }}
       >
@@ -59,7 +62,16 @@ export const Bar: React.FC<BarProp> = ({
             style={{ position: "absolute", top: "max(-7.5vw, -24px)" }}
           />
         )}
-        {showValue && <span style={{ fontWeight: 500 }}>{value}</span>}
+        {showValue && (
+          <span
+            style={{
+              fontWeight: 500,
+              ...(isSmallest ? {} : { position: "absolute", top: 15 }),
+            }}
+          >
+            {value}
+          </span>
+        )}
       </div>
     </div>
   );

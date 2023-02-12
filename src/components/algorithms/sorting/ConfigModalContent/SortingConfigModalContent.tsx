@@ -78,8 +78,13 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
 
   return (
     <div>
-      <h3 style={{ marginBottom: 16 }}>Configuration</h3>
-      <h3 style={{ marginBottom: 16 }}>Algorithm</h3>
+      <h3>Configuration</h3>
+      <p
+        className={textStyle.xlarger}
+        style={{ fontWeight: 700, marginBottom: "0.75em" }}
+      >
+        Algorithm
+      </p>
       <div style={{ marginBottom: 12 }}>
         <RadioBlock
           items={Object.keys(sortingNames)}

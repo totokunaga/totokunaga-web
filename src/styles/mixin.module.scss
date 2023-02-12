@@ -13,6 +13,10 @@
 }
 
 // Colored shadows
+@mixin colored-shadow($top-left-color, $bottom-right-color) {
+  box-shadow: 0.2rem 0.2rem 0.4rem $bottom-right-color,
+    -0.2rem -0.2rem 0.5rem $top-left-color;
+}
 @mixin inward-shodow($top-left-color, $bottom-right-color) {
   box-shadow: inset 0.2rem 0.2rem 1rem $top-left-color,
     inset -0.2rem -0.2rem 1rem $bottom-right-color;

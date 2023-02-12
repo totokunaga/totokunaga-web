@@ -7,3 +7,4 @@ export * from "./Slider";
 export * from "./Radio";
 export * from "./ProgressSteps";
 export * from "./Icon";
+export * from "./Header";

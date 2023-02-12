@@ -1,18 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 import style from "@styles/default.module.scss";
 import { PathfindingControlSection, Grid } from "@components/algorithms";
-import { CELL_SIZE } from "@utils/constants";
+import { CELL_SIZE, paths } from "@utils/constants";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
-import {
-  pages,
-  pathfindingConfigId,
-  pathfindingPageId,
-} from "@utils/constants";
+import { pages, pathfindingPageId } from "@utils/constants";
 import { selectPathfindingController } from "@utils/slices";
-import { useSelector } from "react-redux";
 
 const { pathfinding } = pages;
 
@@ -23,6 +19,7 @@ const PathfindingIndex: React.FC = () => {
   const [unmarkExecuted, setUnmarkExecuted] = useState(false);
 
   const { algorithmExecuted } = useSelector(selectPathfindingController);
+  const router = useRouter();
 
   useEffect(() => {
     if (!algorithmExecuted && width && height && rowSize === 0) {
@@ -46,7 +43,34 @@ const PathfindingIndex: React.FC = () => {
         <div
           style={{ display: "flex", flexDirection: "column", height: "100%" }}
         >
-          <h3 style={{ marginBottom: 8 }}>Pathfinding</h3>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "1rem",
+            }}
+            onClick={() => router.push(paths.algorigthms)}
+          >
+            <div
+              style={{
+                width: "min(12.5%, 40px)",
+                marginRight: 5,
+                cursor: "pointer",
+              }}
+            >
+              <img
+                alt={"algorithm"}
+                src={"/neural.png"}
+                width={"100%"}
+                style={{ margin: "0 auto" }}
+                draggable={false}
+              />
+            </div>
+            <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
+              Pathfinding
+            </h3>
+          </div>
+
           <div
             className={style.mobile_friendly_flex}
             style={{ height: "100%" }}

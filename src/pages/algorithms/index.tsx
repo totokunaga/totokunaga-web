@@ -1,9 +1,10 @@
 import { MiniPathfinding, MiniSorting } from "@components/algorithms";
 import { Panel } from "@components/algorithms/Panel";
-import { MyHead } from "@components/common";
+import { Header, MyHead } from "@components/common";
 import defaultStyle from "@styles/default.module.scss";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
+import style from "@styles/default.module.scss";
 
 const { pathfinding, sorting } = paths;
 const { algorithms } = pages;
@@ -14,16 +15,33 @@ const AlgorithmIndex: React.FC = () => {
   return (
     <>
       <MyHead {...algorithms} />
-      <div className={defaultStyle.root}>
-        <h2 style={{ marginBottom: 32, textAlign: "center" }}>
-          Algorithm Visualizer
-        </h2>
+      <div>
+        <Header />
+        <div
+          style={{
+            backgroundColor: style.deepNavy,
+            color: style.greyLight1,
+            padding: "0 2em 3em 2em",
+            marginBottom: "3em",
+          }}
+        >
+          <h2 style={{ textAlign: "center" }}>Algorithm Visualizer</h2>
+          <div style={{ width: "min(30%, 128px)", margin: "1.5rem auto" }}>
+            <img
+              alt={"algorithm"}
+              src={"/neural.png"}
+              width={"100%"}
+              style={{ margin: "0 auto" }}
+              draggable={false}
+            />
+          </div>
 
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <p style={{ marginBottom: 8 }}>
-            Visualizes / Animates famous algorithms
-          </p>
-          <p>Click panels to proceed</p>
+          <div style={{ textAlign: "center" }}>
+            <p style={{ marginBottom: 8 }}>
+              Visualizes / Animates famous algorithms
+            </p>
+            <p>Click panels to proceed</p>
+          </div>
         </div>
 
         <div
