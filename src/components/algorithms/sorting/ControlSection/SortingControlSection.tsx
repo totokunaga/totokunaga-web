@@ -88,12 +88,16 @@ export const SortingControlSection: React.FC = () => {
         </Button>
       </div>
 
-      <Modal
-        isShown={isConfigModalShown}
-        onClose={() => setConfigModalShown(false)}
-      >
-        <SortingConfigModalContent onClose={() => setConfigModalShown(false)} />
-      </Modal>
+      {isConfigModalShown && (
+        <Modal
+          isShown={isConfigModalShown}
+          onClose={() => setConfigModalShown(false)}
+        >
+          <SortingConfigModalContent
+            onClose={() => setConfigModalShown(false)}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

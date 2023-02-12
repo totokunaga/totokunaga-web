@@ -88,19 +88,23 @@ export const PathfindingControlSection: React.FC = () => {
         </Button>
       </div>
 
-      <Modal
-        isShown={isClearModalShown}
-        onClose={() => setClearModalShown(false)}
-      >
-        <ClearModalContent onClose={() => setClearModalShown(false)} />
-      </Modal>
+      {isClearModalShown && (
+        <Modal
+          isShown={isClearModalShown}
+          onClose={() => setClearModalShown(false)}
+        >
+          <ClearModalContent onClose={() => setClearModalShown(false)} />
+        </Modal>
+      )}
 
-      <Modal
-        isShown={isConfigModalShown}
-        onClose={() => setConfigModalShown(false)}
-      >
-        <ConfigModalContent onClose={() => setConfigModalShown(false)} />
-      </Modal>
+      {isConfigModalShown && (
+        <Modal
+          isShown={isConfigModalShown}
+          onClose={() => setConfigModalShown(false)}
+        >
+          <ConfigModalContent onClose={() => setConfigModalShown(false)} />
+        </Modal>
+      )}
     </div>
   );
 };
