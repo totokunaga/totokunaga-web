@@ -15,12 +15,10 @@
   z-index: 5;
   pointer-events: auto;
   opacity: 1;
-  // transform: scale(1);
 
   &.hidden {
     pointer-events: none;
     opacity: 0;
-    // transform: scale(0);
   }
 }
 
@@ -36,11 +34,9 @@
   pointer-events: auto;
   transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
-  transform: scale(1);
 
+  pointer-events: auto;
   &.hidden {
     pointer-events: none;
-    opacity: 0;
-    transform: scale(0);
   }
 }

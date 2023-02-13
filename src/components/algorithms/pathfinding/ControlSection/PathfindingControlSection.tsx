@@ -97,14 +97,12 @@ export const PathfindingControlSection: React.FC = () => {
         </Modal>
       )}
 
-      {isConfigModalShown && (
-        <Modal
-          isShown={isConfigModalShown}
-          onClose={() => setConfigModalShown(false)}
-        >
-          <ConfigModalContent onClose={() => setConfigModalShown(false)} />
-        </Modal>
-      )}
+      <Modal
+        isShown={isConfigModalShown}
+        onClose={() => setConfigModalShown(false)}
+      >
+        <ConfigModalContent onClose={() => setConfigModalShown(false)} />
+      </Modal>
     </div>
   );
 };
