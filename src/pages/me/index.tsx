@@ -83,7 +83,7 @@ const Index = () => {
               style={{
                 marginRight: "0.5rem",
                 fontSize:
-                  typewriterLang === "ja" ? "min(8.5vw, 5.5rem)" : undefined,
+                  typewriterLang === "ja" ? "min(8vw, 4.5rem)" : undefined,
                 fontFamily:
                   typewriterLang === "ja"
                     ? `'Noto Sans JP', sans-serif`

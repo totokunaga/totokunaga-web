@@ -61,14 +61,12 @@ export const Experience: React.FC<ExperienceProp> = ({
             <Icon icon={"close"} width={16} height={16} />
           </div>
 
-          {isDetailsShown && (
-            <Modal
-              isShown={isDetailsShown}
-              onClose={() => setDetailsShown(false)}
-            >
-              <ExperienceModalContent explanations={explanations} />
-            </Modal>
-          )}
+          <Modal
+            isShown={isDetailsShown}
+            onClose={() => setDetailsShown(false)}
+          >
+            <ExperienceModalContent explanations={explanations} />
+          </Modal>
         </div>
       )}
     </>

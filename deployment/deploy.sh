@@ -51,7 +51,7 @@ remote_img_tag=${img_tag_prefix}/${img_tag}
 # Note: "--platform" option is required if you build on non-amd architecture like Apple silicon
 docker image build \
   --platform amd64 \
-  -t ${img_tag} \
+  -t ${remote_img_tag} \
   -f ${target_dockerfile} \
   --build-arg NODE_ENV=${env} \
   --build-arg REGISTRY_DOMAIN=${pull_registry_domain} \
