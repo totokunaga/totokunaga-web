@@ -4,6 +4,8 @@ import { Header, MyHead } from "@components/common";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import style from "@styles/default.module.scss";
+import textStyle from "@styles/text.module.scss";
+import algorithmStyle from "./algorithms.module.scss";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
 
 const { pathfinding, sorting } = paths;
@@ -21,18 +23,31 @@ const AlgorithmIndex: React.FC = () => {
           style={{
             backgroundColor: style.deepNavy,
             color: style.greyLight1,
-            padding: "0 2em 3em 2em",
-            marginBottom: "3em",
+            padding: `0 2em min(5vw, 1.5em) 2em`,
+            marginTop: -0.1,
           }}
         >
           <h2 style={{ textAlign: "center" }}>Algorithm Visualizer</h2>
-          <div style={{ width: "min(30%, 128px)", margin: "1.5rem auto" }}>
+          <div
+            style={{ width: "min(30%, 128px)", margin: "1.5rem auto 0 auto" }}
+          >
             <ColoredGraphIcon width={"100%"} height={"100%"} />
           </div>
-
-          <div style={{ textAlign: "center" }}>
-            <p style={{ marginBottom: 8 }}>
-              Visualizes / Animates famous algorithms
+        </div>
+        <div
+          style={{
+            color: style.greyLight1,
+            position: "relative",
+            textAlign: "center",
+            marginBottom: "min(25vw, 12.5rem)",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div className={algorithmStyle.triangle} />
+          <div className={algorithmStyle.mobile_disappearing}>
+            <p style={{ marginBottom: "0.75em" }}>
+              Visualize / Animate famous algorithms
             </p>
             <p>Click panels to proceed</p>
           </div>
