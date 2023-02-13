@@ -9,6 +9,7 @@ import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
 import { pages, pathfindingPageId } from "@utils/constants";
 import { selectPathfindingController } from "@utils/slices";
+import GraphIcon from "@assets/graph.svg";
 
 const { pathfinding } = pages;
 
@@ -58,13 +59,7 @@ const PathfindingIndex: React.FC = () => {
                 cursor: "pointer",
               }}
             >
-              <img
-                alt={"algorithm"}
-                src={"/neural.png"}
-                width={"100%"}
-                style={{ margin: "0 auto" }}
-                draggable={false}
-              />
+              <GraphIcon width={"100%"} height={"100%"} />
             </div>
             <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
               Pathfinding

@@ -11,19 +11,19 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -70px;
-  right: 0px;
+  top: -7em;
+  right: -10px;
+  width: 100%;
 
-  @media (max-width: 820px) {
-    top: -70px;
-    right: -10px;
-  }
   @media (max-width: 520px) {
-    top: max(-20vw, -70px);
-    right: 10px;
+    top: -5.5em;
   }
-  @media (max-width: 325px) {
-    top: max(-20vw, -70px);
+  @media (max-width: 400px) {
+    top: -4em;
+    right: -5px;
+  }
+  @media (max-width: 280px) {
+    top: -2.5em;
     right: -10px;
   }
 }
@@ -39,15 +39,11 @@
 
 .profile_description_float {
   float: right;
-  width: 80px;
-  height: 30px;
-
-  @media (max-width: 820px) {
-    width: 126px;
-  }
-  @media (max-width: 520px) {
-    width: min(30vw, 126);
-    height: min(15vw, 30px);
+  width: 30%;
+  height: 3em;
+  position: relative;
+  @media (max-width: 400px) {
+    width: 40%;
   }
 }
 

@@ -3,6 +3,8 @@ export const SMARTPHONE = "SMARTPHONE";
 export const TABLET = "TABLET";
 export const DESKTOP = "DESKTOP";
 
+export type Lang = "ja" | "en";
+
 export type CSSStyle = {
   margin?: number | string;
   marginTop?: number | string;

@@ -3,26 +3,23 @@ import textStyle from "@styles/text.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
 import meStyle from "./me.module.scss";
 import { MyHead, ProgressSteps, RadioBlock } from "@components/common";
-import { pages, paths } from "@utils/constants";
+import { greeting, pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "@utils/constants";
 import { useEffect, useMemo, useState } from "react";
+import ColoredGraphIcon from "@assets/colored-graph.svg";
+import { Lang } from "@utils/types";
 
 const neumorphicDown = [neumorphic.root, neumorphic.down].join(" ");
 
 const { root } = pages;
 const { introduction, experiences, skills } = meTexts;
 
-const greeting = {
-  en: "Hello,",
-  ja: "こんにちは",
-};
-
 const Index = () => {
   const router = useRouter();
 
-  const [typewriterLang, setTypewriterLang] = useState<"ja" | "en">("en");
+  const [typewriterLang, setTypewriterLang] = useState<Lang>("en");
   const [typewriterVal, setTypewriterVal] = useState("");
   const [typewriterHeight, setTypewriterHeight] = useState(0);
 
@@ -38,7 +35,7 @@ const Index = () => {
     const forwardTimeoutAmount = 400;
     const backwardTimeoutAmount = 100;
 
-    let timeoutAmount = 1000;
+    let timeoutAmount = 500;
     charArr.forEach((_, i) => {
       timeoutAmount += forwardTimeoutAmount * 0.35;
       setTimeout(() => {
@@ -72,7 +69,7 @@ const Index = () => {
     <>
       <MyHead {...root} />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div className={style.root}>
+        <div className={style.root} style={{ paddingTop: "3rem" }}>
           <div
             id={"greeting"}
             style={{
@@ -101,19 +98,20 @@ const Index = () => {
             />
           </div>
 
-          <div style={{ display: "flex", position: "relative" }}>
-            <div className={meStyle.profile_image_wrapper}>
-              <div className={neumorphicDown} style={{ padding: "10%" }}>
-                <img
-                  alt={"profile"}
-                  src={"/profile.jpg"}
-                  className={meStyle.profile_image}
-                  draggable={false}
-                />
-              </div>
-            </div>
+          <div style={{ display: "flex" }}>
             <div className={introductionClassName}>
-              <div className={meStyle.profile_description_float} />
+              <div className={meStyle.profile_description_float}>
+                <div className={meStyle.profile_image_wrapper}>
+                  <div className={neumorphicDown} style={{ padding: "7.5%" }}>
+                    <img
+                      alt={"profile"}
+                      src={"/profile.jpg"}
+                      className={meStyle.profile_image}
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+              </div>
               {introduction.map((text, i) => (
                 <p
                   key={i}
@@ -144,15 +142,11 @@ const Index = () => {
               }}
             >
               <div style={{ width: "min(12.5%, 48px)", marginRight: 12 }}>
-                <img
-                  alt={"algorithm"}
-                  src={"/neural.png"}
-                  width={"100%"}
-                  style={{ margin: "0 auto" }}
-                  draggable={false}
-                />
+                <ColoredGraphIcon width={"100%"} height={"100%"} />
               </div>
-              <span className={textStyle.larger}>Algorithm Visualizer</span>
+              <span className={textStyle.larger} style={{ fontWeight: 500 }}>
+                Algorithm Visualizer
+              </span>
             </div>
           </div>
 
@@ -164,7 +158,7 @@ const Index = () => {
               type={"vertical"}
               items={experiences.map((exp) => {
                 return {
-                  name: exp.entityName,
+                  name: exp.entityName + "-" + exp.title,
                   component: <Experience {...exp} />,
                   title: (
                     <div>
@@ -184,7 +178,7 @@ const Index = () => {
                   ),
                 };
               })}
-              current={experiences[0].entityName}
+              current={experiences[0].entityName + "-" + experiences[0].title}
             />
           </div>
 
@@ -205,7 +199,7 @@ const Index = () => {
                     display: "flex",
                   }}
                 >
-                  {title}:
+                  {title}
                 </p>
                 <RadioBlock
                   items={list}

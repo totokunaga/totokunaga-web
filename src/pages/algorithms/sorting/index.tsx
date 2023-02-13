@@ -8,6 +8,7 @@ import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { SortingControlSection } from "@components/algorithms";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { selectSortindingController } from "@utils/slices";
+import GraphIcon from "@assets/graph.svg";
 
 const { sorting } = pages;
 
@@ -65,13 +66,7 @@ const SortingIndex: React.FC = () => {
               cursor: "pointer",
             }}
           >
-            <img
-              alt={"algorithm"}
-              src={"/neural.png"}
-              width={"100%"}
-              style={{ margin: "0 auto" }}
-              draggable={false}
-            />
+            <GraphIcon width={"100%"} height={"100%"} />
           </div>
           <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
             Sorting

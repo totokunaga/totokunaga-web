@@ -1,6 +1,7 @@
+import { CSSStyle } from "@utils/types";
 import { Radio, Size } from "./Radio";
 
-type RadioBlockProp = {
+type RadioBlockProp = CSSStyle & {
   items: any[];
   value: any;
   onChange?: (value: any) => void;
@@ -16,6 +17,7 @@ export const RadioBlock: React.FC<RadioBlockProp> = ({
   fontColor,
   circleColor,
   size,
+  ...props
 }) => {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
@@ -35,6 +37,7 @@ export const RadioBlock: React.FC<RadioBlockProp> = ({
               fontColor={fontColor}
               circleColor={circleColor}
               size={size}
+              {...props}
             />
           </div>
         );

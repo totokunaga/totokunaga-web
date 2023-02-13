@@ -1,6 +1,12 @@
 import { ExperienceProp } from "@components/me";
+import { Lang } from "@utils/types";
 
 export const meRootId = "me-root";
+
+export const greeting: Record<Lang, string> = {
+  en: "Hello,",
+  ja: "こんにちは",
+};
 
 export const meTexts = {
   introduction: [
@@ -12,10 +18,7 @@ export const meTexts = {
     {
       entityName: "Rakuten Mobile",
       title: "Lead developer",
-      periods: [
-        "Oct, 2021 - current",
-        "Oct, 2020 - Sep, 2021 as Frontend developer",
-      ],
+      periods: ["Oct, 2021 - current"],
       explanations: [
         {
           subtitle: "#1. B2C ISP website",
@@ -24,27 +27,38 @@ export const meTexts = {
       ],
     },
     {
-      entityName: "Mercari",
-      title: "Internship",
-      periods: ["Jul, 2019 - Sep, 2019"],
+      entityName: "Rakuten Mobile",
+      title: "Software engineer",
+      periods: ["Oct, 2020 - Sep, 2021"],
       explanations: [
         {
-          subtitle: "Mercari intern project",
-          content: "hello",
+          subtitle: "#1. B2C ISP website",
+          content: Array.from({ length: 500 }, () => "Hello World"),
         },
       ],
     },
-    {
-      entityName: "Goldman Sachs",
-      title: "Internship",
-      periods: ["Aug, 2018 - Sep, 2018"],
-      explanations: [
-        {
-          subtitle: "Goldman Sachs intern project",
-          content: "hello",
-        },
-      ],
-    },
+    // {
+    //   entityName: "Mercari",
+    //   title: "Internship",
+    //   periods: ["Jul, 2019 - Sep, 2019"],
+    //   explanations: [
+    //     {
+    //       subtitle: "Mercari intern project",
+    //       content: "hello",
+    //     },
+    //   ],
+    // },
+    // {
+    //   entityName: "Goldman Sachs",
+    //   title: "Internship",
+    //   periods: ["Aug, 2018 - Sep, 2018"],
+    //   explanations: [
+    //     {
+    //       subtitle: "Goldman Sachs intern project",
+    //       content: "hello",
+    //     },
+    //   ],
+    // },
     {
       entityName: "UC San Diego",
       title: "B.S. Math-Computer Science",
@@ -52,6 +66,10 @@ export const meTexts = {
     },
   ] as ExperienceProp[],
   skills: [
+    {
+      title: "Programming Language",
+      list: ["JavaScript/TypeScript", "Python"],
+    },
     {
       title: "Frontend",
       list: ["React + NextJS", "Cypress", "SCSS/SASS"],

@@ -56,12 +56,12 @@ export const ClearModalContent: React.FC<{
         </div>
       ))}
 
-      <div style={{ marginTop: 24, color: "rgba(0, 38, 91, 0.5)" }}>
+      {/* <div style={{ marginTop: 24, color: "rgba(0, 38, 91, 0.5)" }}>
         <p>
           This prompt won&apos;t be shown from next time. You can update the
           configuration from <b>&quot;Algorithm&quot;</b> button if needed
         </p>
-      </div>
+      </div> */}
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
         <Button

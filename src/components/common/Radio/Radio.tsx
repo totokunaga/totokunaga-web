@@ -1,10 +1,11 @@
 import style from "./radio.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
 import { useMemo } from "react";
+import { CSSStyle } from "@utils/types";
 
 export type Size = "slim" | "normal";
 
-type RadioProp = {
+type RadioProp = CSSStyle & {
   content?: string;
   checked: boolean;
   sub?: boolean;
@@ -22,6 +23,7 @@ export const Radio: React.FC<RadioProp> = ({
   size,
   fontColor,
   circleColor,
+  ...props
 }) => {
   const wrapperClassName = useMemo(() => {
     const classes = [neumorphic.root, neumorphic.radio];
@@ -48,7 +50,7 @@ export const Radio: React.FC<RadioProp> = ({
     <div className={wrapperClassName} style={{ color: fontColor }}>
       <div
         className={circleClassName}
-        style={{ backgroundColor: circleColor }}
+        style={{ backgroundColor: circleColor, ...props }}
       />
       <span>{content}</span>
     </div>
