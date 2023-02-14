@@ -77,7 +77,10 @@ const Index = () => {
         }}
       >
         <div className={meStyle.top_bg} />
-        <div className={style.triangle} style={{ top: "min(50vw, 10rem)" }} />
+        <div
+          className={style.triangle}
+          style={{ top: "min(49.8vw, 9.9rem)" }}
+        />
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className={style.root}>
