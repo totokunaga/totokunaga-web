@@ -53,6 +53,8 @@
   --appearance-color-dark: #440bb6;
 
   --cell-blue: #b6d0e2;
+  --cell-empty: #00265b;
+  --cell-path: #2ebb98;
 
   --callout-rgb: 238, 240, 241;
   --callout-border-rgb: 172, 175, 176;
@@ -135,8 +137,9 @@
   --appearance-color: #f4bb44;
   --appearance-color-dark: #f0a614;
 
-  // --cell-blue: #b6d0e2;
-  --cell-blue: #56757f;
+  --cell-blue: #799aa4;
+  --cell-empty: #fff;
+  --cell-path: #ffb766;
 }
 // }
 

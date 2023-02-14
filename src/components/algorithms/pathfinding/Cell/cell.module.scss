@@ -6,10 +6,8 @@
   transition: all 0.15s ease-in-out;
   -webkit-transition: all 0.15s ease-in-out;
   cursor: pointer;
-  // background-color: var(--plain-light);
-  // border: solid 0.5px var(--plain);
-  background-color: var(--white);
-  border: solid 0.5px var(--white);
+  background-color: var(--plain-light);
+  border: solid 0.5px var(--plain);
   &:hover {
     background-color: #eeeeee;
   }
@@ -23,13 +21,15 @@
   }
 
   &.Path {
-    background-color: #2ebb98;
-    border: solid 0.5px #2ebb98;
+    background-color: var(--cell-path);
+    border: solid 0.5px var(--cell-path);
   }
 
   &.Blocked {
-    background-color: var(--navy-color);
-    border: solid 0.5px var(--navy-color);
+    background-color: var(--cell-empty);
+    border: solid 0.5px var(--cell-empty);
+    // background-color: var(--plain-opposite-dark);
+    // border: solid 0.5px var(--plain-opposite-dark);
   }
 
   &.Selected {
