@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import headerStyle from "./header.module.scss";
 import { paths } from "@utils/constants";
 import TIcon from "@assets/t-icon.svg";
+import TIconDark from "@assets/t-icon-dark.svg";
 import { Button } from "../Button";
 import { Icon } from "../Icon";
 import { useSelector } from "react-redux";
@@ -57,20 +58,26 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             className={headerStyle.icon_wrapper}
             onClick={() => router.push(paths.root)}
           >
-            <TIcon width={"100%"} height={"100%"} />
+            {!isDarkMode ? (
+              <TIconDark width={"100%"} height={"100%"} />
+            ) : (
+              <TIcon width={"100%"} height={"100%"} />
+            )}
           </div>
           <h4
             style={{ margin: "0px 0px 0px 5px" }}
             onClick={() => router.push(paths.root)}
           >
-            <span style={{ color: "#07F9FF" }}>to</span>
-            <span style={{ color: "#1A96E9" }}>tokunaga</span>
+            <span className={headerStyle.logo_text}>to</span>
+            <span className={`${headerStyle.logo_text} ${headerStyle.dark}`}>
+              tokunaga
+            </span>
           </h4>
           {children}
           <div style={{ margin: "auto 0px auto auto" }}>
             <Button
               type={"flat"}
-              padding={"0.75em"}
+              padding={"0.65em"}
               onClick={onAppearance}
               className={buttonStyle.appearance_setting}
             >

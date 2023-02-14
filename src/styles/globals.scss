@@ -49,8 +49,11 @@
 
   --plain-semi-dark-transp: rgba(198, 201, 214, 0.5);
 
+  --appearance-color-light: #f4f0fd;
   --appearance-color: #5b0eeb;
   --appearance-color-dark: #440bb6;
+  --logo-color: #0a74ff;
+  --logo-color-dark: #00265b;
 
   --cell-blue: #b6d0e2;
   --cell-empty: #00265b;
@@ -134,12 +137,15 @@
 
   --plain-semi-dark-transp: rgba(14, 14, 16, 0.5);
 
+  --appearance-color-light: transparent;
   --appearance-color: #f4bb44;
   --appearance-color-dark: #f0a614;
+  --logo-color: #07f9ff;
+  --logo-color-dark: #1a96e9;
 
-  --cell-blue: #799aa4;
+  --cell-blue: #678d97;
   --cell-empty: #fff;
-  --cell-path: #ffb766;
+  --cell-path: #40cda5;
 }
 // }
 

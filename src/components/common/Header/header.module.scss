@@ -21,3 +21,10 @@
 .icon_wrapper {
   width: min(4vw, 20px);
 }
+
+.logo_text {
+  color: var(--logo-color);
+  &.dark {
+    color: var(--logo-color-dark);
+  }
+}
