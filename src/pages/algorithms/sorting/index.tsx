@@ -7,8 +7,9 @@ import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { SortingControlSection } from "@components/algorithms";
 import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
-import { selectSortindingController } from "@utils/slices";
+import { selectSortindingController, selectWindow } from "@utils/slices";
 import GraphIcon from "@assets/graph.svg";
+import ColoredGraphIcon from "@assets/colored-graph.svg";
 
 const { sorting } = pages;
 
@@ -16,6 +17,7 @@ const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);
 
   const { numberOfBars } = useSelector(selectSortindingController);
+  const { isDarkMode } = useSelector(selectWindow);
   const router = useRouter();
 
   useEffect(() => {
@@ -66,7 +68,11 @@ const SortingIndex: React.FC = () => {
               cursor: "pointer",
             }}
           >
-            <GraphIcon width={"100%"} height={"100%"} />
+            {!isDarkMode ? (
+              <GraphIcon width={"100%"} height={"100%"} />
+            ) : (
+              <ColoredGraphIcon width={"100%"} height={"100%"} />
+            )}
           </div>
           <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
             Sorting

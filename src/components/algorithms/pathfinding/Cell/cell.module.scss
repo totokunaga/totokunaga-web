@@ -2,12 +2,12 @@
 
 .cell {
   margin: 0.5px;
-  border-radius: 2px;
+  // border-radius: 2px;
   transition: all 0.15s ease-in-out;
   -webkit-transition: all 0.15s ease-in-out;
   cursor: pointer;
-  background-color: #f3f6fa;
-  border: solid 0.5px #d8dded;
+  background-color: var(--plain-light);
+  border: solid 0.5px var(--plain);
   &:hover {
     background-color: #eeeeee;
   }
@@ -16,20 +16,18 @@
   }
 
   &.Visited {
-    background-color: #b6d0e2;
-    border: solid 0.5px #b6d0e2;
+    background-color: var(--cell-blue);
+    border: solid 0.5px var(--cell-blue);
   }
 
   &.Path {
     background-color: #2ebb98;
     border: solid 0.5px #2ebb98;
-    // background-color: var(--green);
-    // @include inward-shodow-shallower(var(--green-light), var(--green-dark));
   }
 
   &.Blocked {
-    background-color: var(--navy-color);
-    border: solid 0.5px var(--navy-color);
+    background-color: var(--plain-opposite-dark);
+    border: solid 0.5px var(--plain-opposite-dark);
   }
 
   &.Selected {

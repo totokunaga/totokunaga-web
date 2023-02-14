@@ -1,0 +1,18 @@
+.flat {
+  padding: 1em 1.5em;
+  font-family: var(--font-sans-serif);
+  border: none;
+  background-color: var(--plain);
+  box-shadow: none;
+  border-radius: 0.65rem;
+  cursor: pointer;
+
+  &.appearance_setting {
+    background-color: var(--appearance-color);
+    fill: var(--plain);
+    transition: all 0.15s ease-in-out;
+    &:hover {
+      background-color: var(--appearance-color-dark);
+    }
+  }
+}

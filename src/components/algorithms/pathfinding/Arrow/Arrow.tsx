@@ -4,16 +4,16 @@ import style from "./arrow.module.scss";
 type Direction = "right" | "left" | "up" | "down";
 
 export const Arrow: React.FC<{
-  size?: number;
+  size?: string;
   direction?: Direction;
   thickness?: number | string;
 }> = ({ size = 5, direction = "right", thickness = 3 }) => {
   const marginOption = useMemo<Record<Direction, string>>(() => {
     return {
-      right: `0 ${size}px 0 0`,
-      left: `0 0 0 ${size}px`,
-      up: `${size}px 0 0 0`,
-      down: `0 0 ${size}px 0`,
+      right: `0 ${size} 0 0`,
+      left: `0 0 0 ${size}`,
+      up: `${size} 0 0 0`,
+      down: `0 0 ${size} 0`,
     };
   }, [size]);
 

@@ -13,7 +13,7 @@
 
 @media (max-width: 960px) {
   .root {
-    padding: 16px;
+    padding: 1rem 1.5rem;
   }
   .mobileHorizontallyAligned {
     display: unset;
@@ -24,11 +24,35 @@
 .typewriter {
   height: min(12vw, 80px);
   width: 2px;
-  background-color: var(--navy-color);
+  background-color: var(--plain-opposite);
   animation-name: blink;
   animation-duration: 1.35s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+}
+
+.triangle {
+  border-left: 75vw solid transparent;
+  border-right: 75vw solid transparent;
+  border-top: min(35vw, 18rem) solid var(--plain-semi-dark);
+  z-index: -100;
+  position: absolute;
+  top: -0.175px;
+  margin-top: max(-30vw, -6rem);
+
+  @media (max-width: 860px) {
+    border-left: 75vw solid transparent;
+    border-right: 75vw solid transparent;
+    border-top: min(30vw, 15rem) solid var(--plain-semi-dark);
+    margin-top: max(-20vw, -3.5rem);
+  }
+
+  @media (max-width: 520px) {
+    border-left: 55vw solid transparent;
+    border-right: 55vw solid transparent;
+    border-top: min(30vw, 15rem) solid var(--plain-semi-dark);
+    margin-top: 0;
+  }
 }
 
 .mobile_friendly_flex {

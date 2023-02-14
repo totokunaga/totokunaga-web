@@ -19,10 +19,7 @@
   background-color: var(--greyDark);
   margin-right: 8px;
   transition: all 0.1s ease-in-out;
-  @include inward-inner-shodow-shallower(
-    var(--greyDark-dark),
-    var(--greyLight-1)
-  );
+  @include inward-inner-shodow-shallower(var(--greyDark-dark), var(--plain));
   &.slim {
     width: 10px;
     height: 10px;

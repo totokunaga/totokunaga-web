@@ -2,10 +2,17 @@ import style from "./cell.module.scss";
 import { useCallback, useMemo } from "react";
 import Coordinate from "@utils/classes/Coordinate";
 import { Icon } from "@components/common";
-import { BLOCKED, ClearableCellType, PATH, VISITED } from "@utils/types";
+import {
+  BLOCKED,
+  CellType,
+  ClearableCellType,
+  PATH,
+  VISITED,
+} from "@utils/types";
 import { CellProp } from "./types";
 
 export const cellTypes: Array<ClearableCellType> = [BLOCKED, VISITED, PATH];
+const whiteArrowCells = new Set<CellType>(["Empty"]);
 
 export const Cell: React.FC<CellProp> = ({
   width,
@@ -16,6 +23,7 @@ export const Cell: React.FC<CellProp> = ({
   coordinate,
   disabled = false,
   onClick,
+  darkMode,
   ...prop
 }) => {
   const cellClassName = useMemo(() => {
@@ -48,7 +56,16 @@ export const Cell: React.FC<CellProp> = ({
       }}
     >
       {isStart && (
-        <Icon icon={"chevron"} width={"100%"} height={"100%"} margin={"auto"} />
+        <Icon
+          icon={
+            darkMode && whiteArrowCells.has(status)
+              ? "chevron-white"
+              : "chevron"
+          }
+          width={"100%"}
+          height={"100%"}
+          margin={"auto"}
+        />
       )}
       {isEnd && (
         <Icon

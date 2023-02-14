@@ -8,8 +8,9 @@ import { CELL_SIZE, paths } from "@utils/constants";
 import { useWindowSize } from "@utils/hooks";
 import { MyHead } from "@components/common";
 import { pages, pathfindingPageId } from "@utils/constants";
-import { selectPathfindingController } from "@utils/slices";
+import { selectPathfindingController, selectWindow } from "@utils/slices";
 import GraphIcon from "@assets/graph.svg";
+import ColoredGraphIcon from "@assets/colored-graph.svg";
 
 const { pathfinding } = pages;
 
@@ -20,6 +21,7 @@ const PathfindingIndex: React.FC = () => {
   const [unmarkExecuted, setUnmarkExecuted] = useState(false);
 
   const { algorithmExecuted } = useSelector(selectPathfindingController);
+  const { isDarkMode } = useSelector(selectWindow);
   const router = useRouter();
 
   useEffect(() => {
@@ -50,7 +52,6 @@ const PathfindingIndex: React.FC = () => {
               alignItems: "center",
               marginBottom: "1rem",
             }}
-            onClick={() => router.push(paths.algorigthms)}
           >
             <div
               style={{
@@ -58,10 +59,18 @@ const PathfindingIndex: React.FC = () => {
                 marginRight: 5,
                 cursor: "pointer",
               }}
+              onClick={() => router.push(paths.algorigthms)}
             >
-              <GraphIcon width={"100%"} height={"100%"} />
+              {!isDarkMode ? (
+                <GraphIcon width={"100%"} height={"100%"} />
+              ) : (
+                <ColoredGraphIcon width={"100%"} height={"100%"} />
+              )}
             </div>
-            <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
+            <h3
+              style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}
+              onClick={() => router.push(paths.algorigthms)}
+            >
               Pathfinding
             </h3>
           </div>

@@ -9,5 +9,6 @@ export type CellProp = CSSStyle & {
   isEnd?: boolean;
   coordinate?: Coordinate;
   disabled?: boolean;
+  darkMode?: boolean;
   onClick?: (coordinate: Coordinate) => void;
 };

@@ -12,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 import {
   selectPathfindingController,
+  selectWindow,
   setClearExecuted,
   setPathfindingAlgorithmExecuted,
 } from "@utils/slices";
@@ -35,6 +36,7 @@ export const Grid: React.FC<GridProp> = (props) => {
   );
   const [isStartFocused, setStartFocused] = useState(false);
   const [isEndFocused, setEndFocused] = useState(false);
+  const { isDarkMode } = useSelector(selectWindow);
 
   const dispatch = useDispatch();
   const { clearExecuted, clearableCells, algorithm, algorithmExecuted } =
@@ -195,6 +197,7 @@ export const Grid: React.FC<GridProp> = (props) => {
                 isEnd={isEnd}
                 coordinate={coordinate}
                 onClick={onClickCell}
+                darkMode={isDarkMode}
               />
             );
           })}

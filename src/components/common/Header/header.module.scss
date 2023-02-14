@@ -1,15 +1,21 @@
 .wrapper {
-  background-color: var(--deep-navy);
-  color: var(--greyLight-1);
+  width: 100%;
+  background-color: var(--plain-semi-dark-transp);
+  backdrop-filter: blur(8px);
+  color: var(--plain);
   padding: 1.5em;
   user-select: none;
   -webkit-user-select: none;
+  z-index: 99;
 
   @media (max-width: 520px) {
     display: flex;
-    justify-content: center;
     padding: 1.25em 1.5em;
   }
+}
+
+.wrapper_placeholder {
+  background-color: var(--plain-semi-dark);
 }
 
 .icon_wrapper {

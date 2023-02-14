@@ -20,6 +20,7 @@ export type CSSStyle = {
   fontWeight?: number | string;
   fontFamily?: string;
   color?: string;
+  fill?: string;
   backgroundColor?: string;
   border?: string;
   borderRadius?: number | string;

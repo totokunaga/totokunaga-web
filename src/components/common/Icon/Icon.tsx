@@ -9,6 +9,9 @@ import CloseIcon from "@assets/close.svg";
 import WarningIcon from "@assets/warning.svg";
 import ShuffleIcon from "@assets/shuffle.svg";
 import ChevronIcon from "@assets/chevron.svg";
+import ChevronWhiteIcon from "@assets/chevron-white.svg";
+import SunIcon from "@assets/sunny.svg";
+import MoonIcon from "@assets/moon.svg";
 
 import { CSSStyle } from "@utils/types";
 
@@ -22,6 +25,9 @@ type IconType =
   | "warning"
   | "shuffle"
   | "chevron"
+  | "chevron-white"
+  | "sun"
+  | "moon"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -37,6 +43,9 @@ const Icons: Record<IconType, any> = {
   warning: WarningIcon,
   shuffle: ShuffleIcon,
   chevron: ChevronIcon,
+  "chevron-white": ChevronWhiteIcon,
+  sun: SunIcon,
+  moon: MoonIcon,
 };
 
 type IconProp = CSSStyle & {

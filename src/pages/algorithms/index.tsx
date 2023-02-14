@@ -4,7 +4,6 @@ import { Header, MyHead } from "@components/common";
 import { pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import style from "@styles/default.module.scss";
-import textStyle from "@styles/text.module.scss";
 import algorithmStyle from "./algorithms.module.scss";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
 
@@ -19,14 +18,7 @@ const AlgorithmIndex: React.FC = () => {
       <MyHead {...algorithms} />
       <div>
         <Header />
-        <div
-          style={{
-            backgroundColor: style.deepNavy,
-            color: style.greyLight1,
-            padding: `0 2em min(5vw, 1.5em) 2em`,
-            marginTop: -0.1,
-          }}
-        >
+        <div className={algorithmStyle.header_row}>
           <h2 style={{ textAlign: "center" }}>Algorithm Visualizer</h2>
           <div
             style={{ width: "min(30%, 128px)", margin: "1.5rem auto 0 auto" }}
@@ -44,7 +36,7 @@ const AlgorithmIndex: React.FC = () => {
             justifyContent: "center",
           }}
         >
-          <div className={algorithmStyle.triangle} />
+          <div className={style.triangle} />
           <div className={algorithmStyle.mobile_disappearing}>
             <p style={{ marginBottom: "0.75em" }}>
               Visualize / Animate famous algorithms

@@ -7,12 +7,14 @@ type WindowSliceProp = {
   width: number;
   height: number;
   deviceType: DeviceType;
+  isDarkMode: boolean;
 };
 
 export const windowSliceInitState: WindowSliceProp = {
   width: 0,
   height: 0,
   deviceType: "DESKTOP",
+  isDarkMode: true,
 };
 
 export const windowSlice = createSlice({
@@ -32,10 +34,13 @@ export const windowSlice = createSlice({
     setHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload;
     },
+    setDarkMode: (state, action: PayloadAction<boolean>) => {
+      state.isDarkMode = action.payload;
+    },
   },
 });
 
-export const { setHeight, setWidth } = windowSlice.actions;
+export const { setHeight, setWidth, setDarkMode } = windowSlice.actions;
 export const selectWindow = (state: RootState) => state.window;
 
 export default windowSlice.reducer;

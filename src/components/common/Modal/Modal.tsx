@@ -41,7 +41,7 @@ export const Modal: React.FC<ModalProp> = ({ isShown, onClose, children }) => {
             cursor: "pointer",
           }}
         >
-          <Icon icon={"close"} width={20} height={20} fill={"#6a6b6d"} />
+          <Icon icon={"close"} width={20} height={20} />
         </div>
         {children}
       </div>

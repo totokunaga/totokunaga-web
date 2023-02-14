@@ -23,6 +23,6 @@ $checked-transition: all 0.1s ease-in-out;
   margin: 0px 0px 5px 0px;
 }
 .checkmark.checked {
-  border-left: 2.5px solid var(--greyLight-1);
-  border-bottom: 2.5px solid var(--greyLight-1);
+  border-left: 2.5px solid var(--plain);
+  border-bottom: 2.5px solid var(--plain);
 }

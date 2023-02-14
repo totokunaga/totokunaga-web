@@ -1,3 +1,5 @@
+import { setDarkMode, store } from "@utils/slices";
+
 export * from "./pages";
 
 export const initMatrix = <T>(
@@ -22,4 +24,18 @@ export const isiOSDevice = () => {
       navigator.userAgent.match(/iPhone/i) ||
       navigator.userAgent.match(/Safari/i)
   );
+};
+
+export const setGlobalDarkMode = (isDarkMode: boolean) => {
+  const { dispatch } = store;
+  dispatch(setDarkMode(isDarkMode));
+  localStorage.setItem("color-theme", isDarkMode ? "dark" : "light");
+
+  if (isDarkMode) {
+    document.documentElement.setAttribute("data-theme", "dark");
+    document.documentElement.setAttribute("style", "color-scheme: dark;");
+  } else {
+    document.documentElement.setAttribute("data-theme", "light");
+    document.documentElement.setAttribute("style", "color-scheme: light;");
+  }
 };

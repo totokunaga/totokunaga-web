@@ -2,7 +2,7 @@ import style from "@styles/default.module.scss";
 import textStyle from "@styles/text.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
 import meStyle from "./me.module.scss";
-import { MyHead, ProgressSteps, RadioBlock } from "@components/common";
+import { Header, MyHead, ProgressSteps, RadioBlock } from "@components/common";
 import { greeting, pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
@@ -58,8 +58,8 @@ const Index = () => {
 
   const introductionClassName = useMemo(() => {
     const classes = [
-      neumorphic.root,
-      neumorphic.paragraph,
+      // neumorphic.root,
+      // neumorphic.paragraph,
       meStyle.profile_description_wrapper,
     ];
     return classes.join(" ");
@@ -68,50 +68,65 @@ const Index = () => {
   return (
     <>
       <MyHead {...root} />
+      <Header />
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div className={meStyle.top_bg} />
+        <div className={style.triangle} style={{ top: "min(50vw, 10rem)" }} />
+      </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div className={style.root} style={{ paddingTop: "3rem" }}>
-          <div
-            id={"greeting"}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "1rem",
-              height: "min(12.5vw, 7rem)",
-            }}
-          >
-            <h1
+        <div className={style.root}>
+          <div style={{ display: "flex", marginBottom: "1rem" }}>
+            <div
+              id={"greeting"}
               style={{
-                marginRight: "0.5rem",
-                fontSize:
-                  typewriterLang === "ja" ? "min(8vw, 4.5rem)" : undefined,
-                fontFamily:
-                  typewriterLang === "ja"
-                    ? `'Noto Sans JP', sans-serif`
-                    : undefined,
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+                height: "min(12.5vw, 7rem)",
               }}
             >
-              {typewriterVal}
-            </h1>
+              <h1
+                style={{
+                  marginRight: "0.5rem",
+                  fontSize:
+                    typewriterLang === "ja" ? "min(8vw, 4.5rem)" : undefined,
+                  fontFamily:
+                    typewriterLang === "ja"
+                      ? `'Noto Sans JP', sans-serif`
+                      : undefined,
+                }}
+              >
+                {typewriterVal}
+              </h1>
+              <div
+                className={style.typewriter}
+                style={{ height: typewriterHeight }}
+              />
+            </div>
             <div
-              className={style.typewriter}
-              style={{ height: typewriterHeight }}
-            />
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "auto 0px auto auto",
+              }}
+            >
+              <img
+                alt={"profile"}
+                src={"/profile.jpg"}
+                className={meStyle.profile_image}
+                draggable={false}
+              />
+            </div>
           </div>
 
           <div style={{ display: "flex" }}>
             <div className={introductionClassName}>
-              <div className={meStyle.profile_description_float}>
-                <div className={meStyle.profile_image_wrapper}>
-                  <div className={neumorphicDown} style={{ padding: "7.5%" }}>
-                    <img
-                      alt={"profile"}
-                      src={"/profile.jpg"}
-                      className={meStyle.profile_image}
-                      draggable={false}
-                    />
-                  </div>
-                </div>
-              </div>
               {introduction.map((text, i) => (
                 <p
                   key={i}
@@ -201,11 +216,7 @@ const Index = () => {
                 >
                   {title}
                 </p>
-                <RadioBlock
-                  items={list}
-                  value={null}
-                  fontColor={neumorphic.navy}
-                />
+                <RadioBlock items={list} value={null} />
               </div>
             ))}
           </div>
