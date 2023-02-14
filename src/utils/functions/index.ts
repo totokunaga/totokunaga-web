@@ -29,7 +29,7 @@ export const isiOSDevice = () => {
 export const setGlobalDarkMode = (isDarkMode: boolean) => {
   const { dispatch } = store;
   dispatch(setDarkMode(isDarkMode));
-  localStorage.setItem("color-theme", isDarkMode ? "dark" : "light");
+  sessionStorage.setItem("color-theme", isDarkMode ? "dark" : "light");
 
   if (isDarkMode) {
     document.documentElement.setAttribute("data-theme", "dark");
