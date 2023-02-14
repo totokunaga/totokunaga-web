@@ -58,9 +58,10 @@ export const Cell: React.FC<CellProp> = ({
       {isStart && (
         <Icon
           icon={
-            darkMode && whiteArrowCells.has(status)
-              ? "chevron-white"
-              : "chevron"
+            "chevron"
+            // darkMode && whiteArrowCells.has(status)
+            //   ? "chevron-white"
+            //   : "chevron"
           }
           width={"100%"}
           height={"100%"}

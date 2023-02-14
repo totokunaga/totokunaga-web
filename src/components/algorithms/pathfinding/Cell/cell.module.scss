@@ -6,8 +6,10 @@
   transition: all 0.15s ease-in-out;
   -webkit-transition: all 0.15s ease-in-out;
   cursor: pointer;
-  background-color: var(--plain-light);
-  border: solid 0.5px var(--plain);
+  // background-color: var(--plain-light);
+  // border: solid 0.5px var(--plain);
+  background-color: var(--white);
+  border: solid 0.5px var(--white);
   &:hover {
     background-color: #eeeeee;
   }
@@ -26,8 +28,8 @@
   }
 
   &.Blocked {
-    background-color: var(--plain-opposite-dark);
-    border: solid 0.5px var(--plain-opposite-dark);
+    background-color: var(--navy-color);
+    border: solid 0.5px var(--navy-color);
   }
 
   &.Selected {
