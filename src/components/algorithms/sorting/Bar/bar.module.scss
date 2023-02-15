@@ -10,13 +10,12 @@
 }
 
 .bar {
-  color: var(--greyLight-3);
-  @media (prefers-color-scheme: dark) {
-    color: var(--greyLight-2);
-  }
-  &.reversed {
-    @include neumorphic-shadow-reversed();
-  }
+  background-color: var(--bar-default);
+  color: var(--bar-color);
+  @include colored-shadow(
+    var(--bar-default-shadow-tl),
+    var(--bar-default-shadow-br)
+  );
 
   &.swap {
     color: var(--white);

@@ -12,7 +12,7 @@ import {
 import { CellProp } from "./types";
 
 export const cellTypes: Array<ClearableCellType> = [BLOCKED, VISITED, PATH];
-const whiteArrowCells = new Set<CellType>(["Empty"]);
+const whiteArrowCells = new Set<CellType>(["Empty", "Visited"]);
 
 export const Cell: React.FC<CellProp> = ({
   width,
@@ -72,7 +72,6 @@ export const Cell: React.FC<CellProp> = ({
           icon={"star"}
           width={"88%"}
           height={"88%"}
-          // fill={darkMode && status === "Path" ? "#09a3a3" : "#F4BB44"}
           fill={"#F4BB44"}
           margin={"auto"}
         />

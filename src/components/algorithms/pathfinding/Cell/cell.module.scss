@@ -16,8 +16,8 @@
   }
 
   &.Visited {
-    background-color: var(--cell-blue);
-    border: solid 0.5px var(--cell-blue);
+    background-color: var(--cell-visited);
+    border: solid 0.5px var(--cell-visited-border);
   }
 
   &.Path {
