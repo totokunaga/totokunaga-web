@@ -136,36 +136,6 @@ export const ConfigModalContent: React.FC<{
             getDisplayValue={getDisplayedSpeed}
           />
         </div>
-
-        {/* <p
-          className={textStyle.xlarger}
-          style={{ fontWeight: 700, marginBottom: "0.75em" }}
-        >
-          Cell clear setting
-        </p>
-        {cellTypes.map((type, i) => (
-          <div
-            key={type}
-            className={defaultStyle.horizontallyAligned}
-            style={{ marginBottom: 8 }}
-          >
-            <div style={{ marginRight: 12 }}>
-              <Checkbox
-                checked={clearableCells[type]}
-                onChecked={() => onClearableCellChecked(type)}
-                value={0}
-              />
-            </div>
-            <div
-              className={defaultStyle.horizontallyAligned}
-              style={{ cursor: "pointer" }}
-              onClick={() => onClearableCellChecked(type)}
-            >
-              <Cell width={30} height={30} status={type} disabled={true} />
-              <span style={{ margin: "0px 0px 0px 8px" }}>{type}</span>
-            </div>
-          </div>
-        ))} */}
       </div>
       <div
         id={configModalCloseButtonId}

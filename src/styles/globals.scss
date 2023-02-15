@@ -52,9 +52,24 @@
   --appearance-color-light: #f4f0fd;
   --appearance-color: #5b0eeb;
   --appearance-color-dark: #440bb6;
+  // --logo-color: #6d5dfc;
+  // --logo-color-dark: #5b0eeb;
   --logo-color: #0a74ff;
   --logo-color-dark: #00265b;
 
+  --button-color: #5b0eeb;
+  --button-color-hovered: #320886;
+
+  --radio-color-light: #8abdff;
+  --radio-color: #6d5dfc;
+  --radio-color-dark: #5b0eeb;
+  --radio-inactive-text: #384a75;
+  --radio-inactive-light: #e6e7ed;
+  --radio-inactive: #9baacf;
+  --radio-inactive-dark: #4a629a;
+
+  --cell-default-hovered: #eee;
+  --cell-default-active: #ccc;
   --cell-visited: #b6d0e2;
   --cell-visited-border: #b6d0e2;
   --cell-empty: #00265b;
@@ -103,35 +118,6 @@
 }
 
 :root[data-theme="dark"] {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
-
-  --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-  --secondary-glow: linear-gradient(
-    to bottom right,
-    rgba(1, 65, 255, 0),
-    rgba(1, 65, 255, 0),
-    rgba(1, 65, 255, 0.3)
-  );
-
-  --tile-start-rgb: 2, 13, 46;
-  --tile-end-rgb: 2, 5, 19;
-  --tile-border: conic-gradient(
-    #ffffff80,
-    #ffffff40,
-    #ffffff30,
-    #ffffff20,
-    #ffffff10,
-    #ffffff10,
-    #ffffff80
-  );
-
-  --callout-rgb: 20, 20, 20;
-  --callout-border-rgb: 108, 108, 108;
-  --card-rgb: 100, 100, 100;
-  --card-border-rgb: 200, 200, 200;
-
   // COLORS
   --plain-light: #48484b;
   --plain: #202023;
@@ -148,6 +134,22 @@
   --logo-color: #07f9ff;
   --logo-color-dark: #1a96e9;
 
+  --primary-light: #56a2ff;
+  --secondary-light: #ff7abc;
+
+  --button-color: #00cdd1;
+  --button-color-hovered: #009b9e;
+
+  --radio-color-light: #00faff;
+  --radio-color: #0ccfcf;
+  --radio-color-dark: #002d2d;
+  --radio-inactive-text: #cbd3e6;
+  --radio-inactive-light: #94a4cb;
+  --radio-inactive: #405586;
+  --radio-inactive-dark: #171e30;
+
+  --cell-default-hovered: #39393b;
+  --cell-default-active: #2c2c2e;
   --cell-visited: #000;
   --cell-visited-border: #48484b;
   --cell-empty: #fff;

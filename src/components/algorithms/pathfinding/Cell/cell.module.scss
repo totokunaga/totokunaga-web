@@ -9,10 +9,10 @@
   background-color: var(--plain-light);
   border: solid 0.5px var(--plain);
   &:hover {
-    background-color: #eeeeee;
+    background-color: var(--cell-default-hovered);
   }
   &:active {
-    background-color: #cccccc;
+    background-color: var(--cell-default-active);
   }
 
   &.Visited {
@@ -28,8 +28,6 @@
   &.Blocked {
     background-color: var(--cell-empty);
     border: solid 0.5px var(--cell-empty);
-    // background-color: var(--plain-opposite-dark);
-    // border: solid 0.5px var(--plain-opposite-dark);
   }
 
   &.Selected {

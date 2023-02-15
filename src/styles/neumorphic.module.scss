@@ -53,12 +53,8 @@ $primaryDark: #5b0eeb;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary-dark);
-    fill: var(--primary-dark);
-    @media (prefers-color-scheme: dark) {
-      color: var(--primary);
-      fill: var(--primary);
-    }
+    color: var(--button-color);
+    fill: var(--button-color);
 
     &.primary {
       @include inward-shodow(var(--primary-light), var(--primary-dark));
@@ -95,8 +91,8 @@ $primaryDark: #5b0eeb;
     }
 
     &:hover {
-      color: var(--deep-primary-dark);
-      fill: var(--deep-primary-dark);
+      color: var(--button-color-hovered);
+      fill: var(--button-color-hovered);
     }
     &:active {
       @include neumorphic-inner-shadow;
@@ -112,8 +108,8 @@ $primaryDark: #5b0eeb;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--plain-opposite);
-    fill: var(--plain-opposite);
+    color: var(--radio-inactive-text);
+    fill: var(--radio-inactive-text);
     @media (max-width: 520px) {
       font-size: min(4vw, 15px);
     }
@@ -127,13 +123,9 @@ $primaryDark: #5b0eeb;
       }
     }
     &.checked {
-      color: var(--primary-dark);
-      fill: var(--primary-dark);
+      color: var(--button-color);
+      fill: var(--button-color);
       @include neumorphic-inner-shadow;
-      @media (prefers-color-scheme: dark) {
-        color: var(--primary);
-        fill: var(--primary);
-      }
     }
     &.no_content {
       padding: 8px;
@@ -145,20 +137,14 @@ $primaryDark: #5b0eeb;
     width: 5px;
     margin: 5px auto;
     padding: 0px;
-    background-color: var(--primary);
-    box-shadow: inset 1.5px 1.5px 4.5px var(--primary-dark),
-      inset -1.5px -1.5px 4.5px var(--primary-light);
+    background-color: var(--radio-color);
+    box-shadow: inset 1.5px 1.5px 4.5px var(--radio-color-dark),
+      inset -1.5px -1.5px 4.5px var(--radio-color-light);
     &.animate {
       animation-name: opacity-animation;
       animation-duration: 3s;
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;
-    }
-    &:hover,
-    &:active {
-      box-shadow: inset 1.5px 1.5px 4.5px var(--primary-dark),
-        inset -1.5px -1.5px 4.5px var(--primary-light);
-      background-color: var(--primary);
     }
   }
 

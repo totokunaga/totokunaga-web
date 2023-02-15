@@ -57,11 +57,7 @@ const Index = () => {
   }, [typewriterLang]);
 
   const introductionClassName = useMemo(() => {
-    const classes = [
-      // neumorphic.root,
-      // neumorphic.paragraph,
-      meStyle.profile_description_wrapper,
-    ];
+    const classes = [meStyle.profile_description_wrapper];
     return classes.join(" ");
   }, []);
 

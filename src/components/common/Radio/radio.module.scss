@@ -16,19 +16,22 @@
   width: 16px;
   height: 16px;
   border-radius: 20px;
-  background-color: var(--greyDark);
+  background-color: var(--radio-inactive);
   margin-right: 8px;
   transition: all 0.1s ease-in-out;
-  @include inward-inner-shodow-shallower(var(--greyDark-dark), var(--plain));
+  @include inward-inner-shodow-shallower(
+    var(--radio-inactive-dark),
+    var(--radio-inactive-light)
+  );
   &.slim {
     width: 10px;
     height: 10px;
   }
   &.checked {
-    background-color: var(--primary);
+    background-color: var(--radio-color);
     @include inward-inner-shodow-shallower(
-      var(--deep-primary-dark),
-      var(--primary-light)
+      var(--radio-color-dark),
+      var(--radio-color-light)
     );
     &.sub {
       opacity: 0.4;

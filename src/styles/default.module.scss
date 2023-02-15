@@ -55,6 +55,14 @@
   }
 }
 
+.top_bg {
+  position: absolute;
+  height: min(50vw, 10rem);
+  width: 100%;
+  background-color: var(--plain-semi-dark);
+  z-index: -100;
+}
+
 .mobile_friendly_flex {
   display: flex;
   flex-direction: column;
