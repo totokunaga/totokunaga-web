@@ -6,7 +6,7 @@ $primaryDark: #5b0eeb;
 
 .root {
   @include neumorphic-shadow;
-  padding: 16px 24px;
+  padding: 1em 1.5em;
   border-radius: 0.65rem;
   justify-self: center;
   border: none;
@@ -58,7 +58,7 @@ $primaryDark: #5b0eeb;
 
     &.primary {
       @include inward-shodow(var(--primary-light), var(--primary-dark));
-      padding: 12px 24px;
+      padding: 0.75em 1.5em;
       background: var(--primary);
       color: var(--greyLight-1);
       fill: var(--greyLight-1);
@@ -73,7 +73,7 @@ $primaryDark: #5b0eeb;
     }
     &.secondary {
       @include inward-shodow(var(--secondary-light), var(--secondary-dark));
-      padding: 12px 24px;
+      padding: 0.75em 1.5em;
       background: var(--secondary);
       color: var(--greyLight-1);
       fill: var(--greyLight-1);
@@ -102,7 +102,7 @@ $primaryDark: #5b0eeb;
   // RADIO
   &.radio {
     cursor: pointer;
-    padding: 10px 20px 10px 15px;
+    padding: 0.75em 1.25em 0.75em 1em;
     font-size: min(4vw, 16px);
     border-radius: 20px;
     display: flex;
@@ -110,18 +110,7 @@ $primaryDark: #5b0eeb;
     justify-content: center;
     color: var(--radio-inactive-text);
     fill: var(--radio-inactive-text);
-    @media (max-width: 520px) {
-      font-size: min(4vw, 15px);
-    }
-    &.slim {
-      font-size: 12px;
-      padding: 6px 12px 6px 9px;
-      @include neumorphic-shadow;
-      &.checked {
-        color: var(--primary-dark);
-        @include neumorphic-inner-shadow;
-      }
-    }
+    font-size: max(min(3.5vw, 0.95rem), 0.75rem);
     &.checked {
       color: var(--radio-color);
       fill: var(--radio-color);

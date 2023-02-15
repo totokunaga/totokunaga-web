@@ -178,7 +178,7 @@ export const Grid: React.FC<GridProp> = (props) => {
           key={r}
           style={{
             display: "flex",
-            justifyContent: "space-around",
+            // justifyContent: "space-around",
             width: "100%",
             height: "100%",
           }}
@@ -191,7 +191,7 @@ export const Grid: React.FC<GridProp> = (props) => {
               <Cell
                 key={c}
                 width={`100%`}
-                height={`96%`}
+                height={`97%`}
                 status={cellMap[type]}
                 isStart={isStart}
                 isEnd={isEnd}

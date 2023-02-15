@@ -55,27 +55,29 @@ export const Cell: React.FC<CellProp> = ({
         ...prop,
       }}
     >
-      {isStart && (
-        <Icon
-          icon={
-            darkMode && whiteArrowCells.has(status)
-              ? "chevron-white"
-              : "chevron"
-          }
-          width={"100%"}
-          height={"100%"}
-          margin={"auto"}
-        />
-      )}
-      {isEnd && (
-        <Icon
-          icon={"star"}
-          width={"88%"}
-          height={"88%"}
-          fill={"#F4BB44"}
-          margin={"auto"}
-        />
-      )}
+      <div>
+        {isStart && (
+          <Icon
+            icon={
+              darkMode && whiteArrowCells.has(status)
+                ? "chevron-white"
+                : "chevron"
+            }
+            width={"100%"}
+            height={"100%"}
+            margin={"auto"}
+          />
+        )}
+        {isEnd && (
+          <Icon
+            icon={"star"}
+            width={"88%"}
+            height={"88%"}
+            fill={"#F4BB44"}
+            margin={"auto"}
+          />
+        )}
+      </div>
     </div>
   );
 };

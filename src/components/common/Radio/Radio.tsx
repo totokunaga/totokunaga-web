@@ -32,7 +32,6 @@ export const Radio: React.FC<RadioProp> = ({
       classes.push(neumorphic.checked);
     }
     if (!content) classes.push(neumorphic.no_content);
-    if (size === "slim") classes.push(neumorphic.slim);
     return classes.join(" ");
   }, [content, checked, size]);
 
@@ -42,7 +41,6 @@ export const Radio: React.FC<RadioProp> = ({
     if (animate) classes.push(style.animate);
     if (checked) classes.push(style.checked);
     if (!content) classes.push(style.no_content);
-    if (size === "slim") classes.push(style.slim);
     return classes.join(" ");
   }, [sub, animate, checked, content]);
 

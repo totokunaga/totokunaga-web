@@ -120,6 +120,7 @@ const Index = () => {
                 src={"/profile.jpg"}
                 className={meStyle.profile_image}
                 draggable={false}
+                style={{ zIndex: 1 }}
               />
             </div>
           </div>

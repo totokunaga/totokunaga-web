@@ -90,8 +90,8 @@ export const MiniPathfinding: React.FC = () => {
                 status={cellMap[value]}
                 isStart={isStart}
                 isEnd={isEnd}
-                width={`${Math.floor(85 / gridSize)}%`}
-                height={"95%"}
+                width={`${Math.floor(90 / gridSize)}%`}
+                height={"98%"}
                 cursor={"pointer"}
                 disabled={true}
                 darkMode={isDarkMode}

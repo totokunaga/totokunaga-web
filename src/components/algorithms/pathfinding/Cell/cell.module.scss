@@ -2,12 +2,13 @@
 
 .cell {
   margin: 0.5px;
-  // border-radius: 2px;
   transition: all 0.15s ease-in-out;
   -webkit-transition: all 0.15s ease-in-out;
+  -moz-transition: all 0.15s ease-in-out;
   cursor: pointer;
   background-color: var(--plain-light);
   border: solid 0.5px var(--plain);
+
   &:hover {
     background-color: var(--cell-default-hovered);
   }
@@ -33,5 +34,16 @@
   &.Selected {
     background-color: #fcd3e3;
     border: solid 0.5px #fcd3e3;
+  }
+}
+
+@keyframes appearing {
+  0% {
+    opacity: 0;
+    // transform: scale(0, 0);
+  }
+  100% {
+    opacity: 1;
+    // transform: scale(1, 1);
   }
 }

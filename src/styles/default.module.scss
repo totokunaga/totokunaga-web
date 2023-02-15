@@ -63,6 +63,37 @@
   z-index: -100;
 }
 
+.blurry_gradient {
+  width: min(50vw, 11rem);
+  height: min(50vw, 11rem);
+  // border-radius: 50% 22% 40% 80%;
+  border-radius: 50%;
+  filter: blur(75px);
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  // opacity: 0.45;
+
+  // background: radial-gradient(
+  //   circle at 50% 50%,
+  //   rgba(251, 37, 118, 0.3),
+  //   rgba(0, 162, 249, 0.75)
+  // );
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 162, 249, 0.4),
+    rgba(251, 37, 118, 0.4)
+  );
+}
+
+[data-theme="dark"] .blurry_gradient {
+  opacity: 0.7;
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 162, 249, 0.6),
+    rgba(251, 37, 118, 0.6)
+  );
+}
+
 .mobile_friendly_flex {
   display: flex;
   flex-direction: column;

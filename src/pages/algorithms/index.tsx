@@ -39,8 +39,20 @@ const AlgorithmIndex: React.FC = () => {
           }}
         >
           <h2 style={{ textAlign: "center" }}>Algorithm Visualizer</h2>
-          <div style={{ width: "min(30%, 128px)", margin: "1.5rem auto" }}>
+          <div
+            style={{
+              width: "min(30%, 128px)",
+              margin: "1.5rem auto",
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <ColoredGraphIcon width={"100%"} height={"100%"} />
+            <div
+              className={`${style.blurry_gradient}`}
+              style={{ position: "absolute", top: "-1.5rem", zIndex: -1 }}
+            />
           </div>
           <p style={{ marginBottom: "0.5em" }}>
             Visualize / Animate famous algorithms
