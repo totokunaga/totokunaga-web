@@ -123,8 +123,8 @@ $primaryDark: #5b0eeb;
       }
     }
     &.checked {
-      color: var(--button-color);
-      fill: var(--button-color);
+      color: var(--radio-color);
+      fill: var(--radio-color);
       @include neumorphic-inner-shadow;
     }
     &.no_content {
