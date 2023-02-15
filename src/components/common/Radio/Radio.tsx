@@ -46,9 +46,7 @@ export const Radio: React.FC<RadioProp> = ({
     return classes.join(" ");
   }, [sub, animate, checked, content]);
 
-  console.log(wrapperClassName);
   return (
-    // <div className={wrapperClassName} style={{ color: fontColor }}>
     <div className={wrapperClassName}>
       <div
         className={circleClassName}
