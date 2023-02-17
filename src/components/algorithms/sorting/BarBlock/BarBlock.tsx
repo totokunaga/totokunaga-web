@@ -49,6 +49,14 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
     }
   });
 
+  // Clearup function when unmounted
+  useEffect(() => {
+    return () => {
+      dispatch(setSortingAlgorithmExecuted(false));
+      dispatch(setBarRandamized(false));
+    };
+  }, [dispatch]);
+
   // When "Start" button is hit
   useEffect(() => {
     if (algorithmExecuted) {
@@ -133,7 +141,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
 
   const onBarClick = useCallback(
     (value?: number) => {
-      if (value !== undefined) {
+      if (!algorithmExecuted && !randomizeExecuted && value !== undefined) {
         let newBars = [...bars];
         if (rearrangeTargetOne === undefined) {
           setRearrangeTargetOne(value);

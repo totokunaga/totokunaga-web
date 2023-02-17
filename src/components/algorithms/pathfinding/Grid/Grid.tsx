@@ -42,6 +42,14 @@ export const Grid: React.FC<GridProp> = (props) => {
   const { clearExecuted, clearableCells, algorithm, algorithmExecuted } =
     useSelector(selectPathfindingController);
 
+  // Clearup function when unmounted
+  useEffect(() => {
+    return () => {
+      dispatch(setPathfindingAlgorithmExecuted(false));
+      dispatch(setClearExecuted(false));
+    };
+  }, [dispatch]);
+
   const onClickCell = useCallback(
     (coordinate: Coordinate) => {
       if (!algorithmExecuted) {

@@ -40,6 +40,12 @@ export const PathfindingControlSection: React.FC = () => {
     }
   }, [dispatch, algorithmExecuted]);
 
+  const onClearClick = useCallback(() => {
+    if (!algorithmExecuted) {
+      setClearModalShown(true);
+    }
+  }, [dispatch, algorithmExecuted]);
+
   return (
     <div className={style.wrapper}>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -55,9 +61,7 @@ export const PathfindingControlSection: React.FC = () => {
         </Button>
 
         <Button
-          onClick={() => {
-            setClearModalShown(true);
-          }}
+          onClick={onClearClick}
           type={"primary"}
           className={rightmostFirstRowButtonClassName}
         >

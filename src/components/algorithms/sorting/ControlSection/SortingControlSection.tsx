@@ -33,16 +33,16 @@ export const SortingControlSection: React.FC = () => {
   );
 
   const onStart = useCallback(() => {
-    if (!algorithmExecuted) {
+    if (!algorithmExecuted && !randomizeExecuted) {
       dispatch(setSortingAlgorithmExecuted(true));
     }
-  }, [dispatch]);
+  }, [dispatch, algorithmExecuted, randomizeExecuted]);
 
   const onRandomize = useCallback(() => {
-    if (!randomizeExecuted) {
+    if (!algorithmExecuted && !randomizeExecuted) {
       dispatch(setBarRandamized(true));
     }
-  }, [dispatch]);
+  }, [dispatch, algorithmExecuted, randomizeExecuted]);
 
   return (
     <div className={style.wrapper}>
