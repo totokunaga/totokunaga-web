@@ -1,13 +1,19 @@
 import Coordinate from "@utils/classes/Coordinate";
 
 export type ClearableCellType = "Blocked" | "Visited" | "Path";
-export type CellType = "Selected" | "Empty" | "Pushed" | ClearableCellType;
+export type CellType =
+  | "Selected"
+  | "Empty"
+  | "Pushed"
+  | "Unhoverable"
+  | ClearableCellType;
 export const EMPTY: CellType = "Empty";
 export const VISITED: ClearableCellType = "Visited";
 export const BLOCKED: ClearableCellType = "Blocked";
 export const PATH: ClearableCellType = "Path";
 export const PUSHED: CellType = "Pushed";
 export const SELECTED: CellType = "Selected";
+export const UNHOVERABLE: CellType = "Unhoverable";
 
 export const EMPTY_0 = 0;
 export const VISITED_1 = 1;
@@ -15,6 +21,7 @@ export const BLOCKED_2 = 2;
 export const PATH_3 = 3;
 export const SELECTED_4 = 4;
 export const PUSHED_5 = 5;
+export const UNHOVERABLE_6 = 6;
 
 export const cellMap: Record<number, CellType> = {
   [EMPTY_0]: EMPTY,
@@ -23,6 +30,7 @@ export const cellMap: Record<number, CellType> = {
   [PATH_3]: PATH,
   [SELECTED_4]: SELECTED,
   [PUSHED_5]: PUSHED,
+  [UNHOVERABLE_6]: UNHOVERABLE,
 };
 
 export type PathfindingAnimationType = "visit" | "trace" | "push";

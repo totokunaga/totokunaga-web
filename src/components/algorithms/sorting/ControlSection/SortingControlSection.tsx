@@ -33,16 +33,16 @@ export const SortingControlSection: React.FC = () => {
   );
 
   const onStart = useCallback(() => {
-    if (!algorithmExecuted && !randomizeExecuted) {
+    if (!algorithmExecuted) {
       dispatch(setSortingAlgorithmExecuted(true));
     }
-  }, [dispatch, algorithmExecuted, randomizeExecuted]);
+  }, [dispatch, algorithmExecuted]);
 
   const onRandomize = useCallback(() => {
-    if (!algorithmExecuted && !randomizeExecuted) {
+    if (!randomizeExecuted) {
       dispatch(setBarRandamized(true));
     }
-  }, [dispatch, algorithmExecuted, randomizeExecuted]);
+  }, [dispatch, randomizeExecuted]);
 
   return (
     <div className={style.wrapper}>
@@ -51,6 +51,7 @@ export const SortingControlSection: React.FC = () => {
           onClick={onStart}
           type={"secondary"}
           className={leftmostFirstRowButtonClassName}
+          disabled={algorithmExecuted}
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"play"} height={20} margin={"0 12px 0 0"} />
@@ -62,6 +63,7 @@ export const SortingControlSection: React.FC = () => {
           onClick={onRandomize}
           type={"primary"}
           className={rightmostFirstRowButtonClassName}
+          disabled={algorithmExecuted}
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"shuffle"} height={20} margin={"0 12px 0 0"} />
@@ -77,6 +79,7 @@ export const SortingControlSection: React.FC = () => {
           type={"normal"}
           padding={"12px 24px"}
           fontWeight={400}
+          disabled={algorithmExecuted}
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"sharp-setting"} width={24} animation={"rotate"} />

@@ -15,6 +15,12 @@
   &:active {
     background-color: var(--cell-default-active);
   }
+  &.Unhoverable {
+    &:hover,
+    &:active {
+      background-color: var(--plain-light);
+    }
+  }
 
   &.Visited {
     background-color: var(--cell-visited);

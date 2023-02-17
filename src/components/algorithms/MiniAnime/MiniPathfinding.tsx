@@ -1,6 +1,6 @@
 import { initMatrix } from "@utils/functions";
 import { selectWindow } from "@utils/slices";
-import { BLOCKED_2, cellMap, EMPTY_0, PATH_3 } from "@utils/types";
+import { BLOCKED_2, cellMap, PATH_3, UNHOVERABLE_6 } from "@utils/types";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Cell } from "../pathfinding";
@@ -32,7 +32,9 @@ const cellAnimationOrder: {
 ];
 
 export const MiniPathfinding: React.FC = () => {
-  const [grid, setGrid] = useState(initMatrix(gridSize, gridSize, EMPTY_0));
+  const [grid, setGrid] = useState(
+    initMatrix(gridSize, gridSize, UNHOVERABLE_6)
+  );
   const [doneAnimation, setDoneAnimation] = useState(false);
 
   const { isDarkMode } = useSelector(selectWindow);
@@ -40,7 +42,7 @@ export const MiniPathfinding: React.FC = () => {
   useEffect(() => {
     if (doneAnimation) {
       setTimeout(() => {
-        setGrid(initMatrix(gridSize, gridSize, EMPTY_0));
+        setGrid(initMatrix(gridSize, gridSize, UNHOVERABLE_6));
         setTimeout(() => {
           setDoneAnimation(false);
         }, restartAnimationOffset);

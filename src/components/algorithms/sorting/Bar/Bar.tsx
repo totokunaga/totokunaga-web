@@ -10,7 +10,7 @@ type BarProp = CSSStyle & {
   value?: number;
   translate: { x: number; y: number };
   showValue: boolean;
-  onClickHandler: (value?: number) => void;
+  onClickHandler?: (value?: number) => void;
 };
 
 export const Bar: React.FC<BarProp> = ({
@@ -46,7 +46,7 @@ export const Bar: React.FC<BarProp> = ({
       <div
         id={"bar-" + value}
         className={barClassName}
-        onClick={() => onClickHandler(value)}
+        onClick={() => onClickHandler && onClickHandler(value)}
         style={{
           width,
           height,

@@ -12,7 +12,7 @@ import {
 import { CellProp } from "./types";
 
 export const cellTypes: Array<ClearableCellType> = [BLOCKED, VISITED, PATH];
-const whiteArrowCells = new Set<CellType>(["Empty", "Visited"]);
+const whiteArrowCells = new Set<CellType>(["Empty", "Visited", "Unhoverable"]);
 
 export const Cell: React.FC<CellProp> = ({
   width,

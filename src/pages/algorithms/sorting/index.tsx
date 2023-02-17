@@ -42,7 +42,7 @@ const SortingIndex: React.FC = () => {
     setValues(randomValues);
   }, [numberOfBars]);
 
-  return (
+  return values.length ? (
     <>
       <MyHead {...sorting} />
       <div
@@ -90,7 +90,7 @@ const SortingIndex: React.FC = () => {
         </div>
       </div>
     </>
-  );
+  ) : null;
 };
 
 export default SortingIndex;

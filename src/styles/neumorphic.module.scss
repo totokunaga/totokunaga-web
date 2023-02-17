@@ -97,6 +97,14 @@ $primaryDark: #5b0eeb;
     &:active {
       @include neumorphic-inner-shadow;
     }
+    &.disabled {
+      @include neumorphic-inner-shadow;
+      cursor: not-allowed;
+      padding: 0.75em 1.5em;
+      color: var(--greyLight-2);
+      fill: var(--greyLight-2);
+      pointer-events: none;
+    }
   }
 
   // RADIO

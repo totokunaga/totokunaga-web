@@ -8,14 +8,11 @@
   cursor: pointer;
 
   &.appearance_setting {
-    // background-color: var(--appearance-color-light);
     background-color: transparent;
-    // fill: var(--plain);
     fill: var(--appearance-color);
     border: solid 2px var(--appearance-color);
     transition: all 0.15s ease-in-out;
     &:hover {
-      // background-color: var(--appearance-color-dark);
       fill: var(--appearance-color-dark);
       border: solid 2px var(--appearance-color-dark);
     }

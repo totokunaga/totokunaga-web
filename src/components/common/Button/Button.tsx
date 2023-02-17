@@ -3,14 +3,15 @@ import style from "@styles/neumorphic.module.scss";
 import buttonStyle from "./button.module.scss";
 import { CSSStyle } from "@utils/types";
 
-type NeumorphicButtonProp = CSSStyle & {
+type ButtonProp = CSSStyle & {
   onClick?: () => any;
-  children?: ReactNode;
   type?: "secondary" | "normal" | "primary" | "flat";
+  disabled?: boolean;
+  children?: ReactNode;
   className?: string;
 };
 
-export const Button: React.FC<NeumorphicButtonProp> = ({
+export const Button: React.FC<ButtonProp> = ({
   onClick,
   margin,
   padding,
@@ -19,26 +20,34 @@ export const Button: React.FC<NeumorphicButtonProp> = ({
   backgroundColor,
   flexGrow = 1,
   type = "normal",
+  disabled = false,
   className,
   children,
 }) => {
   const buttonClassName = useMemo(() => {
     const classes = [];
-    if (type !== "flat") {
+    if (!disabled) {
+      if (type !== "flat") {
+        classes.push(style.root);
+        classes.push(style.button);
+        if (type !== "normal") classes.push(style[type]);
+      } else {
+        classes.push(buttonStyle[type]);
+      }
+    } else {
       classes.push(style.root);
       classes.push(style.button);
-      if (type !== "normal") classes.push(style[type]);
-    } else {
-      classes.push(buttonStyle[type]);
+      classes.push(style.disabled);
     }
     if (className) classes.push(className);
+
     return classes.join(" ");
-  }, [type, className]);
+  }, [type, className, disabled]);
 
   return (
     <button
       className={buttonClassName}
-      onClick={onClick}
+      onClick={() => !disabled && onClick && onClick()}
       style={{
         margin,
         padding,

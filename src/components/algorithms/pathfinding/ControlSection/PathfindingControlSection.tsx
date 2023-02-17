@@ -35,16 +35,12 @@ export const PathfindingControlSection: React.FC = () => {
   );
 
   const onStartClick = useCallback(() => {
-    if (!algorithmExecuted) {
-      dispatch(setPathfindingAlgorithmExecuted(true));
-    }
-  }, [dispatch, algorithmExecuted]);
+    dispatch(setPathfindingAlgorithmExecuted(true));
+  }, [dispatch]);
 
   const onClearClick = useCallback(() => {
-    if (!algorithmExecuted) {
-      setClearModalShown(true);
-    }
-  }, [dispatch, algorithmExecuted]);
+    setClearModalShown(true);
+  }, [dispatch]);
 
   return (
     <div className={style.wrapper}>
@@ -53,6 +49,7 @@ export const PathfindingControlSection: React.FC = () => {
           onClick={onStartClick}
           type={"secondary"}
           className={leftmostFirstRowButtonClassName}
+          disabled={algorithmExecuted}
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"play"} height={20} margin={"0 12px 0 0"} />
@@ -64,6 +61,7 @@ export const PathfindingControlSection: React.FC = () => {
           onClick={onClearClick}
           type={"primary"}
           className={rightmostFirstRowButtonClassName}
+          disabled={algorithmExecuted}
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"trash-bin"} height={20} margin={"0 12px 0 0"} />
@@ -81,6 +79,7 @@ export const PathfindingControlSection: React.FC = () => {
           type={"normal"}
           padding={"12px 24px"}
           fontWeight={400}
+          disabled={algorithmExecuted}
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"sharp-setting"} width={24} animation={"rotate"} />
