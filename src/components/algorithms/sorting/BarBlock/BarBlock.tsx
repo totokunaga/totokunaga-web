@@ -1,8 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
-import { CSSStyle, SortableBar } from "@utils/types";
+import { Fragment, useCallback, useEffect, useState } from "react";
+import { CSSStyle, SortableBar, SortingPrevAnimationType } from "@utils/types";
 import { Bar } from "../Bar";
-import { animateBars, initBars } from "@utils/functions";
-import { sortingAlgorithms } from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { animateBars, getSortingAnimation, initBars } from "@utils/functions";
+import {
+  sortingAlgorithms,
+  swap,
+} from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -24,6 +27,9 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   const [indexes, setIndexes] = useState<number[]>([]);
   const [showValue, setShowValue] = useState(true);
 
+  const [rearrangeTargetOne, setRearrangeTargetOne] = useState<number>();
+  const [rearrangeTargetTwo, setRearrangeTargetTwo] = useState<number>();
+
   const dispatch = useDispatch();
   const { algorithm, algorithmSpeed, algorithmExecuted, randomizeExecuted } =
     useSelector(selectSortindingController);
@@ -39,11 +45,11 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
     if (barElement) {
       const barWidth = barElement.clientWidth;
       const barHeight = barElement.clientHeight;
-      console.log(barHeight);
       setShowValue(barWidth > 24 && barHeight > 32);
     }
   });
 
+  // When "Start" button is hit
   useEffect(() => {
     if (algorithmExecuted) {
       const sortingAnimations = sortingAlgorithms[algorithm](innerValues);
@@ -66,6 +72,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
     }
   }, [algorithmExecuted]);
 
+  // When "Randomize" button is hit
   useEffect(() => {
     if (randomizeExecuted) {
       const shuffledValues = [...innerValues];
@@ -90,6 +97,72 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
     }
   }, [randomizeExecuted]);
 
+  // When a user clicks two different bars to rearrange elements
+  useEffect(() => {
+    if (rearrangeTargetOne && rearrangeTargetTwo) {
+      const indexOne = innerValues.indexOf(rearrangeTargetOne);
+      const indexTwo = innerValues.indexOf(rearrangeTargetTwo);
+      const animations = [];
+      const prevAnimation = new SortingPrevAnimationType("none");
+      animations.push(
+        getSortingAnimation("swap", [indexOne, indexTwo], prevAnimation)
+      );
+      animations.push(getSortingAnimation("reset", [], prevAnimation));
+
+      let timeoutAmount = 0;
+      let newBars = [...bars];
+      let newIndexes = [...indexes];
+      let newInnerValues = [...innerValues];
+      swap(newInnerValues, indexOne, indexTwo);
+      animations.forEach((animation, i) => {
+        timeoutAmount += animation.duration;
+        setTimeout(() => {
+          animateBars(newBars, newIndexes, animation);
+          setBars([...newBars]);
+          setIndexes([...newIndexes]);
+          setInnerValues(newInnerValues);
+
+          if (i === animations.length - 1) {
+            setRearrangeTargetOne(undefined);
+            setRearrangeTargetTwo(undefined);
+          }
+        }, timeoutAmount);
+      });
+    }
+  }, [rearrangeTargetOne, rearrangeTargetTwo]);
+
+  const onBarClick = useCallback(
+    (value?: number) => {
+      if (value !== undefined) {
+        let newBars = [...bars];
+        if (rearrangeTargetOne === undefined) {
+          setRearrangeTargetOne(value);
+          const animation = getSortingAnimation(
+            "focus",
+            [innerValues.indexOf(value)],
+            new SortingPrevAnimationType("none")
+          );
+          animateBars(newBars, indexes, animation);
+          setBars([...newBars]);
+        } else {
+          if (value === rearrangeTargetOne) {
+            setRearrangeTargetOne(undefined);
+            const animation = getSortingAnimation(
+              "clear",
+              [innerValues.indexOf(value)],
+              new SortingPrevAnimationType("none")
+            );
+            animateBars(newBars, indexes, animation);
+            setBars([...newBars]);
+          } else {
+            setRearrangeTargetTwo(value);
+          }
+        }
+      }
+    },
+    [bars, innerValues, rearrangeTargetOne, rearrangeTargetTwo]
+  );
+
   return (
     <div className={barStyle.barblock_wrapper}>
       {bars.map(({ value, status, relativeIndex }, i) => {
@@ -105,6 +178,7 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
                 sortingTransitionSpeed[status] / algorithmSpeed
               }s ease-in-out`}
               showValue={showValue}
+              onClickHandler={onBarClick}
             />
           </Fragment>
         );

@@ -65,7 +65,7 @@ export const SortingControlSection: React.FC = () => {
         >
           <div className={defaultStyle.horizontallyAligned}>
             <Icon icon={"shuffle"} height={20} margin={"0 12px 0 0"} />
-            <span>{"Randamize"}</span>
+            <span>{"Randomize"}</span>
           </div>
         </Button>
       </div>
