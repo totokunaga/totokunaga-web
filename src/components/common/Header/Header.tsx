@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { selectWindow } from "@utils/slices";
 import { setGlobalDarkMode } from "@utils/functions";
 import buttonStyle from "../Button/button.module.scss";
+import { ThemeButton } from "../ThemeButton";
 
 const headerId = "my-header";
 
@@ -75,17 +76,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
           </h4>
           {children}
           <div style={{ margin: "auto 0px auto auto" }}>
-            <Button
-              type={"flat"}
-              padding={"0.65em"}
-              onClick={onAppearance}
-              className={buttonStyle.appearance_setting}
-            >
-              <Icon
-                icon={isDarkMode ? "sun" : "moon"}
-                height={"min(5vw, 1.75em)"}
-              />
-            </Button>
+            <ThemeButton />
           </div>
         </div>
       </div>

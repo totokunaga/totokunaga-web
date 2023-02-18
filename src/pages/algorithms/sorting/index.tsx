@@ -10,6 +10,7 @@ import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { selectSortindingController, selectWindow } from "@utils/slices";
 import GraphIcon from "@assets/graph.svg";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
+import { ThemeButton } from "@components/common/ThemeButton";
 
 const { sorting } = pages;
 
@@ -59,7 +60,6 @@ const SortingIndex: React.FC = () => {
             alignItems: "center",
             marginBottom: "1rem",
           }}
-          onClick={() => router.push(paths.algorigthms)}
         >
           <div
             style={{
@@ -67,6 +67,7 @@ const SortingIndex: React.FC = () => {
               marginRight: 5,
               cursor: "pointer",
             }}
+            onClick={() => router.push(paths.algorigthms)}
           >
             {!isDarkMode ? (
               <GraphIcon width={"100%"} height={"100%"} />
@@ -74,9 +75,15 @@ const SortingIndex: React.FC = () => {
               <ColoredGraphIcon width={"100%"} height={"100%"} />
             )}
           </div>
-          <h3 style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}>
+          <h3
+            style={{ margin: "4px 0 8px 2.5px", cursor: "pointer" }}
+            onClick={() => router.push(paths.algorigthms)}
+          >
             Sorting
           </h3>
+          <div style={{ margin: "auto 0px auto auto" }}>
+            <ThemeButton />
+          </div>
         </div>
 
         <div className={style.mobile_friendly_flex} style={{ height: "100%" }}>

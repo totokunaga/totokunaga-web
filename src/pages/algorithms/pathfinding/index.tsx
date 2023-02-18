@@ -11,6 +11,7 @@ import { pages, pathfindingPageId } from "@utils/constants";
 import { selectPathfindingController, selectWindow } from "@utils/slices";
 import GraphIcon from "@assets/graph.svg";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
+import { ThemeButton } from "@components/common/ThemeButton";
 
 const { pathfinding } = pages;
 
@@ -73,6 +74,9 @@ const PathfindingIndex: React.FC = () => {
             >
               Pathfinding
             </h3>
+            <div style={{ margin: "auto 0px auto auto" }}>
+              <ThemeButton />
+            </div>
           </div>
 
           <div
