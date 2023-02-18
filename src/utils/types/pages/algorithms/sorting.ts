@@ -1,10 +1,4 @@
-export type BarStatus =
-  | "normal"
-  | "swap"
-  | "focus"
-  | "compare"
-  | "range"
-  | "done";
+export type BarStatus = "normal" | "swap" | "focus" | "done";
 export type SortingAnimationType =
   | BarStatus
   | "clear"
@@ -41,5 +35,10 @@ export type SortingAnimation = {
   duration: number;
 };
 
-export type SortingAlgorithm = "Quicksort" | "Selection" | "Bubble";
+export type SortingAlgorithm =
+  | "Quicksort"
+  | "Selection"
+  | "Bubble"
+  | "Insertion"
+  | "Heapsort";
 export type SortingFunction = (values: number[]) => SortingAnimation[];

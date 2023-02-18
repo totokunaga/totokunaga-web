@@ -14,6 +14,8 @@ export const sortingNames: Record<SortingAlgorithm, string> = {
   Quicksort: "Quicksort",
   Selection: "Selection",
   Bubble: "Bubble",
+  Insertion: "Insertion",
+  Heapsort: "Heapsort",
 };
 
 export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({

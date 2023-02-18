@@ -1,9 +1,22 @@
-class MinHeap<T> {
+class Heap<T> {
   heap: T[];
-  isLessThan: (one: T, two: T) => boolean;
+  comparator: (one: T, two: T) => boolean;
+  swapCallback?: (i: number, j: number) => void;
+  popCallback?: (i: number) => void;
 
-  constructor(array: T[], isLessThan: (one: T, two: T) => boolean) {
-    this.isLessThan = isLessThan;
+  constructor(
+    array: T[],
+    comparator: (one: T, two: T) => boolean,
+    swapCallback?: (i: number, j: number) => void,
+    popCallback?: (i: number) => void
+  ) {
+    this.comparator = comparator;
+    if (swapCallback) {
+      this.swapCallback = swapCallback;
+    }
+    if (popCallback) {
+      this.popCallback = popCallback;
+    }
     this.heap = this.buildHeap(array);
   }
 
@@ -23,14 +36,14 @@ class MinHeap<T> {
       let idxToSwap;
       if (
         childTwoIdx !== -1 &&
-        this.isLessThan(heap[childTwoIdx], heap[childOneIdx])
+        this.comparator(heap[childTwoIdx], heap[childOneIdx])
       ) {
         idxToSwap = childTwoIdx;
       } else {
         idxToSwap = childOneIdx;
       }
 
-      if (this.isLessThan(heap[idxToSwap], heap[currentIdx])) {
+      if (this.comparator(heap[idxToSwap], heap[currentIdx])) {
         this.swap(currentIdx, idxToSwap, heap);
         currentIdx = idxToSwap;
         childOneIdx = currentIdx * 2 + 1;
@@ -44,7 +57,7 @@ class MinHeap<T> {
     let parentIdx = Math.floor((currentIdx - 1) / 2);
     while (
       currentIdx > 0 &&
-      this.isLessThan(heap[currentIdx], heap[parentIdx])
+      this.comparator(heap[currentIdx], heap[parentIdx])
     ) {
       this.swap(currentIdx, parentIdx, heap);
       currentIdx = parentIdx;
@@ -58,7 +71,12 @@ class MinHeap<T> {
 
   pop() {
     this.swap(0, this.heap.length - 1, this.heap);
+    if (this.popCallback) {
+      this.popCallback(this.heap.length - 1);
+    }
+
     const valueToRemove = this.heap.pop();
+
     this.siftDown(0, this.heap.length - 1, this.heap);
     return valueToRemove;
   }
@@ -76,7 +94,10 @@ class MinHeap<T> {
     const temp = heap[i];
     heap[i] = heap[j];
     heap[j] = temp;
+    if (this.swapCallback) {
+      this.swapCallback(i, j);
+    }
   }
 }
 
-export default MinHeap;
+export default Heap;

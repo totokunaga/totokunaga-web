@@ -27,7 +27,7 @@ const quicksortHelper = (
           getSortingAnimation("swap", [swapIdx, i], prevAnimation)
         );
         animations.push(
-          getSortingAnimation("range", [swapIdx, i], prevAnimation)
+          getSortingAnimation("clear", [swapIdx, i], prevAnimation)
         );
       }
 

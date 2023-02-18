@@ -1,5 +1,5 @@
 import Coordinate from "@utils/classes/Coordinate";
-import MinHeap from "@utils/classes/MinHeap";
+import Heap from "@utils/classes/Heap";
 import { getPathfindingAnimation, initMatrix } from "@utils/functions";
 import { COLS, ROWS } from "@utils/constants";
 import { CellInfo, PathfindingAnimation, PathfindingArg } from "@utils/types";
@@ -18,7 +18,7 @@ export const aStar = ({
   const animations: PathfindingAnimation[] = [];
 
   const initEntry: WeightedCoordinate = [[start, null], 0];
-  const heap = new MinHeap<WeightedCoordinate>([initEntry], isLessThan);
+  const heap = new Heap<WeightedCoordinate>([initEntry], isLessThan);
 
   const rowSize = grid.length;
   const colSize = grid[0].length;

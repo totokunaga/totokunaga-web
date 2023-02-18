@@ -45,7 +45,6 @@ export const animateBars = (
       break;
 
     case "swap":
-    case "compare":
       bars[indexes[positionOne!]].status = type;
       bars[indexes[positionTwo!]].status = type;
       if (type === "swap") {
@@ -55,12 +54,6 @@ export const animateBars = (
 
     case "move":
       swapBars(bars, indexes, positionOne!, positionTwo!);
-      break;
-
-    case "range":
-      for (let i = positionOne!; i < positionTwo! + 1; i++) {
-        bars[indexes[i]].status = type;
-      }
       break;
 
     case "clear":
@@ -101,9 +94,7 @@ export const getSortingAnimation = (
     case "done":
       result.positionOne = positions[0];
       break;
-    case "range":
     case "swap":
-    case "compare":
     case "move":
       result.positionOne = positions[0];
       result.positionTwo = positions.length > 1 ? positions[1] : positions[0];
