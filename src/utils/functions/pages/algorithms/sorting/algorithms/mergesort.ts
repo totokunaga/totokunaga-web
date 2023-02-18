@@ -1,20 +1,19 @@
-const mergesortHelper = (values: number[]) => {
-  const n = values.length;
-  if (n <= 1) {
+const mergesortHelper = (values: number[], start: number, end: number) => {
+  if (end - start <= 1) {
     return values;
   }
 
-  const middle = Math.floor(n / 2);
+  const middle = Math.floor((start + end) / 2);
 
-  const left = mergesortHelper(values.slice(0, middle));
-  const right = mergesortHelper(values.slice(middle));
+  mergesortHelper(values, start, middle - 1);
+  mergesortHelper(values, middle, end);
 
-  let i = 0;
-  let l = 0;
-  let r = 0;
-  while (l < left.length && r < right.length) {
-    const leftVal = left[l];
-    const rightVal = right[r];
+  let i = start;
+  let l = start;
+  let r = middle;
+  while (l < middle && r < end + 1) {
+    const leftVal = values[l];
+    const rightVal = values[r];
     if (leftVal < rightVal) {
       values[i] = leftVal;
       l++;
@@ -25,14 +24,14 @@ const mergesortHelper = (values: number[]) => {
     i++;
   }
 
-  while (l < left.length) {
-    values[i] = left[l];
+  while (l < middle) {
+    values[i] = values[l];
     l++;
     i++;
   }
 
-  while (r < right.length) {
-    values[i] = right[r];
+  while (r < end + 1) {
+    values[i] = values[r];
     r++;
     i++;
   }
@@ -41,5 +40,5 @@ const mergesortHelper = (values: number[]) => {
 };
 
 export const mergesort = (values: number[]) => {
-  mergesortHelper(values);
+  mergesortHelper(values, 0, values.length - 1);
 };
