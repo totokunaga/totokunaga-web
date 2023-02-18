@@ -11,6 +11,7 @@ export * from "./bubblesort";
 export * from "./shuffle";
 export * from "./insertion-sort";
 export * from "./heapsort";
+export * from "./mergesort";
 
 export const sortingAlgorithms: Record<SortingAlgorithm, SortingFunction> = {
   Quicksort: quicksort,

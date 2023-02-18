@@ -6,13 +6,20 @@ import { BAR_BLOCK_WRAPPER, pages, paths } from "@utils/constants";
 import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { SortingControlSection } from "@components/algorithms";
-import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
+import {
+  mergesort,
+  shuffle,
+} from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { selectSortindingController, selectWindow } from "@utils/slices";
 import GraphIcon from "@assets/graph.svg";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
 import { ThemeButton } from "@components/common/ThemeButton";
 
 const { sorting } = pages;
+
+const values = [3, 4, 5, 1, 8, 2, 6, 7];
+mergesort(values);
+console.log(values);
 
 const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);

@@ -45,6 +45,7 @@ commit_id=$(git rev-parse --short HEAD)
 current_time=$(date +%Y%m%d%H%M%S)
 
 img_tag=${deployment_name}:${commit_id}_${current_time}
+img_name=${img_tag_prefix}/${deployment_name}
 remote_img_tag=${img_tag_prefix}/${img_tag}
 
 # Phase1 Image build
@@ -71,4 +72,4 @@ if [ $cloud_env  != $LOCAL ]; then
 fi
 
 # Phase4 Remove old local images
-docker image ls --filter=reference="${deployment_name}" --format "table {{.ID}}" | xargs sh ./deployment/remove_old_local_images.sh
+docker image ls --filter=reference="${img_name}" --format "table {{.ID}}" | xargs sh ./deployment/remove_old_local_images.sh
