@@ -1,7 +1,12 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
 import { CSSStyle, SortableBar, SortingPrevAnimationType } from "@utils/types";
 import { Bar } from "../Bar";
-import { animateBars, getSortingAnimation, initBars } from "@utils/functions";
+import {
+  animateBars,
+  getSortingAnimation,
+  initBars,
+  visualizeSorting,
+} from "@utils/functions";
 import {
   sortingAlgorithms,
   swap,
@@ -60,23 +65,14 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   // When "Start" button is hit
   useEffect(() => {
     if (algorithmExecuted) {
-      const sortingAnimations = sortingAlgorithms[algorithm](innerValues);
-
-      let timeoutAmount = 0;
-      let newBars = [...bars];
-      let newIndexes = [...indexes];
-      sortingAnimations.forEach((animation, i) => {
-        timeoutAmount += animation.duration;
-        setTimeout(() => {
-          animateBars(newBars, newIndexes, animation);
-          setBars([...newBars]);
-          setIndexes([...newIndexes]);
-
-          if (i === sortingAnimations.length - 1) {
-            dispatch(setSortingAlgorithmExecuted(false));
-          }
-        }, timeoutAmount);
-      });
+      visualizeSorting(
+        algorithm,
+        bars,
+        indexes,
+        innerValues,
+        setBars,
+        setIndexes
+      );
     }
   }, [algorithmExecuted]);
 

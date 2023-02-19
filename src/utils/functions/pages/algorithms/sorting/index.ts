@@ -1,11 +1,15 @@
 import { sortingTransitionSpeed } from "@utils/constants";
-import { store } from "@utils/slices";
+import { setSortingAlgorithmExecuted, store } from "@utils/slices";
 import {
   SortableBar,
+  SortingAlgorithm,
   SortingAnimation,
   SortingAnimationType,
   SortingPrevAnimationType,
+  swapSortingAlgorithmSet,
 } from "@utils/types";
+import { SetStateAction } from "react";
+import { sortingAlgorithms } from "./algorithms";
 
 export const initBars = (values: number[]): SortableBar[] => {
   return values.map((v) => ({
@@ -76,15 +80,16 @@ export const animateBars = (
 export const getSortingAnimation = (
   type: SortingAnimationType,
   positions: number[],
-  prevAnimation: SortingPrevAnimationType
+  prevAnimation: SortingPrevAnimationType,
+  duration?: number
 ) => {
   const { algorithmSpeed } = store.getState().sortingController;
   const result: SortingAnimation = {
     type,
-    duration: 0,
+    duration: duration || 0,
   };
 
-  if (prevAnimation) {
+  if (duration === undefined && prevAnimation) {
     result.duration = sortingTransitionSpeed[prevAnimation.type] * 1000;
   }
   result.duration /= algorithmSpeed;
@@ -108,4 +113,38 @@ export const getSortingAnimation = (
 
   prevAnimation.type = type;
   return result;
+};
+
+export const visualizeSorting = (
+  algorithm: SortingAlgorithm,
+  bars: SortableBar[],
+  indexes: number[],
+  values: number[],
+  setBars: (value: SetStateAction<SortableBar[]>) => void,
+  setIndexes: (value: SetStateAction<number[]>) => void
+) => {
+  const { dispatch } = store;
+  const sortingAnimations = sortingAlgorithms[algorithm](
+    values,
+    bars,
+    indexes,
+    setBars,
+    setIndexes
+  );
+
+  let timeoutAmount = 0;
+  let newBars = [...bars];
+  let newIndexes = [...indexes];
+  sortingAnimations.forEach((animation, i) => {
+    timeoutAmount += animation.duration;
+    setTimeout(() => {
+      animateBars(newBars, newIndexes, animation);
+      setBars([...newBars]);
+      setIndexes([...newIndexes]);
+
+      if (i === sortingAnimations.length - 1) {
+        dispatch(setSortingAlgorithmExecuted(false));
+      }
+    }, timeoutAmount);
+  });
 };

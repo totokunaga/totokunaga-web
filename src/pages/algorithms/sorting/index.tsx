@@ -17,9 +17,9 @@ import { ThemeButton } from "@components/common/ThemeButton";
 
 const { sorting } = pages;
 
-const values = [3, 4, 5, 1, 8, 2, 6, 7];
-mergesort(values);
-console.log(values);
+// const values = [5, 3, 2, 4, 1];
+// mergesort(values);
+// console.log(values);
 
 const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);

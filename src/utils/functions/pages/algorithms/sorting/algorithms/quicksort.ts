@@ -1,4 +1,8 @@
-import { SortingAnimation, SortingPrevAnimationType } from "@utils/types";
+import {
+  SortingAnimation,
+  SortingPrevAnimationType,
+  SwapSortingFunction,
+} from "@utils/types";
 import { swap } from ".";
 import { getSortingAnimation } from "..";
 

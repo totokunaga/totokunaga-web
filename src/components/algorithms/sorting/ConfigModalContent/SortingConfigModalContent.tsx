@@ -7,16 +7,8 @@ import {
   setSortindingAlgorithm,
   setSortingAlgorithmSpeed,
 } from "@utils/slices";
-import { SortingAlgorithm } from "@utils/types";
+import { SortingAlgorithm, sortingNames } from "@utils/types";
 import textStyle from "@styles/text.module.scss";
-
-export const sortingNames: Record<SortingAlgorithm, string> = {
-  Quicksort: "Quicksort",
-  Selection: "Selection",
-  Bubble: "Bubble",
-  Insertion: "Insertion",
-  Heapsort: "Heapsort",
-};
 
 export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
   onClose,

@@ -22,6 +22,34 @@ export const sortingTransitionSpeed: Record<SortingAnimationType, number> = {
   none: 0,
 };
 
+export const nonswapSortingAnimationSpeed: Record<
+  SortingAnimationType,
+  number
+> = {
+  normal: 300,
+  swap: 300,
+  focus: 150,
+  done: 100,
+  clear: 150,
+  reset: 150,
+  move: 300,
+  none: 0,
+};
+
+export const nonswapSortingTransitionSpeed: Record<
+  SortingAnimationType,
+  number
+> = {
+  normal: 0.3,
+  swap: 0.3,
+  focus: 0.3,
+  done: 0.1,
+  clear: 0.3,
+  reset: 0,
+  move: 0.3,
+  none: 0,
+};
+
 export const baseColoringSpped = 0.1;
 export const baseSwapSpeed = 0.25;
 

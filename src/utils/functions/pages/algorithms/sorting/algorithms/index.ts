@@ -2,6 +2,7 @@ import { SortingAlgorithm, SortingFunction } from "@utils/types";
 import { bubblesort } from "./bubblesort";
 import { heapsort } from "./heapsort";
 import { insertionSort } from "./insertion-sort";
+import { mergesort } from "./mergesort";
 import { quicksort } from "./quicksort";
 import { selectionSort } from "./selection-sort";
 
@@ -19,6 +20,7 @@ export const sortingAlgorithms: Record<SortingAlgorithm, SortingFunction> = {
   Bubble: bubblesort,
   Insertion: insertionSort,
   Heapsort: heapsort,
+  Mergesort: mergesort,
 };
 
 export const swap = <T>(values: T[], i: number, j: number) => {

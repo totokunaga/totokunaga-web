@@ -12,7 +12,7 @@ type sortingControllerSliceProp = {
 };
 
 export const sortingControllerSliceInitState: sortingControllerSliceProp = {
-  algorithm: "Quicksort",
+  algorithm: "Mergesort",
   algorithmSpeed: 1,
   algorithmExecuted: false,
   randomizeExecuted: false,
