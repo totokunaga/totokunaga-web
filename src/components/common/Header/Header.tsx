@@ -8,7 +8,7 @@ import { Button } from "../Button";
 import { Icon } from "../Icon";
 import { useSelector } from "react-redux";
 import { selectWindow } from "@utils/slices";
-import { setGlobalDarkMode } from "@utils/functions";
+import { getOAuthRedirectURI, setGlobalDarkMode } from "@utils/functions";
 import buttonStyle from "../Button/button.module.scss";
 import { ThemeButton } from "../ThemeButton";
 
@@ -51,13 +51,14 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
           style={{
             display: "flex",
             alignItems: "center",
-            cursor: "pointer",
+            // cursor: "pointer",
             width: "100%",
           }}
         >
           <div
             className={headerStyle.icon_wrapper}
             onClick={() => router.push(paths.root)}
+            style={{ cursor: "pointer" }}
           >
             {!isDarkMode ? (
               <TIconDark width={"100%"} height={"100%"} />
@@ -66,7 +67,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             )}
           </div>
           <h4
-            style={{ margin: "0px 0px 0px 5px" }}
+            style={{ margin: "0px 0px 0px 5px", cursor: "pointer" }}
             onClick={() => router.push(paths.root)}
           >
             <span className={headerStyle.logo_text}>to</span>
@@ -75,7 +76,21 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             </span>
           </h4>
           {children}
-          <div style={{ margin: "auto 0px auto auto" }}>
+
+          <div
+            style={{
+              margin: "auto 0px auto auto",
+              display: "flex",
+              cursor: "default",
+            }}
+          >
+            <Button
+              type={"flat"}
+              margin={"0 16px 0 0"}
+              onClick={() => router.push(getOAuthRedirectURI("google"))}
+            >
+              Login
+            </Button>
             <ThemeButton />
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { setDarkMode, store } from "@utils/slices";
 
 export * from "./pages";
+export * from "./auth";
 
 export const initMatrix = <T>(
   rowSize: number,
