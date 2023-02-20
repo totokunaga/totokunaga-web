@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 
-export type BarStatus = "normal" | "swap" | "focus" | "done";
+export type BarStatus = "default" | "normal" | "swap" | "focus" | "done";
 export type SortingAnimationType =
   | BarStatus
   | "clear"
@@ -60,14 +60,6 @@ export const sortingNames: Record<SortingAlgorithm, string> = {
   Heapsort: HEAPSORT,
   Mergesort: MERGESORT,
 };
-
-export const swapSortingAlgorithmSet = new Set([
-  QUICKSORT,
-  SELECTION_SORT,
-  BUBBLE_SORT,
-  INSERTION_SORT,
-  HEAPSORT,
-]);
 
 export type SwapSortingFunction = (values: number[]) => SortingAnimation[];
 export type NonswapSortingFunction = (

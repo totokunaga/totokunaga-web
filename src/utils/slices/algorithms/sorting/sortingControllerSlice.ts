@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { slicerNames } from "@utils/slices/slicerNames";
 import { RootState } from "@utils/slices/store";
-import { SortingAlgorithm } from "@utils/types";
+import { QUICKSORT, SortingAlgorithm } from "@utils/types";
 
 type sortingControllerSliceProp = {
   algorithm: SortingAlgorithm;
@@ -12,7 +12,7 @@ type sortingControllerSliceProp = {
 };
 
 export const sortingControllerSliceInitState: sortingControllerSliceProp = {
-  algorithm: "Mergesort",
+  algorithm: QUICKSORT,
   algorithmSpeed: 1,
   algorithmExecuted: false,
   randomizeExecuted: false,

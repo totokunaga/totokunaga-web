@@ -6,10 +6,7 @@ import { BAR_BLOCK_WRAPPER, pages, paths } from "@utils/constants";
 import style from "@styles/default.module.scss";
 import { BarBlock } from "@components/algorithms/sorting/BarBlock/BarBlock";
 import { SortingControlSection } from "@components/algorithms";
-import {
-  mergesort,
-  shuffle,
-} from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { shuffle } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { selectSortindingController, selectWindow } from "@utils/slices";
 import GraphIcon from "@assets/graph.svg";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
@@ -17,12 +14,9 @@ import { ThemeButton } from "@components/common/ThemeButton";
 
 const { sorting } = pages;
 
-// const values = [5, 3, 2, 4, 1];
-// mergesort(values);
-// console.log(values);
-
 const SortingIndex: React.FC = () => {
   const [values, setValues] = useState<number[]>([]);
+  const [isControllerVisible, setControllerVisible] = useState(false);
 
   const { numberOfBars } = useSelector(selectSortindingController);
   const { isDarkMode } = useSelector(selectWindow);
@@ -46,11 +40,10 @@ const SortingIndex: React.FC = () => {
     ).map((_, i) => i + 1);
 
     shuffle(randomValues);
-
     setValues(randomValues);
   }, [numberOfBars]);
 
-  return values.length ? (
+  return (
     <>
       <MyHead {...sorting} />
       <div
@@ -94,17 +87,24 @@ const SortingIndex: React.FC = () => {
         </div>
 
         <div className={style.mobile_friendly_flex} style={{ height: "100%" }}>
-          <SortingControlSection />
+          <div
+            style={{ visibility: isControllerVisible ? "visible" : "hidden" }}
+          >
+            <SortingControlSection />
+          </div>
           <div
             id={BAR_BLOCK_WRAPPER}
             style={{ display: "flex", flex: 1, justifyContent: "center" }}
           >
-            <BarBlock values={values} />
+            <BarBlock
+              values={values}
+              setControllerVisible={setControllerVisible}
+            />
           </div>
         </div>
       </div>
     </>
-  ) : null;
+  );
 };
 
 export default SortingIndex;

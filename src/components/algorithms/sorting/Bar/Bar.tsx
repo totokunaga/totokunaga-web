@@ -24,8 +24,7 @@ export const Bar: React.FC<BarProp> = ({
   onClickHandler,
 }) => {
   const barClassName = useMemo(() => {
-    const classes = [neumorphic.root, style.bar];
-    if (status !== "normal") classes.push(style[status]);
+    const classes = [neumorphic.root, style.bar, style[status]];
     return classes.join(" ");
   }, [status]);
 

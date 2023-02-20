@@ -1,4 +1,11 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { CSSStyle, SortableBar, SortingPrevAnimationType } from "@utils/types";
 import { Bar } from "../Bar";
 import {
@@ -7,10 +14,7 @@ import {
   initBars,
   visualizeSorting,
 } from "@utils/functions";
-import {
-  sortingAlgorithms,
-  swap,
-} from "@utils/functions/pages/algorithms/sorting/algorithms";
+import { swap } from "@utils/functions/pages/algorithms/sorting/algorithms";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -24,9 +28,13 @@ import barStyle from "../Bar/bar.module.scss";
 
 type BarBlockProp = CSSStyle & {
   values: number[];
+  setControllerVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
+export const BarBlock: React.FC<BarBlockProp> = ({
+  values,
+  setControllerVisible,
+}) => {
   const [innerValues, setInnerValues] = useState<number[]>([]);
   const [bars, setBars] = useState<SortableBar[]>([]);
   const [indexes, setIndexes] = useState<number[]>([]);
@@ -39,18 +47,19 @@ export const BarBlock: React.FC<BarBlockProp> = ({ values }) => {
   const { algorithm, algorithmSpeed, algorithmExecuted, randomizeExecuted } =
     useSelector(selectSortindingController);
 
+  // Initialize bar related UI information
   useEffect(() => {
     setInnerValues(values);
     setBars(initBars(values));
     setIndexes(values.map((_, i) => i));
+    setControllerVisible(true);
   }, [values]);
 
   useEffect(() => {
     const barElement = document.getElementById("bar-1");
     if (barElement) {
       const barWidth = barElement.clientWidth;
-      const barHeight = barElement.clientHeight;
-      setShowValue(barWidth > 24 && barHeight > 32);
+      setShowValue(barWidth > 24);
     }
   });
 

@@ -6,7 +6,6 @@ import {
   SortingAnimation,
   SortingAnimationType,
   SortingPrevAnimationType,
-  swapSortingAlgorithmSet,
 } from "@utils/types";
 import { SetStateAction } from "react";
 import { sortingAlgorithms } from "./algorithms";
@@ -14,7 +13,7 @@ import { sortingAlgorithms } from "./algorithms";
 export const initBars = (values: number[]): SortableBar[] => {
   return values.map((v) => ({
     value: v,
-    status: "normal",
+    status: "default",
     relativeIndex: 0,
   }));
 };
