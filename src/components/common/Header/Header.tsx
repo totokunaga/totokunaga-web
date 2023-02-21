@@ -1,19 +1,28 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import headerStyle from "./header.module.scss";
+import buttonStyle from "../Button/button.module.scss";
 import { paths } from "@utils/constants";
 import TIcon from "@assets/t-icon.svg";
 import TIconDark from "@assets/t-icon-dark.svg";
 import { Button } from "../Button";
-import { Icon } from "../Icon";
 import { useSelector } from "react-redux";
 import { selectWindow } from "@utils/slices";
-import { getOAuthRedirectURI, onFacebookLogin } from "@utils/functions";
+import {
+  getGoogleOAuthURL,
+  oauthLogin,
+  onFacebookLogin,
+  onFacebookLogout,
+} from "@utils/functions";
 import { ThemeButton } from "../ThemeButton";
+import { Icon } from "../Icon";
+import { Modal } from "../Modal";
+import { LoginModalContent } from "./LoginModalContent";
 
 const headerId = "my-header";
 
 export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
+  const [isLoginModalShown, setLoginModalShown] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
 
   const router = useRouter();
@@ -75,16 +84,33 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
           >
             <Button
               type={"flat"}
-              margin={"0 16px 0 0"}
-              // onClick={() => router.push(getOAuthRedirectURI("google"))}
-              onClick={onFacebookLogin}
+              margin={"0 1em 0 0"}
+              padding={".5em 1.25em"}
+              className={buttonStyle.login}
+              // onClick={() => oauthLogin("google")}
+              onClick={() => setLoginModalShown(true)}
             >
-              Login
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Icon
+                  icon={"person"}
+                  width={"2em"}
+                  fill={"#e6e7ed"}
+                  margin={"auto .5em auto auto"}
+                />
+                <span>Login</span>
+              </div>
             </Button>
             <ThemeButton />
           </div>
         </div>
       </div>
+      <Modal
+        isShown={isLoginModalShown}
+        onClose={() => setLoginModalShown(false)}
+        maxWidth={520}
+      >
+        <LoginModalContent onClose={() => setLoginModalShown(false)} />
+      </Modal>
     </>
   );
 };

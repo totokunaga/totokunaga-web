@@ -1,6 +1,20 @@
-type OAuthProvider = "google";
+import { onFacebookLogin } from "./facebook";
 
-export const getOAuthRedirectURI = (provider: OAuthProvider) => {
+export type OAuthProvider = "google" | "facebook";
+
+export const oauthLogin = (provider: OAuthProvider) => {
+  switch (provider) {
+    case "google":
+      const oauthLoginPageUrl = getGoogleOAuthURL();
+      window.location.href = oauthLoginPageUrl;
+      break;
+    case "facebook":
+      onFacebookLogin();
+      break;
+  }
+};
+
+export const getGoogleOAuthURL = () => {
   const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
   const options = {
     redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI as string,

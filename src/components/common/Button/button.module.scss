@@ -17,4 +17,9 @@
       border: solid 2px var(--appearance-color-dark);
     }
   }
+  &.login {
+    background-color: var(--logo-color-dark);
+    color: var(--greyLight-1);
+    font-weight: 600;
+  }
 }

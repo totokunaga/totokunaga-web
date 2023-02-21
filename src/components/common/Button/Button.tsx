@@ -22,7 +22,9 @@ export const Button: React.FC<ButtonProp> = ({
   type = "normal",
   disabled = false,
   className,
+  width,
   children,
+  ...props
 }) => {
   const buttonClassName = useMemo(() => {
     const classes = [];
@@ -49,6 +51,7 @@ export const Button: React.FC<ButtonProp> = ({
       className={buttonClassName}
       onClick={() => !disabled && onClick && onClick()}
       style={{
+        width,
         margin,
         padding,
         fontWeight,

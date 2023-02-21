@@ -57,7 +57,6 @@ export const onFacebookLogin = () => {
           if (response.authResponse) {
             FB.api("/me", (response: any) => {
               console.log(response);
-              console.log("Good to see you,", response.name);
             });
             params.fbAccessToken = response.authResponse.accessToken;
           }
@@ -65,5 +64,11 @@ export const onFacebookLogin = () => {
         { scope: "email" }
       );
     }
+  });
+};
+
+export const onFacebookLogout = async () => {
+  FB.logout((response: any) => {
+    console.log("Logged out", response);
   });
 };

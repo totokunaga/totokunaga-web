@@ -12,10 +12,13 @@ import ChevronIcon from "@assets/chevron.svg";
 import ChevronWhiteIcon from "@assets/chevron-white.svg";
 import SunIcon from "@assets/sunny.svg";
 import MoonIcon from "@assets/moon.svg";
+import PersonIcon from "@assets/person.svg";
+import GoogleIcon from "@assets/google.svg";
+import FacebookIcon from "@assets/facebook.svg";
 
 import { CSSStyle } from "@utils/types";
 
-type IconType =
+export type IconType =
   | "star"
   | "setting"
   | "play"
@@ -28,6 +31,9 @@ type IconType =
   | "chevron-white"
   | "sun"
   | "moon"
+  | "person"
+  | "google"
+  | "facebook"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -46,6 +52,9 @@ const Icons: Record<IconType, any> = {
   "chevron-white": ChevronWhiteIcon,
   sun: SunIcon,
   moon: MoonIcon,
+  person: PersonIcon,
+  facebook: FacebookIcon,
+  google: GoogleIcon,
 };
 
 type IconProp = CSSStyle & {

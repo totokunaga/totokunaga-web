@@ -7,9 +7,15 @@ export type ModalProp = {
   isShown: boolean;
   onClose: () => void;
   children: ReactNode;
+  maxWidth?: string | number;
 };
 
-export const Modal: React.FC<ModalProp> = ({ isShown, onClose, children }) => {
+export const Modal: React.FC<ModalProp> = ({
+  isShown,
+  onClose,
+  maxWidth,
+  children,
+}) => {
   const modalClassName = useMemo(() => {
     const classes = [style.modal];
     if (!isShown) classes.push(style.hidden);
@@ -29,6 +35,7 @@ export const Modal: React.FC<ModalProp> = ({ isShown, onClose, children }) => {
       <div
         className={modalContentClassName}
         onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth }}
       >
         <div
           className={`${neumorphic.root} ${neumorphic.icon}`}

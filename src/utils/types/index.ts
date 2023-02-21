@@ -28,6 +28,8 @@ export type CSSStyle = {
   cursor?: string;
   flexGrow?: number;
   transition?: string;
+  width?: string | number;
+  height?: string | number;
 };
 
 export * from "./pages";
