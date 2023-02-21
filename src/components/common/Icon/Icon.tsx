@@ -13,10 +13,16 @@ import ChevronWhiteIcon from "@assets/chevron-white.svg";
 import SunIcon from "@assets/sunny.svg";
 import MoonIcon from "@assets/moon.svg";
 import PersonIcon from "@assets/person.svg";
+import DarkPersonIcon from "@assets/dark-person.svg";
 import GoogleIcon from "@assets/google.svg";
 import FacebookIcon from "@assets/facebook.svg";
+import AppleIcon from "@assets/apple.svg";
+import GithubIcon from "@assets/github.svg";
 
 import { CSSStyle } from "@utils/types";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { selectWindow } from "@utils/slices";
 
 export type IconType =
   | "star"
@@ -32,8 +38,11 @@ export type IconType =
   | "sun"
   | "moon"
   | "person"
+  | "dark-person"
   | "google"
   | "facebook"
+  | "apple"
+  | "github"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -53,8 +62,11 @@ const Icons: Record<IconType, any> = {
   sun: SunIcon,
   moon: MoonIcon,
   person: PersonIcon,
+  "dark-person": DarkPersonIcon,
   facebook: FacebookIcon,
   google: GoogleIcon,
+  apple: AppleIcon,
+  github: GithubIcon,
 };
 
 type IconProp = CSSStyle & {
@@ -63,6 +75,7 @@ type IconProp = CSSStyle & {
   fill?: string;
   icon: IconType;
   animation?: AnimationType;
+  className?: string;
 };
 
 export const Icon: React.FC<IconProp> = ({
@@ -72,10 +85,19 @@ export const Icon: React.FC<IconProp> = ({
   fill,
   animation,
   margin,
+  className,
 }) => {
-  const Component = Icons[icon];
+  const { isDarkMode } = useSelector(selectWindow);
+  const Component = useMemo(() => Icons[icon], [icon]);
+  const iconClassName = useMemo(() => {
+    const classes = [];
+    if (animation) classes.push(style[animation]);
+    if (className) classes.push(className);
+    return classes.join(" ");
+  }, []);
+
   return (
-    <div className={animation && style[animation]}>
+    <div className={iconClassName}>
       <Component
         width={width || height}
         height={height || width}

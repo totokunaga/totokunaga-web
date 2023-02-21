@@ -1,5 +1,5 @@
 .flat {
-  padding: 1em 1.5em;
+  padding: 0.5em 1em;
   font-family: var(--font-sans-serif);
   border: none;
   background-color: var(--plain);
@@ -17,9 +17,16 @@
       border: solid 2px var(--appearance-color-dark);
     }
   }
-  &.login {
-    background-color: var(--logo-color-dark);
-    color: var(--greyLight-1);
-    font-weight: 600;
+}
+
+.login {
+  color: var(--plain-opposite);
+  font-weight: 600;
+  padding: 0.5em 0.75em;
+  border-radius: 0.5em;
+  border: solid 1.5px transparent;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    border: solid 1.5px var(--plain-opposite);
   }
 }

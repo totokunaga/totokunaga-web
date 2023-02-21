@@ -2,18 +2,12 @@ import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import headerStyle from "./header.module.scss";
 import buttonStyle from "../Button/button.module.scss";
+import textStyle from "@styles/text.module.scss";
 import { paths } from "@utils/constants";
 import TIcon from "@assets/t-icon.svg";
 import TIconDark from "@assets/t-icon-dark.svg";
-import { Button } from "../Button";
 import { useSelector } from "react-redux";
 import { selectWindow } from "@utils/slices";
-import {
-  getGoogleOAuthURL,
-  oauthLogin,
-  onFacebookLogin,
-  onFacebookLogout,
-} from "@utils/functions";
 import { ThemeButton } from "../ThemeButton";
 import { Icon } from "../Icon";
 import { Modal } from "../Modal";
@@ -82,24 +76,30 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
               cursor: "default",
             }}
           >
-            <Button
-              type={"flat"}
-              margin={"0 1em 0 0"}
-              padding={".5em 1.25em"}
+            <div
+              style={{
+                margin: "auto 1em auto auto",
+                display: "flex",
+                cursor: "pointer",
+              }}
               className={buttonStyle.login}
-              // onClick={() => oauthLogin("google")}
               onClick={() => setLoginModalShown(true)}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <Icon
-                  icon={"person"}
+                  icon={isDarkMode ? "person" : "dark-person"}
                   width={"2em"}
-                  fill={"#e6e7ed"}
+                  // fill={isDarkMode ? "#e6e7ed" : "white"}
                   margin={"auto .5em auto auto"}
                 />
-                <span>Login</span>
+                <span className={textStyle.normal}>Login</span>
               </div>
-            </Button>
+            </div>
             <ThemeButton />
           </div>
         </div>

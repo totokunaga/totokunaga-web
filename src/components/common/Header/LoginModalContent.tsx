@@ -12,6 +12,7 @@ type ProviderButtonType = {
 const providers: ProviderButtonType[] = [
   { name: "Google", icon: "google", providerId: "google" },
   { name: "Facebook", icon: "facebook", providerId: "facebook" },
+  { name: "Github", icon: "github", providerId: "github" },
 ];
 
 export const LoginModalContent: React.FC<{ onClose: () => void }> = ({
@@ -23,7 +24,7 @@ export const LoginModalContent: React.FC<{ onClose: () => void }> = ({
         className={textStyle.xlarger}
         style={{ fontWeight: 700, marginBottom: "0.75em" }}
       >
-        Sign in to
+        Sign in with
       </p>
 
       <div
@@ -41,12 +42,12 @@ export const LoginModalContent: React.FC<{ onClose: () => void }> = ({
             margin={`auto auto ${
               i === providers.length - 1 ? "auto" : "1em"
             } auto`}
+            padding={".75em 1em"}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
               <Icon
                 icon={icon}
                 width={"1.65em"}
-                fill={"#e6e7ed"}
                 margin={"auto .5em auto auto"}
               />
               <span>{name}</span>

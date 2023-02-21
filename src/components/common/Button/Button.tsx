@@ -13,16 +13,16 @@ type ButtonProp = CSSStyle & {
 
 export const Button: React.FC<ButtonProp> = ({
   onClick,
-  margin,
-  padding,
-  fontWeight,
-  fontSize,
-  backgroundColor,
-  flexGrow = 1,
+  // margin,
+  // padding,
+  // fontWeight,
+  // fontSize,
+  // backgroundColor,
+  // flexGrow = 1,
   type = "normal",
   disabled = false,
   className,
-  width,
+  // width,
   children,
   ...props
 }) => {
@@ -51,13 +51,14 @@ export const Button: React.FC<ButtonProp> = ({
       className={buttonClassName}
       onClick={() => !disabled && onClick && onClick()}
       style={{
-        width,
-        margin,
-        padding,
-        fontWeight,
-        fontSize,
-        backgroundColor,
-        flexGrow,
+        // width,
+        // margin,
+        // padding,
+        // fontWeight,
+        // fontSize,
+        // backgroundColor,
+        // flexGrow,
+        ...props,
       }}
     >
       {children}
