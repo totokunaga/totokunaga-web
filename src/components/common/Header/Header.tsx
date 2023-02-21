@@ -8,8 +8,7 @@ import { Button } from "../Button";
 import { Icon } from "../Icon";
 import { useSelector } from "react-redux";
 import { selectWindow } from "@utils/slices";
-import { getOAuthRedirectURI, setGlobalDarkMode } from "@utils/functions";
-import buttonStyle from "../Button/button.module.scss";
+import { getOAuthRedirectURI, onFacebookLogin } from "@utils/functions";
 import { ThemeButton } from "../ThemeButton";
 
 const headerId = "my-header";
@@ -19,15 +18,6 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
 
   const router = useRouter();
   const { isDarkMode } = useSelector(selectWindow);
-
-  const onAppearance = useCallback(() => {
-    if (isDarkMode) {
-      document.documentElement.removeAttribute("data-theme");
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-    setGlobalDarkMode(!isDarkMode);
-  }, [isDarkMode]);
 
   useEffect(() => {
     const headerElement = document.getElementById(headerId);
@@ -51,7 +41,6 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
           style={{
             display: "flex",
             alignItems: "center",
-            // cursor: "pointer",
             width: "100%",
           }}
         >
@@ -87,7 +76,8 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             <Button
               type={"flat"}
               margin={"0 16px 0 0"}
-              onClick={() => router.push(getOAuthRedirectURI("google"))}
+              // onClick={() => router.push(getOAuthRedirectURI("google"))}
+              onClick={onFacebookLogin}
             >
               Login
             </Button>
