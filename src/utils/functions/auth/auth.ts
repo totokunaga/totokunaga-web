@@ -10,7 +10,9 @@ export const oauthLogin = (provider: OAuthProvider) => {
       window.location.href = googleOAuthLoginPageUrl;
       break;
     case "facebook":
-      onFacebookLogin();
+      // onFacebookLogin();
+      const facebookOAuthLoginPageUrl = getFacebookOAuthURL();
+      window.location.href = facebookOAuthLoginPageUrl;
       break;
     case "github":
       const githubOAuthLoginPageUrl = getGithubOAuthURL();
@@ -31,6 +33,21 @@ export const getGoogleOAuthURL = () => {
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
     ].join(" "),
+  };
+
+  const qs = new URLSearchParams(options);
+  return `${rootUrl}?${qs.toString()}`;
+};
+
+export const getFacebookOAuthURL = () => {
+  const rootUrl = "https://www.facebook.com/v16.0/dialog/oauth";
+  const options = {
+    redirect_uri:
+      (process.env.NEXT_PUBLIC_REDIRECT_URI as string) + "/facebook",
+    client_id: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID as string,
+    response_type: "code",
+    state: getRandomString(16),
+    scope: ["email"].join(" "),
   };
 
   const qs = new URLSearchParams(options);
