@@ -76,9 +76,11 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
               cursor: "default",
             }}
           >
+            <ThemeButton />
             <div
               style={{
-                margin: "auto 1em auto auto",
+                // margin: "auto 1em auto auto",
+                margin: "auto auto auto .75em",
                 display: "flex",
                 cursor: "pointer",
               }}
@@ -94,13 +96,11 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
                 <Icon
                   icon={isDarkMode ? "person" : "dark-person"}
                   width={"2em"}
-                  // fill={isDarkMode ? "#e6e7ed" : "white"}
                   margin={"auto .5em auto auto"}
                 />
                 <span className={textStyle.normal}>Login</span>
               </div>
             </div>
-            <ThemeButton />
           </div>
         </div>
       </div>

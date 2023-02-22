@@ -4,17 +4,14 @@
   border: none;
   background-color: var(--plain);
   box-shadow: none;
-  border-radius: 0.65rem;
   cursor: pointer;
 
   &.appearance_setting {
     background-color: transparent;
     fill: var(--appearance-color);
-    border: solid 2px var(--appearance-color);
     transition: all 0.15s ease-in-out;
     &:hover {
       fill: var(--appearance-color-dark);
-      border: solid 2px var(--appearance-color-dark);
     }
   }
 }

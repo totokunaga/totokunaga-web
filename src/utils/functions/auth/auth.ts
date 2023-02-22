@@ -46,11 +46,11 @@ const oauthConfig: Record<OAuthProvider, OAuthConfig> = {
   },
 };
 
-export const oauthLogin = (provider: OAuthProvider) => {
-  window.location.href = getOAuthUrl(provider);
+export const oauthLogin = (provider: OAuthProvider, path: string) => {
+  window.location.href = getOAuthUrl(provider, path);
 };
 
-const getOAuthUrl = (provider: OAuthProvider) => {
+const getOAuthUrl = (provider: OAuthProvider, path: string) => {
   const {
     endpoint,
     client_id,
@@ -63,7 +63,10 @@ const getOAuthUrl = (provider: OAuthProvider) => {
     redirect_uri,
     client_id,
     scope,
-    state: getRandomString(16),
+    state: JSON.stringify({
+      nounce: getRandomString(16) + new Date().getTime(),
+      path,
+    }),
     ...additionalQueries,
   }).toString();
 

@@ -1,5 +1,7 @@
+import { useRouter } from "next/router";
 import textStyle from "@styles/text.module.scss";
-import { oauthLogin, OAuthProvider } from "@utils/functions";
+import { oauthLogin } from "@utils/functions";
+import { OAuthProvider } from "@utils/types";
 import { Button } from "../Button";
 import { Icon, IconType } from "../Icon";
 
@@ -18,6 +20,8 @@ const providers: ProviderButtonType[] = [
 export const LoginModalContent: React.FC<{ onClose: () => void }> = ({
   onClose,
 }) => {
+  const router = useRouter();
+
   return (
     <div>
       <p
@@ -37,7 +41,7 @@ export const LoginModalContent: React.FC<{ onClose: () => void }> = ({
         {providers.map(({ name, icon, providerId }, i) => (
           <Button
             key={providerId}
-            onClick={() => oauthLogin(providerId)}
+            onClick={() => oauthLogin(providerId, router.pathname)}
             width={"100%"}
             margin={`auto auto ${
               i === providers.length - 1 ? "auto" : "1em"
