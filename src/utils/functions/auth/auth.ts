@@ -1,4 +1,5 @@
-import { NODE_ENV } from "@utils/constants";
+import Cookies from "universal-cookie";
+import { NODE_ENV, oauthNounceCookieKey } from "@utils/constants";
 import { Env, FACEBOOK, GITHUB, GOOGLE, OAuthProvider } from "@utils/types";
 import { getRandomString } from "..";
 
@@ -59,16 +60,20 @@ const getOAuthUrl = (provider: OAuthProvider, path: string) => {
     additionalQueries = {},
   } = oauthConfig[provider];
 
+  const now = new Date().getTime();
+  const nounce = getRandomString(16) + now;
   const queries = new URLSearchParams({
     redirect_uri,
     client_id,
     scope,
-    state: JSON.stringify({
-      nounce: getRandomString(16) + new Date().getTime(),
-      path,
-    }),
+    state: JSON.stringify({ nounce, path }),
     ...additionalQueries,
   }).toString();
+
+  const cookies = new Cookies();
+  cookies.set(oauthNounceCookieKey, nounce, {
+    expires: new Date(now + 60 * 1000 * 5),
+  });
 
   return `${endpoint}?${queries}`;
 };
