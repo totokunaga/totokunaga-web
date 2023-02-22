@@ -10,6 +10,7 @@
 
 .first_row_button {
   margin: 0px 8px 12px 8px;
+  flex-grow: 1;
   &.leftmost {
     margin: 0px 8px 12px 0px;
   }
@@ -20,6 +21,7 @@
 
 .second_row_button {
   margin: 0px 0px 12px 8px;
+  flex-grow: 1;
   &.leftmost {
     @media (max-width: 520px) {
       margin-left: 0;

@@ -3,11 +3,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 
 import { store } from "@utils/slices";
-import {
-  addFacebookScript,
-  facebookScriptLoadedHandler,
-  setGlobalDarkMode,
-} from "@utils/functions";
+import { setGlobalDarkMode } from "@utils/functions";
 import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -22,14 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
     setGlobalDarkMode(isDarkMode);
     setLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    addFacebookScript()
-      .then(() => {
-        facebookScriptLoadedHandler(FB);
-      })
-      .catch((e: any) => console.log(e.message));
   }, []);
 
   return isLoaded ? (

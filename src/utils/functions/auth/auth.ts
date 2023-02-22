@@ -1,68 +1,71 @@
+import { NODE_ENV } from "@utils/constants";
+import { Env, FACEBOOK, GITHUB, GOOGLE, OAuthProvider } from "@utils/types";
 import { getRandomString } from "..";
-import { onFacebookLogin } from "./facebook";
 
-export type OAuthProvider = "google" | "facebook" | "github";
-
-export const oauthLogin = (provider: OAuthProvider) => {
-  switch (provider) {
-    case "google":
-      const googleOAuthLoginPageUrl = getGoogleOAuthURL();
-      window.location.href = googleOAuthLoginPageUrl;
-      break;
-    case "facebook":
-      // onFacebookLogin();
-      const facebookOAuthLoginPageUrl = getFacebookOAuthURL();
-      window.location.href = facebookOAuthLoginPageUrl;
-      break;
-    case "github":
-      const githubOAuthLoginPageUrl = getGithubOAuthURL();
-      window.location.href = githubOAuthLoginPageUrl;
-      break;
-  }
+type OAuthConfig = {
+  endpoint: string;
+  redirect_uri: string;
+  client_id: string;
+  scope: string;
+  additionalQueries?: Record<string, string>;
 };
 
-export const getGoogleOAuthURL = () => {
-  const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
-  const options = {
-    redirect_uri: (process.env.NEXT_PUBLIC_REDIRECT_URI as string) + "/google",
+const redirectPath = "/api/sessions/oauth";
+const rootRedirectUrl: Record<Env, string> = {
+  development: "http://localhost:4000" + redirectPath,
+  test: "https://totokunaga.com" + redirectPath,
+  production: "https://totokunaga.com" + redirectPath,
+};
+
+const oauthConfig: Record<OAuthProvider, OAuthConfig> = {
+  google: {
+    endpoint: "https://accounts.google.com/o/oauth2/v2/auth",
+    redirect_uri: rootRedirectUrl[NODE_ENV] + `/${GOOGLE}`,
     client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
-    access_type: "offline",
-    response_type: "code",
-    prompt: "consent",
     scope: [
       "https://www.googleapis.com/auth/userinfo.profile",
       "https://www.googleapis.com/auth/userinfo.email",
     ].join(" "),
-  };
-
-  const qs = new URLSearchParams(options);
-  return `${rootUrl}?${qs.toString()}`;
-};
-
-export const getFacebookOAuthURL = () => {
-  const rootUrl = "https://www.facebook.com/v16.0/dialog/oauth";
-  const options = {
-    redirect_uri:
-      (process.env.NEXT_PUBLIC_REDIRECT_URI as string) + "/facebook",
+    additionalQueries: {
+      access_type: "offline",
+      response_type: "code",
+      prompt: "consent",
+    },
+  },
+  facebook: {
+    endpoint: "https://www.facebook.com/v16.0/dialog/oauth",
+    redirect_uri: rootRedirectUrl[NODE_ENV] + `/${FACEBOOK}`,
     client_id: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID as string,
-    response_type: "code",
-    state: getRandomString(16),
     scope: ["email"].join(" "),
-  };
-
-  const qs = new URLSearchParams(options);
-  return `${rootUrl}?${qs.toString()}`;
-};
-
-export const getGithubOAuthURL = () => {
-  const rootUrl = "https://github.com/login/oauth/authorize";
-  const options = {
-    redirect_uri: (process.env.NEXT_PUBLIC_REDIRECT_URI as string) + "/github",
+  },
+  github: {
+    endpoint: "https://github.com/login/oauth/authorize",
+    redirect_uri: rootRedirectUrl[NODE_ENV] + `/${GITHUB}`,
     client_id: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
     scope: ["read:user", "user:email"].join(" "),
-    state: getRandomString(16),
-  };
+  },
+};
 
-  const qs = new URLSearchParams(options);
-  return `${rootUrl}?${qs.toString()}`;
+export const oauthLogin = (provider: OAuthProvider) => {
+  window.location.href = getOAuthUrl(provider);
+};
+
+const getOAuthUrl = (provider: OAuthProvider) => {
+  const {
+    endpoint,
+    client_id,
+    redirect_uri,
+    scope,
+    additionalQueries = {},
+  } = oauthConfig[provider];
+
+  const queries = new URLSearchParams({
+    redirect_uri,
+    client_id,
+    scope,
+    state: getRandomString(16),
+    ...additionalQueries,
+  }).toString();
+
+  return `${endpoint}?${queries}`;
 };

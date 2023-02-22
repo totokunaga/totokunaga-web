@@ -1,3 +1,10 @@
+export type Env = "development" | "test" | "production";
+
+export type OAuthProvider = "google" | "facebook" | "github";
+export const GOOGLE: OAuthProvider = "google";
+export const FACEBOOK: OAuthProvider = "facebook";
+export const GITHUB: OAuthProvider = "github";
+
 export type DeviceType = "SMARTPHONE" | "TABLET" | "DESKTOP";
 export const SMARTPHONE = "SMARTPHONE";
 export const TABLET = "TABLET";

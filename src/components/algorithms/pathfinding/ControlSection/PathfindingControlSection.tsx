@@ -9,7 +9,7 @@ import {
 import { ClearModalContent } from "../ClearModalContent";
 import { ConfigModalContent } from "../ConfigModalContent";
 import defaultStyle from "@styles/default.module.scss";
-import style from "./controlSection.module.scss";
+import style from "../../sorting/ControlSection/controlSection.module.scss";
 import { useDispatch } from "react-redux";
 
 const leftmostFirstRowButtonClassName = [
