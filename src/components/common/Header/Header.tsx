@@ -12,6 +12,7 @@ import { ThemeButton } from "../ThemeButton";
 import { Icon } from "../Icon";
 import { Modal } from "../Modal";
 import { LoginModalContent } from "./LoginModalContent";
+import { selectAuth } from "@utils/slices/authSlice";
 
 const headerId = "my-header";
 
@@ -21,6 +22,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
 
   const router = useRouter();
   const { isDarkMode } = useSelector(selectWindow);
+  const { isAuth, avatorImagePath } = useSelector(selectAuth);
 
   useEffect(() => {
     const headerElement = document.getElementById(headerId);
@@ -77,30 +79,41 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             }}
           >
             <ThemeButton />
-            <div
-              style={{
-                // margin: "auto 1em auto auto",
-                margin: "auto auto auto .75em",
-                display: "flex",
-                cursor: "pointer",
-              }}
-              className={buttonStyle.login}
-              onClick={() => setLoginModalShown(true)}
-            >
+            {isAuth ? (
+              <div style={{ display: "flex", margin: "auto auto auto .75em" }}>
+                <img
+                  alt={"profile"}
+                  src={avatorImagePath}
+                  width={48}
+                  style={{ borderRadius: 100, border: "solid 1.5px white" }}
+                />
+              </div>
+            ) : (
               <div
                 style={{
+                  // margin: "auto 1em auto auto",
+                  margin: "auto auto auto .75em",
                   display: "flex",
-                  alignItems: "center",
+                  cursor: "pointer",
                 }}
+                className={buttonStyle.login}
+                onClick={() => setLoginModalShown(true)}
               >
-                <Icon
-                  icon={isDarkMode ? "person" : "dark-person"}
-                  width={"2em"}
-                  margin={"auto .5em auto auto"}
-                />
-                <span className={textStyle.normal}>Login</span>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Icon
+                    icon={isDarkMode ? "person" : "dark-person"}
+                    width={"2em"}
+                    margin={"auto .5em auto auto"}
+                  />
+                  <span className={textStyle.normal}>Login</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

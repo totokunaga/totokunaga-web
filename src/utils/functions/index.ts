@@ -72,3 +72,17 @@ const confirmLeavePage = (event: any) => {
   }
   return "";
 };
+
+const decodeBase64 = (value: string) => {
+  return Buffer.from(value, "base64").toString("utf-8");
+};
+export const decodeJwt = (jwt: string) => {
+  const parts = jwt.split(".");
+  if (parts.length !== 3) {
+    return null;
+  }
+
+  const header = JSON.parse(decodeBase64(parts[0]));
+  const payload = JSON.parse(decodeBase64(parts[1]));
+  return { header, payload };
+};

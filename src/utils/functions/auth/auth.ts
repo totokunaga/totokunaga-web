@@ -1,9 +1,13 @@
 import { NODE_ENV } from "@utils/constants";
 import { Env, FACEBOOK, GITHUB, GOOGLE, OAuthProvider } from "@utils/types";
-import { getRandomString } from "..";
+import { decodeJwt, getRandomString } from "..";
 import { serverInstance } from "@utils/api";
 import { store } from "@utils/slices";
-import { setAccessToken } from "@utils/slices/authSlice";
+import {
+  setAccessToken,
+  setAuth,
+  setAvatorImagePath,
+} from "@utils/slices/authSlice";
 import Cookies from "universal-cookie";
 
 type OAuthConfig = {
@@ -92,8 +96,18 @@ export const refreshAccessToken = async () => {
     const response = await serverInstance.get("/api/sessions/token/refresh", {
       headers: { Authorization: accessToken },
     });
+    const newAccessToken = response.data;
+    const decodedToken = decodeJwt(newAccessToken);
+    if (decodedToken) {
+      const { metadata } = decodedToken.payload;
+      const { avatorImagePath } = metadata;
+      if (avatorImagePath) {
+        dispatch(setAvatorImagePath(avatorImagePath));
+      }
+    }
 
-    dispatch(setAccessToken(response.data));
+    dispatch(setAuth(true));
+    dispatch(setAccessToken(newAccessToken));
   } catch (e: any) {
     console.error(e.message);
   }
