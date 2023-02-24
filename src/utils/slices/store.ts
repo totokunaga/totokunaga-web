@@ -6,9 +6,11 @@ import {
   pathfindingControllerSlice,
   sortingControllerSlice,
 } from "./algorithms";
+import authSlice from "./authSlice";
 import globalSlice from "./globalSlice";
 
 const rootReducer = combineReducers({
+  auth: authSlice,
   global: globalSlice,
   timeout: timeoutSlice.reducer,
   grid: gridSlice.reducer,

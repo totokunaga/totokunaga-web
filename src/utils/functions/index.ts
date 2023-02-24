@@ -2,6 +2,7 @@ import { setDarkMode, store } from "@utils/slices";
 
 export * from "./pages";
 export * from "./auth";
+export * from "./db";
 
 export const initMatrix = <T>(
   rowSize: number,
@@ -52,4 +53,22 @@ export const getRandomString = (length: number) => {
     counter += 1;
   }
   return result;
+};
+
+export const handleBeforeunload = (event: BeforeUnloadEvent) => {
+  const { accessToken } = store.getState().auth;
+  if (accessToken) {
+    localStorage.setItem("token", accessToken);
+  }
+
+  confirmLeavePage(event);
+};
+
+const confirmLeavePage = (event: any) => {
+  event.preventDefault();
+  event = event || window.event;
+  if (event) {
+    event.returnValue = "";
+  }
+  return "";
 };

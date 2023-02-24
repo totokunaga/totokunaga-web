@@ -1,4 +1,5 @@
 export const slicerNames = {
+  auth: "auth",
   global: "global",
   timeout: "timeout",
   grid: "grid",

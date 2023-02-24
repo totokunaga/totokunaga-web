@@ -1,7 +1,10 @@
-import Cookies from "universal-cookie";
-import { NODE_ENV, oauthNounceCookieKey } from "@utils/constants";
+import { NODE_ENV } from "@utils/constants";
 import { Env, FACEBOOK, GITHUB, GOOGLE, OAuthProvider } from "@utils/types";
 import { getRandomString } from "..";
+import { serverInstance } from "@utils/api";
+import { store } from "@utils/slices";
+import { setAccessToken } from "@utils/slices/authSlice";
+import Cookies from "universal-cookie";
 
 type OAuthConfig = {
   endpoint: string;
@@ -47,11 +50,14 @@ const oauthConfig: Record<OAuthProvider, OAuthConfig> = {
   },
 };
 
-export const oauthLogin = (provider: OAuthProvider, path: string) => {
-  window.location.href = getOAuthUrl(provider, path);
+export const oauthLogin = async (provider: OAuthProvider, path: string) => {
+  const now = new Date().getTime();
+  const nounce = getRandomString(16) + now;
+  await serverInstance.post("/api/sessions/oauth/save_nounce", { nounce });
+  window.location.href = getOAuthUrl(provider, path, nounce);
 };
 
-const getOAuthUrl = (provider: OAuthProvider, path: string) => {
+const getOAuthUrl = (provider: OAuthProvider, path: string, nounce: string) => {
   const {
     endpoint,
     client_id,
@@ -60,8 +66,6 @@ const getOAuthUrl = (provider: OAuthProvider, path: string) => {
     additionalQueries = {},
   } = oauthConfig[provider];
 
-  const now = new Date().getTime();
-  const nounce = getRandomString(16) + now;
   const queries = new URLSearchParams({
     redirect_uri,
     client_id,
@@ -70,10 +74,27 @@ const getOAuthUrl = (provider: OAuthProvider, path: string) => {
     ...additionalQueries,
   }).toString();
 
-  const cookies = new Cookies();
-  cookies.set(oauthNounceCookieKey, nounce, {
-    expires: new Date(now + 60 * 1000 * 5),
-  });
-
   return `${endpoint}?${queries}`;
+};
+
+export const refreshAccessToken = async () => {
+  const { dispatch } = store;
+
+  const cookie = new Cookies();
+  const accessToken = localStorage.getItem("token") || cookie.get("token");
+  if (!accessToken) {
+    return;
+  }
+  localStorage.removeItem("token");
+  cookie.remove("token");
+
+  try {
+    const response = await serverInstance.get("/api/sessions/token/refresh", {
+      headers: { Authorization: accessToken },
+    });
+
+    dispatch(setAccessToken(response.data));
+  } catch (e: any) {
+    console.error(e.message);
+  }
 };
