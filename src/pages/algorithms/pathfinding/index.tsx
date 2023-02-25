@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import style from "@styles/default.module.scss";
 import { PathfindingControlSection, Grid } from "@components/algorithms";
 import { CELL_SIZE, paths } from "@utils/constants";
-import { useWindowSize } from "@utils/hooks";
+import { useWindowSize } from "@utils/hooks/useWindowSize";
 import { MyHead } from "@components/common";
 import { pages, pathfindingPageId } from "@utils/constants";
 import { selectPathfindingController, selectWindow } from "@utils/slices";

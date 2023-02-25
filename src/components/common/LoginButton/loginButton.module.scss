@@ -1,0 +1,23 @@
+.user_modal {
+  width: min(85vw, 17.5rem);
+  border-radius: 7.5px;
+  box-shadow: 12px 13px 33px -3px rgba(85, 85, 85, 0.72);
+  padding: 1.5em;
+  position: absolute;
+  background-color: var(--plain);
+  top: 60px;
+  right: 0;
+
+  color: var(--plain-opposite);
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: top right;
+  transition: all 0.2s ease-in-out;
+
+  &.hidden {
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0);
+  }
+}

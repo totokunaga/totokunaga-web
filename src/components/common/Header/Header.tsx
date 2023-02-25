@@ -1,18 +1,16 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import headerStyle from "./header.module.scss";
-import buttonStyle from "../Button/button.module.scss";
-import textStyle from "@styles/text.module.scss";
 import { paths } from "@utils/constants";
 import TIcon from "@assets/t-icon.svg";
 import TIconDark from "@assets/t-icon-dark.svg";
 import { useSelector } from "react-redux";
 import { selectWindow } from "@utils/slices";
 import { ThemeButton } from "../ThemeButton";
-import { Icon } from "../Icon";
 import { Modal } from "../Modal";
 import { LoginModalContent } from "./LoginModalContent";
 import { selectAuth } from "@utils/slices/authSlice";
+import { LoginButton } from "../LoginButton";
 
 const headerId = "my-header";
 
@@ -79,41 +77,11 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             }}
           >
             <ThemeButton />
-            {isAuth ? (
-              <div style={{ display: "flex", margin: "auto auto auto .75em" }}>
-                <img
-                  alt={"profile"}
-                  src={avatorImagePath}
-                  width={48}
-                  style={{ borderRadius: 100, border: "solid 1.5px white" }}
-                />
-              </div>
-            ) : (
-              <div
-                style={{
-                  // margin: "auto 1em auto auto",
-                  margin: "auto auto auto .75em",
-                  display: "flex",
-                  cursor: "pointer",
-                }}
-                className={buttonStyle.login}
-                onClick={() => setLoginModalShown(true)}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Icon
-                    icon={isDarkMode ? "person" : "dark-person"}
-                    width={"2em"}
-                    margin={"auto .5em auto auto"}
-                  />
-                  <span className={textStyle.normal}>Login</span>
-                </div>
-              </div>
-            )}
+            <LoginButton
+              isAuth={isAuth}
+              avatorImagePath={avatorImagePath}
+              setLoginModalShown={setLoginModalShown}
+            />
           </div>
         </div>
       </div>
@@ -122,7 +90,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
         onClose={() => setLoginModalShown(false)}
         maxWidth={520}
       >
-        <LoginModalContent onClose={() => setLoginModalShown(false)} />
+        <LoginModalContent />
       </Modal>
     </>
   );

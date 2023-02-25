@@ -17,9 +17,7 @@ const providers: ProviderButtonType[] = [
   { name: "Github", icon: "github", providerId: "github" },
 ];
 
-export const LoginModalContent: React.FC<{ onClose: () => void }> = ({
-  onClose,
-}) => {
+export const LoginModalContent: React.FC = () => {
   const router = useRouter();
 
   return (

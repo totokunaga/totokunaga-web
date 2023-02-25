@@ -8,3 +8,4 @@ export * from "./Radio";
 export * from "./ProgressSteps";
 export * from "./Icon";
 export * from "./Header";
+export * from "./LoginButton";

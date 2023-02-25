@@ -18,11 +18,10 @@ import GoogleIcon from "@assets/google.svg";
 import FacebookIcon from "@assets/facebook.svg";
 import AppleIcon from "@assets/apple.svg";
 import GithubIcon from "@assets/github.svg";
+import LogoutIcon from "@assets/logout.svg";
 
 import { CSSStyle } from "@utils/types";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { selectWindow } from "@utils/slices";
 
 export type IconType =
   | "star"
@@ -43,6 +42,7 @@ export type IconType =
   | "facebook"
   | "apple"
   | "github"
+  | "logout"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -67,6 +67,7 @@ const Icons: Record<IconType, any> = {
   google: GoogleIcon,
   apple: AppleIcon,
   github: GithubIcon,
+  logout: LogoutIcon,
 };
 
 type IconProp = CSSStyle & {
@@ -82,12 +83,10 @@ export const Icon: React.FC<IconProp> = ({
   icon,
   height,
   width,
-  fill,
   animation,
-  margin,
   className,
+  ...props
 }) => {
-  const { isDarkMode } = useSelector(selectWindow);
   const Component = useMemo(() => Icons[icon], [icon]);
   const iconClassName = useMemo(() => {
     const classes = [];
@@ -101,7 +100,7 @@ export const Icon: React.FC<IconProp> = ({
       <Component
         width={width || height}
         height={height || width}
-        style={{ display: "block", fill, margin }}
+        style={{ display: "block", ...props }}
       />
     </div>
   );

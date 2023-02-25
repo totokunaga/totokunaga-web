@@ -1,3 +1,5 @@
+import Cookies from "universal-cookie";
+
 import { NODE_ENV } from "@utils/constants";
 import { Env, FACEBOOK, GITHUB, GOOGLE, OAuthProvider } from "@utils/types";
 import { decodeJwt, getRandomString } from "..";
@@ -7,8 +9,9 @@ import {
   setAccessToken,
   setAuth,
   setAvatorImagePath,
+  setOAuthProvider,
+  setUsername,
 } from "@utils/slices/authSlice";
-import Cookies from "universal-cookie";
 
 type OAuthConfig = {
   endpoint: string;
@@ -61,6 +64,12 @@ export const oauthLogin = async (provider: OAuthProvider, path: string) => {
   window.location.href = getOAuthUrl(provider, path, nounce);
 };
 
+export const oauthLogout = async (accessToken: string) => {
+  await serverInstance.post("/api/sessions/oauth/logout", undefined, {
+    headers: { Authorization: accessToken },
+  });
+};
+
 const getOAuthUrl = (provider: OAuthProvider, path: string, nounce: string) => {
   const {
     endpoint,
@@ -98,15 +107,20 @@ export const refreshAccessToken = async () => {
     });
     const newAccessToken = response.data;
     const decodedToken = decodeJwt(newAccessToken);
-    if (decodedToken) {
-      const { metadata } = decodedToken.payload;
-      const { avatorImagePath } = metadata;
-      if (avatorImagePath) {
-        dispatch(setAvatorImagePath(avatorImagePath));
-      }
+    if (!decodedToken) {
+      return;
+    }
+
+    const { metadata } = decodedToken.payload;
+    const { name, oauthProvider, avatorImagePath } = metadata;
+
+    if (avatorImagePath) {
+      dispatch(setAvatorImagePath(avatorImagePath));
     }
 
     dispatch(setAuth(true));
+    dispatch(setUsername(name));
+    dispatch(setOAuthProvider(oauthProvider));
     dispatch(setAccessToken(newAccessToken));
   } catch (e: any) {
     console.error(e.message);
