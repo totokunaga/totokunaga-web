@@ -73,6 +73,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
             style={{
               margin: "auto 0px auto auto",
               display: "flex",
+              alignContent: "center",
               cursor: "default",
             }}
           >

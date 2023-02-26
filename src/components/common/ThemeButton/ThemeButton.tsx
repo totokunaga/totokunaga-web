@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Button } from "../Button";
 import { Icon } from "../Icon";
 import buttonStyle from "../Button/button.module.scss";
+import { normalIconSize } from "@utils/constants";
 
 export const ThemeButton: React.FC = () => {
   const { isDarkMode } = useSelector(selectWindow);
@@ -21,11 +22,16 @@ export const ThemeButton: React.FC = () => {
   return (
     <Button
       type={"flat"}
-      padding={"0.65em"}
+      padding={"1em"}
+      margin={"auto"}
       onClick={onAppearance}
       className={buttonStyle.appearance_setting}
     >
-      <Icon icon={isDarkMode ? "sun" : "moon"} height={"min(5vw, 1.75em)"} />
+      <Icon
+        icon={isDarkMode ? "sun" : "moon"}
+        height={normalIconSize}
+        width={normalIconSize}
+      />
     </Button>
   );
 };

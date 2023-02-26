@@ -29,7 +29,7 @@ const AvatorImage: React.FC<{
   isDarkMode: boolean;
   onClick: () => void;
 }> = ({ avatorImagePath, isDarkMode, onClick }) => {
-  const iconSize = useMemo(() => 40, []);
+  const iconSize = useMemo(() => 37.5, []);
 
   return avatorImagePath ? (
     <img
@@ -98,12 +98,12 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
     <>
       {isAuth ? (
         <div
+          ref={modalRef}
           style={{
             display: "flex",
-            margin: "auto auto auto .75em",
+            margin: "auto auto auto 0.75em",
             position: "relative",
           }}
-          ref={modalRef}
         >
           <AvatorImage
             avatorImagePath={avatorImagePath}
@@ -129,7 +129,6 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
       ) : (
         <div
           style={{
-            margin: "auto auto auto .75em",
             display: "flex",
             cursor: "pointer",
           }}

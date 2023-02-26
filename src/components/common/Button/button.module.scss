@@ -5,13 +5,21 @@
   background-color: var(--plain);
   box-shadow: none;
   cursor: pointer;
+  width: min-content;
+  height: min-content;
 
   &.appearance_setting {
     background-color: transparent;
     fill: var(--appearance-color);
     transition: all 0.15s ease-in-out;
+    border-radius: 10px;
     &:hover {
       fill: var(--appearance-color-dark);
+      background-color: var(--plain-hovered);
+    }
+    &:active {
+      fill: var(--appearance-color-dark);
+      background-color: transparent;
     }
   }
 }
@@ -24,6 +32,9 @@
   border: solid 1.5px transparent;
   transition: all 0.1s ease-in-out;
   &:hover {
-    border: solid 1.5px var(--plain-opposite);
+    background-color: var(--plain-hovered);
+  }
+  &:active {
+    background-color: transparent;
   }
 }
