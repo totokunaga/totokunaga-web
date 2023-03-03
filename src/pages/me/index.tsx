@@ -9,13 +9,7 @@ import {
   ProgressSteps,
   RadioBlock,
 } from "@components/common";
-import {
-  greeting,
-  iconLSize,
-  normalIconSize,
-  pages,
-  paths,
-} from "@utils/constants";
+import { greeting, iconLSize, pages, paths } from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "@utils/constants";
@@ -137,36 +131,7 @@ const Index = () => {
                 src={"/profile.jpg"}
                 className={meStyle.profile_image}
                 draggable={false}
-                style={{ zIndex: 1 }}
               />
-
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginTop: ".5rem",
-                  fill: isDarkMode ? "#ddddde" : "#000f23",
-                }}
-              >
-                <Icon
-                  icon={"github"}
-                  width={iconLSize}
-                  cursor={"pointer"}
-                  marginRight={"0.5rem"}
-                  onClick={() =>
-                    (window.location.href = "https://github.com/totokunaga")
-                  }
-                />
-                <Icon
-                  icon={"linkedin"}
-                  width={iconLSize}
-                  cursor={"pointer"}
-                  onClick={() =>
-                    (window.location.href =
-                      "https://www.linkedin.com/in/tomoya-tokunaga")
-                  }
-                />
-              </div>
             </div>
           </div>
 
@@ -212,8 +177,47 @@ const Index = () => {
 
           <div style={{ marginBottom: 50 }}>
             <div style={{ display: "flex" }}>
-              <h3 className={textStyle.underline}>Experience & Education</h3>
+              <h3
+                className={textStyle.underline}
+                style={{ marginBottom: "1.25rem" }}
+              >
+                Experience & Education
+              </h3>
             </div>
+            <div
+              style={{
+                fill: isDarkMode ? "#ddddde" : "#000f23",
+              }}
+              className={meStyle.sns_link_wrapper}
+            >
+              <div
+                className={meStyle.sns_link}
+                onClick={() =>
+                  (window.location.href =
+                    "https://www.linkedin.com/in/tomoya-tokunaga")
+                }
+              >
+                <Icon
+                  icon={"linkedin"}
+                  width={iconLSize}
+                  marginRight={".5em"}
+                />
+                <span style={{ textDecoration: "underline" }}>
+                  @tomoya-tokunaga
+                </span>
+              </div>
+
+              <div
+                className={meStyle.sns_link}
+                onClick={() =>
+                  (window.location.href = "https://github.com/totokunaga")
+                }
+              >
+                <Icon icon={"github"} width={iconLSize} marginRight={".5em"} />
+                <span style={{ textDecoration: "underline" }}>@totokunaga</span>
+              </div>
+            </div>
+
             <ProgressSteps
               type={"vertical"}
               items={experiences.map((exp) => {

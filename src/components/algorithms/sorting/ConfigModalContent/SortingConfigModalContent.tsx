@@ -120,7 +120,12 @@ export const SortingConfigModalContent: React.FC<{ onClose: () => void }> = ({
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
-        <Button onClick={() => onClose()} fontWeight={700} type={"normal"}>
+        <Button
+          onClick={() => onClose()}
+          fontWeight={700}
+          type={"normal"}
+          flexGrow={1}
+        >
           {"Close Configuration"}
         </Button>
       </div>

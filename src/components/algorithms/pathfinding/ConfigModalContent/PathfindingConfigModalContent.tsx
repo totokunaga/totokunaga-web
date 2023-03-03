@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Cell, cellTypes } from "../Cell";
-import defaultStyle from "@styles/default.module.scss";
 import textStyle from "@styles/text.module.scss";
-import { Button, Checkbox, RadioBlock, Slider } from "@components/common";
+import { Button, RadioBlock, Slider } from "@components/common";
 import { ClearableCellType } from "@utils/types";
 import {
   selectPathfindingController,
@@ -32,17 +30,8 @@ export const ConfigModalContent: React.FC<{
   const [configOptionsHeight, setConfigOptionsHeight] = useState<number>();
 
   const dispatch = useDispatch();
-  const { clearableCells, algorithm, algorithmSpeed } = useSelector(
+  const { algorithm, algorithmSpeed } = useSelector(
     selectPathfindingController
-  );
-
-  const onClearableCellChecked = useCallback(
-    (value: ClearableCellType) => {
-      const newClearableCells = { ...clearableCells };
-      newClearableCells[value] = !clearableCells[value];
-      dispatch(setClearableCells(newClearableCells));
-    },
-    [clearableCells, dispatch]
   );
 
   const onChangeAlgorithm = useCallback(
@@ -145,7 +134,12 @@ export const ConfigModalContent: React.FC<{
           marginTop: 32,
         }}
       >
-        <Button onClick={() => onClose()} fontWeight={700} type={"normal"}>
+        <Button
+          onClick={() => onClose()}
+          fontWeight={700}
+          type={"normal"}
+          flexGrow={1}
+        >
           {"Close Configuration"}
         </Button>
       </div>

@@ -36,6 +36,7 @@ const AvatorImage: React.FC<{
       alt={"profile"}
       src={avatorImagePath}
       width={iconSize}
+      height={iconSize}
       style={{
         borderRadius: 100,
         border: "solid 1.5px white",
