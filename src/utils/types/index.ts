@@ -37,6 +37,9 @@ export type CSSStyle = {
   transition?: string;
   width?: string | number;
   height?: string | number;
+  display?: string;
+  alignItems?: string;
+  justifyContent?: string;
 };
 
 export * from "./pages";

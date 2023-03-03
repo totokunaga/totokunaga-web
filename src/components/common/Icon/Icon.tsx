@@ -18,10 +18,11 @@ import GoogleIcon from "@assets/google.svg";
 import FacebookIcon from "@assets/facebook.svg";
 import AppleIcon from "@assets/apple.svg";
 import GithubIcon from "@assets/github.svg";
+import LinkedInIcon from "@assets/linkedin.svg";
 import LogoutIcon from "@assets/logout.svg";
 
 import { CSSStyle } from "@utils/types";
-import { useMemo } from "react";
+import { MouseEventHandler, useMemo } from "react";
 
 export type IconType =
   | "star"
@@ -42,6 +43,7 @@ export type IconType =
   | "facebook"
   | "apple"
   | "github"
+  | "linkedin"
   | "logout"
   | "rocket";
 
@@ -67,6 +69,7 @@ const Icons: Record<IconType, any> = {
   google: GoogleIcon,
   apple: AppleIcon,
   github: GithubIcon,
+  linkedin: LinkedInIcon,
   logout: LogoutIcon,
 };
 
@@ -76,6 +79,7 @@ type IconProp = CSSStyle & {
   fill?: string;
   icon: IconType;
   animation?: AnimationType;
+  onClick?: MouseEventHandler;
   className?: string;
 };
 
@@ -84,23 +88,27 @@ export const Icon: React.FC<IconProp> = ({
   height,
   width,
   animation,
+  onClick,
   className,
   ...props
 }) => {
   const Component = useMemo(() => Icons[icon], [icon]);
   const iconClassName = useMemo(() => {
-    const classes = [];
+    const classes = [style.icon];
     if (animation) classes.push(style[animation]);
     if (className) classes.push(className);
     return classes.join(" ");
   }, []);
 
   return (
-    <div className={iconClassName}>
+    <div className={iconClassName} onClick={onClick}>
       <Component
         width={width || height}
         height={height || width}
-        style={{ display: "block", ...props }}
+        style={{
+          display: "block",
+          ...props,
+        }}
       />
     </div>
   );

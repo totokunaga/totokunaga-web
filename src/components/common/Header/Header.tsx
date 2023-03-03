@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import headerStyle from "./header.module.scss";
-import { paths } from "@utils/constants";
+import { normalIconSize, paths } from "@utils/constants";
 import TIcon from "@assets/t-icon.svg";
 import TIconDark from "@assets/t-icon-dark.svg";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { Modal } from "../Modal";
 import { LoginModalContent } from "./LoginModalContent";
 import { selectAuth } from "@utils/slices/authSlice";
 import { LoginButton } from "../LoginButton";
+import { Icon } from "../Icon";
 
 const headerId = "my-header";
 
@@ -67,6 +68,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
               tokunaga
             </span>
           </h4>
+
           {children}
 
           <div

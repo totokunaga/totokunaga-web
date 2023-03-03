@@ -2,14 +2,28 @@ import style from "@styles/default.module.scss";
 import textStyle from "@styles/text.module.scss";
 import neumorphic from "@styles/neumorphic.module.scss";
 import meStyle from "./me.module.scss";
-import { Header, MyHead, ProgressSteps, RadioBlock } from "@components/common";
-import { greeting, pages, paths } from "@utils/constants";
+import {
+  Header,
+  Icon,
+  MyHead,
+  ProgressSteps,
+  RadioBlock,
+} from "@components/common";
+import {
+  greeting,
+  iconLSize,
+  normalIconSize,
+  pages,
+  paths,
+} from "@utils/constants";
 import { useRouter } from "next/router";
 import { Experience } from "@components/me";
 import { meTexts } from "@utils/constants";
 import { useEffect, useMemo, useState } from "react";
 import ColoredGraphIcon from "@assets/colored-graph.svg";
 import { Lang } from "@utils/types";
+import { useSelector } from "react-redux";
+import { selectWindow } from "@utils/slices";
 
 const neumorphicDown = [neumorphic.root, neumorphic.down].join(" ");
 
@@ -18,6 +32,7 @@ const { introduction, experiences, skills } = meTexts;
 
 const Index = () => {
   const router = useRouter();
+  const { isDarkMode } = useSelector(selectWindow);
 
   const [typewriterLang, setTypewriterLang] = useState<Lang>("en");
   const [typewriterVal, setTypewriterVal] = useState("");
@@ -80,7 +95,7 @@ const Index = () => {
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className={style.root}>
-          <div style={{ display: "flex", marginBottom: "1rem" }}>
+          <div style={{ display: "flex" }}>
             <div
               id={"greeting"}
               style={{
@@ -111,6 +126,8 @@ const Index = () => {
             <div
               style={{
                 display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 justifyContent: "center",
                 margin: "auto 0px auto auto",
               }}
@@ -122,6 +139,34 @@ const Index = () => {
                 draggable={false}
                 style={{ zIndex: 1 }}
               />
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: ".5rem",
+                  fill: isDarkMode ? "#ddddde" : "#000f23",
+                }}
+              >
+                <Icon
+                  icon={"github"}
+                  width={iconLSize}
+                  cursor={"pointer"}
+                  marginRight={"0.5rem"}
+                  onClick={() =>
+                    (window.location.href = "https://github.com/totokunaga")
+                  }
+                />
+                <Icon
+                  icon={"linkedin"}
+                  width={iconLSize}
+                  cursor={"pointer"}
+                  onClick={() =>
+                    (window.location.href =
+                      "https://www.linkedin.com/in/tomoya-tokunaga")
+                  }
+                />
+              </div>
             </div>
           </div>
 
