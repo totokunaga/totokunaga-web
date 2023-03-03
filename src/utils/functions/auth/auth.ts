@@ -93,17 +93,20 @@ const getOAuthUrl = (provider: OAuthProvider, path: string, nounce: string) => {
 export const refreshAccessToken = async () => {
   const { dispatch } = store;
 
+  const nounce = new URLSearchParams(window.location.search).get("nounce");
+
   const cookie = new Cookies();
   const accessToken = localStorage.getItem("token") || cookie.get("token");
-  if (!accessToken) {
-    return;
-  }
   localStorage.removeItem("token");
   cookie.remove("token");
 
+  if (!accessToken && !nounce) {
+    return;
+  }
+
   try {
     const response = await serverInstance.get("/api/sessions/token/refresh", {
-      headers: { Authorization: accessToken },
+      headers: { Authorization: accessToken || nounce },
     });
     const newAccessToken = response.data;
     const decodedToken = decodeJwt(newAccessToken);

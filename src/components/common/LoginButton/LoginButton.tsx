@@ -110,7 +110,7 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
             isDarkMode={isDarkMode}
             onClick={onLoginUserIcon}
           />
-          <div id={"user-modal"} className={modalClassName}>
+          <div className={modalClassName}>
             <div className={textStyle.normal} style={{ marginBottom: ".5em" }}>
               Welcome, <b>{username}</b>
             </div>
