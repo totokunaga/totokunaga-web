@@ -59,9 +59,9 @@ const oauthConfig: Record<OAuthProvider, OAuthConfig> = {
 
 export const oauthLogin = async (provider: OAuthProvider, path: string) => {
   const now = new Date().getTime();
-  const nounce = getRandomString(16) + now;
-  await serverInstance.post("/api/sessions/oauth/save_nounce", { nounce });
-  window.location.href = getOAuthUrl(provider, path, nounce);
+  const nonce = getRandomString(16) + now;
+  await serverInstance.post("/api/sessions/oauth/save_nonce", { nonce });
+  window.location.href = getOAuthUrl(provider, path, nonce);
 };
 
 export const oauthLogout = async (accessToken: string) => {
@@ -70,7 +70,7 @@ export const oauthLogout = async (accessToken: string) => {
   });
 };
 
-const getOAuthUrl = (provider: OAuthProvider, path: string, nounce: string) => {
+const getOAuthUrl = (provider: OAuthProvider, path: string, nonce: string) => {
   const {
     endpoint,
     client_id,
@@ -83,7 +83,7 @@ const getOAuthUrl = (provider: OAuthProvider, path: string, nounce: string) => {
     redirect_uri,
     client_id,
     scope,
-    state: JSON.stringify({ nounce, path }),
+    state: JSON.stringify({ nonce, path }),
     ...additionalQueries,
   }).toString();
 
@@ -93,20 +93,20 @@ const getOAuthUrl = (provider: OAuthProvider, path: string, nounce: string) => {
 export const refreshAccessToken = async () => {
   const { dispatch } = store;
 
-  const nounce = new URLSearchParams(window.location.search).get("nounce");
+  const nonce = new URLSearchParams(window.location.search).get("nonce");
 
   const cookie = new Cookies();
   const accessToken = localStorage.getItem("token") || cookie.get("token");
   localStorage.removeItem("token");
   cookie.remove("token");
 
-  if (!accessToken && !nounce) {
+  if (!accessToken && !nonce) {
     return;
   }
 
   try {
     const response = await serverInstance.get("/api/sessions/token/refresh", {
-      headers: { Authorization: accessToken || nounce },
+      headers: { Authorization: accessToken || nonce },
     });
     const newAccessToken = response.data;
     const decodedToken = decodeJwt(newAccessToken);
