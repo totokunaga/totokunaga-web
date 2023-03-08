@@ -150,7 +150,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: 50 }}>
+          <div style={{ marginBottom: "5rem" }}>
             <div style={{ display: "flex" }}>
               <h3 className={textStyle.underline}>Personal projects</h3>
             </div>
@@ -175,7 +175,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div style={{ marginBottom: 50 }}>
+          <div style={{ marginBottom: "5rem" }}>
             <div style={{ display: "flex" }}>
               <h3
                 className={textStyle.underline}
@@ -246,28 +246,32 @@ const Index = () => {
             />
           </div>
 
-          <div style={{ display: "flex" }}>
-            <h3 className={textStyle.underline}>Skills & Certifications</h3>
-          </div>
-          <div className={neumorphicDown} style={{ marginBottom: "1rem" }}>
-            {skills.map(({ title, list }, i) => (
-              <div
-                key={i}
-                style={{ marginBottom: i < skills.length - 1 ? "0.85rem" : 0 }}
-              >
-                <p
-                  className={textStyle.normal}
+          <div style={{ marginBottom: "5rem" }}>
+            <div style={{ display: "flex" }}>
+              <h3 className={textStyle.underline}>Skills & Certifications</h3>
+            </div>
+            <div className={neumorphicDown} style={{ marginBottom: "1rem" }}>
+              {skills.map(({ title, list }, i) => (
+                <div
+                  key={i}
                   style={{
-                    fontWeight: 500,
-                    marginBottom: "1em",
-                    display: "flex",
+                    marginBottom: i < skills.length - 1 ? "0.85rem" : 0,
                   }}
                 >
-                  {title}
-                </p>
-                <RadioBlock items={list} value={null} />
-              </div>
-            ))}
+                  <p
+                    className={textStyle.normal}
+                    style={{
+                      fontWeight: 500,
+                      marginBottom: "1em",
+                      display: "flex",
+                    }}
+                  >
+                    {title}
+                  </p>
+                  <RadioBlock items={list} value={null} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

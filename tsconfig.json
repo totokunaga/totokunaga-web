@@ -23,6 +23,12 @@
       "@assets/*": ["./src/assets/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "prettierrc"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "prettierrc",
+    "src/utils/constants/next-config.js"
+  ],
   "exclude": ["node_modules"]
 }
