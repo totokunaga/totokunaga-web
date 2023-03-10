@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import headerStyle from "./header.module.scss";
-import { normalIconSize, paths } from "@utils/constants";
+import { paths } from "@utils/constants";
 import TIcon from "@assets/t-icon.svg";
 import TIconDark from "@assets/t-icon-dark.svg";
 import { useSelector } from "react-redux";
@@ -11,12 +11,15 @@ import { Modal } from "../Modal";
 import { LoginModalContent } from "./LoginModalContent";
 import { selectAuth } from "@utils/slices/authSlice";
 import { LoginButton } from "../LoginButton";
-import { Icon } from "../Icon";
+import { MenuButton } from "../Menu/MenuButton";
+import { Menu } from "../Menu";
+import { getMenuContents } from "../Menu/menuContents";
 
 const headerId = "my-header";
 
 export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
   const [isLoginModalShown, setLoginModalShown] = useState(false);
+  const [isMenuShown, setMenuShown] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
 
   const router = useRouter();
@@ -85,6 +88,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
               avatorImagePath={avatorImagePath}
               setLoginModalShown={setLoginModalShown}
             />
+            <MenuButton onClick={() => setMenuShown(true)} />
           </div>
         </div>
       </div>
@@ -95,6 +99,12 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
       >
         <LoginModalContent />
       </Modal>
+
+      <Menu
+        isShown={isMenuShown}
+        onClose={() => setMenuShown(false)}
+        menuContents={getMenuContents()}
+      />
     </>
   );
 };
