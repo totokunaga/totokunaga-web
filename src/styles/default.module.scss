@@ -11,6 +11,12 @@
   font-weight: 700;
 }
 
+.desktop_only {
+  @media (max-width: 520px) {
+    display: none;
+  }
+}
+
 @media (max-width: 960px) {
   .root {
     padding: 1rem 1.5rem;

@@ -21,6 +21,8 @@ import GithubIcon from "@assets/github.svg";
 import LinkedInIcon from "@assets/linkedin.svg";
 import LogoutIcon from "@assets/logout.svg";
 import MenuIcon from "@assets/menu.svg";
+import DarkMenuIcon from "@assets/dark-menu.svg";
+import AppearanceIcon from "@assets/contrast.svg";
 
 import { CSSStyle } from "@utils/types";
 import { MouseEventHandler, useMemo } from "react";
@@ -47,6 +49,8 @@ export type IconType =
   | "linkedin"
   | "logout"
   | "menu"
+  | "dark-menu"
+  | "appearance"
   | "rocket";
 
 type AnimationType = "rotate" | "shake";
@@ -74,6 +78,8 @@ const Icons: Record<IconType, any> = {
   linkedin: LinkedInIcon,
   logout: LogoutIcon,
   menu: MenuIcon,
+  "dark-menu": DarkMenuIcon,
+  appearance: AppearanceIcon,
 };
 
 type IconProp = CSSStyle & {

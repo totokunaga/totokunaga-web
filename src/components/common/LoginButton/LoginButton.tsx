@@ -1,4 +1,5 @@
 import { Icon } from "../Icon";
+import style from "@styles/default.module.scss";
 import textStyle from "@styles/text.module.scss";
 import buttonStyle from "../Button/button.module.scss";
 import { useSelector } from "react-redux";
@@ -17,44 +18,12 @@ import { resetAuth, selectAuth } from "@utils/slices/authSlice";
 import { useModalOutsideClick } from "@utils/hooks";
 import { useDispatch } from "react-redux";
 import { oauthLogout } from "@utils/functions";
+import { AvatorImage } from "./AvatorImage";
 
 type LoginButtonProp = {
   isAuth: boolean;
   avatorImagePath?: string;
   setLoginModalShown: Dispatch<SetStateAction<boolean>>;
-};
-
-const AvatorImage: React.FC<{
-  avatorImagePath?: string;
-  isDarkMode: boolean;
-  onClick: () => void;
-}> = ({ avatorImagePath, isDarkMode, onClick }) => {
-  const iconSize = useMemo(() => 37.5, []);
-
-  return avatorImagePath ? (
-    <img
-      alt={"profile"}
-      src={avatorImagePath}
-      width={iconSize}
-      height={iconSize}
-      draggable={false}
-      style={{
-        borderRadius: 100,
-        border: "solid 1.5px white",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    />
-  ) : (
-    <div onClick={onClick}>
-      <Icon
-        icon={isDarkMode ? "person" : "dark-person"}
-        width={iconSize}
-        margin={"auto .5em auto auto"}
-        cursor={"pointer"}
-      />
-    </div>
-  );
 };
 
 export const LoginButton: React.FC<LoginButtonProp> = ({
@@ -97,7 +66,7 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
   );
 
   return (
-    <>
+    <div className={style.desktop_only} style={{ margin: "auto" }}>
       {isAuth ? (
         <div
           ref={modalRef}
@@ -134,7 +103,7 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
             display: "flex",
             cursor: "pointer",
           }}
-          className={buttonStyle.login}
+          className={`${buttonStyle.login}`}
           onClick={() => setLoginModalShown(true)}
         >
           <div
@@ -152,6 +121,6 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

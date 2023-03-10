@@ -103,7 +103,7 @@ export const Header: React.FC<{ children?: ReactNode }> = ({ children }) => {
       <Menu
         isShown={isMenuShown}
         onClose={() => setMenuShown(false)}
-        menuContents={getMenuContents()}
+        menuContents={getMenuContents(setLoginModalShown, setMenuShown)}
       />
     </>
   );
