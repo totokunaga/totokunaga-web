@@ -50,7 +50,6 @@ export const LoginButton: React.FC<LoginButtonProp> = ({
 
   const onLogout = useCallback(async () => {
     if (accessToken) {
-      dispatch(resetAuth());
       await oauthLogout(accessToken);
     }
   }, [dispatch, accessToken]);

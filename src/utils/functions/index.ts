@@ -55,15 +55,6 @@ export const getRandomString = (length: number) => {
   return result;
 };
 
-export const handleBeforeunload = (event: BeforeUnloadEvent) => {
-  const { accessToken } = store.getState().auth;
-  if (accessToken) {
-    localStorage.setItem("token", accessToken);
-  }
-
-  confirmLeavePage(event);
-};
-
 const confirmLeavePage = (event: any) => {
   event.preventDefault();
   event = event || window.event;

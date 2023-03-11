@@ -6,12 +6,14 @@ import { decodeJwt, getRandomString } from "..";
 import { serverInstance } from "@utils/api";
 import { store } from "@utils/slices";
 import {
+  resetAuth,
   setAccessToken,
   setAuth,
   setAvatorImagePath,
   setOAuthProvider,
   setUsername,
 } from "@utils/slices/authSlice";
+import axios from "axios";
 
 type OAuthConfig = {
   endpoint: string;
@@ -65,9 +67,16 @@ export const oauthLogin = async (provider: OAuthProvider, path: string) => {
 };
 
 export const oauthLogout = async (accessToken: string) => {
-  await serverInstance.post("/api/sessions/oauth/logout", undefined, {
-    headers: { Authorization: accessToken },
-  });
+  try {
+    await serverInstance.post("/api/sessions/oauth/logout", undefined, {
+      headers: { Authorization: accessToken },
+    });
+    store.dispatch(resetAuth());
+    localStorage.removeItem("token");
+  } catch (e: any) {
+    console.error("Failed to logout", e.message);
+    throw new Error(e.message);
+  }
 };
 
 const getOAuthUrl = (provider: OAuthProvider, path: string, nonce: string) => {
@@ -97,8 +106,6 @@ export const refreshAccessToken = async () => {
 
   const cookie = new Cookies();
   const accessToken = localStorage.getItem("token") || cookie.get("token");
-  localStorage.removeItem("token");
-  cookie.remove("token");
 
   if (!accessToken && !nonce) {
     return;
@@ -126,6 +133,11 @@ export const refreshAccessToken = async () => {
     dispatch(setOAuthProvider(oauthProvider));
     dispatch(setAccessToken(newAccessToken));
   } catch (e: any) {
+    if (axios.isAxiosError(e)) {
+      if (e.response?.status === 401) {
+        await oauthLogout(accessToken);
+      }
+    }
     console.error(e.message);
   }
 };

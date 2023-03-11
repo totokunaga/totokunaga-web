@@ -4,29 +4,13 @@ import { Provider } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { store } from "@utils/slices";
-import {
-  handleBeforeunload,
-  refreshAccessToken,
-  setGlobalDarkMode,
-} from "@utils/functions";
+import { refreshAccessToken, setGlobalDarkMode } from "@utils/functions";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
     refreshAccessToken();
-  }, []);
-
-  useEffect(() => {
-    const isOnIOS =
-      navigator.userAgent.match(/iPad/i) ||
-      navigator.userAgent.match(/iPhone/i) ||
-      navigator.userAgent.match(/Safari/i);
-    const pageReloadEventName = isOnIOS ? "pagehide" : "beforeunload";
-
-    window.addEventListener(pageReloadEventName, (event) => {
-      handleBeforeunload(event);
-    });
   }, []);
 
   useEffect(() => {

@@ -167,7 +167,6 @@ export const getMenuContents = (
         ),
         onClick: async () => {
           if (accessToken) {
-            store.dispatch(resetAuth());
             await oauthLogout(accessToken);
           }
         },
